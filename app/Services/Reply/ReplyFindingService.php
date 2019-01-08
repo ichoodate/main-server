@@ -1,0 +1,71 @@
+<?php
+
+namespace App\Services\Reply;
+
+use App\Database\Models\Reply;
+use App\Database\Models\Ticket;
+use App\Service;
+use App\Services\Ticket\TicketFindingService;
+use App\Services\AuthUserRequiringService;
+
+class ReplyFindingService extends Service {
+
+    public static function getArrBindNames()
+    {
+        return [
+            'model'
+                => 'reply of {{id}}'
+        ];
+    }
+
+    public static function getArrCallbackLists()
+    {
+        return [];
+    }
+
+    public static function getArrLoaders()
+    {
+        return [
+            'model_class' => [function () {
+
+                return Reply::class;
+            }],
+
+            'ticket' => ['auth_user', 'model', function ($authUser, $model) {
+
+                return [TicketFindingService::class, [
+                    'auth_user'
+                        => $authUser,
+                    'id'
+                        => $model->{Reply::TICKET_ID}
+                ], [
+                    'auth_user'
+                        => '{{auth_user}}',
+                    'id'
+                        => 'ticket_id of {{model}}'
+                ]];
+            }]
+        ];
+    }
+
+    public static function getArrPromiseLists()
+    {
+        return [
+            'result'
+                => ['ticket']
+        ];
+    }
+
+    public static function getArrRuleLists()
+    {
+        return [];
+    }
+
+    public static function getArrTraits()
+    {
+        return [
+            AuthUserRequiringService::class
+        ];
+    }
+
+}
