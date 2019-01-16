@@ -47,8 +47,8 @@ class CardActivityListingServiceTest extends _TestCase {
         $this->when(function ($proxy, $serv) {
 
             $authUser = $this->factory(User::class)->make();
-            $id = $this->uniqueString();
-            $return = [CardFindingService::class, [
+            $id       = $this->uniqueString();
+            $return   = [CardFindingService::class, [
                 'auth_user'
                     => $authUser,
                 'id'

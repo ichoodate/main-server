@@ -24,6 +24,16 @@ class CreatePaymentsTable extends Migration {
                 ->default(app('db')->raw('CURRENT_TIMESTAMP'));
 
             $table
+                ->primary('id');
+            $table
+                ->index('user_id');
+
+            $table
+                ->foreign('id')
+                ->references('id')
+                ->on('objs')
+                ->onDelete('cascade');
+            $table
                 ->foreign('user_id')
                 ->references('id')
                 ->on('objs')

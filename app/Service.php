@@ -10,22 +10,24 @@ use Illuminate\Validation\Factory as ValidationFactory;
 
 class Service {
 
+    const BIND_NAME_EXP = '/\{\{([a-z0-9\_\.\*]+)\}\}/';
+
     protected $data;
     protected $errors;
     protected $inputs;
     protected $names;
     protected $processed;
-    protected $validatedList;
+    protected $validated;
 
-    public function __construct($parent = null, array $data = [], array $names = [])
+    public function __construct($parent = null, array $inputs = [], array $names = [])
     {
-        $this->childs        = inst(Collection::class);
-        $this->data          = inst(Collection::class);
-        $this->errors        = inst(Collection::class);
-        $this->inputs        = inst(Collection::class, [$data]);
-        $this->names         = inst(Collection::class, [$names]);
-        $this->validatedList = inst(Collection::class);
-        $this->processed     = false;
+        $this->childs    = inst(Collection::class);
+        $this->data      = inst(Collection::class);
+        $this->errors    = inst(Collection::class);
+        $this->inputs    = inst(Collection::class, [$inputs]);
+        $this->names     = inst(Collection::class, [$names]);
+        $this->validated = inst(Collection::class);
+        $this->processed = false;
     }
 
     public function childs()
@@ -157,6 +159,20 @@ class Service {
         return [];
     }
 
+    protected function getValidationErrors($data, $ruleList)
+    {
+        $factory = inst(ValidationFactory::class);
+        $factory->resolver(function ($tr, array $data, array $rules, array $messages, array $names) {
+
+            return new Validator($tr, $data, $rules, $messages, $names);
+        });
+
+        $validator = $factory->make($data->toArray(), $ruleList, [], $this->names->toArray());
+        $validator->passes();
+
+        return $validator->errors()->all();
+    }
+
     protected function getDependencies($key)
     {
         $loader       = $this->getAllLoaders()->get($key, []);
@@ -177,6 +193,22 @@ class Service {
         return $deps;
     }
 
+    public function hasInvalidDepandencyLoader($key)
+    {
+        $loader = $this->getAllLoaders()->get($key, []);
+        $deps   = array_slice($loader, 0, -1);
+
+        foreach ( $deps as $dep )
+        {
+            if ( ! $this->validated->get($key) )
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public function inputs()
     {
         return clone $this->inputs;
@@ -189,14 +221,14 @@ class Service {
         return is_object($value) && $value instanceof $errorClass;
     }
 
-    protected function newChild($resolved)
+    protected function initService($value)
     {
-        $resolved = array_add($resolved, 1, []);
-        $resolved = array_add($resolved, 2, []);
+        $value = array_add($value, 1, []);
+        $value = array_add($value, 2, []);
 
-        $class = $resolved[0];
-        $data  = $resolved[1];
-        $names = $resolved[2];
+        $class = $value[0];
+        $data  = $value[1];
+        $names = $value[2];
 
         foreach ( $names as $key => $name )
         {
@@ -205,7 +237,7 @@ class Service {
 
         $service = inst($class, [$this, $data, $names]);
 
-        // $this->childs->put($key, $service);
+        $this->childs->put($key, $service);
 
         return $service;
     }
@@ -229,7 +261,7 @@ class Service {
             }
             else
             {
-                // this is not throw exception, but only return exception class
+                // must not throw exception, but only return
                 return $this->resolveError();
             }
         }
@@ -237,11 +269,78 @@ class Service {
         return call_user_func_array($resolver, $depVals);
     }
 
+    protected function getAvailableDataWith($key)
+    {
+        $data = $this->data();
+
+        if ( $this->inputs()->has($key) )
+        {
+            $value = $this->inputs()->get($key);
+        }
+        else if ( ! $this->data()->has($key) && $this->getAllLoaders()->has($key) )
+        {
+            $loader = $this->getAllLoaders()->get($key);
+            $value  = $this->resolve($loader);
+
+            if ( is_array($value) && array_key_exists(0, $value) && is_string($value[0]) && class_exists($value[0]) && get_parent_class($value[0]) == Service::class )
+            {
+                $service = $this->initService($value);
+                $value   = $service->run();
+
+                if ( ! $service->errors()->isEmpty() )
+                {
+                    $this->errors = $this->errors->merge($service->errors());
+                }
+            }
+        }
+
+        if ( ! $this->isResolveError($value) )
+        {
+            $data->put($key, $value);
+        }
+
+        return $data;
+    }
+
+    protected function getAvailableRulesWith($key)
+    {
+        $rules = $this->getAllRuleLists()->get($key, []);
+
+        foreach ( $rules as $i => $rule )
+        {
+            $requiredNames = [];
+            $bindKeys      = $this->getBindKeys($rule);
+
+            foreach ( $bindKeys as $bindKey )
+            {
+                if ( ! $this->names->has($bindKey) )
+                {
+                    throw new \Exception('"' . $bindKey . '" name not exists');
+                }
+                if ( ! $this->data()->has($bindKey) )
+                {
+                    throw new \Exception('"' . $bindKey . '" key required rule not exists');
+                }
+                if ( ! $this->validated->get($bindKey) )
+                {
+                    unset($rules[$i]);
+                }
+            }
+
+            if ( array_key_exists($i, $rules) )
+            {
+                $rules[$i] = preg_replace(static::BIND_NAME_EXP, '$1', $rule);
+            }
+        }
+
+        return array_values($rules);
+    }
+
     protected function getBindKeys(string $str)
     {
         $matches = [];
 
-        preg_match_all('/\{\{([a-z0-9\_\.\*]+)\}\}/', $str, $matches);
+        preg_match_all(static::BIND_NAME_EXP, $str, $matches);
 
         return $matches[1];
     }
@@ -266,69 +365,12 @@ class Service {
         return $name;
     }
 
-    protected function resolveCallbackList($callbackList)
-    {
-        foreach ( $callbackList as $callback )
-        {
-            $this->resolve($callback);
-        }
-    }
-
     protected function resolveError()
     {
         return new \Exception('can\'t be resolve');
     }
 
-    protected function resolveLoader($loader)
-    {
-        $resolved = $this->resolve($loader);
-
-        if ( is_array($resolved) && array_key_exists(0, $resolved) && is_string($resolved[0]) && class_exists($resolved[0]) && get_parent_class($resolved[0]) == Service::class )
-        {
-            $resolved = $this->newChild($resolved);
-        }
-
-        return $resolved;
-    }
-
-    protected function resolveRuleList($ruleList)
-    {
-        foreach ( $ruleList as $i => $rule )
-        {
-            $available     = true;
-            $requiredNames = [];
-            $bindKeys      = $this->getBindKeys($rule);
-
-            foreach ( $bindKeys as $bindKey )
-            {
-                if ( ! $this->validate($bindKey) )
-                {
-                    $available = false;
-                }
-                if ( ! $this->names->has($bindKey) )
-                {
-                    throw new \Exception('"' . $bindKey . '" name not exists');
-                }
-                if ( ! $this->data()->has($bindKey) )
-                {
-                    throw new \Exception('"' . $bindKey . '" param data not exists');
-                }
-            }
-
-            if ( $available )
-            {
-                $ruleList[$i] = preg_replace('/\{\{([a-z0-9\_\.\*]+)\}\}/', '$1', $rule);
-            }
-            else
-            {
-                unset($ruleList[$i]);
-            }
-        }
-
-        return array_values($ruleList);
-    }
-
-    public function runProcess()
+    public function run()
     {
         if ( ! $this->processed )
         {
@@ -354,13 +396,25 @@ class Service {
 
             $this->processed = true;
         }
+
+        if ( ! $this->errors()->isEmpty() )
+        {
+            return $this->resolveError();
+        }
+
+        if ( ! $service->data()->has('result') )
+        {
+            throw new \Exception('result data key is not exists');
+        }
+
+        return $service->data()->get('result');
     }
 
     protected function validate($key)
     {
-        if ( $this->validatedList->has($key) )
+        if ( $this->validated->has($key) )
         {
-            return $this->validatedList->get($key);
+            return $this->validated->get($key);
         }
 
         // case for array.* rule
@@ -376,121 +430,56 @@ class Service {
             $this->validate($value);
         }
 
-        $ruleList         = $this->getAllRuleLists()->get($key, []);
-        $resolvedRuleList = $this->resolveRuleList($ruleList);
-
-        if ( count($ruleList) != count($resolvedRuleList) )
-        {
-            $this->validatedList->put($key, false);
-        }
-
-        $callbackList = $this->getAllCallbackLists()->get($key, []);
-
-        foreach ( $callbackList as $callback )
-        {
-            $deps = array_slice($callback, 1, -1);
-
-            foreach ( $deps as $dep )
-            {
-                if ( ! $this->validate($dep) )
-                {
-                    $this->validatedList->put($key, false);
-                }
-            }
-        }
-
-        $loader = $this->getAllLoaders()->get($key, []);
-        $deps   = array_slice($loader, 0, -1);
+        $deps = $this->getDependencies();
 
         foreach ( $deps as $dep )
         {
-            if ( ! $this->validate($dep) )
-            {
-                return $this->validatedList->put($key, false)->get($key);
-            }
+            $this->validate($dep);
         }
 
-        if ( $this->inputs()->has($key) )
+        if ( $this->hasInvalidDepandencyLoader($key) )
         {
-            $value = $this->inputs()->get($key);
-            $data  = $this->data();
-
-            $data->put($key, $value);
-        }
-        else if ( ! $this->data()->has($key) && $this->getAllLoaders()->has($key) )
-        {
-            $loader = $this->getAllLoaders()->get($key);
-            $value  = $this->resolveLoader($loader);
-            $data   = $this->data(); // should be exist after loader resolved
-
-            if ( $value instanceof Service )
-            {
-                $service = $value;
-                $service->runProcess();
-
-                if ( ! $service->errors()->isEmpty() )
-                {
-                    $this->errors = $this->errors->merge($service->errors());
-
-                    return $this->validatedList->put($key, false)->get($key);
-                }
-
-                if ( ! $service->data()->has('result') )
-                {
-                    throw new \Exception('result data key is not exists');
-                }
-
-                $value = $service->data()->get('result');
-            }
-
-            if ( ! $this->isResolveError($value) )
-            {
-                $data->put($key, $value);
-            }
-        }
-        else
-        {
-            $data = $this->data();
+            return false;
         }
 
-        $factory = inst(ValidationFactory::class);
-        $factory->resolver(function ($tr, array $data, array $rules, array $messages, array $names) {
-
-            return new Validator($tr, $data, $rules, $messages, $names);
-        });
-
-        $validator = $factory->make($data->toArray(), [$key => $resolvedRuleList], [], $this->names->toArray());
-        $validator->passes();
-
-        $errors = $validator->errors()->all();
+        $data   = $this->getAvailableDataWith($key);
+        $rules  = $this->getAvailableRulesWith($key);
+        $errors = $this->getValidationErrors($data, [$key => $rules]);
 
         if ( ! empty($errors) )
         {
             $this->errors = $this->errors->merge($errors);
 
-            return $this->validatedList->put($key, false)->get($key);
+            $this->validated->put($key, false);
+
+            return false;
         }
 
-        if ( ! $this->validatedList->has($key) )
+        if ( ! $this->validated->has($key) )
         {
-            $this->validatedList->put($key, true);
-
             if ( $data->has($key) )
             {
                 $this->data->put($key, $data->get($key));
-
-                $callbackList = $this->getAllCallbackLists()->get($key, []);
-
-                $this->resolveCallbackList($callbackList);
             }
+
+            $this->validated->put($key, true);
+
+            $callbackList = $this->getAllCallbackLists()->get($key, []);
+
+            foreach ( $callbackList as $callback )
+            {
+                $this->resolve($callback);
+            }
+
+            return true;
         }
 
-        return $this->validatedList->get($key);
+        return false;
     }
 
-    public function validatedList()
+    public function validated()
     {
-        $list = $this->validatedList->all();
+        $list = $this->validated->all();
 
         ksort($list);
 

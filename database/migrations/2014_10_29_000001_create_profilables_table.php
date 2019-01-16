@@ -26,7 +26,13 @@ class CreateProfilablesTable extends Migration {
                 ->nullable();
 
             $table
-                ->primary('id')
+                ->primary('id');
+            $table
+                ->index('keyword_id');
+            $table
+                ->index('user_id');
+
+            $table
                 ->foreign('id')
                 ->references('id')
                 ->on('objs')

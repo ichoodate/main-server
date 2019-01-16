@@ -27,7 +27,11 @@ class CreateProfilePhotosTable extends Migration {
                 ->default(app('db')->raw('CURRENT_TIMESTAMP'));
 
             $table
-                ->primary('id')
+                ->primary('id');
+            $table
+                ->index('user_id');
+
+            $table
                 ->foreign('id')
                 ->references('id')
                 ->on('objs')

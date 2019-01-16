@@ -180,4 +180,10 @@ abstract class _TestCase extends TestCase {
         $this->assertEquals($expect, $actual);
     }
 
+    public function verifyValue($serv, $key, $expect)
+    {
+        $this->assertEquals(true, $serv->data()->has($key));
+        $this->assertEquals($expect, $serv->data()->get($key));
+        $this->assertEquals([], $serv->errors()->all());
+    }
 }

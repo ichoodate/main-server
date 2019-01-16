@@ -4,11 +4,14 @@ namespace Tests\Unit\App\Services\Activity;
 
 use App\Database\Models\Activity;
 use App\Database\Models\Notification;
+use App\Database\Models\Obj;
 use App\Database\Models\User;
 use App\Services\Activity\ActivityFindingService as Serv;
 use Tests\Unit\App\Services\_TestCase;
 use Tests\Unit\App\Database\Models\_Mocker as ModelMocker;
 use Tests\Unit\App\Database\Queries\_Mocker as QueryMocker;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 class ActivityFindingServiceTest extends _TestCase {
 
@@ -57,6 +60,20 @@ class ActivityFindingServiceTest extends _TestCase {
             $proxy->data->put('model', $model);
 
             $this->verifyLoader($serv, 'permitted_user', $return);
+        });
+    }
+
+    public function testRun()
+    {
+        $this->when(function ($proxy, $serv) {
+
+            $this->factory(Activity::class)->create([]);
+
+            $proxy->inputs->put('auth_user', $authUser);
+            $proxy->inputs->put('id', 11);
+            $proxy->run();
+
+            // $this->verifyValue($proxy, 'result', Activity::find(11));
         });
     }
 

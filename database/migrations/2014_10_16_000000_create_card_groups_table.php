@@ -23,6 +23,13 @@ class CreateCardGroupsTable extends Migration {
 
             $table
                 ->primary('id')
+            $table
+                ->index('user_id');
+            $table
+                ->index('created_at');
+
+            $table
+                ->primary('id')
                 ->foreign('id')
                 ->references('id')
                 ->on('objs')
@@ -32,8 +39,6 @@ class CreateCardGroupsTable extends Migration {
                 ->references('id')
                 ->on('objs')
                 ->onDelete('cascade');
-            $table
-                ->index('created_at');
         });
     }
 

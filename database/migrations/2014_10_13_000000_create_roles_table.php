@@ -24,19 +24,21 @@ class CreateRolesTable extends Migration {
                 ->string('type');
 
             $table
-                ->primary('id')
+                ->primary('id');
+            $table
+                ->unique(['user_id', 'type']);
+
+            $table
                 ->foreign('id')
                 ->references('id')
                 ->on('objs')
                 ->onDelete('cascade');
-            // $table
-            //     ->foreign('user_id')
-            //     ->references('id')
-            //     ->on('objs')
-            //     ->onDelete('cascade');
-
             $table
-                ->unique(['type']);
+                ->foreign('user_id')
+                ->references('id')
+                ->on('objs')
+                ->onDelete('cascade');
+
         });
     }
 

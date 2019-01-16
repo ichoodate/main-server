@@ -25,7 +25,13 @@ class CreatePopularitiesTable extends Migration {
                 ->timestamps();
 
             $table
-                ->primary('id')
+                ->primary('id');
+            $table
+                ->index('sender_id');
+            $table
+                ->index('receiver_id');
+
+            $table
                 ->foreign('id')
                 ->references('id')
                 ->on('objs')

@@ -23,7 +23,9 @@ class CreateNoticesTable extends Migration {
                 ->default(app('db')->raw('CURRENT_TIMESTAMP'));
 
             $table
-                ->primary('id')
+                ->primary('id');
+
+            $table
                 ->foreign('id')
                 ->references('id')
                 ->on('objs')

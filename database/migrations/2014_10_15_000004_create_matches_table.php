@@ -26,7 +26,13 @@ class CreateMatchesTable extends Migration {
                 ->default(app('db')->raw('CURRENT_TIMESTAMP'));
 
             $table
-                ->primary('id')
+                ->primary('id');
+            $table
+                ->index('man_id');
+            $table
+                ->index('woman_id');
+
+            $table
                 ->foreign('id')
                 ->references('id')
                 ->on('objs')

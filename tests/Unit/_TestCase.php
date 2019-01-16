@@ -2,12 +2,15 @@
 
 namespace Tests\Unit;
 
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Mockery;
 use Tests\_InstanceMocker as InstanceMocker;
 use Tests\Unit\_Stub;
 use Tests\_TestCase as TestCase;
 
 class _TestCase extends TestCase {
+
+    use DatabaseMigrations;
 
     public static function class()
     {
@@ -43,6 +46,8 @@ class _TestCase extends TestCase {
         parent::setUp();
 
         $this->class = $this->class();
+
+        app('db')->statement('PRAGMA foreign_keys = OFF;');
     }
 
     public static function setUpBeforeClass()
@@ -59,6 +64,8 @@ class _TestCase extends TestCase {
 
     public function tearDown()
     {
+        // app('db')->statement('PRAGMA foreign_keys = ON;');
+
         InstanceMocker::empty();
 
         Mockery::close();

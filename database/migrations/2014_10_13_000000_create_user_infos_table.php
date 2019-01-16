@@ -26,13 +26,17 @@ class CreateUserInfosTable extends Migration {
                 ->timestamps();
 
             $table
-                ->primary('id')
+                ->primary('id');
+            $table
+                ->unique('user_id');
+
+            $table
                 ->foreign('id')
                 ->references('id')
                 ->on('objs')
                 ->onDelete('cascade');
             $table
-                ->unique('user_id')
+                ->foreign('user_id')
                 ->references('id')
                 ->on('objs')
                 ->onDelete('cascade');

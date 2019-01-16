@@ -23,7 +23,11 @@ class CreateLocalizablesTable extends Migration {
                 ->timestamps();
 
             $table
-                ->primary('id')
+                ->primary('id');
+            $table
+                ->index('keyword_id');
+
+            $table
                 ->foreign('id')
                 ->references('id')
                 ->on('objs')

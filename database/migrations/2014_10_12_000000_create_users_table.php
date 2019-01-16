@@ -38,13 +38,15 @@ class CreateUsersTable extends Migration {
                 ->default(app('db')->raw('CURRENT_TIMESTAMP'));
 
             $table
-                ->primary('id')
+                ->primary('id');
+            $table
+                ->unique('email');
+
+            $table
                 ->foreign('id')
                 ->references('id')
                 ->on('objs')
                 ->onDelete('cascade');
-            $table
-                ->unique('email');
         });
     }
 

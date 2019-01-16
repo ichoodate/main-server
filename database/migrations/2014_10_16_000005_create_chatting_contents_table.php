@@ -24,7 +24,13 @@ class CreateChattingContentsTable extends Migration {
                 ->timestamps();
 
             $table
-                ->primary('id')
+                ->primary('id');
+            $table
+                ->index('match_id');
+            $table
+                ->index('writer_id');
+
+            $table
                 ->foreign('id')
                 ->references('id')
                 ->on('objs')

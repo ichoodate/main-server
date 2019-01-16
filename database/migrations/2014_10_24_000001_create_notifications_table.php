@@ -16,20 +16,25 @@ class CreateNotificationsTable extends Migration {
                 ->bigInteger('act_id')
                 ->unsigned();
             $table
-                ->bigInteger('receiver_id')
-                ->unsigned();
-            $table
-                ->bigInteger('sender_id')
+                ->bigInteger('user_id')
                 ->unsigned();
             $table
                 ->timestamp('created_at')
                 ->default(app('db')->raw('CURRENT_TIMESTAMP'));
             $table
+                ->timestamp('updated_at')
+            $table
                 ->timestamp('deleted_at')
                 ->nullable();
 
             $table
-                ->primary('id')
+                ->primary('id');
+            $table
+                ->index('act_id');
+            $table
+                ->index('user_id');
+
+            $table
                 ->foreign('id')
                 ->references('id')
                 ->on('objs')
@@ -40,12 +45,7 @@ class CreateNotificationsTable extends Migration {
                 ->on('objs')
                 ->onDelete('cascade');
             $table
-                ->foreign('receiver_id')
-                ->references('id')
-                ->on('objs')
-                ->onDelete('cascade');
-            $table
-                ->foreign('sender_id')
+                ->foreign('user_id')
                 ->references('id')
                 ->on('objs')
                 ->onDelete('cascade');
