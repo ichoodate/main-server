@@ -7,6 +7,11 @@ use App\Database\Model;
 class Item extends Model {
 
     protected $table = 'added_coin';
+    protected $casts = [
+        'id' => 'integer',
+        'user_id' => 'integer',
+        'payment_id' => 'integer'
+    ];
     protected $visible = [
         self::ID,
         self::USER_ID,

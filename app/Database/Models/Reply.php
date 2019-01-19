@@ -9,6 +9,12 @@ use App\Database\Models\User;
 class Reply extends Model {
 
     protected $table = 'replies';
+    protected $casts = [
+        'id' => 'integer',
+        'ticket_id' => 'integer',
+        'writer_id' => 'integer'
+    ];
+
     protected $visible = [
         self::ID,
         self::TICKET_ID,

@@ -6,6 +6,8 @@ use App\Database\Models\Activity;
 use App\Database\Models\Notification;
 use App\Database\Models\Obj;
 use App\Database\Models\User;
+use App\Services\FindingService;
+use App\Services\PermittedUserRequiringService;
 use App\Services\Activity\ActivityFindingService as Serv;
 use Tests\Unit\App\Services\_TestCase;
 use Tests\Unit\App\Database\Models\_Mocker as ModelMocker;
@@ -26,6 +28,14 @@ class ActivityFindingServiceTest extends _TestCase {
     public function testArrRuleLists()
     {
         $this->verifyArrRuleLists([]);
+    }
+
+    public function testArrTraits()
+    {
+        $this->verifyArrTraits([
+            PermittedUserRequiringService::class,
+            FindingService::class
+        ]);
     }
 
     public function testLoaderModelClass()
@@ -67,13 +77,15 @@ class ActivityFindingServiceTest extends _TestCase {
     {
         $this->when(function ($proxy, $serv) {
 
-            $this->factory(Activity::class)->create([]);
+            $this->factory(User::class)->create(['id' => 1]);
+            $this->factory(Activity::class)->create(['id' => 11, 'user_id' => 1]);
 
-            $proxy->inputs->put('auth_user', $authUser);
+            $proxy->inputs->put('auth_user', User::find(1));
             $proxy->inputs->put('id', 11);
-            $proxy->run();
 
-            // $this->verifyValue($proxy, 'result', Activity::find(11));
+            $result = $proxy->run();
+
+            $this->assertEquals($result, Activity::find(11));
         });
     }
 

@@ -9,6 +9,10 @@ use App\Database\Models\User;
 class ChattingContent extends Model {
 
     protected $table = 'chatting_contents';
+    protected $casts = [
+        'id' => 'integer',
+        'writer_id' => 'integer'
+    ];
     protected $visible = [
         self::ID,
         self::MATCH_ID,

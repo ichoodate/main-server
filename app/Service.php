@@ -49,6 +49,18 @@ class Service {
         return clone $this->errors;
     }
 
+    public function totalErrors()
+    {
+        $errors = $this->errors();
+
+        foreach ( $this->childs() as $child )
+        {
+            $errors = $errors->merge($child->totalErrors());
+        }
+
+        return $errors;
+    }
+
     public static function getAllBindNames()
     {
         $arr = [];
@@ -200,7 +212,7 @@ class Service {
 
         foreach ( $deps as $dep )
         {
-            if ( ! $this->validated->get($key) )
+            if ( ! $this->validated->get($dep) )
             {
                 return true;
             }
@@ -237,7 +249,7 @@ class Service {
 
         $service = inst($class, [$this, $data, $names]);
 
-        $this->childs->put($key, $service);
+        $this->childs->push($service);
 
         return $service;
     }
@@ -276,6 +288,8 @@ class Service {
         if ( $this->inputs()->has($key) )
         {
             $value = $this->inputs()->get($key);
+
+            $data->put($key, $value);
         }
         else if ( ! $this->data()->has($key) && $this->getAllLoaders()->has($key) )
         {
@@ -286,17 +300,12 @@ class Service {
             {
                 $service = $this->initService($value);
                 $value   = $service->run();
-
-                if ( ! $service->errors()->isEmpty() )
-                {
-                    $this->errors = $this->errors->merge($service->errors());
-                }
             }
-        }
 
-        if ( ! $this->isResolveError($value) )
-        {
-            $data->put($key, $value);
+            if ( ! $this->isResolveError($value) )
+            {
+                $data->put($key, $value);
+            }
         }
 
         return $data;
@@ -397,17 +406,17 @@ class Service {
             $this->processed = true;
         }
 
-        if ( ! $this->errors()->isEmpty() )
+        if ( ! $this->totalErrors()->isEmpty() )
         {
             return $this->resolveError();
         }
 
-        if ( ! $service->data()->has('result') )
+        if ( ! $this->data()->has('result') )
         {
             throw new \Exception('result data key is not exists');
         }
 
-        return $service->data()->get('result');
+        return $this->data()->get('result');
     }
 
     protected function validate($key)
@@ -430,11 +439,14 @@ class Service {
             $this->validate($value);
         }
 
-        $deps = $this->getDependencies();
+        $deps = $this->getDependencies($key);
 
         foreach ( $deps as $dep )
         {
-            $this->validate($dep);
+            if ( ! $this->validate($dep) )
+            {
+                $this->validated->put($key, false);
+            }
         }
 
         if ( $this->hasInvalidDepandencyLoader($key) )
@@ -460,6 +472,8 @@ class Service {
             if ( $data->has($key) )
             {
                 $this->data->put($key, $data->get($key));
+
+                $this->validated->put($key, true);
             }
 
             $this->validated->put($key, true);

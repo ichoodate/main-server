@@ -4,6 +4,7 @@ namespace Tests\Unit\App\Services\Activity;
 
 use App\Database\Models\Activity;
 use App\Database\Models\Card;
+use App\Database\Models\Coin;
 use App\Database\Models\User;
 use App\Services\Card\CardFindingService;
 use App\Services\Activity\CardActivityCreatingService as Serv;
@@ -18,7 +19,10 @@ class CardActivityCreatingServiceTest extends _TestCase {
     {
         $this->verifyArrBindNames([
             'card'
-                => 'card for {{card_id}}'
+                => 'card for {{card_id}}',
+
+            'required_coin'
+                => 'required coin for activity of {{card}}'
         ]);
     }
 
@@ -35,7 +39,10 @@ class CardActivityCreatingServiceTest extends _TestCase {
                 => ['required', 'integer'],
 
             'type'
-                => ['in:' . implode(',', [Activity::TYPE_CARD_FLIP, Activity::TYPE_CARD_OPEN, Activity::TYPE_CARD_PROPOSE])]
+                => ['in:' . implode(',', [Activity::TYPE_CARD_FLIP, Activity::TYPE_CARD_OPEN, Activity::TYPE_CARD_PROPOSE])],
+
+            'timezone'
+                => ['required']
         ]);
     }
 
@@ -187,4 +194,52 @@ class CardActivityCreatingServiceTest extends _TestCase {
         });
     }
 
+    public function testDataRequiredCoin()
+    {
+        $this->when(function ($proxy, $serv) {
+
+            $authUser = $this->factory(User::class)->create(['id' => 1]);
+            $card     = $this->factory(Card::class)->create(['id' => 11, 'chooser_id' => $authUser->getKey(), 'created_at' => '2001-01-01 11:22:33']);
+            $type     = Activity::TYPE_CARD_FLIP;
+            $timezone = 'Asia/Seoul';
+
+            $proxy->data->put('auth_user', $authUser);
+            $proxy->data->put('card', $card);
+            $proxy->data->put('type', $type);
+            $proxy->data->put('timezone', $timezone);
+
+            $this->verifyData($proxy, 'required_coin', 5);
+        });
+    }
+
+    public function testRun()
+    {
+        $this->when(function ($proxy, $serv) {
+
+            $authUser = $this->factory(User::class)->create(['id' => 1]);
+            $card     = $this->factory(Card::class)->create(['id' => 11, 'chooser_id' => $authUser->getKey(), 'created_at' => '2001-01-01 11:22:33']);
+            $type     = Activity::TYPE_CARD_FLIP;
+            $timezone = 'Asia/Seoul';
+
+            $proxy->data->put('auth_user', $authUser);
+            $proxy->data->put('card_id', $card->getKey());
+            $proxy->data->put('type', $type);
+            $proxy->data->put('timezone', $timezone);
+
+            $result = $proxy->run();
+
+            $activity = Activity::query()
+                ->where('user_id', 1)
+                ->where('related_id', 11)
+                ->where('type', Activity::TYPE_CARD_FLIP)
+                ->first();
+
+            $this->assertNotNull($activity);
+            $this->assertEquals($activity, $result->fresh());
+            $this->assertTrue($proxy->data()->has('required_coin'));
+            $this->assertNotEquals(0, $proxy->data()->get('required_coin'));
+            $this->assertTrue($proxy->data()->has('used_coin'));
+            $this->assertNotNull($proxy->data()->get('used_coin'));
+        });
+    }
 }

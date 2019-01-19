@@ -8,6 +8,10 @@ use App\Database\Models\User;
 class ProfilePhoto extends Model {
 
     protected $table = 'profile_photos';
+    protected $casts = [
+        'id' => 'integer',
+        'user_id' => 'integer'
+    ];
     protected $visible = [
         self::ID,
         self::USER_ID,
@@ -18,7 +22,6 @@ class ProfilePhoto extends Model {
     const USER_ID     = 'user_id';
     const DATA        = 'data';
     const CREATED_AT  = 'created_at';
-
 
     public function userQuery()
     {

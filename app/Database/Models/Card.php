@@ -11,12 +11,19 @@ use App\Database\Models\User;
 class Card extends Model {
 
     protected $table   = 'cards';
+    protected $casts = [
+        'id' => 'integer',
+        'chooser_id' => 'integer',
+        'showner_id' => 'integer',
+        'match_id' => 'integer',
+        'group_id' => 'integer'
+    ];
     protected $visible = [
         self::ID,
         self::CHOOSER_ID,
         self::SHOWNER_ID,
-        self::GROUP_ID,
         self::MATCH_ID,
+        self::GROUP_ID,
         self::UPDATED_AT,
         self::CREATED_AT
     ];

@@ -47,7 +47,7 @@ class _TestCase extends TestCase {
 
         $this->class = $this->class();
 
-        app('db')->statement('PRAGMA foreign_keys = OFF;');
+        app('db')->getSchemaBuilder()->disableForeignKeyConstraints();
     }
 
     public static function setUpBeforeClass()
@@ -64,23 +64,13 @@ class _TestCase extends TestCase {
 
     public function tearDown()
     {
-        // app('db')->statement('PRAGMA foreign_keys = ON;');
+        app('db')->getSchemaBuilder()->enableForeignKeyConstraints();
 
         InstanceMocker::empty();
 
         Mockery::close();
 
         parent::tearDown();
-    }
-
-    public function when()
-    {
-        $serv  = inst($this->class());
-        $proxy = $this->proxy($serv);
-        $args  = func_get_args();
-        $func  = array_shift($args);
-
-        call_user_func_array($func, array_merge([$proxy, $serv], $args));
     }
 
 }

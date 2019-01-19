@@ -23,6 +23,7 @@ class CreateNotificationsTable extends Migration {
                 ->default(app('db')->raw('CURRENT_TIMESTAMP'));
             $table
                 ->timestamp('updated_at')
+                ->default(app('db')->raw('CURRENT_TIMESTAMP'));
             $table
                 ->timestamp('deleted_at')
                 ->nullable();

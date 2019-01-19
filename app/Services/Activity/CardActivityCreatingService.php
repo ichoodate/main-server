@@ -125,7 +125,10 @@ class CardActivityCreatingService extends Service {
                 => ['required', 'integer'],
 
             'type'
-                => ['in:' . implode(',', [Activity::TYPE_CARD_FLIP, Activity::TYPE_CARD_OPEN, Activity::TYPE_CARD_PROPOSE])]
+                => ['in:' . implode(',', [Activity::TYPE_CARD_FLIP, Activity::TYPE_CARD_OPEN, Activity::TYPE_CARD_PROPOSE])],
+
+            'timezone'
+                => ['required']
         ];
     }
 

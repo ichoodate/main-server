@@ -9,6 +9,10 @@ use App\Database\Models\User;
 class Ticket extends Model {
 
     protected $table = 'tickets';
+    protected $casts = [
+        'id' => 'integer',
+        'writer_id' => 'integer'
+    ];
     protected $visible = [
         self::ID,
         self::WRITER_ID,

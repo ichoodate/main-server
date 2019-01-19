@@ -8,6 +8,10 @@ use App\Database\Models\User;
 class FacePhoto extends Model {
 
     protected $table = 'face_photos';
+    protected $casts = [
+        'id' => 'integer',
+        'user_id' => 'integer'
+    ];
     protected $visible = [
         self::ID,
         self::USER_ID,

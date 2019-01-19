@@ -8,6 +8,12 @@ use App\Database\Models\User;
 class Popularity extends Model {
 
     protected $table = 'popularities';
+    protected $casts = [
+        'id' => 'integer',
+        'sender_id' => 'integer',
+        'receiver_id' => 'integer',
+        'point' => 'integer'
+    ];
     protected $visible = [
         self::ID,
         self::SENDER_ID,

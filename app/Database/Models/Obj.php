@@ -11,6 +11,9 @@ class Obj extends Model {
     protected $appends   = [self::MODEL_CLASS];
     protected $guarded   = [self::ID];
     protected $table     = 'objs';
+    protected $casts = [
+        'id' => 'integer'
+    ];
     protected $visible = [
         self::ID,
         self::TYPE
@@ -18,7 +21,6 @@ class Obj extends Model {
 
     const MODEL_CLASS = 'model_class';
     const TYPE        = 'type';
-
 
     const TYPE_ACTIVITY                  = 'activity';
     const TYPE_BALANCE                   = 'balance';

@@ -9,6 +9,11 @@ use App\Database\Models\User;
 class IdealTypable extends Model {
 
     protected $table = 'ideal_typables';
+    protected $casts = [
+        'id' => 'integer',
+        'user_id' => 'integer',
+        'keyword_id' => 'integer'
+    ];
     protected $visible = [
         self::ID,
         self::USER_ID,

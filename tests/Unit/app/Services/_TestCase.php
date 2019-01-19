@@ -65,8 +65,6 @@ abstract class _TestCase extends TestCase {
         return $proxy->resolve($resolver);
     }
 
-    abstract public function testArrBindNames();
-
     public function testArrCallbackLists()
     {
         $serv  = inst(static::class());
@@ -92,8 +90,6 @@ abstract class _TestCase extends TestCase {
 
         $this->success();
     }
-
-    abstract public function testArrRuleLists();
 
     public function testExtendClass()
     {
@@ -161,6 +157,14 @@ abstract class _TestCase extends TestCase {
         $this->success();
     }
 
+    public function verifyArrTraits(array $expects)
+    {
+        $serv    = inst(static::class());
+        $actuals = $serv->getArrTraits();
+
+        $this->assertEquals($expects, $actuals);
+    }
+
     public function verifyCallback($serv, $key)
     {
         $this->resolveCallback($serv, $key);
@@ -180,10 +184,40 @@ abstract class _TestCase extends TestCase {
         $this->assertEquals($expect, $actual);
     }
 
-    public function verifyValue($serv, $key, $expect)
+
+
+    public function verifyData($serv, $key, $expect)
     {
+        foreach ( $serv->data()->keys() as $dataKey )
+        {
+            $serv->validated->put($dataKey, true);
+        }
+
+        $serv->validate($key);
+
         $this->assertEquals(true, $serv->data()->has($key));
         $this->assertEquals($expect, $serv->data()->get($key));
         $this->assertEquals([], $serv->errors()->all());
     }
+
+    public function when()
+    {
+        $serv  = inst($this->class());
+        $proxy = $this->proxy($serv);
+        $args  = func_get_args();
+        $func  = array_shift($args);
+
+        $ruleKeys   = $serv->getAllRuleLists()->keys()->all();
+        $loaderKeys = $serv->getAllLoaders()->keys()->all();
+        $keys       = array_merge($ruleKeys, $loaderKeys);
+
+        $proxy->names = $proxy->names->merge(array_combine($keys, $keys));
+
+        app('db')->beginTransaction();
+
+        call_user_func_array($func, array_merge([$proxy, $serv], $args));
+
+        app('db')->rollback();
+    }
+
 }

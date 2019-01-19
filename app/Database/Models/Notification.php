@@ -9,6 +9,11 @@ use App\Database\Models\User;
 class Notification extends Model {
 
     protected $table = 'notifications';
+    protected $casts = [
+        'id' => 'integer',
+        'user_id' => 'integer',
+        'activity_id' => 'integer'
+    ];
     protected $visible = [
         self::ID,
         self::USER_ID,
@@ -23,7 +28,6 @@ class Notification extends Model {
     const CREATED_AT  = 'created_at';
     const UPDATED_AT  = 'updated_at';
     const DELETED_AT  = 'deleted_at';
-
 
     public function userQuery()
     {

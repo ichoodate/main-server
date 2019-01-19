@@ -8,6 +8,10 @@ use App\Database\Models\Obj;
 class Localizable extends Model {
 
     protected $table = 'Localizables';
+    protected $casts = [
+        'id' => 'integer',
+        'keyword_id' => 'integer'
+    ];
     protected $visible = [
         self::ID,
         self::KEYWORD_ID,

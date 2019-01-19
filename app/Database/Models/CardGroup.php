@@ -9,6 +9,10 @@ use App\Database\Models\User;
 class CardGroup extends Model {
 
     protected $table = 'card_groups';
+    protected $casts = [
+        'id' => 'integer',
+        'user_id' => 'integer'
+    ];
     protected $visible = [
         self::ID,
         self::USER_ID,

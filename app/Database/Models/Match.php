@@ -9,6 +9,11 @@ use App\Database\Models\User;
 class Match extends Model {
 
     protected $table = 'matches';
+    protected $casts = [
+        'id' => 'integer',
+        'man_id' => 'integer',
+        'woman_id' => 'integer'
+    ];
     protected $visible = [
         self::ID,
         self::MAN_ID,

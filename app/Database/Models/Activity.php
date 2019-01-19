@@ -9,10 +9,15 @@ use App\Database\Models\User;
 class Activity extends Model {
 
     protected $table = 'activities';
+    protected $casts = [
+        'id' => 'integer',
+        'user_id' => 'integer',
+        'related_id' => 'integer'
+    ];
     protected $visible = [
         self::ID,
-        self::RELATED_ID,
         self::USER_ID,
+        self::RELATED_ID,
         self::TYPE,
         self::CREATED_AT
     ];

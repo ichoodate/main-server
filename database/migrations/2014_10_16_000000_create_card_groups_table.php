@@ -22,14 +22,11 @@ class CreateCardGroupsTable extends Migration {
                 ->default(app('db')->raw('CURRENT_TIMESTAMP'));
 
             $table
-                ->primary('id')
+                ->primary('id');
             $table
                 ->index('user_id');
-            $table
-                ->index('created_at');
 
             $table
-                ->primary('id')
                 ->foreign('id')
                 ->references('id')
                 ->on('objs')

@@ -7,6 +7,10 @@ use App\Database\Model;
 class Payment extends Model {
 
     protected $table = 'payments';
+    protected $casts = [
+        'id' => 'integer',
+        'user_id' => 'integer'
+    ];
     protected $visible = [
         self::ID,
         self::USER_ID,

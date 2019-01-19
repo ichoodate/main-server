@@ -9,6 +9,11 @@ use App\Database\Models\User;
 class Profilable extends Model {
 
     protected $table = 'profilables';
+    protected $casts = [
+        'id' => 'integer',
+        'user_id' => 'integer',
+        'keyword_id' => 'integer'
+    ];
     protected $visible = [
         self::ID,
         self::USER_ID,

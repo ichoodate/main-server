@@ -9,6 +9,12 @@ use App\Database\Models\User;
 class Coin extends Model {
 
     protected $table = 'coins';
+    protected $casts = [
+        'id' => 'integer',
+        'user_id' => 'integer',
+        'related_id' => 'integer',
+        'count' => 'integer'
+    ];
     protected $visible = [
         self::ID,
         self::USER_ID,

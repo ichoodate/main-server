@@ -8,6 +8,10 @@ use App\Database\Models\RoleUser;
 class Role extends Model {
 
     protected $table = 'roles';
+    protected $casts = [
+        'id' => 'integer',
+        'user_id' => 'integer'
+    ];
     protected $visible = [
         self::ID,
         self::USER_ID,

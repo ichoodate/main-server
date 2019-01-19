@@ -8,6 +8,9 @@ use App\Database\Models\Photo;
 class Notice extends Model {
 
     protected $table = 'notices';
+    protected $casts = [
+        'id' => 'integer'
+    ];
     protected $visible = [
         self::ID,
         self::TYPE,

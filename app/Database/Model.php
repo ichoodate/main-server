@@ -10,8 +10,7 @@ abstract class Model extends \Illuminate\Database\Eloquent\Model {
     const ID = 'id';
 
     // this property related to freshTimestamp method
-    // public $timestamps = false;
-
+    public $timestamps = false;
     protected $guarded = [];
     protected $dateFormat = 'Y-m-d H:i:s';
     public $incrementing = false;
@@ -32,8 +31,8 @@ abstract class Model extends \Illuminate\Database\Eloquent\Model {
             $obj = inst(Obj::class, [[
                 Obj::MODEL_CLASS => static::class
             ]]);
-
             $obj->save();
+
             $attributes[static::ID] = $obj->getKey();
         }
 

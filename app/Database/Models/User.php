@@ -33,6 +33,9 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         self::PASSWORD,
         self::REMEMBER_TOKEN
     ];
+    protected $casts = [
+        'id' => 'integer'
+    ];
     protected $visible = [
         self::ID,
         self::EMAIL,
