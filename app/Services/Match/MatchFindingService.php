@@ -4,6 +4,8 @@ namespace App\Services\Match;
 
 use App\Database\Models\Match;
 use App\Service;
+use App\Services\FindingService;
+use App\Services\PermittedUserRequiringService;
 
 class MatchFindingService extends Service {
 
@@ -11,7 +13,7 @@ class MatchFindingService extends Service {
     {
         return [
             'model'
-                => 'match of {{id}}'
+                => 'match for {{id}}'
         ];
     }
 
@@ -51,8 +53,8 @@ class MatchFindingService extends Service {
     public static function getArrTraits()
     {
         return [
-            PermittedUserRequiringService::class,
-            FindingService::class
+            FindingService::class,
+            PermittedUserRequiringService::class
         ];
     }
 

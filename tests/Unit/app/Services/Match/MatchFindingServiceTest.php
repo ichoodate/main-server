@@ -3,6 +3,9 @@
 namespace Tests\Unit\App\Services\Match;
 
 use App\Database\Models\Match;
+use App\Database\Models\User;
+use App\Services\FindingService;
+use App\Services\PermittedUserRequiringService;
 use Tests\Unit\App\Services\_TestCase;
 
 class MatchFindingServiceTest extends _TestCase {
@@ -11,13 +14,21 @@ class MatchFindingServiceTest extends _TestCase {
     {
         $this->verifyArrBindNames([
             'model'
-                => 'match of {{id}}'
+                => 'match for {{id}}'
         ]);
     }
 
     public function testArrRuleLists()
     {
         $this->verifyArrRuleLists([]);
+    }
+
+    public function testArrTraits()
+    {
+        $this->verifyArrTraits([
+            FindingService::class,
+            PermittedUserRequiringService::class
+        ]);
     }
 
     public function testLoaderModelClass()

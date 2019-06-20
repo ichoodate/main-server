@@ -3,6 +3,8 @@
 namespace Tests\Unit\App\Services;
 
 use App\Database\Models\Card;
+use App\Database\Models\Keyword\BirthYear;
+use App\Services\ListingService;
 use Tests\Unit\App\Database\Models\_Mocker as ModelMocker;
 use Tests\Unit\App\Database\Queries\_Mocker as QueryMocker;
 use Tests\Unit\App\Services\_TestCase;
@@ -11,19 +13,33 @@ class PagingServiceTest extends _TestCase {
 
     public function testArrBindNames()
     {
-        $this->verifyArrBindNames([]);
+        $this->verifyArrBindNames([
+            'available_order_by'
+                => 'options for {{order_by}}'
+        ]);
     }
 
     public function testArrRuleLists()
     {
         $this->verifyArrRuleLists([
-            'id' => ['integer'],
+            'cursor_id'
+                => ['integer'],
 
-            'limit' => ['integer', 'max:100'],
+            'limit'
+                => ['integer', 'max:100'],
 
-            'order_by' => ['string', 'several_in_array:{{available_order_by}}'],
+            'order_by'
+                => ['string', 'several_in_array:{{available_order_by}}'],
 
-            'page' => ['integer']
+            'page'
+                => ['integer']
+        ]);
+    }
+
+    public function testArrTraits()
+    {
+        $this->verifyArrTraits([
+            ListingService::class
         ]);
     }
 
@@ -125,29 +141,24 @@ class PagingServiceTest extends _TestCase {
         });
     }
 
-    public function testLoaderAvailableOrderByFields()
-    {
-        $this->when(function ($proxy, $serv) {
-
-            $modelClass = Card::class;
-            $return = [Card::CREATED_AT];
-
-            $proxy->data->put('model_class', $modelClass);
-
-            $this->verifyLoader($serv, 'available_order_by_fields', $return);
-        });
-    }
-
     public function testLoaderAvailableOrderBy()
     {
         $this->when(function ($proxy, $serv) {
 
-            $availableOrderByFields = ['field3', 'field1', 'field2'];
-            $return = ['field3 asc', 'field3 desc', 'field1 asc', 'field1 desc', 'field2 asc', 'field2 desc'];
+            $modelClass = BirthYear::class;
 
-            $proxy->data->put('available_order_by_fields', $availableOrderByFields);
+            $proxy->data->put('model_class', $modelClass);
 
-            $this->verifyLoader($serv, 'available_order_by', $return);
+            $this->verifyLoader($serv, 'available_order_by', ['id desc', 'id asc']);
+        });
+
+        $this->when(function ($proxy, $serv) {
+
+            $modelClass = Card::class;
+
+            $proxy->data->put('model_class', $modelClass);
+
+            $this->verifyLoader($serv, 'available_order_by', ['created_at desc, id desc', 'created_at asc, id asc']);
         });
     }
 
@@ -172,6 +183,19 @@ class PagingServiceTest extends _TestCase {
         });
     }
 
+    public function testLoaderOrderByList()
+    {
+        $this->when(function ($proxy, $serv) {
+
+            $orderBy = 'aaa asc , bbb desc';
+            $return  = ['aaa' => 'asc', 'bbb' => 'desc'];
+
+            $proxy->data->put('order_by', $orderBy);
+
+            $this->verifyLoader($serv, 'order_by_list', $return);
+        });
+    }
+
     public function testLoaderPage()
     {
         $this->when(function ($proxy, $serv) {
@@ -179,19 +203,6 @@ class PagingServiceTest extends _TestCase {
             $return = 1;
 
             $this->verifyLoader($serv, 'page', $return);
-        });
-    }
-
-    public function testLoaderOrderByList()
-    {
-        $this->when(function ($proxy, $serv) {
-
-            $orderBy = 'aaa desc, bbb asc, ccc desc';
-            $return  = ['aaa' => 'desc', 'bbb' => 'asc', 'ccc' => 'desc'];
-
-            $proxy->data->put('order_by', $orderBy);
-
-            $this->verifyLoader($serv, 'order_by_list', $return);
         });
     }
 

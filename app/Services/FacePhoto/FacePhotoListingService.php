@@ -4,9 +4,8 @@ namespace App\Services\FacePhoto;
 
 use App\Database\Models\FacePhoto;
 use App\Database\Models\User;
-use App\Services\AuthUserRequiringService;
-use App\Services\ListingService;
 use App\Service;
+use App\Services\ListingService;
 
 class FacePhotoListingService extends Service {
 
@@ -42,13 +41,15 @@ class FacePhotoListingService extends Service {
 
     public static function getArrRuleLists()
     {
-        return [];
+        return [
+            'auth_user'
+                => ['required']
+        ];
     }
 
     public static function getArrTraits()
     {
         return [
-            AuthUserRequiringService::class,
             ListingService::class
         ];
     }

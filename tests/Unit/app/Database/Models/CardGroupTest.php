@@ -5,6 +5,7 @@ namespace Tests\Unit\App\Database\Models;
 use App\Database\Models\Card;
 use App\Database\Models\CardGroup;
 use App\Database\Models\User;
+use Tests\Unit\App\Database\Models\_TestCase;
 
 class CardGroupTest extends _TestCase {
 

@@ -5,6 +5,7 @@ namespace Tests\Unit\App\Database\Models;
 use App\Database\Models\Ticket;
 use App\Database\Models\Reply;
 use App\Database\Models\User;
+use Tests\Unit\App\Database\Models\_TestCase;
 
 class TicketTest extends _TestCase {
 

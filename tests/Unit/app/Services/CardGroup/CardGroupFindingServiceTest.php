@@ -4,7 +4,8 @@ namespace Tests\Unit\App\Services\CardGroup;
 
 use App\Database\Models\CardGroup;
 use App\Database\Models\User;
-use App\Services\CardGroup\CardGroupFindingService as Serv;
+use App\Services\FindingService;
+use App\Services\PermittedUserRequiringService;
 use Tests\Unit\App\Services\_TestCase;
 
 class CardGroupFindingServiceTest extends _TestCase {
@@ -13,13 +14,21 @@ class CardGroupFindingServiceTest extends _TestCase {
     {
         $this->verifyArrBindNames([
             'model'
-                => 'card_group of {{id}}'
+                => 'card_group for {{id}}'
         ]);
     }
 
     public function testArrRuleLists()
     {
         $this->verifyArrRuleLists([]);
+    }
+
+    public function testArrTraits()
+    {
+        $this->verifyArrTraits([
+            FindingService::class,
+            PermittedUserRequiringService::class
+        ]);
     }
 
     public function testLoaderModelClass()
@@ -35,7 +44,7 @@ class CardGroupFindingServiceTest extends _TestCase {
         $this->when(function ($proxy, $serv) {
 
             $authUser = $this->factory(User::class)->make();
-            $model = $this->factory(CardGroup::class)->make();
+            $model    = $this->factory(CardGroup::class)->make();
 
             $proxy->data->put('auth_user', $authUser);
             $proxy->data->put('model', $model);
@@ -46,7 +55,7 @@ class CardGroupFindingServiceTest extends _TestCase {
         $this->when(function ($proxy, $serv) {
 
             $authUser = $this->factory(User::class)->make();
-            $model = $this->factory(CardGroup::class)->make([CardGroup::USER_ID => $authUser->getKey()]);
+            $model    = $this->factory(CardGroup::class)->make([CardGroup::USER_ID => $authUser->getKey()]);
 
             $proxy->data->put('auth_user', $authUser);
             $proxy->data->put('model', $model);

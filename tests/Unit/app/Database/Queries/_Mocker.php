@@ -64,6 +64,11 @@ class _Mocker {
         $mock->shouldReceive('qOrderBy')->with($order, $direction)->once()->ordered('mid')->andReturnSelf();
     }
 
+    public static function qOrWhereIn($mock, $field, $values)
+    {
+        $mock->shouldReceive('qOrWhereIn')->with($field, $values)->once()->ordered('mid')->andReturnSelf();
+    }
+
     public static function qSelect($mock, $value)
     {
         $mock->shouldReceive('qSelect')->with($value)->once()->ordered('mid')->andReturnSelf();

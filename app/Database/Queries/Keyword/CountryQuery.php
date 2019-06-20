@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Database\Queries;
+namespace App\Database\Queries\Keyword;
 
 use App\Database\Models\Keyword\Country;
+use App\Database\Models\Keyword\Residence;
 use App\Database\Models\Keyword\State;
-use App\Database\Models\Keyword\ResidenceCountry;
 use App\Database\Query;
 
 class CountryQuery extends Query {
@@ -13,15 +13,15 @@ class CountryQuery extends Query {
     {
         $subQuery = $this->qSelect(Country::ID)->getQuery();
 
-        return inst(ResidenceCountry::class)->aliasQuery()
-            ->qWhereIn(ResidenceCountry::COUNTRY_ID, $subQuery);
+        return inst(Residence::class)->query()
+            ->qWhereIn(Residence::RELATED_ID, $subQuery);
     }
 
     public function stateQuery()
     {
         $subQuery = $this->qSelect(Country::ID)->getQuery();
 
-        return inst(State::class)->aliasQuery()
+        return inst(State::class)->query()
             ->qWhereIn(State::COUNTRY_ID, $subQuery);
     }
 

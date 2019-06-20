@@ -3,6 +3,7 @@
 namespace Database\Seeds;
 
 use App\Database\Models\Notice;
+use Database\TableSeeder;
 
 class NoticeTableSeeder extends TableSeeder {
 

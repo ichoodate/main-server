@@ -4,6 +4,7 @@ namespace Tests\Unit\App\Database\Queries;
 
 use App\Database\Models\ProfilePhoto;
 use App\Database\Models\User;
+use Tests\Unit\App\Database\Queries\_TestCase;
 
 class ProfilePhotoQueryTest extends _TestCase {
 

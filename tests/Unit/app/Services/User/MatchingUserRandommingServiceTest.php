@@ -2,9 +2,11 @@
 
 namespace Tests\Unit\App\Services\User;
 
-use App\Database\Models\Profilable;
+use App\Database\Collection;
+use App\Database\Models\UserSelfKwdPvt;
+use App\Database\Models\Obj;
 use App\Database\Models\User;
-use App\Services\Obj\KeywordObjListingService;
+use App\Services\RandommingService;
 use Tests\_InstanceMocker as InstanceMocker;
 use Tests\Unit\App\Services\_TestCase;
 use Tests\Unit\App\Database\Collections\_Mocker as CollectionMocker;
@@ -21,8 +23,18 @@ class MatchingUserRandommingServiceTest extends _TestCase {
     public function testArrRuleLists()
     {
         $this->verifyArrRuleLists([
+            'auth_user'
+                => ['required'],
+
             'keyword_ids'
                 => ['required', 'integers'],
+        ]);
+    }
+
+    public function testArrTraits()
+    {
+        $this->verifyArrTraits([
+            RandommingService::class
         ]);
     }
 
@@ -33,29 +45,29 @@ class MatchingUserRandommingServiceTest extends _TestCase {
             $query               = $this->mMock();
             $user                = $this->mMock();
             $userQuery           = $this->mMock();
-            $profilable          = $this->mMock();
-            $profilableQuery     = $this->mMock();
+            $userSelfKwdPvt          = $this->mMock();
+            $userSelfKwdPvtQuery     = $this->mMock();
             $keywords            = $this->mMock();
             $keywordIds          = $this->uniqueString();
             $matchingGender      = $this->uniqueString();
             $userBaseQuery       = $this->uniqueString();
-            $profilableBaseQuery = $this->uniqueString();
+            $userSelfKwdPvtBaseQuery = $this->uniqueString();
 
             CollectionMocker::modelKeys($keywords, $keywordIds);
-            InstanceMocker::add(Profilable::class, $profilable);
-            ModelMocker::aliasQuery($user, $userQuery);
+            InstanceMocker::add(UserSelfKwdPvt::class, $userSelfKwdPvt);
+            ModelMocker::query($user, $userQuery);
             QueryMocker::qWhere($userQuery, User::GENDER, $matchingGender);
             QueryMocker::getQuery($userQuery, $userBaseQuery);
             InstanceMocker::add(User::class, $user);
-            ModelMocker::aliasQuery($profilable, $profilableQuery);
-            QueryMocker::qSelect($profilableQuery, Profilable::USER_ID);
-            QueryMocker::qGroupBy($profilableQuery, Profilable::USER_ID);
-            QueryMocker::qWhereIn($profilableQuery, Profilable::KEYWORD_ID, $keywordIds);
-            QueryMocker::qWhereIn($profilableQuery, Profilable::USER_ID, $userBaseQuery);
-            QueryMocker::orderByRaw($profilableQuery, 'count(*) desc');
-            QueryMocker::limit($profilableQuery, 1000);
-            QueryMocker::getQuery($profilableQuery, $profilableBaseQuery);
-            QueryMocker::qWhereIn($query, User::ID, $profilableBaseQuery);
+            ModelMocker::query($userSelfKwdPvt, $userSelfKwdPvtQuery);
+            QueryMocker::qSelect($userSelfKwdPvtQuery, UserSelfKwdPvt::USER_ID);
+            QueryMocker::qGroupBy($userSelfKwdPvtQuery, UserSelfKwdPvt::USER_ID);
+            QueryMocker::qWhereIn($userSelfKwdPvtQuery, UserSelfKwdPvt::KEYWORD_ID, $keywordIds);
+            QueryMocker::qWhereIn($userSelfKwdPvtQuery, UserSelfKwdPvt::USER_ID, $userBaseQuery);
+            QueryMocker::orderByRaw($userSelfKwdPvtQuery, 'count(*) desc');
+            QueryMocker::limit($userSelfKwdPvtQuery, 1000);
+            QueryMocker::getQuery($userSelfKwdPvtQuery, $userSelfKwdPvtBaseQuery);
+            QueryMocker::qWhereIn($query, User::ID, $userSelfKwdPvtBaseQuery);
             QueryMocker::orderByRaw($query, 'rand()');
 
             $proxy->data->put('query', $query);
@@ -71,16 +83,22 @@ class MatchingUserRandommingServiceTest extends _TestCase {
     {
         $this->when(function ($proxy, $serv) {
 
-            $keywordIds = [$this->uniqueString()];
-            $return     = app(KeywordObjListingService::class, [[
-                'ids'
-                    => $keywordIds
-            ], [
-                'ids'
-                    => '{{keyword_ids}}'
-            ]]);
+            $obj      = $this->mMock();
+            $objQuery = $this->mMock();
+            $obj1     = $this->factory(Obj::class)->make();
+            $obj2     = $this->factory(Obj::class)->make();
+            $obj3     = $this->factory(Obj::class)->make();
+            $list     = inst(Collection::class, [[$obj1, $obj2]]);
+            $ids      = $obj2->getKey().','.$obj3->getKey().','.$obj1->getKey();
+            $return   = inst(Collection::class, [[$obj2, null, $obj1]]);
 
-            $proxy->data->put('keyword_ids', $keywordIds);
+            InstanceMocker::add(Obj::class, $obj);
+            ModelMocker::query($obj, $objQuery);
+            QueryMocker::qWhereIn($objQuery, Obj::ID, [$obj2->getKey(), $obj3->getKey(), $obj1->getKey()]);
+            QueryMocker::qWhereIn($objQuery, Obj::TYPE, Obj::TYPE_KEYWORD_VALUES);
+            QueryMocker::get($objQuery, $list);
+
+            $proxy->data->put('keyword_ids', $ids);
 
             $this->verifyLoader($serv, 'keywords', $return);
         });

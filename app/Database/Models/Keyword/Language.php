@@ -1,17 +1,18 @@
 <?php
 
-namespace App\Database\Models;
+namespace App\Database\Models\Keyword;
 
 use App\Database\Model;
 
 class Language extends Model {
 
     protected $table = 'keyword_languages';
-    protected $visible = [
+    protected $fillable = [
         self::ID,
         self::TYPE
     ];
 
+    const ID   = 'id';
     const TYPE = 'type';
 
     const TYPE_DE_DE = 'de-DE';
@@ -41,5 +42,10 @@ class Language extends Model {
         self::TYPE_ZH_CN,
         self::TYPE_ZH_TW
     ];
+
+    public function getExpandable()
+    {
+        return [];
+    }
 
 }

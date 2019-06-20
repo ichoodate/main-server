@@ -4,6 +4,7 @@ namespace App\Services\Ticket;
 
 use App\Database\Models\Ticket;
 use App\Service;
+use App\Services\CreatingService;
 
 class TicketCreatingService extends Service {
 
@@ -39,6 +40,9 @@ class TicketCreatingService extends Service {
     public static function getArrRuleLists()
     {
         return [
+            'auth_user'
+                => ['required'],
+
             'description'
                 => ['required', 'string'],
 
@@ -50,7 +54,7 @@ class TicketCreatingService extends Service {
     public static function getArrTraits()
     {
         return [
-            AuthUserRequiringService::class
+            CreatingService::class
         ];
     }
 

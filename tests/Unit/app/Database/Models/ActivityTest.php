@@ -6,6 +6,7 @@ use App\Database\Models\Activity;
 use App\Database\Models\Notification;
 use App\Database\Models\Obj;
 use App\Database\Models\User;
+use Tests\Unit\App\Database\Models\_TestCase;
 
 class ActivityTest extends _TestCase {
 

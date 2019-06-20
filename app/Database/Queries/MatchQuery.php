@@ -4,7 +4,7 @@ namespace App\Database\Queries;
 
 use App\Database\Models\Activity;
 use App\Database\Models\Card;
-use App\Database\Models\ChattingRoom;
+use App\Database\Models\ChattingContent;
 use App\Database\Models\Match;
 use App\Database\Models\User;
 use App\Database\Query;
@@ -15,7 +15,7 @@ class MatchQuery extends Query {
     {
         $subQuery = $this->qSelect(Match::ID)->getQuery();
 
-        return inst(Activity::class)->aliasQuery()
+        return inst(Activity::class)->query()
             ->qWhereIn(Activity::RELATED_ID, $subQuery);
     }
 
@@ -23,15 +23,23 @@ class MatchQuery extends Query {
     {
         $subQuery = $this->qSelect(Match::ID)->getQuery();
 
-        return inst(Card::class)->aliasQuery()
+        return inst(Card::class)->query()
             ->qWhereIn(Card::MATCH_ID, $subQuery);
+    }
+
+    public function chattingContentQuery()
+    {
+        $subQuery = $this->qSelect(Match::ID)->getQuery();
+
+        return inst(ChattingContent::class)->query()
+            ->qWhereIn(ChattingContent::MATCH_ID, $subQuery);
     }
 
     public function manQuery()
     {
         $subQuery = $this->qSelect(Match::MAN_ID)->getQuery();
 
-        return inst(User::class)->aliasQuery()
+        return inst(User::class)->query()
             ->qWhereIn(User::ID, $subQuery);
     }
 
@@ -39,7 +47,7 @@ class MatchQuery extends Query {
     {
         $subQuery = $this->qSelect(Match::WOMAN_ID)->getQuery();
 
-        return inst(User::class)->aliasQuery()
+        return inst(User::class)->query()
             ->qWhereIn(User::ID, $subQuery);
     }
 

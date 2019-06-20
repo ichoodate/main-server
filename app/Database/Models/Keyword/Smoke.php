@@ -1,17 +1,18 @@
 <?php
 
-namespace App\Database\Models;
+namespace App\Database\Models\Keyword;
 
 use App\Database\Model;
 
 class Smoke extends Model {
 
     protected $table = 'keyword_smokes';
-    protected $visible = [
+    protected $fillable = [
         self::ID,
         self::TYPE
     ];
 
+    const ID   = 'id';
     const TYPE = 'type';
 
     const ENTITIES = [
@@ -23,5 +24,10 @@ class Smoke extends Model {
         'smoker',
         'non_smoker'
     ];
+
+    public function getExpandable()
+    {
+        return [];
+    }
 
 }

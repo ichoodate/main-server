@@ -10,11 +10,11 @@ class Activity extends Model {
 
     protected $table = 'activities';
     protected $casts = [
-        'id' => 'integer',
-        'user_id' => 'integer',
-        'related_id' => 'integer'
+        self::ID => 'integer',
+        self::USER_ID => 'integer',
+        self::RELATED_ID => 'integer'
     ];
-    protected $visible = [
+    protected $fillable = [
         self::ID,
         self::USER_ID,
         self::RELATED_ID,
@@ -22,6 +22,7 @@ class Activity extends Model {
         self::CREATED_AT
     ];
 
+    const ID         = 'id';
     const RELATED    = 'related';
     const RELATED_ID = 'related_id';
     const USER       = 'user';
@@ -45,15 +46,30 @@ class Activity extends Model {
         self::TYPE_CHATTING_ROOM_BLOCK
     ];
 
+    public function getExpandable()
+    {
+        return ['user', 'related.concrete'];
+    }
+
+    public function related()
+    {
+        return $this->belongsTo(Obj::class, 'related_id', 'id');
+    }
+
     public function relatedQuery()
     {
-        return inst(Obj::class)->aliasQuery()
+        return inst(Obj::class)->query()
             ->qWhere(Obj::ID, $this->{static::RELATED_ID});
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
     public function userQuery()
     {
-        return inst(User::class)->aliasQuery()
+        return inst(User::class)->query()
             ->qWhere(User::ID, $this->{static::USER_ID});
     }
 

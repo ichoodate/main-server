@@ -5,6 +5,7 @@ namespace App\Services\CardGroup;
 use App\Database\Models\Card;
 use App\Database\Models\CardGroup;
 use App\Service;
+use App\Services\CreatingService;
 use App\Services\Match\MatchCreatingService;
 
 class CardGroupCreatingService extends Service {
@@ -39,6 +40,11 @@ class CardGroupCreatingService extends Service {
                 }
 
                 return $cards;
+            }],
+
+            'created' => [function () {
+
+                throw new \Exception;
             }],
 
             'matches' => ['auth_user', 'users', function ($authUser, $users) {
@@ -76,12 +82,17 @@ class CardGroupCreatingService extends Service {
 
     public static function getArrRuleLists()
     {
-        return [];
+        return [
+            'auth_user'
+                => ['required']
+        ];
     }
 
     public static function getArrTraits()
     {
-        return [];
+        return [
+            CreatingService::class
+        ];
     }
 
 }

@@ -1,17 +1,18 @@
 <?php
 
-namespace App\Database\Models;
+namespace App\Database\Models\Keyword;
 
 use App\Database\Model;
 
 class Body extends Model {
 
     protected $table = 'keyword_bodies';
-    protected $visible = [
+    protected $fillable = [
         self::ID,
         self::TYPE
     ];
 
+    const ID   = 'id';
     const TYPE = 'type';
 
     const ENTITIES = [
@@ -34,5 +35,10 @@ class Body extends Model {
         self::TYPE_LITTLE_PLUMP,
         self::TYPE_PLUMP
     ];
+
+    public function getExpandable()
+    {
+        return [];
+    }
 
 }

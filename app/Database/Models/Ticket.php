@@ -10,10 +10,10 @@ class Ticket extends Model {
 
     protected $table = 'tickets';
     protected $casts = [
-        'id' => 'integer',
-        'writer_id' => 'integer'
+        self::ID => 'integer',
+        self::WRITER_ID => 'integer'
     ];
-    protected $visible = [
+    protected $fillable = [
         self::ID,
         self::WRITER_ID,
         self::SUBJECT,
@@ -22,22 +22,37 @@ class Ticket extends Model {
         self::UPDATED_AT
     ];
 
+    const ID          = 'id';
     const WRITER_ID   = 'writer_id';
     const SUBJECT     = 'subject';
     const DESCRIPTION = 'description';
     const CREATED_AT  = 'created_at';
     const UPDATED_AT  = 'updated_at';
 
+    public function getExpandable()
+    {
+        return ['replies', 'writer'];
+    }
+
+    public function replies()
+    {
+        return $this->hasMany(Reply::class, 'ticket_id', 'id');
+    }
 
     public function replyQuery()
     {
-        return inst(Reply::class)->aliasQuery()
+        return inst(Reply::class)->query()
             ->qWhere(Reply::TICKET_ID, $this->{static::ID});
+    }
+
+    public function writer()
+    {
+        return $this->belongsTo(User::class, 'writer_id', 'id');
     }
 
     public function writerQuery()
     {
-        return inst(User::class)->aliasQuery()
+        return inst(User::class)->query()
             ->qWhere(User::ID, $this->{static::WRITER_ID});
     }
 

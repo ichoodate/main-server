@@ -3,6 +3,9 @@
 namespace Tests\Unit\App\Services\Notification;
 
 use App\Database\Models\Notification;
+use App\Database\Models\User;
+use App\Services\FindingService;
+use App\Services\PermittedUserRequiringService;
 use Tests\Unit\App\Services\_TestCase;
 
 class NotificationFindingServiceTest extends _TestCase {
@@ -11,13 +14,21 @@ class NotificationFindingServiceTest extends _TestCase {
     {
         $this->verifyArrBindNames([
             'model'
-                => 'notification of {{id}}'
+                => 'notification for {{id}}'
         ]);
     }
 
     public function testArrRuleLists()
     {
         $this->verifyArrRuleLists([]);
+    }
+
+    public function testArrTraits()
+    {
+        $this->verifyArrTraits([
+            FindingService::class,
+            PermittedUserRequiringService::class
+        ]);
     }
 
     public function testLoaderModelClass()

@@ -62,7 +62,7 @@ class Query extends Builder {
             $columns[$i] = $this->getTable() . '.'. $column;
         }
 
-        return call_user_func_array([$this, 'groupBy'], $columns);
+        return call_user_func_array([$this, 'groupBy'], [$columns]);
     }
 
     public function qOrWhere($column)
@@ -150,28 +150,19 @@ class Query extends Builder {
     {
         $columns = is_array($columns) ? $columns : [$columns];
 
-        foreach ( $columns as $column )
+        foreach ( $columns as $i => $column )
         {
-            $column = $this->getTable() . '.' . $column;
-
-            call_user_func_array([$this, 'selectRaw'], [$column]);
+            $columns[$i] = $this->getTable() . '.' . $column;
         }
 
-        return $this;
+        return call_user_func_array([$this, 'selectRaw'], [implode(',', $columns)]);
     }
 
-    public function qOrderBy($columns)
+    public function qOrderBy($column, $direction)
     {
-        $columns = is_array($columns) ? $columns : [$columns];
+        $column = $this->getTable() . '.' . $column . ' ' . $direction;
 
-        foreach ( $columns as $column )
-        {
-            $column = $this->getTable() . '.' . $column;
-
-            call_user_func_array([$this, 'orderByRaw'], [$column]);
-        }
-
-        return $this;
+        return call_user_func_array([$this, 'orderByRaw'], [$column]);
     }
 
     public function selectIdQuery()

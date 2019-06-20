@@ -17,10 +17,17 @@ class FindingServiceTest extends _TestCase {
     public function testArrRuleLists()
     {
         $this->verifyArrRuleLists([
-            'id' => ['required', 'integer'],
+            'id'
+                => ['required', 'integer'],
 
-            'model' => ['not_null']
+            'model'
+                => ['not_null']
         ]);
+    }
+
+    public function testArrTraits()
+    {
+        $this->verifyArrTraits([]);
     }
 
     public function testLoaderModel()

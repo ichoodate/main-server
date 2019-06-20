@@ -3,17 +3,17 @@
 namespace App\Database\Queries;
 
 use App\Database\Models\Role;
-use App\Database\Models\RoleUser;
+use App\Database\Models\User;
 use App\Database\Query;
 
 class RoleQuery extends Query {
 
-    public function roleUserQuery()
+    public function userQuery()
     {
-        $subQuery = $this->qSelect(Role::ID)->getQuery();
+        $subQuery = $this->qSelect(Role::USER_ID)->getQuery();
 
-        return inst(RoleUser::class)->aliasQuery()
-            ->qWhereIn(RoleUser::ROLE_ID, $subQuery);
+        return inst(User::class)->query()
+            ->qWhereIn(User::ID, $subQuery);
     }
 
 }

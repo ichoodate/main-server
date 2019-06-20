@@ -4,8 +4,9 @@ namespace Tests\Unit\App\Services\ChattingContent;
 
 use App\Database\Models\Match;
 use App\Database\Models\ChattingContent;
+use App\Services\PagingService;
+use App\Services\ChattingContent\ChattingContentFindingService;
 use App\Services\Match\MatchFindingService;
-use App\Services\ChattingContent\MatchChattingContentPagingServiceTest as Serv;
 use Tests\Unit\App\Database\Queries\_Mocker as QueryMocker;
 use Tests\Unit\App\Services\_TestCase;
 
@@ -19,8 +20,18 @@ class MatchChattingContentPagingServiceTest extends _TestCase {
     public function testArrRuleLists()
     {
         $this->verifyArrRuleLists([
+            'auth_user'
+                => ['required'],
+
             'match_id'
                 => ['required', 'integer']
+        ]);
+    }
+
+    public function testArrTraits()
+    {
+        $this->verifyArrTraits([
+            PagingService::class
         ]);
     }
 
@@ -37,6 +48,31 @@ class MatchChattingContentPagingServiceTest extends _TestCase {
             $proxy->data->put('match', $match);
 
             $this->verifyCallback($serv, 'query.match');
+        });
+    }
+
+    public function testLoaderCursor()
+    {
+        $this->when(function ($proxy, $serv) {
+
+            $authUser = $this->uniqueString();
+            $id       = $this->uniqueString();
+            $return   = [ChattingContentFindingService::class, [
+                'auth_user'
+                    => $authUser,
+                'id'
+                    => $id
+            ], [
+                'auth_user'
+                    => '{{auth_user}}',
+                'id'
+                    => '{{id}}'
+            ]];
+
+            $proxy->data->put('auth_user', $authUser);
+            $proxy->data->put('id', $id);
+
+            $this->verifyLoader($serv, 'cursor', $return);
         });
     }
 

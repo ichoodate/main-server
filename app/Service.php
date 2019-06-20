@@ -8,10 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Validation\Factory as ValidationFactory;
 
+/**
+ * todo test
+ * xxxx.* not exist in promise list, loader, callback list
+ */
 class Service {
 
     const BIND_NAME_EXP = '/\{\{([a-z0-9\_\.\*]+)\}\}/';
 
+    protected $childs;
     protected $data;
     protected $errors;
     protected $inputs;
@@ -19,7 +24,7 @@ class Service {
     protected $processed;
     protected $validated;
 
-    public function __construct($parent = null, array $inputs = [], array $names = [])
+    public function __construct(array $inputs = [], array $names = [])
     {
         $this->childs    = inst(Collection::class);
         $this->data      = inst(Collection::class);
@@ -51,7 +56,7 @@ class Service {
 
     public function totalErrors()
     {
-        $errors = $this->errors();
+        $errors = $this->errors()->flatten();
 
         foreach ( $this->childs() as $child )
         {
@@ -141,6 +146,20 @@ class Service {
         return inst(Collection::class, [$arr]);
     }
 
+    public static function getAllTraits()
+    {
+        $arr = [];
+
+        foreach ( static::getArrTraits() as $class )
+        {
+            $arr = array_merge_recursive($arr, $class::getAllTraits()->all());
+        }
+
+        $arr = array_merge_recursive($arr, static::getArrTraits());
+
+        return inst(Collection::class, [$arr]);
+    }
+
     public static function getArrBindNames()
     {
         return [];
@@ -171,6 +190,31 @@ class Service {
         return [];
     }
 
+    protected function getDependencies($key)
+    {
+        $loader       = $this->getAllLoaders()->get($key, []);
+        $ruleList     = $this->getAllRuleLists()->get($key, []);
+        $callbackList = $this->getAllCallbackLists()->get($key, []);
+        $deps         = array_slice($loader, 0, -1);
+
+        // foreach ( $ruleList as $rule )
+        // {
+        //     $deps = array_merge($deps, $this->getBindKeys($rule));
+        // }
+
+        // foreach ( $this->getAllRuleLists()->get($key.'.*', []) as $rule )
+        // {
+        //     $deps = array_merge($deps, $this->getBindKeys($rule));
+        // }
+
+        foreach ( $callbackList as $callback )
+        {
+            $deps = array_merge($deps, array_slice($callback, 1, -1));
+        }
+
+        return $deps;
+    }
+
     protected function getValidationErrors($data, $ruleList)
     {
         $factory = inst(ValidationFactory::class);
@@ -179,30 +223,21 @@ class Service {
             return new Validator($tr, $data, $rules, $messages, $names);
         });
 
-        $validator = $factory->make($data->toArray(), $ruleList, [], $this->names->toArray());
-        $validator->passes();
-
-        return $validator->errors()->all();
-    }
-
-    protected function getDependencies($key)
-    {
-        $loader       = $this->getAllLoaders()->get($key, []);
-        $ruleList     = $this->getAllRuleLists()->get($key, []);
-        $callbackList = $this->getAllCallbackLists()->get($key, []);
-        $deps         = array_slice($loader, 0, -1);
-
-        foreach ( $ruleList as $rule )
+        foreach ( $ruleList as $key => $rules )
         {
-            $deps = array_merge($deps, $this->getBindKeys($rule));
+            $validator = $factory->make($data->toArray(), [$key => $rules], [], $this->names->toArray());
+            $validator->passes();
+
+            if ( ! empty($validator->errors()->all()) )
+            {
+                $errors = $this->errors->get($key, []);
+                $errors = array_merge($errors, $validator->errors()->all());
+
+                $this->errors->put($key, $errors);
+            }
         }
 
-        foreach ( $callbackList as $callback )
-        {
-            $deps = array_merge($deps, array_slice($callback, 1, -1));
-        }
-
-        return $deps;
+        return $this->errors->get($key, []);
     }
 
     public function hasInvalidDepandencyLoader($key)
@@ -247,11 +282,7 @@ class Service {
             $names[$key] = $this->resolveBindName($name);
         }
 
-        $service = inst($class, [$this, $data, $names]);
-
-        $this->childs->push($service);
-
-        return $service;
+        return inst($class, [$data, $names]);
     }
 
     protected function resolve(array $arr = [])
@@ -283,6 +314,7 @@ class Service {
 
     protected function getAvailableDataWith($key)
     {
+        $key  = explode('.', $key)[0];
         $data = $this->data();
 
         if ( $this->inputs()->has($key) )
@@ -300,6 +332,8 @@ class Service {
             {
                 $service = $this->initService($value);
                 $value   = $service->run();
+
+                $this->childs->put($key, $service);
             }
 
             if ( ! $this->isResolveError($value) )
@@ -315,6 +349,26 @@ class Service {
     {
         $rules = $this->getAllRuleLists()->get($key, []);
 
+        if ( ! $this->getAllLoaders()->has(explode('.', $key)[0]) && ! $this->inputs->has(explode('.', $key)[0]) )
+        {
+            // addable options: required_if, required_unless, requred_with, required_without. but this options is deprecated with trait method
+            if ( in_array('required', $rules) )
+            {
+                $rules = ['required'];
+            }
+            else
+            {
+                $rules = [];
+            }
+        }
+
+        if ( empty($rules) )
+        {
+            return [];
+        }
+
+        $this->names[$key] = $this->resolveBindName('{{'.$key.'}}');
+
         foreach ( $rules as $i => $rule )
         {
             $requiredNames = [];
@@ -322,17 +376,20 @@ class Service {
 
             foreach ( $bindKeys as $bindKey )
             {
-                if ( ! $this->names->has($bindKey) )
+                $this->names[$bindKey] = $this->resolveBindName('{{'.$bindKey.'}}');
+
+                if ( ! $this->validate($bindKey) )
                 {
-                    throw new \Exception('"' . $bindKey . '" name not exists');
+                    $this->validated->put($key, false);
+
+                    unset($rules[$i]);
+
+                    continue;
                 }
+
                 if ( ! $this->data()->has($bindKey) )
                 {
                     throw new \Exception('"' . $bindKey . '" key required rule not exists');
-                }
-                if ( ! $this->validated->get($bindKey) )
-                {
-                    unset($rules[$i]);
                 }
             }
 
@@ -383,10 +440,10 @@ class Service {
     {
         if ( ! $this->processed )
         {
-            foreach ( $this->getAllBindNames()->merge($this->names) as $key => $name )
-            {
-                $this->names[$key] = $this->resolveBindName($name);
-            }
+            // foreach ( $this->getAllBindNames()->merge($this->names) as $key => $name )
+            // {
+            //     $this->names[$key] = $this->resolveBindName($name);
+            // }
 
             foreach ( $this->inputs()->keys() as $key )
             {
@@ -395,7 +452,7 @@ class Service {
 
             foreach ( $this->getAllRuleLists()->keys() as $key )
             {
-                $this->validate($key);
+                $this->validate(explode('.', $key)[0]);
             }
 
             foreach ( $this->getAllLoaders()->keys() as $key )
@@ -421,22 +478,35 @@ class Service {
 
     protected function validate($key)
     {
+        if ( count(explode('.', $key)) > 1 )
+        {
+            // $this->validate(explode('.', $key)[0]);
+            throw new \Exception('does not support validation with child key');
+        }
+
         if ( $this->validated->has($key) )
         {
             return $this->validated->get($key);
         }
 
-        // case for array.* rule
-        if ( count(explode('.', $key)) > 1 )
-        {
-            $this->validate(explode('.', $key)[0]);
-        }
-
         $promiseList = $this->getAllPromiseLists()->get($key, []);
 
-        foreach ( $promiseList as $value )
+        foreach ( $promiseList as $promise )
         {
-            $this->validate($value);
+            $rules      = explode(':', $promise);
+            $promiseKey = array_shift($rules);
+
+            $this->validate($promiseKey);
+
+            foreach ( $rules as $rule )
+            {
+                if ( isset($this->errors->all()[$promiseKey][$rule]) )
+                {
+                    $this->validated->put($promiseKey, false);
+
+                    return false;
+                }
+            }
         }
 
         $deps = $this->getDependencies($key);
@@ -454,14 +524,18 @@ class Service {
             return false;
         }
 
-        $data   = $this->getAvailableDataWith($key);
-        $rules  = $this->getAvailableRulesWith($key);
-        $errors = $this->getValidationErrors($data, [$key => $rules]);
+        $ruleList = [$key => $this->getAvailableRulesWith($key)];
+        $data     = $this->getAvailableDataWith($key);
 
-        if ( ! empty($errors) )
+        if ( $this->getAllRuleLists()->has($key.'.*') )
         {
-            $this->errors = $this->errors->merge($errors);
+            $ruleList[$key.'.*'] = $this->getAvailableRulesWith($key.'.*');
+        }
 
+        $errors = $this->getValidationErrors($data, $ruleList);
+
+        if ( ! empty($errors) || ($this->childs->has($key) && ! $this->childs->get($key)->totalErrors()->isEmpty()) )
+        {
             $this->validated->put($key, false);
 
             return false;
@@ -472,8 +546,6 @@ class Service {
             if ( $data->has($key) )
             {
                 $this->data->put($key, $data->get($key));
-
-                $this->validated->put($key, true);
             }
 
             $this->validated->put($key, true);

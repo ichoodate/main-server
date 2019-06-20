@@ -5,6 +5,7 @@ namespace Tests\Unit;
 class _Stub {
 
     protected $obj;
+    protected $method = [];
 
     public function __construct($obj)
     {
@@ -13,6 +14,11 @@ class _Stub {
 
     public function __call($method, $args)
     {
+        if ( starts_with($method, '__') )
+        {
+            return call_user_func_array($this->method[$method], $args);
+        }
+
         $ref    = new \ReflectionClass($this->obj);
         $method = $ref->getMethod($method);
 
@@ -25,6 +31,7 @@ class _Stub {
     {
         $ref  = new \ReflectionClass($this->obj);
         $prop = $ref->getProperty($property);
+
         $prop->setAccessible(true);
 
         return $prop->getValue($this->obj);
@@ -32,6 +39,11 @@ class _Stub {
 
     public function __set($property, $value)
     {
+        if ( starts_with($property, '__') )
+        {
+            return $this->method[$property] = $value;
+        }
+
         $ref  = new \ReflectionClass($this->obj);
         $prop = $ref->getProperty($property);
         $prop->setAccessible(true);

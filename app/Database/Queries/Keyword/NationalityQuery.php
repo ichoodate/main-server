@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Database\Queries;
+namespace App\Database\Queries\Keyword;
 
 use App\Database\Models\Keyword\Country;
 use App\Database\Models\Keyword\Nationality;
@@ -12,7 +12,7 @@ class NationalityQuery extends Query {
     {
         $subQuery = $this->qSelect(Nationality::COUNTRY_ID)->getQuery();
 
-        return inst(Country::class)->aliasQuery()
+        return inst(Country::class)->query()
             ->qWhereIn(Country::ID, $subQuery);
     }
 

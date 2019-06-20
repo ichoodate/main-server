@@ -13,14 +13,14 @@ class CardCollection extends Collection {
     {
         $cardIds = $this->pluck(Card::ID)->all();
 
-        return inst(Activity::class)->aliasQuery()->qWhereIn(Activity::RELATED_ID, $cardIds);
+        return inst(Activity::class)->query()->qWhereIn(Activity::RELATED_ID, $cardIds);
     }
 
     public function matchQuery()
     {
         $matchIds = $this->pluck(Card::MATCH_ID)->all();
 
-        return inst(Match::class)->aliasQuery()->qWhereIn(Match::ID, $matchIds);
+        return inst(Match::class)->query()->qWhereIn(Match::ID, $matchIds);
     }
 
 }

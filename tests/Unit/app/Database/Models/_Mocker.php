@@ -6,16 +6,6 @@ use Tests\_InstanceMocker as InstanceMocker;
 
 class _Mocker {
 
-    public static function aliasQuery($mock, $return)
-    {
-        if ( is_string($class = $mock) )
-        {
-            InstanceMocker::add($class, $mock = _TestCase::mMock());
-        }
-
-        $mock->shouldReceive('aliasQuery')->withNoArgs()->once()->andReturn($return);
-    }
-
     public static function create($mock, $attrs, $return)
     {
         if ( is_string($class = $mock) )
@@ -76,6 +66,16 @@ class _Mocker {
         $mock->shouldReceive('newCollection')->withNoArgs()->once()->andReturn($return);
     }
 
+    public static function query($mock, $return)
+    {
+        if ( is_string($class = $mock) )
+        {
+            InstanceMocker::add($class, $mock = _TestCase::mMock());
+        }
+
+        $mock->shouldReceive('query')->withNoArgs()->once()->andReturn($return);
+    }
+
     public static function relatedQuery($mock, $name, $return)
     {
         if ( is_string($class = $mock) )
@@ -86,4 +86,13 @@ class _Mocker {
         $mock->shouldReceive($name . 'Query')->withNoArgs()->once()->ordered()->andReturn($return);
     }
 
+    public static function save($mock)
+    {
+        $mock->shouldReceive('save')->withNoArgs()->ordered()->once();
+    }
+
+    public static function setAttribute($mock, $key, $value)
+    {
+        $mock->shouldReceive('setAttribute')->with($key, $value)->ordered()->once();
+    }
 }

@@ -13,7 +13,7 @@ class CardFindingService extends Service {
     {
         return [
             'model'
-                => 'card of {{id}}'
+                => 'card for {{id}}'
         ];
     }
 

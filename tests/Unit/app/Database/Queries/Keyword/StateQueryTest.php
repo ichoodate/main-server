@@ -1,10 +1,11 @@
 <?php
 
-namespace Tests\Unit\App\Database\Queries;
+namespace Tests\Unit\App\Database\Queries\Keyword;
 
 use App\Database\Models\Keyword\Country;
-use App\Database\Models\Keyword\ResidenceState;
+use App\Database\Models\Keyword\Residence;
 use App\Database\Models\Keyword\State;
+use Tests\Unit\App\Database\Queries\_TestCase;
 
 class StateQueryTest extends _TestCase {
 
@@ -21,8 +22,8 @@ class StateQueryTest extends _TestCase {
     {
         $this->assertHasOneOrManyQuery(
             'residence',
-            ResidenceState::class,
-            ResidenceState::STATE_ID
+            Residence::class,
+            Residence::RELATED_ID
         );
     }
 

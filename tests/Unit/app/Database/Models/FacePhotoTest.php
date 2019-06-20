@@ -4,6 +4,7 @@ namespace Tests\Unit\App\Database\Models;
 
 use App\Database\Models\FacePhoto;
 use App\Database\Models\User;
+use Tests\Unit\App\Database\Models\_TestCase;
 
 class FacePhotoTest extends _TestCase {
 

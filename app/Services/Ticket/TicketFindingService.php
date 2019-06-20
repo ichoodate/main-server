@@ -3,8 +3,10 @@
 namespace App\Services\Ticket;
 
 use App\Database\Models\Ticket;
-use App\Services\PermittedUserRequiringService;
 use App\Service;
+use App\Services\AdminRoleExistingService;
+use App\Services\FindingService;
+use App\Services\PermittedUserRequiringService;
 
 class TicketFindingService extends Service {
 
@@ -12,7 +14,7 @@ class TicketFindingService extends Service {
     {
         return [
             'model'
-                => 'ticket of {{id}}'
+                => 'ticket for {{id}}'
         ];
     }
 
@@ -52,9 +54,9 @@ class TicketFindingService extends Service {
     public static function getArrTraits()
     {
         return [
-            AdminUserRequiringService::class,
-            PermittedUserRequiringService::class,
-            FindingService::class
+            AdminRoleExistingService::class,
+            FindingService::class,
+            PermittedUserRequiringService::class
         ];
     }
 

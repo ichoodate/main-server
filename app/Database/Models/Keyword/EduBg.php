@@ -1,17 +1,18 @@
 <?php
 
-namespace App\Database\Models;
+namespace App\Database\Models\Keyword;
 
 use App\Database\Model;
 
 class EduBg extends Model {
 
-    protected $table = 'keyword_edu_backgrounds';
-    protected $visible = [
+    protected $table = 'keyword_edu_bgs';
+    protected $fillable = [
         self::ID,
         self::TYPE
     ];
 
+    const ID   = 'id';
     const TYPE = 'type';
 
     const TYPE_PRIMARY_SCHOOL   = 'primary_school';
@@ -27,5 +28,10 @@ class EduBg extends Model {
         self::TYPE_COLLEGE,
         self::TYPE_UNIVERSITY
     ];
+
+    public function getExpandable()
+    {
+        return [];
+    }
 
 }

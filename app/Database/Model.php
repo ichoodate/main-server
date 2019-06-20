@@ -7,15 +7,20 @@ use Carbon\Carbon;
 
 abstract class Model extends \Illuminate\Database\Eloquent\Model {
 
-    const ID = 'id';
+    const CREATED_AT = null;
+    const UPDATED_AT = null;
 
     // this property related to freshTimestamp method
-    public $timestamps = false;
+    // public $timestamps = false;
     protected $guarded = [];
     protected $dateFormat = 'Y-m-d H:i:s';
     public $incrementing = false;
 
-    public static function aliasQuery()
+    abstract public function getExpandable();
+
+    public
+
+    public static function query()
     {
         $builder = static::query();
 
@@ -26,7 +31,7 @@ abstract class Model extends \Illuminate\Database\Eloquent\Model {
 
     public static function create(array $attributes = [])
     {
-        if ( static::class != Obj::class )
+        if ( static::class != Obj::class && ! array_key_exists(static::ID, $attributes) )
         {
             $obj = inst(Obj::class, [[
                 Obj::MODEL_CLASS => static::class
@@ -58,7 +63,7 @@ abstract class Model extends \Illuminate\Database\Eloquent\Model {
 
     public function setAttribute($key, $value)
     {
-        if ( $this->hasSetMutator($key) || in_array($key, $this->getVisible()) )
+        if ( $this->hasSetMutator($key) || in_array($key, $this->getFillable()) )
         {
             parent::setAttribute($key, $value);
         }
@@ -70,12 +75,10 @@ abstract class Model extends \Illuminate\Database\Eloquent\Model {
         return $this;
     }
 
-    // deprecated
-    // it might related to updateTimestamps
-    // public function freshTimestamp()
-    // {
-    //     return new Carbon(app('nowUtcTime'));
-    // }
+    public function freshTimestamp()
+    {
+        return new Carbon(app('nowUtcTime'));
+    }
 
     // deprecated
     // it converted use mysql timestamp option at date column

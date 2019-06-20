@@ -13,7 +13,7 @@ class ChattingContentQuery extends Query {
     {
         $subQuery = $this->qSelect(ChattingContent::MATCH_ID)->getQuery();
 
-        return inst(Match::class)->aliasQuery()
+        return inst(Match::class)->query()
             ->qWhereIn(Match::ID, $subQuery);
     }
 
@@ -21,7 +21,7 @@ class ChattingContentQuery extends Query {
     {
         $subQuery = $this->qSelect(ChattingContent::WRITER_ID)->getQuery();
 
-        return inst(User::class)->aliasQuery()
+        return inst(User::class)->query()
             ->qWhereIn(User::ID, $subQuery);
     }
 

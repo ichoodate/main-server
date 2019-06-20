@@ -3,10 +3,10 @@
 namespace App\Services\Reply;
 
 use App\Database\Models\Reply;
-use App\Services\AuthUserRequiringService;
-use App\Services\PagingService;
 use App\Service;
+use App\Services\PagingService;
 use App\Services\Ticket\TicketFindingService;
+use App\Services\Reply\ReplyFindingService;
 
 class TicketReplyPagingService extends Service {
 
@@ -31,6 +31,21 @@ class TicketReplyPagingService extends Service {
     public static function getArrLoaders()
     {
         return [
+            'cursor' => ['auth_user', 'cursor_id', function ($authUser, $cursorId) {
+
+                return [ReplyFindingService::class, [
+                    'auth_user'
+                        => $authUser,
+                    'id'
+                        => $cursorId
+                ], [
+                    'auth_user'
+                        => '{{auth_user}}',
+                    'id'
+                        => '{{cursor_id}}'
+                ]];
+            }],
+
             'model_class' => [function () {
 
                 return Reply::class;
@@ -61,6 +76,9 @@ class TicketReplyPagingService extends Service {
     public static function getArrRuleLists()
     {
         return [
+            'auth_user'
+                => ['required'],
+
             'ticket'
                 => ['not_null'],
 
@@ -72,7 +90,6 @@ class TicketReplyPagingService extends Service {
     public static function getArrTraits()
     {
         return [
-            AuthUserRequiringService::class,
             PagingService::class
         ];
     }

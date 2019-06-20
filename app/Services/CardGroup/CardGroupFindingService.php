@@ -4,8 +4,8 @@ namespace App\Services\CardGroup;
 
 use App\Database\Models\CardGroup;
 use App\Services\PermittedUserRequiringService;
-use App\Services\FindingService;
 use App\Service;
+use App\Services\FindingService;
 
 class CardGroupFindingService extends Service {
 
@@ -13,7 +13,7 @@ class CardGroupFindingService extends Service {
     {
         return [
             'model'
-                => 'card_group of {{id}}'
+                => 'card_group for {{id}}'
         ];
     }
 
@@ -53,8 +53,8 @@ class CardGroupFindingService extends Service {
     public static function getArrTraits()
     {
         return [
-            PermittedUserRequiringService::class,
-            FindingService::class
+            FindingService::class,
+            PermittedUserRequiringService::class
         ];
     }
 

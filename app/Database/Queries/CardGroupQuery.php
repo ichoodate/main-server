@@ -13,7 +13,7 @@ class CardGroupQuery extends Query {
     {
         $subQuery = $this->qSelect(CardGroup::ID)->getQuery();
 
-        return inst(Card::class)->aliasQuery()
+        return inst(Card::class)->query()
             ->qWhereIn(Card::GROUP_ID, $subQuery);
     }
 
@@ -21,7 +21,7 @@ class CardGroupQuery extends Query {
     {
         $subQuery = $this->qSelect(CardGroup::USER_ID)->getQuery();
 
-        return inst(User::class)->aliasQuery()
+        return inst(User::class)->query()
             ->qWhereIn(User::ID, $subQuery);
     }
 

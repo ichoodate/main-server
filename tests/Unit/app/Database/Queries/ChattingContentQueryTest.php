@@ -5,6 +5,7 @@ namespace Tests\Unit\App\Database\Queries;
 use App\Database\Models\ChattingContent;
 use App\Database\Models\Match;
 use App\Database\Models\User;
+use Tests\Unit\App\Database\Queries\_TestCase;
 
 class ChattingContentQueryTest extends _TestCase {
 

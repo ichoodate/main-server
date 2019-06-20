@@ -13,7 +13,7 @@ class TicketQuery extends Query {
     {
         $subQuery = $this->qSelect(Ticket::ID)->getQuery();
 
-        return inst(Reply::class)->aliasQuery()
+        return inst(Reply::class)->query()
             ->qWhereIn(Reply::TICKET_ID, $subQuery);
     }
 
@@ -21,7 +21,7 @@ class TicketQuery extends Query {
     {
         $subQuery = $this->qSelect(Ticket::WRITER_ID)->getQuery();
 
-        return inst(User::class)->aliasQuery()
+        return inst(User::class)->query()
             ->qWhereIn(User::ID, $subQuery);
     }
 

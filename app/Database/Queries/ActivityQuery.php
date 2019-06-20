@@ -14,7 +14,7 @@ class ActivityQuery extends Query {
     {
         $subQuery = $this->qSelect(Activity::RELATED_ID)->getQuery();
 
-        return inst(Obj::class)->aliasQuery()
+        return inst(Obj::class)->query()
             ->qWhereIn(Obj::ID, $subQuery);
     }
 
@@ -22,7 +22,7 @@ class ActivityQuery extends Query {
     {
         $subQuery = $this->qSelect(Activity::USER_ID)->getQuery();
 
-        return inst(User::class)->aliasQuery()
+        return inst(User::class)->query()
             ->qWhereIn(User::ID, $subQuery);
     }
 

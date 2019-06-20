@@ -4,6 +4,8 @@ namespace Tests\Unit\App\Services\ChattingContent;
 
 use App\Database\Models\ChattingContent;
 use App\Database\Models\Match;
+use App\Database\Models\User;
+use App\Services\FindingService;
 use App\Services\Match\MatchFindingService;
 use Tests\Unit\App\Services\_TestCase;
 
@@ -13,13 +15,23 @@ class ChattingContentFindingServiceTest extends _TestCase {
     {
         $this->verifyArrBindNames([
             'model'
-                => 'chatting_content of {{id}}'
+                => 'chatting_content for {{id}}'
         ]);
     }
 
     public function testArrRuleLists()
     {
-        $this->verifyArrRuleLists([]);
+        $this->verifyArrRuleLists([
+           'auth_user'
+                => ['required']
+         ]);
+    }
+
+    public function testArrTraits()
+    {
+        $this->verifyArrTraits([
+            FindingService::class
+        ]);
     }
 
     public function testLoaderMatch()

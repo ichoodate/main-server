@@ -2,11 +2,10 @@
 
 namespace App\Services\Notification;
 
-use App\Database\Models\Activity;
 use App\Database\Models\Notification;
-use App\Services\AuthUserRequiringService;
-use App\Services\PagingService;
 use App\Service;
+use App\Services\PagingService;
+use App\Services\Notification\NotificationFindingService;
 
 class NotificationPagingService extends Service {
 
@@ -28,6 +27,21 @@ class NotificationPagingService extends Service {
      public static function getArrLoaders()
     {
         return [
+            'cursor' => ['auth_user', 'cursor_id', function ($authUser, $cursorId) {
+
+                return [NotificationFindingService::class, [
+                    'auth_user'
+                        => $authUser,
+                    'id'
+                        => $cursorId
+                ], [
+                    'auth_user'
+                        => '{{auth_user}}',
+                    'id'
+                        => '{{cursor_id}}'
+                ]];
+            }],
+
             'model_class' => [function () {
 
                 return Notification::class;
@@ -42,13 +56,15 @@ class NotificationPagingService extends Service {
 
     public static function getArrRuleLists()
     {
-        return [];
+        return [
+            'auth_user'
+                => ['required']
+        ];
     }
 
     public static function getArrTraits()
     {
         return [
-            AuthUserRequiringService::class,
             PagingService::class
         ];
     }

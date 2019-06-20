@@ -13,7 +13,7 @@ class CoinQuery extends Query {
     {
         $subQuery = $this->qSelect(Coin::USER_ID)->getQuery();
 
-        return inst(User::class)->aliasQuery()
+        return inst(User::class)->query()
             ->qWhereIn(User::ID, $subQuery);
     }
 
@@ -21,7 +21,7 @@ class CoinQuery extends Query {
     {
         $subQuery = $this->qSelect(Coin::RELATED_ID)->getQuery();
 
-        return inst(Obj::class)->aliasQuery()
+        return inst(Obj::class)->query()
             ->qWhereIn(Obj::ID, $subQuery);
     }
 

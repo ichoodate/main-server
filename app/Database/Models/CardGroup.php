@@ -10,16 +10,17 @@ class CardGroup extends Model {
 
     protected $table = 'card_groups';
     protected $casts = [
-        'id' => 'integer',
-        'user_id' => 'integer'
+        self::ID => 'integer',
+        self::USER_ID => 'integer'
     ];
-    protected $visible = [
+    protected $fillable = [
         self::ID,
         self::USER_ID,
         self::TYPE,
         self::CREATED_AT
     ];
 
+    const ID         = 'id';
     const CARDS      = 'cards';
     const USER       = 'user';
     const USER_ID    = 'user_id';
@@ -31,15 +32,30 @@ class CardGroup extends Model {
         self::TYPE_DAILY
     ];
 
+    public function getExpandable()
+    {
+        return ['cards', 'user'];
+    }
+
+    public function cards()
+    {
+        return $this->hasMany(Card::class, 'group_id', 'id');
+    }
+
     public function cardQuery()
     {
-        return inst(Card::class)->aliasQuery()
+        return inst(Card::class)->query()
             ->qWhere(Card::GROUP_ID, $this->{static::ID});
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
     public function userQuery()
     {
-        return inst(User::class)->aliasQuery()
+        return inst(User::class)->query()
             ->qWhere(User::ID, $this->{static::USER_ID});
     }
 

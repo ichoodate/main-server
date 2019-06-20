@@ -1,18 +1,19 @@
 <?php
 
-namespace App\Database\Models;
+namespace App\Database\Models\Keyword;
 
 use App\Database\Model;
 
 class Hobby extends Model {
 
     protected $table = 'keyword_hobbies';
-    protected $visible = [
+    protected $fillable = [
         self::ID,
         self::TYPE
     ];
 
-    const TYPE   = 'type';
+    const ID   = 'id';
+    const TYPE = 'type';
 
     const TYPE_VALUES = [
         'hobby1',
@@ -21,5 +22,10 @@ class Hobby extends Model {
         'hobby4',
         'hobby5'
     ];
+
+    public function getExpandable()
+    {
+        return [];
+    }
 
 }

@@ -21,7 +21,7 @@ abstract class _TestCase extends TestCase {
         QueryMocker::getQuery($pQuery, $pBaseQuery);
 
         InstanceMocker::add($fClass, $fModel = Mockery::mock());
-        ModelMocker::aliasQuery($fModel, $fQuery = Mockery::mock());
+        ModelMocker::query($fModel, $fQuery = Mockery::mock());
         QueryMocker::qWhereIn($fQuery, $fIdName, $pBaseQuery);
 
         foreach ( $fWheres as $key => $value )
@@ -42,7 +42,7 @@ abstract class _TestCase extends TestCase {
         QueryMocker::getQuery($fQuery, $fBaseQuery);
 
         InstanceMocker::add($pClass, $pModel = Mockery::mock());
-        ModelMocker::aliasQuery($pModel, $pQuery = Mockery::mock());
+        ModelMocker::query($pModel, $pQuery = Mockery::mock());
         QueryMocker::qWhereIn($pQuery, $pIdName, $fBaseQuery);
 
         $this->assertEquals($fQuery->{$name . 'Query'}(), $pQuery);
@@ -50,11 +50,11 @@ abstract class _TestCase extends TestCase {
 
     public function modelClass()
     {
-        $className  = basename(static::class());
-        $modelName  = preg_replace('/Query$/', '', $className);
-        $modelClass = 'App\\Database\\Models\\' . $modelName;
+        $class    = static::class();
+        $path     = str_replace('App\\Database\\Queries\\', '', $class);
+        $baseName = preg_replace('/Query$/', '', $path);
 
-        return $modelClass;
+        return 'App\\Database\\Models\\' . $baseName;
     }
 
     public static function testTestMethodExists()

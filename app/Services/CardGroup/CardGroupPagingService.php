@@ -3,8 +3,8 @@
 namespace App\Services\CardGroup;
 
 use App\Database\Models\CardGroup;
-use App\Services\AuthUserRequiringService;
 use App\Service;
+use App\Services\PagingService;
 
 class CardGroupPagingService extends Service {
 
@@ -26,6 +26,21 @@ class CardGroupPagingService extends Service {
     public static function getArrLoaders()
     {
         return [
+            'cursor' => ['auth_user', 'cursor_id', function ($authUser, $cursorId) {
+
+                return [CardGroupFindingService::class, [
+                    'auth_user'
+                        => $authUser,
+                    'id'
+                        => $cursorId
+                ], [
+                    'auth_user'
+                        => '{{auth_user}}',
+                    'id'
+                        => '{{cursor_id}}'
+                ]];
+            }],
+
             'model_class' => [function () {
 
                 return CardGroup::class;
@@ -40,13 +55,15 @@ class CardGroupPagingService extends Service {
 
     public static function getArrRuleLists()
     {
-        return [];
+        return [
+            'auth_user'
+                => ['required']
+        ];
     }
 
     public static function getArrTraits()
     {
         return [
-            AuthUserRequiringService::class,
             PagingService::class
         ];
     }

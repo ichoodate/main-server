@@ -3,6 +3,8 @@
 namespace Tests\Unit\App\Services\Notice;
 
 use App\Database\Models\Notice;
+use App\Services\AdminRoleExistingService;
+use App\Services\CreatingService;
 use Tests\Unit\App\Database\Models\_Mocker as ModelMocker;
 use Tests\Unit\App\Services\_TestCase;
 
@@ -16,6 +18,9 @@ class NoticeCreatingServiceTest extends _TestCase {
     public function testArrRuleLists()
     {
         $this->verifyArrRuleLists([
+            'admin_role'
+                => ['required'],
+
             'description'
                 => ['required', 'string'],
 
@@ -24,6 +29,14 @@ class NoticeCreatingServiceTest extends _TestCase {
 
             'type'
                 => ['required', 'in:' . implode(',', Notice::TYPE_VALUES)]
+        ]);
+    }
+
+    public function testArrTraits()
+    {
+        $this->verifyArrTraits([
+            AdminRoleExistingService::class,
+            CreatingService::class
         ]);
     }
 

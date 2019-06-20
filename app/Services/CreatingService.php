@@ -20,6 +20,11 @@ class CreatingService extends Service {
     public static function getArrLoaders()
     {
         return [
+            'created' => [function () {
+
+                throw new \Exception;
+            }],
+
             'result' => ['created', function ($created) {
 
                 return $created;

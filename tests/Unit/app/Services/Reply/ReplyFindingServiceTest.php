@@ -5,6 +5,7 @@ namespace Tests\Unit\App\Services\Reply;
 use App\Database\Models\Ticket;
 use App\Database\Models\Reply;
 use App\Database\Models\User;
+use App\Services\FindingService;
 use App\Services\Ticket\TicketFindingService;
 use Tests\Unit\App\Services\_TestCase;
 
@@ -14,13 +15,23 @@ class ReplyFindingServiceTest extends _TestCase {
     {
         $this->verifyArrBindNames([
             'model'
-                => 'reply of {{id}}'
+                => 'reply for {{id}}'
         ]);
     }
 
     public function testArrRuleLists()
     {
-        $this->verifyArrRuleLists([]);
+        $this->verifyArrRuleLists([
+            'auth_user'
+                => ['required']
+        ]);
+    }
+
+    public function testArrTraits()
+    {
+        $this->verifyArrTraits([
+            FindingService::class
+        ]);
     }
 
     public function testLoaderModelClass()

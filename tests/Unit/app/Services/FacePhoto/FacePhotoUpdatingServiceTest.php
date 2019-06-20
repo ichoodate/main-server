@@ -20,9 +20,17 @@ class FacePhotoUpdatingServiceTest extends _TestCase {
     public function testArrRuleLists()
     {
         $this->verifyArrRuleLists([
+            'auth_user'
+                => ['required'],
+
             'upload'
                 => ['required', 'base64_image']
         ]);
+    }
+
+    public function testArrTraits()
+    {
+        $this->verifyArrTraits([]);
     }
 
     public function testCallbackAuthUser()
@@ -34,17 +42,17 @@ class FacePhotoUpdatingServiceTest extends _TestCase {
             $authUser = $this->factory(User::class)->make();
 
             InstanceMocker::add(FacePhoto::class, $inst);
-            ModelMocker::aliasQuery($inst, $query);
+            ModelMocker::query($inst, $query);
             QueryMocker::qWhere($query, FacePhoto::USER_ID, $authUser->getKey());
             QueryMocker::delete($query);
 
             $proxy->data->put('auth_user', $authUser);
 
-            $this->verifyCallback($serv, 'auth_user.');
+            $this->verifyCallback($serv, 'auth_user');
         });
     }
 
-    public function testLoaderCreated()
+    public function testLoaderResult()
     {
         $this->when(function ($proxy, $serv) {
 
@@ -63,7 +71,7 @@ class FacePhotoUpdatingServiceTest extends _TestCase {
             $proxy->data->put('auth_user', $authUser);
             $proxy->data->put('upload', $upload);
 
-            $this->verifyLoader($serv, 'created', $return);
+            $this->verifyLoader($serv, 'result', $return);
         });
     }
 

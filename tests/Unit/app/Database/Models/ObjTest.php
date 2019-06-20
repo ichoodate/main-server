@@ -8,20 +8,21 @@ use App\Database\Models\CardGroup;
 use App\Database\Models\Coin;
 use App\Database\Models\ChattingContent;
 use App\Database\Models\FacePhoto;
+use App\Database\Models\UserIdealTypeKwdPvt;
 use App\Database\Models\Keyword;
 use App\Database\Models\Obj;
 use App\Database\Models\Match;
 use App\Database\Models\Notification;
 use App\Database\Models\Payment;
 use App\Database\Models\Popularity;
-use App\Database\Models\Profilable;
+use App\Database\Models\UserSelfKwdPvt;
 use App\Database\Models\ProfilePhoto;
 use App\Database\Models\Notice;
 use App\Database\Models\Ticket;
 use App\Database\Models\Reply;
 use App\Database\Models\Role;
-use App\Database\Models\RoleUser;
 use App\Database\Models\User;
+use Tests\Unit\App\Database\Models\_TestCase;
 
 class ObjTest extends _TestCase {
 
@@ -52,14 +53,14 @@ class ObjTest extends _TestCase {
                 => FacePhoto::class,
             Obj::TYPE_KEYWORD_AGE_RANGE
                 => Keyword\AgeRange::class,
+            Obj::TYPE_KEYWORD_BIRTH_YEAR
+                => Keyword\BirthYear::class,
             Obj::TYPE_KEYWORD_BLOOD
                 => Keyword\Blood::class,
             Obj::TYPE_KEYWORD_BODY
                 => Keyword\Body::class,
             Obj::TYPE_KEYWORD_CAREER
                 => Keyword\Career::class,
-            Obj::TYPE_KEYWORD_CHARACTER
-                => Keyword\Character::class,
             Obj::TYPE_KEYWORD_COUNTRY
                 => Keyword\Country::class,
             Obj::TYPE_KEYWORD_DRINK
@@ -74,16 +75,18 @@ class ObjTest extends _TestCase {
                 => Keyword\Nationality::class,
             Obj::TYPE_KEYWORD_RELIGION
                 => Keyword\Religion::class,
-            Obj::TYPE_KEYWORD_RESIDENCE_COUNTRY
-                => Keyword\ResidenceCountry::class,
-            Obj::TYPE_KEYWORD_RESIDENCE_STATE
-                => Keyword\ResidenceState::class,
+            Obj::TYPE_KEYWORD_RESIDENCE
+                => Keyword\Residence::class,
             Obj::TYPE_KEYWORD_SMOKE
                 => Keyword\Smoke::class,
-            Obj::TYPE_KEYWORD_STATE
-                => Keyword\State::class,
+            Obj::TYPE_KEYWORD_STATURE
+                => Keyword\Stature::class,
             Obj::TYPE_KEYWORD_STATURE_RANGE
                 => Keyword\StatureRange::class,
+            Obj::TYPE_KEYWORD_WEIGHT
+                => Keyword\Weight::class,
+            Obj::TYPE_KEYWORD_WEIGHT_RANGE
+                => Keyword\WeightRange::class,
             Obj::TYPE_MATCH
                 => Match::class,
             Obj::TYPE_NOTICE
@@ -94,8 +97,6 @@ class ObjTest extends _TestCase {
                 => Payment::class,
             Obj::TYPE_POPULARITY
                 => Popularity::class,
-            Obj::TYPE_PROFILABLE
-                => Profilable::class,
             Obj::TYPE_PROFILE_PHOTO
                 => ProfilePhoto::class,
             Obj::TYPE_QUESTION_POST
@@ -104,10 +105,12 @@ class ObjTest extends _TestCase {
                 => Reply::class,
             Obj::TYPE_ROLE
                 => Role::class,
-            Obj::TYPE_ROLE_USER
-                => RoleUser::class,
             Obj::TYPE_USER
-                => User::class
+                => User::class,
+            Obj::TYPE_USER_IDEAL_TYPE_KWD_PVT
+                => UserIdealTypeKwdPvt::class,
+            Obj::TYPE_USER_SELF_KWD_PVT
+                => UserSelfKwdPvt::class,
         ] as $type => $class )
         {
             call_user_func($func, $type, $class);

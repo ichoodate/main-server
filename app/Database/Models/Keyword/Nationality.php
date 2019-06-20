@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Database\Models;
+namespace App\Database\Models\Keyword;
 
 use App\Database\Model;
-use App\Database\Models\Keyword\Country;
 
 class Nationality extends Model {
 
     protected $table = 'keyword_nationalities';
-    protected $visible = [
+    protected $fillable = [
         self::ID,
-        self::TYPE
+        self::COUNTRY_ID
     ];
 
+    const ID         = 'id';
     const COUNTRY_ID = 'country_id';
 
     const ENTITIES = [
@@ -20,9 +20,19 @@ class Nationality extends Model {
         self::COUNTRY_ID
     ];
 
+    public function getExpandable()
+    {
+        return ['country'];
+    }
+
+    public function country()
+    {
+        return $this->belongsTo(Country::class, 'country_id', 'id');
+    }
+
     public function countryQuery()
     {
-        return inst(Country::class)->aliasQuery()
+        return inst(Country::class)->query()
             ->qWhere(Country::ID, $this->{static::COUNTRY_ID});
     }
 

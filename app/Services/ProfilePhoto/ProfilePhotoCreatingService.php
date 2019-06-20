@@ -4,7 +4,7 @@ namespace App\Services\ProfilePhoto;
 
 use App\Database\Models\ProfilePhoto;
 use App\Service;
-use App\Services\AuthUserRequiringService;
+use App\Services\CreatingService;
 
 class ProfilePhotoCreatingService extends Service {
 
@@ -21,21 +21,12 @@ class ProfilePhotoCreatingService extends Service {
     public static function getArrLoaders()
     {
         return [
-            'created' => ['uploads', 'auth_user', function ($uploads, $authUser) {
+            'created' => ['upload', 'auth_user', function ($upload, $authUser) {
 
-                $photos = inst(ProfilePhoto::class)->newCollection();
-
-                foreach ( $uploads as $i => $upload )
-                {
-                    $photo = inst(ProfilePhoto::class)->create([
-                        ProfilePhoto::USER_ID => $authUser->getKey(),
-                        ProfilePhoto::DATA    => $upload
-                    ]);
-
-                    $photos->push($photo);
-                }
-
-                return $photos;
+                return inst(ProfilePhoto::class)->create([
+                    ProfilePhoto::USER_ID => $authUser->getKey(),
+                    ProfilePhoto::DATA    => $upload
+                ]);
             }]
         ];
     }
@@ -48,18 +39,18 @@ class ProfilePhotoCreatingService extends Service {
     public static function getArrRuleLists()
     {
         return [
-            'uploads'
-                => ['required', 'array'],
+            'auth_user'
+                => ['required'],
 
-            'uploads.*'
-                => ['base64_image']
+            'upload'
+                => ['required', 'base64']
         ];
     }
 
     public static function getArrTraits()
     {
         return [
-            AuthUserRequiringService::class
+            CreatingService::class
         ];
     }
 

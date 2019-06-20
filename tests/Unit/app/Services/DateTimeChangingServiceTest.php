@@ -6,14 +6,17 @@ class DateTimeChangingServiceTest extends _TestCase {
 
     public function testArrBindNames()
     {
-        $this->verifyArrBindNames([
-        ]);
+        $this->verifyArrBindNames([]);
     }
 
     public function testArrRuleLists()
     {
-        $this->verifyArrRuleLists([
-        ]);
+        $this->verifyArrRuleLists([]);
+    }
+
+    public function testArrTraits()
+    {
+        $this->verifyArrTraits([]);
     }
 
     public function testLoaderAfterDatetimeObj()

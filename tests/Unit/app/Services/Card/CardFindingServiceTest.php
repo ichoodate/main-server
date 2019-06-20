@@ -4,7 +4,8 @@ namespace Tests\Unit\App\Services\Card;
 
 use App\Database\Models\Card;
 use App\Database\Models\User;
-use App\Services\Card\CardFindingService as Serv;
+use App\Services\FindingService;
+use App\Services\PermittedUserRequiringService;
 use Tests\Unit\App\Services\_TestCase;
 
 class CardFindingServiceTest extends _TestCase {
@@ -13,13 +14,21 @@ class CardFindingServiceTest extends _TestCase {
     {
         $this->verifyArrBindNames([
             'model'
-                => 'card of {{id}}'
+                => 'card for {{id}}'
         ]);
     }
 
     public function testArrRuleLists()
     {
         $this->verifyArrRuleLists([]);
+    }
+
+    public function testArrTraits()
+    {
+        $this->verifyArrTraits([
+            PermittedUserRequiringService::class,
+            FindingService::class
+        ]);
     }
 
     public function testLoaderModelClass()

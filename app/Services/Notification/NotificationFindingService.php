@@ -4,6 +4,8 @@ namespace App\Services\Notification;
 
 use App\Database\Models\Notification;
 use App\Service;
+use App\Services\FindingService;
+use App\Services\PermittedUserRequiringService;
 
 class NotificationFindingService extends Service {
 
@@ -11,7 +13,7 @@ class NotificationFindingService extends Service {
     {
         return [
             'model'
-                => 'notification of {{id}}'
+                => 'notification for {{id}}'
         ];
     }
 
@@ -51,8 +53,8 @@ class NotificationFindingService extends Service {
     public static function getArrTraits()
     {
         return [
-            PermittedUserRequiringService::class,
-            FindingService::class
+            FindingService::class,
+            PermittedUserRequiringService::class
         ];
     }
 

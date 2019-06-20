@@ -3,17 +3,13 @@
 namespace App\Services;
 
 use App\Service;
+use App\Services\ListingService;
 
 class RandommingService extends Service {
 
     public static function getArrBindNames()
     {
-        return [
-            'limit' => [function () {
-
-                throw new \Exception;
-            }]
-        ];
+        return [];
     }
 
     public static function getArrCallbackLists()
@@ -44,7 +40,8 @@ class RandommingService extends Service {
     public static function getArrRuleLists()
     {
         return [
-            'limit' => ['integer', 'max:100']
+            'limit'
+                => ['integer', 'max:100']
         ];
     }
 

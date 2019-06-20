@@ -13,7 +13,7 @@ class ReplyQuery extends Query {
     {
         $subQuery = $this->qSelect(Reply::TICKET_ID)->getQuery();
 
-        return inst(Ticket::class)->aliasQuery()
+        return inst(Ticket::class)->query()
             ->qWhereIn(Ticket::ID, $subQuery);
     }
 
@@ -21,7 +21,7 @@ class ReplyQuery extends Query {
     {
         $subQuery = $this->qSelect(Reply::WRITER_ID)->getQuery();
 
-        return inst(User::class)->aliasQuery()
+        return inst(User::class)->query()
             ->qWhereIn(User::ID, $subQuery);
     }
 

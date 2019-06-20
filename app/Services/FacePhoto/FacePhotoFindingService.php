@@ -4,14 +4,17 @@ namespace App\Services\FacePhoto;
 
 use App\Database\Models\FacePhoto;
 use App\Service;
-use App\Services\PermittedUserRequiringService;
 use App\Services\FindingService;
+use App\Services\PermittedUserRequiringService;
 
 class FacePhotoFindingService extends Service {
 
     public static function getArrBindNames()
     {
-        return [];
+        return [
+            'model'
+                => 'face_photo for {{id}}'
+        ];
     }
 
     public static function getArrCallbackLists()
@@ -34,7 +37,6 @@ class FacePhotoFindingService extends Service {
                     return $authUser;
                 }
             }]
-
         ];
     }
 
@@ -51,8 +53,8 @@ class FacePhotoFindingService extends Service {
     public static function getArrTraits()
     {
         return [
-            PermittedUserRequiringService::class,
-            FindingService::class
+            FindingService::class,
+            PermittedUserRequiringService::class
         ];
     }
 

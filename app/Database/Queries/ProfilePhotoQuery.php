@@ -12,7 +12,7 @@ class ProfilePhotoQuery extends Query {
     {
         $subQuery = $this->qSelect(ProfilePhoto::USER_ID)->getQuery();
 
-        return inst(User::class)->aliasQuery()
+        return inst(User::class)->query()
             ->qWhereIn(User::ID, $subQuery);
     }
 

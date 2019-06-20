@@ -5,6 +5,7 @@ namespace Database\Seeds;
 use App\Database\Models\Match;
 use App\Database\Models\Obj;
 use App\Database\Models\User;
+use Database\TableSeeder;
 
 class MatchTableSeeder extends TableSeeder {
 
@@ -12,28 +13,37 @@ class MatchTableSeeder extends TableSeeder {
     {
         for ( $i = 0; $i < User::count(); $i++)
         {
-            $user           = User::skip($i)->first();
-            $womanQuery     = User::qWhere(User::GENDER, User::GENDER_WOMAN);
-            $manQuery       = User::qWhere(User::GENDER, User::GENDER_MAN);
-            $otherUserQuery = $user->{User::GENDER} == User::GENDER_MAN ? $womanQuery : $manQuery;
-            $otherUserCount = (clone $otherUserQuery)->count();
+            $user = User::skip($i)->first();
+
+            if ( $user->{User::GENDER} == User::GENDER_MAN )
+            {
+                $userIdColumn      = Match::MAN_ID;
+                $otherUserIdColumn = Match::WOMAN_ID;
+                $otherUserQuery    = User::where('gender', User::GENDER_WOMAN);
+            }
+            else
+            {
+                $otherUserIdColumn = Match::MAN_ID;
+                $userIdColumn      = Match::WOMAN_ID;
+                $otherUserQuery    = User::where('gender', User::GENDER_MAN);
+            }
+
+            $otherUserCount = $otherUserQuery->count();
 
             for ( $j = 0; $j < rand(1, 6); $j++)
             {
-                $otherUser = (clone $otherUserQuery)->skip(rand(0, $otherUserCount - 1))->first();
+                $otherUser = $otherUserQuery->skip(rand(0, $otherUserCount - 1))->first();
 
-                $userIdColumn      = $user->{User::GENDER} == User::GENDER_MAN ? Match::MAN_ID : Match::WOMAN_ID;
-                $otherUserIdColumn = $otherUser->{User::GENDER} == User::GENDER_MAN ? Match::MAN_ID : Match::WOMAN_ID;
-
-                $match = Match::qWhere($userIdColumn, $user->getKey())->qWhere($otherUserIdColumn, $otherUser->getKey())->first();
+                $match = Match::query()
+                    ->where($userIdColumn, $user->getKey())
+                    ->where($otherUserIdColumn, $otherUser->getKey())->first();
 
                 if ( empty($match) )
                 {
-                    Match::create([
+                    $this->factory(Match::class)->create([
                         $userIdColumn      => $user->getKey(),
                         $otherUserIdColumn => $otherUser->getKey()
                     ]);
-
                 }
             }
         }

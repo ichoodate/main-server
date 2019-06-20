@@ -5,14 +5,14 @@ namespace App\Database\Queries;
 use App\Database\Models\Activity;
 use App\Database\Models\Card;
 use App\Database\Models\FacePhoto;
-use App\Database\Models\IdealTypable;
+use App\Database\Models\UserIdealTypeKwdPvt;
 use App\Database\Models\Match;
-use App\Database\Models\Profilable;
+use App\Database\Models\UserSelfKwdPvt;
 use App\Database\Models\ProfilePhoto;
 use App\Database\Models\Popularity;
 use App\Database\Models\Ticket;
 use App\Database\Models\Reply;
-use App\Database\Models\RoleUser;
+use App\Database\Models\Role;
 use App\Database\Models\User;
 use App\Database\Query;
 
@@ -22,7 +22,7 @@ class UserQuery extends Query {
     {
         $subQuery = $this->qSelect(User::ID)->getQuery();
 
-        return inst(Activity::class)->aliasQuery()
+        return inst(Activity::class)->query()
             ->qWhereIn(Activity::USER_ID, $subQuery);
     }
 
@@ -30,7 +30,7 @@ class UserQuery extends Query {
     {
         $subQuery = $this->qSelect(User::ID)->getQuery();
 
-        return inst(Card::class)->aliasQuery()
+        return inst(Card::class)->query()
             ->qWhereIn(Card::CHOOSER_ID, $subQuery);
     }
 
@@ -38,39 +38,39 @@ class UserQuery extends Query {
     {
         $subQuery = $this->qSelect(User::ID)->getQuery();
 
-        return inst(FacePhoto::class)->aliasQuery()
+        return inst(FacePhoto::class)->query()
             ->qWhereIn(FacePhoto::USER_ID, $subQuery);
     }
 
-    public function idealTypableQuery()
+    public function userIdealTypeKwdPvtQuery()
     {
         $subQuery = $this->qSelect(User::ID)->getQuery();
 
-        return inst(IdealTypable::class)->aliasQuery()
-            ->qWhereIn(IdealTypable::USER_ID, $subQuery);
+        return inst(UserIdealTypeKwdPvt::class)->query()
+            ->qWhereIn(UserIdealTypeKwdPvt::USER_ID, $subQuery);
     }
 
-    public function profilableQuery()
+    public function userSelfKwdPvtQuery()
     {
         $subQuery = $this->qSelect(User::ID)->getQuery();
 
-        return inst(Profilable::class)->aliasQuery()
-            ->qWhereIn(Profilable::USER_ID, $subQuery);
+        return inst(UserSelfKwdPvt::class)->query()
+            ->qWhereIn(UserSelfKwdPvt::USER_ID, $subQuery);
     }
 
     public function profilePhotoQuery()
     {
         $subQuery = $this->qSelect(User::ID)->getQuery();
 
-        return inst(ProfilePhoto::class)->aliasQuery()
+        return inst(ProfilePhoto::class)->query()
             ->qWhereIn(ProfilePhoto::USER_ID, $subQuery);
     }
 
-    public function questionQuery()
+    public function ticketQuery()
     {
         $subQuery = $this->qSelect(User::ID)->getQuery();
 
-        return inst(Ticket::class)->aliasQuery()
+        return inst(Ticket::class)->query()
             ->qWhereIn(Ticket::WRITER_ID, $subQuery);
     }
 
@@ -78,7 +78,7 @@ class UserQuery extends Query {
     {
         $subQuery = $this->qSelect(User::ID)->getQuery();
 
-        return inst(Popularity::class)->aliasQuery()
+        return inst(Popularity::class)->query()
             ->qWhereIn(Popularity::RECEIVER_ID, $subQuery);
     }
 
@@ -86,23 +86,23 @@ class UserQuery extends Query {
     {
         $subQuery = $this->qSelect(User::ID)->getQuery();
 
-        return inst(Reply::class)->aliasQuery()
+        return inst(Reply::class)->query()
             ->qWhereIn(Reply::WRITER_ID, $subQuery);
     }
 
-    public function roleUserQuery()
+    public function roleQuery()
     {
         $subQuery = $this->qSelect(User::ID)->getQuery();
 
-        return inst(RoleUser::class)->aliasQuery()
-            ->qWhereIn(RoleUser::USER_ID, $subQuery);
+        return inst(Role::class)->query()
+            ->qWhereIn(Role::USER_ID, $subQuery);
     }
 
     public function sentPopularityQuery()
     {
         $subQuery = $this->qSelect(User::ID)->getQuery();
 
-        return inst(Popularity::class)->aliasQuery()
+        return inst(Popularity::class)->query()
             ->qWhereIn(Popularity::SENDER_ID, $subQuery);
     }
 
@@ -110,7 +110,7 @@ class UserQuery extends Query {
     {
         $subQuery = $this->qSelect(User::ID)->getQuery();
 
-        return inst(Card::class)->aliasQuery()
+        return inst(Card::class)->query()
             ->qWhereIn(Card::SHOWNER_ID, $subQuery);
     }
 

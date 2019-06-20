@@ -4,7 +4,9 @@ namespace Tests\Unit\App\Services\CardGroup;
 
 use App\Database\Models\Card;
 use App\Database\Models\CardGroup;
-use App\Services\CardGroup\CardGroupPagingServiceTest as Serv;
+use App\Database\Models\User;
+use App\Services\PagingService;
+use App\Services\CardGroup\CardGroupFindingService;
 use Tests\Unit\App\Database\Queries\_Mocker as QueryMocker;
 use Tests\Unit\App\Services\_TestCase;
 
@@ -17,15 +19,25 @@ class CardGroupPagingServiceTest extends _TestCase {
 
     public function testArrRuleLists()
     {
-        $this->verifyArrRuleLists([]);
+        $this->verifyArrRuleLists([
+            'auth_user'
+                => ['required']
+        ]);
+    }
+
+    public function testArrTraits()
+    {
+        $this->verifyArrTraits([
+            PagingService::class
+        ]);
     }
 
     public function testCallbackQueryAuthUser()
     {
         $this->when(function ($proxy, $serv) {
 
-            $query       = $this->mMock();
-            $authUser    = $this->factory(User::class)->make();
+            $query    = $this->mMock();
+            $authUser = $this->factory(User::class)->make();
 
             QueryMocker::qWhere($query, CardGroup::USER_ID, $authUser->getKey());
 
@@ -33,6 +45,31 @@ class CardGroupPagingServiceTest extends _TestCase {
             $proxy->data->put('auth_user', $authUser);
 
             $this->verifyCallback($serv, 'query.auth_user');
+        });
+    }
+
+    public function testLoaderCursor()
+    {
+        $this->when(function ($proxy, $serv) {
+
+            $authUser = $this->uniqueString();
+            $id       = $this->uniqueString();
+            $return   = [CardGroupFindingService::class, [
+                'auth_user'
+                    => $authUser,
+                'id'
+                    => $id
+            ], [
+                'auth_user'
+                    => '{{auth_user}}',
+                'id'
+                    => '{{id}}'
+            ]];
+
+            $proxy->data->put('auth_user', $authUser);
+            $proxy->data->put('id', $id);
+
+            $this->verifyLoader($serv, 'cursor', $return);
         });
     }
 

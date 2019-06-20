@@ -10,16 +10,24 @@ class PermittedUserRequiringServiceTest extends _TestCase {
     {
         $this->verifyArrBindNames([
             'permitted_user'
-                => 'permitted {{auth_user}} for {{model}}'
+                => '{{auth_user}} who is related user of {{model}}'
         ]);
     }
 
     public function testArrRuleLists()
     {
         $this->verifyArrRuleLists([
+            'auth_user'
+                => ['required'],
+
             'permitted_user'
                 => ['required']
         ]);
+    }
+
+    public function testArrTraits()
+    {
+        $this->verifyArrTraits([]);
     }
 
     public function testLoaderPermittedUser()

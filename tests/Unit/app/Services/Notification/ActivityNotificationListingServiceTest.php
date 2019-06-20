@@ -4,6 +4,8 @@ namespace Tests\Unit\App\Services\Notification;
 
 use App\Database\Models\Activity;
 use App\Database\Models\Notification;
+use App\Database\Models\User;
+use App\Services\ListingService;
 use App\Services\Activity\ActivityFindingService;
 use Tests\Unit\App\Database\Queries\_Mocker as QueryMocker;
 use Tests\Unit\App\Services\_TestCase;
@@ -21,8 +23,18 @@ class ActivityNotificationListingServiceTest extends _TestCase {
     public function testArrRuleLists()
     {
         $this->verifyArrRuleLists([
+            'auth_user'
+                => ['required'],
+
             'activity_id'
                 => ['required', 'integer'],
+        ]);
+    }
+
+    public function testArrTraits()
+    {
+        $this->verifyArrTraits([
+            ListingService::class
         ]);
     }
 

@@ -6,16 +6,17 @@ use App\Database\Models\Activity;
 use App\Database\Models\Card;
 use App\Database\Models\CardAct;
 use App\Database\Models\FacePhoto;
-use App\Database\Models\IdealTypable;
+use App\Database\Models\UserIdealTypeKwdPvt;
 use App\Database\Models\Match;
 use App\Database\Models\MatchAct;
 use App\Database\Models\Popularity;
 use App\Database\Models\ProfilePhoto;
-use App\Database\Models\Profilable;
+use App\Database\Models\UserSelfKwdPvt;
 use App\Database\Models\Reply;
+use App\Database\Models\Role;
 use App\Database\Models\Ticket;
-use App\Database\Models\RoleUser;
 use App\Database\Models\User;
+use Tests\Unit\App\Database\Models\_TestCase;
 
 class UserTest extends _TestCase {
 
@@ -46,12 +47,12 @@ class UserTest extends _TestCase {
         );
     }
 
-    public function testIdealTypableQuery()
+    public function testUserIdealTypeKwdPvtQuery()
     {
         $this->assertHasOneOrManyQuery(
-            'idealTypable',
-            IdealTypable::class,
-            IdealTypable::USER_ID
+            'userIdealTypeKwdPvt',
+            UserIdealTypeKwdPvt::class,
+            UserIdealTypeKwdPvt::USER_ID
         );
     }
 
@@ -72,12 +73,12 @@ class UserTest extends _TestCase {
         ]);
     }
 
-    public function testProfilableQuery()
+    public function testUserSelfKwdPvtQuery()
     {
         $this->assertHasOneOrManyQuery(
-            'profilable',
-            Profilable::class,
-            Profilable::USER_ID
+            'userSelfKwdPvt',
+            UserSelfKwdPvt::class,
+            UserSelfKwdPvt::USER_ID
         );
     }
 
@@ -87,15 +88,6 @@ class UserTest extends _TestCase {
             'profilePhoto',
             ProfilePhoto::class,
             ProfilePhoto::USER_ID
-        );
-    }
-
-    public function testQuestionQuery()
-    {
-        $this->assertHasOneOrManyQuery(
-            'question',
-            Ticket::class,
-            Ticket::WRITER_ID
         );
     }
 
@@ -117,12 +109,12 @@ class UserTest extends _TestCase {
         );
     }
 
-    public function testRoleUserQuery()
+    public function testRoleQuery()
     {
         $this->assertHasOneOrManyQuery(
-            'roleUser',
-            RoleUser::class,
-            RoleUser::USER_ID
+            'role',
+            Role::class,
+            Role::USER_ID
         );
     }
 
@@ -141,6 +133,15 @@ class UserTest extends _TestCase {
             'shownerCard',
             Card::class,
             Card::SHOWNER_ID
+        );
+    }
+
+    public function testTicketQuery()
+    {
+        $this->assertHasOneOrManyQuery(
+            'ticket',
+            Ticket::class,
+            Ticket::WRITER_ID
         );
     }
 

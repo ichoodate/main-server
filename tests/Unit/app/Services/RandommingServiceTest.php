@@ -2,20 +2,28 @@
 
 namespace Tests\Unit\App\Services;
 
+use App\Services\ListingService;
 use Tests\Unit\App\Services\_TestCase;
 
 class RandommingServiceTest extends _TestCase {
 
     public function testArrBindNames()
     {
-        $this->verifyArrBindNames([
-        ]);
+        $this->verifyArrBindNames([]);
     }
 
     public function testArrRuleLists()
     {
         $this->verifyArrRuleLists([
-            'limit' => ['integer', 'max:100']
+            'limit'
+                => ['integer', 'max:100']
+        ]);
+    }
+
+    public function testArrTraits()
+    {
+        $this->verifyArrTraits([
+            ListingService::class
         ]);
     }
 

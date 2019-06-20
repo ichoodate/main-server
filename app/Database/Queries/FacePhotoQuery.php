@@ -12,7 +12,7 @@ class FacePhotoQuery extends Query {
     {
         $subQuery = $this->qSelect(FacePhoto::USER_ID)->getQuery();
 
-        return inst(User::class)->aliasQuery()
+        return inst(User::class)->query()
             ->qWhereIn(User::ID, $subQuery);
     }
 

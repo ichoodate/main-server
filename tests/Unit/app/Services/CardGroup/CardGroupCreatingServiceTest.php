@@ -6,8 +6,8 @@ use App\Database\Models\Card;
 use App\Database\Models\CardGroup;
 use App\Database\Models\Match;
 use App\Database\Models\User;
+use App\Services\CreatingService;
 use App\Services\Match\MatchCreatingService;
-use App\Services\CardGroup\CardGroupCreatingService as Serv;
 use Tests\_InstanceMocker as InstanceMocker;
 use Tests\Unit\App\Database\Models\_Mocker as ModelMocker;
 use Tests\Unit\App\Database\Queries\_Mocker as QueryMocker;
@@ -18,13 +18,21 @@ class CardGroupCreatingServiceTest extends _TestCase {
 
     public function testArrBindNames()
     {
-        $this->verifyArrBindNames([
-        ]);
+        $this->verifyArrBindNames([]);
     }
 
     public function testArrRuleLists()
     {
         $this->verifyArrRuleLists([
+            'auth_user'
+                => ['required']
+        ]);
+    }
+
+    public function testArrTraits()
+    {
+        $this->verifyArrTraits([
+            CreatingService::class
         ]);
     }
 
@@ -62,6 +70,17 @@ class CardGroupCreatingServiceTest extends _TestCase {
             $proxy->data->put('created', $created);
 
             $this->verifyLoader($serv, 'cards', $return);
+        });
+    }
+
+    public function testLoaderCreated()
+    {
+        $this->when(function ($proxy, $serv) {
+
+            $this->assertException(function () use ($serv) {
+
+                $this->resolveLoader($serv, 'created');
+            });
         });
     }
 

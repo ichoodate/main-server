@@ -19,12 +19,14 @@ class MatchCreatingServiceTest extends _TestCase {
     public function testArrRuleLists()
     {
         $this->verifyArrRuleLists([
-            'matching_users'
-                => ['required', 'array'],
-
-            'matching_users.*'
-                => ['not_null']
+            'auth_user'
+                => ['required']
         ]);
+    }
+
+    public function testArrTraits()
+    {
+        $this->verifyArrTraits([]);
     }
 
     public function testLoaderAuthUserIdField()
@@ -55,7 +57,7 @@ class MatchCreatingServiceTest extends _TestCase {
         $this->when(function ($proxy, $serv) {
 
             $authUser            = $this->factory(User::class)->make();
-            $newMatchingUserIds  = ['11', '22'];
+            $newMatchingUserIds  = [11, 22];
             $return              = $this->mMock();
             $authUserIdField     = $this->uniqueString();
             $matchingUserIdField = $this->uniqueString();
@@ -65,12 +67,12 @@ class MatchCreatingServiceTest extends _TestCase {
             ModelMocker::newCollection(Match::class, $return);
             ModelMocker::create(Match::class, [
                 $authUserIdField     => $authUser->getKey(),
-                $matchingUserIdField => '11'
+                $matchingUserIdField => 11
             ], $newModel1);
 
             ModelMocker::create(Match::class, [
                 $authUserIdField     => $authUser->getKey(),
-                $matchingUserIdField => '22'
+                $matchingUserIdField => 22
             ], $newModel2);
 
             CollectionMocker::push($return, $newModel1);
@@ -96,7 +98,7 @@ class MatchCreatingServiceTest extends _TestCase {
             $matchingUserIdField = $this->uniqueString();
             $matchingUserIds     = $this->uniqueString();
 
-            ModelMocker::aliasQuery(Match::class, $query);
+            ModelMocker::query(Match::class, $query);
             QueryMocker::qWhere($query, $authUserIdField, $authUser->getKey());
             QueryMocker::qWhereIn($query, $matchingUserIdField, $matchingUserIds);
             QueryMocker::get($query, $return);
@@ -177,6 +179,17 @@ class MatchCreatingServiceTest extends _TestCase {
             $proxy->data->put('existed_matching_user_ids', $existedMatchingUserIds);
 
             $this->verifyLoader($serv, 'new_matching_user_ids', $return);
+        });
+    }
+
+    public function testLoaderMatchingUsers()
+    {
+        $this->when(function ($proxy, $serv) {
+
+            $this->assertException(function () use ($serv) {
+
+                $this->resolveLoader($serv, 'matching_users');
+            });
         });
     }
 

@@ -9,9 +9,9 @@ class Notice extends Model {
 
     protected $table = 'notices';
     protected $casts = [
-        'id' => 'integer'
+        self::ID => 'integer'
     ];
-    protected $visible = [
+    protected $fillable = [
         self::ID,
         self::TYPE,
         self::SUBJECT,
@@ -20,6 +20,7 @@ class Notice extends Model {
         self::UPDATED_AT
     ];
 
+    const ID          = 'id';
     const TYPE        = 'type';
     const SUBJECT     = 'subject';
     const DESCRIPTION = 'description';
@@ -36,5 +37,10 @@ class Notice extends Model {
         self::TYPE_EVENT,
         self::TYPE_FAQ
     ];
+
+    public function getExpandable()
+    {
+        return [];
+    }
 
 }

@@ -5,6 +5,8 @@ namespace App\Services\Notice;
 use App\Database\Models\Photo;
 use App\Database\Models\Notice;
 use App\Service;
+use App\Services\AdminRoleExistingService;
+use App\Services\CreatingService;
 use App\Services\Photo\PhotosCreatingService;
 
 class NoticeCreatingService extends Service {
@@ -41,6 +43,9 @@ class NoticeCreatingService extends Service {
     public static function getArrRuleLists()
     {
         return [
+            'admin_role'
+                => ['required'],
+
             'description'
                 => ['required', 'string'],
 
@@ -48,14 +53,15 @@ class NoticeCreatingService extends Service {
                 => ['required', 'string'],
 
             'type'
-                => ['required', 'in:' . implode(',', Notice::TYPE_VALUES)]
+                => ['required', 'in:' . implode(',', Notice::TYPE_VALUES)],
         ];
     }
 
     public static function getArrTraits()
     {
         return [
-            AdminUserRequiringService::class
+            AdminRoleExistingService::class,
+            CreatingService::class
         ];
     }
 

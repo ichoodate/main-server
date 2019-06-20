@@ -4,6 +4,7 @@ namespace App\Services\Notice;
 
 use App\Database\Models\Notice;
 use App\Service;
+use App\Services\PagingService;
 
 class NoticePagingService extends Service {
 
@@ -24,6 +25,17 @@ class NoticePagingService extends Service {
     public static function getArrLoaders()
     {
         return [
+            'cursor' => ['cursor_id', function ($cursorId) {
+
+                return [NoticeFindingService::class, [
+                    'id'
+                        => $cursorId
+                ], [
+                    'id'
+                        => '{{cursor_id}}'
+                ]];
+            }],
+
             'model_class' => [function () {
 
                 return Notice::class;
@@ -46,7 +58,9 @@ class NoticePagingService extends Service {
 
     public static function getArrTraits()
     {
-        return [];
+        return [
+            PagingService::class
+        ];
     }
 
 }

@@ -6,13 +6,13 @@ use App\Database\Model;
 use App\Database\Models\Activity;
 use App\Database\Models\Card;
 use App\Database\Models\FacePhoto;
-use App\Database\Models\IdealTypable;
+use App\Database\Models\UserIdealTypeKwdPvt;
 use App\Database\Models\Match;
-use App\Database\Models\Profilable;
+use App\Database\Models\UserSelfKwdPvt;
 use App\Database\Models\ProfilePhoto;
 use App\Database\Models\Popularity;
 use App\Database\Models\Reply;
-use App\Database\Models\RoleUser;
+use App\Database\Models\Role;
 use App\Database\Models\Ticket;
 use App\Database\Models\User;
 use Illuminate\Auth\Authenticatable;
@@ -30,34 +30,30 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 
     protected $table = 'users';
     protected $hidden = [
-        self::PASSWORD,
-        self::REMEMBER_TOKEN
+        self::PASSWORD
     ];
     protected $casts = [
-        'id' => 'integer'
+        self::ID => 'integer'
     ];
-    protected $visible = [
+    protected $fillable = [
         self::ID,
         self::EMAIL,
+        self::BIRTH,
         self::GENDER,
         self::PASSWORD,
-        self::BIRTH,
         self::NAME,
-        self::ACTIVE,
-        self::COIN,
-        self::REMEMBER_TOKEN,
+        self::EMAIL_VERIFIED,
         self::CREATED_AT
     ];
 
-    const ACTIVE         = 'active';
-    const BIRTH          = 'birth';
-    const COIN           = 'coin';
-    const CREATED_AT     = 'created_at';
+    const ID             = 'id';
     const EMAIL          = 'email';
+    const PASSWORD       = 'password';
+    const BIRTH          = 'birth';
     const GENDER         = 'gender';
     const NAME           = 'name';
-    const PASSWORD       = 'password';
-    const REMEMBER_TOKEN = 'remember_token';
+    const EMAIL_VERIFIED = 'email_verified';
+    const CREATED_AT     = 'created_at';
 
     const GENDER_MAN   = 'man';
     const GENDER_WOMAN = 'woman';
@@ -67,33 +63,71 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         self::GENDER_WOMAN
     ];
 
+    public function getExpandable()
+    {
+        return [];
+    }
+
+    public function activities()
+    {
+        return $this->hasMany(Activity::class, 'user_id', 'id');
+    }
+
     public function activityQuery()
     {
-        return inst(Activity::class)->aliasQuery()
+        return inst(Activity::class)->query()
             ->qWhere(Activity::USER_ID, $this->{static::ID});
+    }
+
+    public function chooserCards()
+    {
+        return $this->hasMany(Card::class, 'chooser_id', 'id');
     }
 
     public function chooserCardQuery()
     {
-        return inst(Card::class)->aliasQuery()
+        return inst(Card::class)->query()
             ->qWhere(Card::CHOOSER_ID, $this->{static::ID});
+    }
+
+    public function facePhotos()
+    {
+        return $this->hasMany(FacePhoto::class, 'user_id', 'id');
     }
 
     public function facePhotoQuery()
     {
-        return inst(FacePhoto::class)->aliasQuery()
+        return inst(FacePhoto::class)->query()
             ->qWhere(FacePhoto::USER_ID, $this->{static::ID});
     }
 
-    public function idealTypableQuery()
+    public function userIdealTypeKwdPvts()
     {
-        return inst(IdealTypable::class)->aliasQuery()
-            ->qWhere(IdealTypable::USER_ID, $this->{static::ID});
+        return $this->hasMany(UserIdealTypeKwdPvt::class, 'user_id', 'id');
+    }
+
+    public function userIdealTypeKwdPvtQuery()
+    {
+        return inst(UserIdealTypeKwdPvt::class)->query()
+            ->qWhere(UserIdealTypeKwdPvt::USER_ID, $this->{static::ID});
+    }
+
+    public function matches()
+    {
+        if ( $this->{static::GENDER} === static::GENDER_MAN )
+        {
+            return $this->hasMany(Match::class, 'man_id', 'id');
+        }
+        else if ( $this->{static::GENDER} === static::GENDER_WOMAN )
+        {
+            return $this->hasMany(Match::class, 'woman_id', 'id');
+        }
     }
 
     public function matchQuery()
     {
-        $query = inst(Match::class)->aliasQuery();
+        $query = inst(Match::class)->query();
+
         if ( $this->{static::GENDER} === static::GENDER_MAN )
         {
             return $query->qWhere(Match::MAN_ID, $this->{static::ID});
@@ -104,51 +138,91 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         }
     }
 
-    public function profilableQuery()
+    public function userSelfKwdPvts()
     {
-        return inst(Profilable::class)->aliasQuery()
-            ->qWhere(Profilable::USER_ID, $this->{static::ID});
+        return $this->hasMany(UserSelfKwdPvt::class, 'user_id', 'id');
+    }
+
+    public function userSelfKwdPvtQuery()
+    {
+        return inst(UserSelfKwdPvt::class)->query()
+            ->qWhere(UserSelfKwdPvt::USER_ID, $this->{static::ID});
+    }
+
+    public function profilePhotos()
+    {
+        return $this->hasMany(ProfilePhoto::class, 'user_id', 'id');
     }
 
     public function profilePhotoQuery()
     {
-        return inst(ProfilePhoto::class)->aliasQuery()
+        return inst(ProfilePhoto::class)->query()
             ->qWhere(ProfilePhoto::USER_ID, $this->{static::ID});
     }
 
-    public function questionQuery()
+    public function tickets()
     {
-        return inst(Ticket::class)->aliasQuery()
+        return $this->hasMany(Ticket::class, 'writer_id', 'id');
+    }
+
+    public function ticketQuery()
+    {
+        return inst(Ticket::class)->query()
             ->qWhere(Ticket::WRITER_ID, $this->{static::ID});
+    }
+
+    public function receivedPopularities()
+    {
+        return $this->hasMany(Popularity::class, 'receiver_id', 'id');
     }
 
     public function receivedPopularityQuery()
     {
-        return inst(Popularity::class)->aliasQuery()
+        return inst(Popularity::class)->query()
             ->qWhere(Popularity::RECEIVER_ID, $this->{static::ID});
+    }
+
+    public function replies()
+    {
+        return $this->hasMany(Reply::class, 'writer_id', 'id');
     }
 
     public function replyQuery()
     {
-        return inst(Reply::class)->aliasQuery()
+        return inst(Reply::class)->query()
             ->qWhere(Reply::WRITER_ID, $this->{static::ID});
     }
 
-    public function roleUserQuery()
+    public function roles()
     {
-        return inst(RoleUser::class)->aliasQuery()
-            ->qWhere(RoleUser::USER_ID, $this->{static::ID});
+        return $this->hasMany(Role::class, 'user_id', 'id');
+    }
+
+    public function roleQuery()
+    {
+        return inst(Role::class)->query()
+            ->qWhere(Role::USER_ID, $this->{static::ID});
+    }
+
+    public function sentPopularities()
+    {
+        return $this->hasMany(Popularity::class, 'sender_id', 'id');
     }
 
     public function sentPopularityQuery()
     {
-        return inst(Popularity::class)->aliasQuery()
+        return inst(Popularity::class)->query()
             ->qWhere(Popularity::SENDER_ID, $this->{static::ID});
+    }
+
+    public function shownerCards()
+    {
+        return $this->hasMany(Card::class, 'showner_id', 'id');
     }
 
     public function shownerCardQuery()
     {
-        return inst(Card::class)->aliasQuery()
+        return inst(Card::class)->query()
             ->qWhere(Card::SHOWNER_ID, $this->{static::ID});
     }
 

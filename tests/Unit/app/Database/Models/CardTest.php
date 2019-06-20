@@ -7,6 +7,7 @@ use App\Database\Models\Card;
 use App\Database\Models\CardGroup;
 use App\Database\Models\Match;
 use App\Database\Models\User;
+use Tests\Unit\App\Database\Models\_TestCase;
 
 class CardTest extends _TestCase {
 

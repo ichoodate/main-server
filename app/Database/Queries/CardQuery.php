@@ -15,7 +15,7 @@ class CardQuery extends Query {
     {
         $subQuery = $this->qSelect(Card::ID)->getQuery();
 
-        return inst(Activity::class)->aliasQuery()
+        return inst(Activity::class)->query()
             ->qWhereIn(Activity::RELATED_ID, $subQuery);
     }
 
@@ -23,7 +23,7 @@ class CardQuery extends Query {
     {
         $subQuery = $this->qSelect(Card::CHOOSER_ID)->getQuery();
 
-        return inst(User::class)->aliasQuery()
+        return inst(User::class)->query()
             ->qWhereIn(User::ID, $subQuery);
     }
 
@@ -31,7 +31,7 @@ class CardQuery extends Query {
     {
         $subQuery = $this->qSelect(Card::GROUP_ID)->getQuery();
 
-        return inst(CardGroup::class)->aliasQuery()
+        return inst(CardGroup::class)->query()
             ->qWhereIn(CardGroup::ID, $subQuery);
     }
 
@@ -39,7 +39,7 @@ class CardQuery extends Query {
     {
         $subQuery = $this->qSelect(Card::MATCH_ID)->getQuery();
 
-        return inst(Match::class)->aliasQuery()
+        return inst(Match::class)->query()
             ->qWhereIn(Match::ID, $subQuery);
     }
 
@@ -47,7 +47,7 @@ class CardQuery extends Query {
     {
         $subQuery = $this->qSelect(Card::SHOWNER_ID)->getQuery();
 
-        return inst(User::class)->aliasQuery()
+        return inst(User::class)->query()
             ->qWhereIn(User::ID, $subQuery);
     }
 

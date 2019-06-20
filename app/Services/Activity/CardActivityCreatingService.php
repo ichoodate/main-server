@@ -4,11 +4,11 @@ namespace App\Services\Activity;
 
 use App\Database\Models\Activity;
 use App\Database\Models\Card;
-use App\Services\Card\CardFindingService;
 use App\Service;
 use App\Services\CreatingService;
-use App\Services\RequiredCoinExistingService;
-use App\Services\RequiredCoin\CardActivityRequiredCoinCountingService;
+use App\Services\UsedCoinAddingService;
+use App\Services\Card\CardFindingService;
+use App\Services\RequiredCoin\CardActivityRequiredCoinReturningService;
 
 class CardActivityCreatingService extends Service {
 
@@ -42,7 +42,7 @@ class CardActivityCreatingService extends Service {
                     'auth_user'
                         => '{{auth_user}}',
                     'id'
-                        => '{{card_id}}'
+                        => '{{card_id}}',
                 ]];
             }],
 
@@ -68,16 +68,18 @@ class CardActivityCreatingService extends Service {
 
             'created' => ['auth_user', 'card', 'type', function ($authUser, $card, $type) {
 
-                return inst(Activity::class)->create([
+                $return = inst(Activity::class)->create([
                     Activity::RELATED_ID => $card->getKey(),
                     Activity::USER_ID    => $authUser->getKey(),
                     Activity::TYPE       => $type
                 ]);
+
+                return $return;
             }],
 
             'required_coin' => ['auth_user', 'card', 'type', 'timezone', function ($authUser, $card, $type, $timezone) {
 
-                return [CardActivityRequiredCoinCountingService::class, [
+                return [CardActivityRequiredCoinReturningService::class, [
                     'auth_user'
                         => $authUser,
                     'card'
@@ -94,7 +96,7 @@ class CardActivityCreatingService extends Service {
                     'card'
                         => '{{card}}',
                     'card_id'
-                        => 'id of {{card}}',
+                        => '{{card_id}}',
                     'type'
                         => '{{type}}',
                     'timezone'
@@ -118,14 +120,11 @@ class CardActivityCreatingService extends Service {
             'auth_user'
                 => ['required'],
 
-            'card'
-                => ['not_null'],
-
             'card_id'
                 => ['required', 'integer'],
 
             'type'
-                => ['in:' . implode(',', [Activity::TYPE_CARD_FLIP, Activity::TYPE_CARD_OPEN, Activity::TYPE_CARD_PROPOSE])],
+                => ['required', 'in:' . implode(',', [Activity::TYPE_CARD_FLIP, Activity::TYPE_CARD_OPEN, Activity::TYPE_CARD_PROPOSE])],
 
             'timezone'
                 => ['required']
@@ -136,7 +135,7 @@ class CardActivityCreatingService extends Service {
     {
         return [
             CreatingService::class,
-            RequiredCoinExistingService::class
+            UsedCoinAddingService::class
         ];
     }
 

@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\Unit\App\Database\Models;
+namespace Tests\Unit\App\Database\Models\Keyword;
 
-use App\Database\Models\Obj;
 use App\Database\Models\Keyword\Country;
-use App\Database\Models\Keyword\ResidenceCountry;
+use App\Database\Models\Keyword\Residence;
 use App\Database\Models\Keyword\State;
+use Tests\Unit\App\Database\Models\_TestCase;
 
 class CountryTest extends _TestCase {
 
@@ -13,8 +13,8 @@ class CountryTest extends _TestCase {
     {
         $this->assertHasOneOrManyQuery(
             'residence',
-            ResidenceCountry::class,
-            ResidenceCountry::COUNTRY_ID
+            Residence::class,
+            Residence::RELATED_ID
         );
     }
 

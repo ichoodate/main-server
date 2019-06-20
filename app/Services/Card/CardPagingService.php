@@ -6,10 +6,10 @@ use App\Database\Models\Activity;
 use App\Database\Models\Card;
 use App\Database\Models\Match;
 use App\Database\Models\User;
-use App\Services\CardActivity\CardActivityFindingService;
-use App\Services\Match\MatchFindingService;
 use App\Service;
 use App\Services\PagingService;
+use App\Services\CardActivity\CardActivityFindingService;
+use App\Services\Match\MatchFindingService;
 
 class CardPagingService extends Service {
 
@@ -53,10 +53,10 @@ class CardPagingService extends Service {
 
                 if ( $matchStatus != null )
                 {
-                    $userQuery = inst(User::class)->aliasQuery()
+                    $userQuery = inst(User::class)->query()
                         ->qSelect(User::ID)
-                        ->qWhere(User::ID, $matchingUserQuery)
-                        ->orWhere(User::ID, $authUserQuery)
+                        ->qWhereIn(User::ID, $matchingUserQuery)
+                        ->qOrWhereIn(User::ID, $authUserQuery)
                         ->getQuery();
 
                     $queryBuilder1->call($this, $query, $userQuery, $matchStatus);
@@ -95,7 +95,7 @@ class CardPagingService extends Service {
 
             'auth_user_query' => ['auth_user', function ($authUser) {
 
-                return inst(User::class)->aliasQuery()
+                return inst(User::class)->query()
                     ->qSelect(User::ID)
                     ->qWhere(User::ID, $authUser->getKey())
                     ->getQuery();
@@ -106,18 +106,18 @@ class CardPagingService extends Service {
                 return self::CARD_TYPE_BOTH;
             }],
 
-            'cursor' => ['auth_user', 'id', function ($authUser, $id) {
+            'cursor' => ['auth_user', 'cursor_id', function ($authUser, $cursorId) {
 
                 return [CardFindingService::class, [
                     'auth_user'
                         => $authUser,
                     'id'
-                        => $id
+                        => $cursorId
                 ], [
                     'auth_user'
                         => '{{auth_user}}',
                     'id'
-                        => '{{id}}'
+                        => '{{cursor_id}}'
                 ]];
             }],
 
@@ -125,30 +125,30 @@ class CardPagingService extends Service {
 
                 if ( $cardType == self::CARD_TYPE_CHOOSER )
                 {
-                    $userQuery = inst(Card::class)->aliasQuery()
+                    $userQuery = inst(Card::class)->query()
                         ->qSelect(Card::SHOWNER_ID)
                         ->qWhere(Card::CHOOSER_ID, $authUser->getKey())
                         ->getQuery();
                 }
                 else if ( $cardType == self::CARD_TYPE_SHOWNER )
                 {
-                    $userQuery = inst(Card::class)->aliasQuery()
+                    $userQuery = inst(Card::class)->query()
                         ->qSelect(Card::CHOOSER_ID)
                         ->qWhere(Card::SHOWNER_ID, $authUser->getKey())
                         ->getQuery();
                 }
                 else if ( $cardType == self::CARD_TYPE_BOTH )
                 {
-                    $subQuery1 = inst(Card::class)->aliasQuery()
+                    $subQuery1 = inst(Card::class)->query()
                         ->qSelect(Card::SHOWNER_ID)
                         ->qWhere(Card::CHOOSER_ID, $authUser->getKey())
                         ->getQuery();
-                    $subQuery2 = inst(Card::class)->aliasQuery()
+                    $subQuery2 = inst(Card::class)->query()
                         ->qSelect(Card::CHOOSER_ID)
                         ->qWhere(Card::SHOWNER_ID, $authUser->getKey())
                         ->getQuery();
 
-                    $userQuery = inst(User::class)->aliasQuery()
+                    $userQuery = inst(User::class)->query()
                         ->qSelect(User::ID)
                         ->qWhereIn(User::ID, $subQuery1)
                         ->qOrWhereIn(User::ID, $subQuery2)
@@ -165,7 +165,7 @@ class CardPagingService extends Service {
 
             'query' => ['auth_user', 'card_type', 'auth_user_id_field', function ($authUser, $cardType, $authUserIdField) {
 
-                $return = inst(Card::class)->aliasQuery();
+                $return = inst(Card::class)->query();
 
                 if ( $cardType == self::CARD_TYPE_CHOOSER )
                 {
@@ -177,7 +177,7 @@ class CardPagingService extends Service {
                 }
                 else if ( $cardType == self::CARD_TYPE_BOTH )
                 {
-                    $subQuery = inst(Match::class)->aliasQuery()
+                    $subQuery = inst(Match::class)->query()
                         ->qWhere($authUserIdField, $authUser->getKey())
                         ->selectIdQuery();
 
@@ -235,7 +235,7 @@ class CardPagingService extends Service {
 
                 return function ($userQuery, $userStatus) {
 
-                    $query = inst(Activity::class)->aliasQuery()
+                    $query = inst(Activity::class)->query()
                         ->qWhereIn(Activity::USER_ID, $userQuery)
                         ->qSelect(Activity::RELATED_ID);
 
@@ -269,8 +269,17 @@ class CardPagingService extends Service {
             'auth_user'
                 => ['required'],
 
+            'auth_user_status'
+                => ['in:' . implode(',', static::USER_STATUS_VALUES)],
+
             'card_type'
-                => ['required', 'in:' . implode(',', self::CARD_TYPE_VALUES)]
+                => ['in:' . implode(',', static::CARD_TYPE_VALUES)],
+
+            'match_status'
+                => ['in:' . implode(',', static::USER_STATUS_VALUES)],
+
+            'matching_user_status'
+                => ['in:' . implode(',', static::USER_STATUS_VALUES)],
         ];
     }
 

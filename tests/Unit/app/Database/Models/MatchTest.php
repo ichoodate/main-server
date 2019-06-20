@@ -4,9 +4,10 @@ namespace Tests\Unit\App\Database\Models;
 
 use App\Database\Models\Activity;
 use App\Database\Models\Card;
-use App\Database\Models\ChattingRoom;
+use App\Database\Models\ChattingContent;
 use App\Database\Models\Match;
 use App\Database\Models\User;
+use Tests\Unit\App\Database\Models\_TestCase;
 
 class MatchTest extends _TestCase {
 
@@ -25,6 +26,15 @@ class MatchTest extends _TestCase {
             'card',
             Card::class,
             Card::MATCH_ID
+        );
+    }
+
+    public function testChattingContentQuery()
+    {
+        $this->assertHasOneOrManyQuery(
+            'chattingContent',
+            ChattingContent::class,
+            ChattingContent::MATCH_ID
         );
     }
 

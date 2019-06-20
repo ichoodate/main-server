@@ -9,7 +9,7 @@ class ValidatorTest extends _TestCase {
     public function validator($data, $rules, $msg = [], $names = [])
     {
         $factory = inst(\Illuminate\Validation\Factory::class);
-        $factory->resolver(function (\Symfony\Component\Translation\TranslatorInterface $translator, array $data, array $rules, array $messages, array $customDataKeyNames) {
+        $factory->resolver(function (\Illuminate\Translation\Translator $translator, array $data, array $rules, array $messages, array $customDataKeyNames) {
 
             return new \App\Validation\Validator($translator, $data, $rules, $messages, $customDataKeyNames);
         });
@@ -37,9 +37,15 @@ class ValidatorTest extends _TestCase {
 
         $this->assertTrue($this->validator($data, $rules)->passes());
 
-        $data  = ['keywords'   => [1234, 2345, null]];
+        $data      = ['keywords'   => [1234, 2345, null]];
+        $validator = $this->validator($data, $rules);
 
-        $this->assertFalse($this->validator($data, $rules)->passes());
+        $this->assertFalse($validator->passes());
+        $this->assertContains('keywords.2 is required.', $validator->errors()->all());
+
+        $validator = $this->validator($data, $rules, [], ['keywords.*' => 'keyword of keyword_ids.*']);
+        $this->assertFalse($validator->passes());
+        $this->assertContains('keyword of keyword_ids.2 is required.', $validator->errors()->all());
     }
 
     public function testValidateInIf()
@@ -68,9 +74,9 @@ class ValidatorTest extends _TestCase {
 
         $rules = ['abc' => ['in_if:first']];
 
-        $this->assertException(function () {
+        $this->assertException(function () use ($data, $rules) {
 
-            $this->assertValid($data, $rules);
+            $this->validator($data, $rules)->passes();
         });
     }
 
@@ -100,17 +106,65 @@ class ValidatorTest extends _TestCase {
 
         $rules = ['abc' => ['in_unless:first']];
 
-        $this->assertException(function () {
+        $this->assertException(function () use ($data, $rules) {
 
-            $this->assertValid($data, $rules);
+            $this->validator($data, $rules)->passes();
         });
+    }
+
+    public function testValidateNotNull()
+    {
+        $rules = ['abc' => ['not_null']];
+
+        $data  = ['abc' => '1234'];
+
+        $this->assertTrue($this->validator($data, $rules)->passes());
+
+        $data  = ['abc' => 'null'];
+
+        $this->assertTrue($this->validator($data, $rules)->passes());
+
+        $data  = ['abc' => null];
+
+        $this->assertFalse($this->validator($data, $rules)->passes());
+
+        $rules = ['bcd.*' => ['not_null']];
+
+        $data  = ['bcd' => [null, null]];
+
+        $this->assertFalse($this->validator($data, $rules)->passes());
+
+        $data  = ['bcd' => ['1234', null]];
+
+        $this->assertFalse($this->validator($data, $rules)->passes());
+
+        $data  = ['bcd' => ['1234', 'abcd']];
+
+        $this->assertTrue($this->validator($data, $rules)->passes());
+    }
+
+    public function testValidateNull()
+    {
+        $rules = ['abc' => ['null']];
+
+        $data  = ['abc' => '1234'];
+
+        $this->assertFalse($this->validator($data, $rules)->passes());
+
+        $data  = ['abc' => 'null'];
+
+        $this->assertFalse($this->validator($data, $rules)->passes());
+
+        $data  = ['abc' => null];
+
+        $this->assertTrue($this->validator($data, $rules)->passes());
     }
 
     public function testValidateNullIf()
     {
         $rules = ['bcd' => ['null_if:abc, 2345']];
 
-        $data  = ['abc' => '1234', 'bcd' => 'null'];
+        $data  = ['abc' => '1234', 'bcd' => null];
 
         $this->assertTrue($this->validator($data, $rules)->passes());
 
@@ -118,7 +172,7 @@ class ValidatorTest extends _TestCase {
 
         $this->assertTrue($this->validator($data, $rules)->passes());
 
-        $data  = ['abc' => '2345', 'bcd' => 'null'];
+        $data  = ['abc' => '2345', 'bcd' => null];
 
         $this->assertTrue($this->validator($data, $rules)->passes());
 
@@ -128,9 +182,9 @@ class ValidatorTest extends _TestCase {
 
         $rules = ['abc' => ['null_if:first']];
 
-        $this->assertException(function () {
+        $this->assertException(function () use ($data, $rules) {
 
-            $this->assertValid($data, $rules);
+            $this->validator($data, $rules)->passes();
         });
     }
 
@@ -138,7 +192,7 @@ class ValidatorTest extends _TestCase {
     {
         $rules = ['bcd' => ['null_unless:abc, 2345']];
 
-        $data  = ['abc' => '1234', 'bcd' => 'null'];
+        $data  = ['abc' => '1234', 'bcd' => null];
 
         $this->assertTrue($this->validator($data, $rules)->passes());
 
@@ -146,7 +200,7 @@ class ValidatorTest extends _TestCase {
 
         $this->assertFalse($this->validator($data, $rules)->passes());
 
-        $data  = ['abc' => '2345', 'bcd' => 'null'];
+        $data  = ['abc' => '2345', 'bcd' => null];
 
         $this->assertTrue($this->validator($data, $rules)->passes());
 
@@ -156,9 +210,9 @@ class ValidatorTest extends _TestCase {
 
         $rules = ['abc' => ['null_unless:first']];
 
-        $this->assertException(function () {
+        $this->assertException(function () use ($data, $rules) {
 
-            $this->assertValid($data, $rules);
+            $this->validator($data, $rules)->passes();
         });
     }
 }

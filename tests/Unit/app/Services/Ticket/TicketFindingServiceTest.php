@@ -3,6 +3,10 @@
 namespace Tests\Unit\App\Services\Ticket;
 
 use App\Database\Models\Ticket;
+use App\Database\Models\User;
+use App\Services\AdminRoleExistingService;
+use App\Services\FindingService;
+use App\Services\PermittedUserRequiringService;
 use Tests\Unit\App\Services\_TestCase;
 
 class TicketFindingServiceTest extends _TestCase {
@@ -11,13 +15,22 @@ class TicketFindingServiceTest extends _TestCase {
     {
         $this->verifyArrBindNames([
             'model'
-                => 'ticket of {{id}}'
+                => 'ticket for {{id}}'
         ]);
     }
 
     public function testArrRuleLists()
     {
         $this->verifyArrRuleLists([]);
+    }
+
+    public function testArrTraits()
+    {
+        $this->verifyArrTraits([
+            AdminRoleExistingService::class,
+            FindingService::class,
+            PermittedUserRequiringService::class
+        ]);
     }
 
     public function testLoaderModelClass()

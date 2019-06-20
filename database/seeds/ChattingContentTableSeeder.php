@@ -7,23 +7,36 @@ use App\Database\Models\ChattingRoom;
 use App\Database\Models\ChattingContent;
 use App\Database\Models\Match;
 use App\Database\Models\User;
+use Database\TableSeeder;
 
 class ChattingContentTableSeeder extends TableSeeder {
 
     public function run()
     {
-        for ( $i = 0; $i < ChattingRoom::count(); $i++ )
-        {
-            $chattingRoom = ChattingRoom::aliasQuery()->skip($i)->first();
-            $match        = Match::find($chattingRoom->{ChattingRoom::MATCH_ID});
-            $userKey      = rand(0, 1) ? $match->{Match::MAN_ID} : $match->{Match::WOMAN_ID};
+        $query = Activity::where('type', Activity::TYPE_MATCH_PROPOSE);
+        $count = $query->count();
 
-            for ( $j = 0; $j < $count = rand(0, 5); $j++)
+        for ( $i = 0; $i < $count; $i++ )
+        {
+            $activity = $query->skip($i)->first();
+            $matchId  = $activity->{Activity::RELATED_ID};
+            $match    = Match::find($matchId);
+
+            if ( rand(0, 1) )
             {
-                ChattingContent::create([
-                    ChattingContent::CHATTING_ROOM_ID => $chattingRoom->getKey(),
-                    ChattingContent::WRITER_ID          => $userKey,
-                    ChattingContent::MESSAGE          => str_random(25)
+                $userId = $match->{Match::MAN_ID};
+            }
+            else
+            {
+                $userId = $match->{Match::WOMAN_ID};
+            }
+
+            for ( $k = 0; $k < rand(0, 5); $k++)
+            {
+                $this->factory(ChattingContent::class)->create([
+                    ChattingContent::MATCH_ID  => $matchId,
+                    ChattingContent::WRITER_ID => $userId,
+                    ChattingContent::MESSAGE   => str_random(25)
                 ]);
             }
         }

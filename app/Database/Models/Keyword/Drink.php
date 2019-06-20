@@ -1,17 +1,18 @@
 <?php
 
-namespace App\Database\Models;
+namespace App\Database\Models\Keyword;
 
 use App\Database\Model;
 
 class Drink extends Model {
 
     protected $table = 'keyword_drinks';
-    protected $visible = [
+    protected $fillable = [
         self::ID,
         self::TYPE
     ];
 
+    const ID   = 'id';
     const TYPE = 'type';
 
     const TYPE_CAN_NOT             = 'can_not';
@@ -27,5 +28,10 @@ class Drink extends Model {
         self::TYPE_A_LITTLE_FREQUENTLY,
         self::TYPE_A_LOT_FREQUENTLY
     ];
+
+    public function getExpandable()
+    {
+        return [];
+    }
 
 }

@@ -1,0 +1,51 @@
+<?php
+
+namespace App\Services\Keyword\Country;
+
+use App\Database\Models\Keyword\Country;
+use App\Service;
+use App\Services\FindingService;
+
+class CountryFindingService extends Service {
+
+    public static function getArrBindNames()
+    {
+        return [
+            'model'
+                => 'country keyword for {{id}}'
+        ];
+    }
+
+    public static function getArrCallbackLists()
+    {
+        return [];
+    }
+
+    public static function getArrLoaders()
+    {
+        return [
+            'model_class' => [function () {
+
+                return Country::class;
+            }]
+        ];
+    }
+
+    public static function getArrPromiseLists()
+    {
+        return [];
+    }
+
+    public static function getArrRuleLists()
+    {
+        return [];
+    }
+
+    public static function getArrTraits()
+    {
+        return [
+            FindingService::class
+        ];
+    }
+
+}

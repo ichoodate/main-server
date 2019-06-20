@@ -151,53 +151,6 @@ class ServiceTest extends TestCase {
         });
     }
 
-    public function testGetResult()
-    {
-        $this->when(function ($proxy, $serv) {
-
-            $proxy->errors->push('error1');
-            $proxy->data->put('result', 'value');
-
-            $this->assertEquals($proxy->resolveError(), $proxy->getResult());
-        });
-
-        $this->when(function ($proxy, $serv) {
-
-            $childServ = inst(_ChildService::class);
-            $childProxy = $this->proxy($childServ);
-
-            $childProxy->errors->push('error1');
-            $proxy->childs->push($childServ);
-            $proxy->data->put('result', 'value');
-
-            $this->assertEquals($proxy->resolveError(), $proxy->getResult());
-        });
-
-        $this->when(function ($proxy, $serv) {
-
-            $proxy->data->put('result', 'result1');
-
-            $this->assertEquals('result1', $proxy->getResult());
-        });
-    }
-
-    public function testGetTotalErrors()
-    {
-        $this->when(function ($proxy, $serv) {
-
-            $childServ  = inst(_ChildService::class);
-            $childProxy = $this->proxy($childServ);
-
-            $childProxy->errors->push('error1');
-            $proxy->childs->push($childServ);
-            $proxy->errors->push('error2');
-
-            $this->assertContains('error1', $proxy->getTotalErrors());
-            $this->assertContains('error2', $proxy->getTotalErrors());
-            $this->assertEquals(2, $proxy->getTotalErrors()->count());
-        });
-    }
-
     public function testIsResolveError()
     {
         $this->when(function ($proxy, $serv) {
@@ -260,20 +213,7 @@ class ServiceTest extends TestCase {
                     return [
                         'key1' => 'name1',
 
-                        'key2' => [function () {
-
-                            return '{{key1}}';
-                        }],
-
-                        'key3' => ['key1', function ($key1) {
-
-                            return 'name3'. $key1;
-                        }],
-
-                        'key4' => ['key2', function () {
-
-                            return 'name4';
-                        }]
+                        'key2' => '{{key1}}'
                     ];
                 }
             };
@@ -282,93 +222,68 @@ class ServiceTest extends TestCase {
 
             $proxy->data->put('key1', 'value1');
 
-            $this->assertEquals('name1', $proxy->resolveBindName('key1'));
-            $this->assertEquals('name1', $proxy->resolveBindName('key2'));
-            $this->assertEquals('name3value1', $proxy->resolveBindName('key3'));
-            $this->assertEquals($proxy->resolveError(), $proxy->resolveBindName('key4'));
-        });
+            $this->assertEquals('key1', $proxy->resolveBindName('key1'));
+            $this->assertEquals('name1', $proxy->resolveBindName('{{key1}}'));
+            $this->assertEquals('name1', $proxy->resolveBindName('{{key2}}'));
+            $this->assertException(function () {
 
-        $this->when(function () {
-
-            $serv = new class extends Service {
-
-                public static function getArrBindNames()
-                {
-                    return [
-                        'key1' => 'name1',
-                        'key2' => [function () {
-
-                            return '{{key1}}';
-                        }],
-                        'key3' => ['key1', function ($key1) {
-
-                            return 'name3'. $key1;
-                        }]
-                    ];
-                }
-            };
-
-            $proxy = $this->proxy($serv);
-
-            $proxy->data->put('key1', 'value1');
-
-            $this->assertEquals('name1', $proxy->resolveBindName('key2'));
-            $this->assertEquals('name3value1', $proxy->resolveBindName('key3'));
+                $proxy->resolveBindName('{{key3}}');
+            });
         });
     }
 
-    public function testResolveLoader()
-    {
-        $this->when(function () {
+    // public function testResolveLoader()
+    // {
+    //     $this->when(function () {
 
-            $serv = new class extends Service {
+    //         $serv = new class extends Service {
 
-                public static function getArrLoaders()
-                {
-                    return [
-                        'key2' => [function () {
+    //             public static function getArrLoaders()
+    //             {
+    //                 return [
+    //                     'key2' => [function () {
 
-                            return 'bcd';
-                        }],
-                        'key3' => ['key1', function ($key1) {
+    //                         return 'bcd';
+    //                     }],
+    //                     'key3' => ['key1', function ($key1) {
 
-                            return $key1 . 'cde';
-                        }],
-                        'key4' => ['key2', function ($key2) {
+    //                         return $key1 . 'cde';
+    //                     }],
+    //                     'key4' => ['key2', function ($key2) {
 
-                            return $key2 . 'def';
-                        }],
-                        'key5' => [function () {
+    //                         return $key2 . 'def';
+    //                     }],
+    //                     'key5' => [function () {
 
-                            return new class extends Service {
+    //                         return new class extends Service {
 
-                                public static function getArrLoaders()
-                                {
-                                    return [
-                                        'result' => [function () {
+    //                             public static function getArrLoaders()
+    //                             {
+    //                                 return [
+    //                                     'result' => [function () {
 
-                                            return 'efg';
-                                        }]
-                                    ];
-                                }
-                            };
-                        }]
-                    ];
-                }
-            };
+    //                                         return 'efg';
+    //                                     }]
+    //                                 ];
+    //                             }
+    //                         };
+    //                     }]
+    //                 ];
+    //             }
+    //         };
 
-            $proxy = $this->proxy($serv);
+    //         $proxy = $this->proxy($serv);
 
-            $proxy->data->put('key2', 'abc');
+    //         $proxy->data->put('key2', 'abc');
 
-            $this->assertEquals('bcd', $proxy->resolveLoader('key2'));
-            $this->assertEquals($proxy->resolveError(), $proxy->resolveLoader('key3'));
-            $this->assertEquals('abcdef', $proxy->resolveLoader('key4'));
-            $this->assertEquals('efg', $proxy->resolveLoader('key5'));
-        });
-    }
+    //         $this->assertEquals('bcd', $proxy->resolveLoader('key2'));
+    //         $this->assertEquals($proxy->resolveError(), $proxy->resolveLoader('key3'));
+    //         $this->assertEquals('abcdef', $proxy->resolveLoader('key4'));
+    //         $this->assertEquals('efg', $proxy->resolveLoader('key5'));
+    //     });
+    // }
 
-    public function testRunProcess()
+    public function testRun()
     {
         $this->when(function () {
 
@@ -413,13 +328,30 @@ class ServiceTest extends TestCase {
 
             $this->assertFalse($proxy->processed);
 
-            $proxy->runProcess();
+            $proxy->run();
 
-            $this->assertFalse($proxy->validatedList->has('key1'));
-            $this->assertTrue($proxy->validatedList->has('key2'));
-            $this->assertTrue($proxy->validatedList->has('key3'));
-            $this->assertTrue($proxy->validatedList->has('key4'));
+            $this->assertFalse($proxy->validated->has('key1'));
+            $this->assertTrue($proxy->validated->has('key2'));
+            $this->assertTrue($proxy->validated->has('key3'));
+            $this->assertTrue($proxy->validated->has('key4'));
             $this->assertTrue($proxy->processed);
+        });
+    }
+
+    public function testTotalErrors()
+    {
+        $this->when(function ($proxy, $serv) {
+
+            $childServ  = inst(_ChildService::class);
+            $childProxy = $this->proxy($childServ);
+
+            $childProxy->errors->push('error1');
+            $proxy->childs->push($childServ);
+            $proxy->errors->push('error2');
+
+            $this->assertContains('error1', $proxy->totalErrors());
+            $this->assertContains('error2', $proxy->totalErrors());
+            $this->assertEquals(2, $proxy->totalErrors()->count());
         });
     }
 
@@ -450,17 +382,51 @@ class ServiceTest extends TestCase {
 
             $this->assertTrue($proxy->validate('key1'));
         });
+
+        $this->when(function () {
+
+            $serv = new class extends Service {
+
+                public static function getArrBindNames()
+                {
+                    return [
+                        'key1' => 'name1'
+                    ];
+                }
+
+                public static function getArrRuleLists()
+                {
+                    return [
+                        'key1.*' => ['not_null']
+                    ];
+                }
+            };
+
+            $proxy = $this->proxy($serv);
+
+            $proxy->inputs->put('key1', [null]);
+
+            $this->assertFalse($proxy->validate('key1'));
+            $this->assertFalse($proxy->validate('key1.*'));
+
+            $proxy = $this->proxy($serv);
+
+            $proxy->inputs->put('key1', [null]);
+
+            $this->assertFalse($proxy->validate('key1.*'));
+            $this->assertFalse($proxy->validate('key1'));
+        });
     }
 
     public function testValidatedResults()
     {
         $this->when(function ($proxy, $serv) {
 
-            $proxy->validatedList->put('key1', false);
+            $proxy->validated->put('key1', false);
 
-            $this->assertNotSame($proxy->validatedList, $proxy->validatedList());
-            $this->assertEquals($proxy->validatedList, $proxy->validatedList());
-            $this->assertEquals(false, $proxy->validatedList()->get('key'));
+            $this->assertNotSame($proxy->validated, $proxy->validated());
+            $this->assertEquals($proxy->validated, $proxy->validated());
+            $this->assertEquals(false, $proxy->validated()->get('key'));
         });
     }
 
@@ -477,6 +443,7 @@ class ServiceTest extends TestCase {
             $this->assertTrue(file_exists($totalPath), $totalPath);
         }
     }
+
 }
 
 class _ParentService extends Service {

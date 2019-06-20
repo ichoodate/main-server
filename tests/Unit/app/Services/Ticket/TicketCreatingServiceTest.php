@@ -4,6 +4,7 @@ namespace Tests\Unit\App\Services\Ticket;
 
 use App\Database\Models\Ticket;
 use App\Database\Models\User;
+use App\Services\CreatingService;
 use Tests\_InstanceMocker as InstanceMocker;
 use Tests\Unit\App\Database\Models\_Mocker as ModelMocker;
 use Tests\Unit\App\Services\_TestCase;
@@ -18,11 +19,21 @@ class TicketCreatingServiceTest extends _TestCase {
     public function testArrRuleLists()
     {
         $this->verifyArrRuleLists([
+            'auth_user'
+                => ['required'],
+
             'description'
                 => ['required', 'string'],
 
             'subject'
-                => ['required', 'string'],
+                => ['required', 'string']
+        ]);
+    }
+
+    public function testArrTraits()
+    {
+        $this->verifyArrTraits([
+            CreatingService::class
         ]);
     }
 

@@ -12,7 +12,7 @@ class PopularityQuery extends Query {
     {
         $subQuery = $this->qSelect(Popularity::RECEIVER_ID)->getQuery();
 
-        return inst(User::class)->aliasQuery()
+        return inst(User::class)->query()
             ->qWhereIn(User::ID, $subQuery);
     }
 
@@ -20,7 +20,7 @@ class PopularityQuery extends Query {
     {
         $subQuery = $this->qSelect(Popularity::SENDER_ID)->getQuery();
 
-        return inst(User::class)->aliasQuery()
+        return inst(User::class)->query()
             ->qWhereIn(User::ID, $subQuery);
     }
 

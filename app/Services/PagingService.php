@@ -8,22 +8,12 @@ class PagingService extends Service {
 
     public static function getArrBindNames()
     {
-        return [
-            'available_order_by' => 'options for {{order_by}}'
-        ];
+        return [];
     }
 
     public static function getArrCallbackLists()
     {
         return [
-            'query.order_by_list' => ['query', 'order_by_list', function ($query, $orderByList) {
-
-                foreach ( $orderByList as $key => $direction )
-                {
-                    $query->qOrderBy($key, $direction);
-                }
-            }],
-
             'query.skip' => ['query', 'skip', function ($query, $skip) {
 
                 $query->skip($skip);
@@ -67,24 +57,16 @@ class PagingService extends Service {
     public static function getArrLoaders()
     {
         return [
-            'available_order_by_fields' => ['model_class', function ($model_class) {
+            'available_order_by' => ['model_class', function ($modelClass) {
 
-                return [
-                    $model_class::CREATED_AT
-                ];
-            }],
-
-            'available_order_by' => ['available_order_by_fields', function ($availableOrderByFields) {
-
-                $orderBy = [];
-
-                foreach ( $availableOrderByFields as $field )
+                if ( $modelClass::CREATED_AT == null )
                 {
-                    $orderBy[] = $field . ' asc';
-                    $orderBy[] = $field . ' desc';
+                    return ['id desc', 'id asc'];
                 }
-
-                return $orderBy;
+                else
+                {
+                    return ['created_at desc, id desc', 'created_at asc, id asc'];
+                }
             }],
 
             'cursor' => [function () {
@@ -102,23 +84,6 @@ class PagingService extends Service {
                 return 1;
             }],
 
-            'order_by_list' => ['order_by', function ($orderBy) {
-
-                $orderBy = preg_replace('/\s+/', ' ', $orderBy);
-                $orderBy = preg_replace('/\s*,\s*/', ',', $orderBy);
-                $orders  = explode(',', $orderBy);
-                $return  = [];
-
-                foreach ( $orders as $order )
-                {
-                    $t = explode(' ', $order);
-
-                    $return[$t[0]] = $t[1];
-                }
-
-                return $return;
-            }],
-
             'skip' => ['page', 'limit', function ($page, $limit) {
 
                 return ( $page - 1 ) * $limit;
@@ -134,11 +99,9 @@ class PagingService extends Service {
     public static function getArrRuleLists()
     {
         return [
-            'id' => ['integer'],
+            'cursor_id' => ['integer'],
 
             'limit' => ['integer', 'max:100'],
-
-            'order_by' => ['string', 'several_in_array:{{available_order_by}}'],
 
             'page' => ['integer']
         ];

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Database\Queries;
+namespace App\Database\Queries\Keyword;
 
 use App\Database\Models\Keyword\Language;
 use App\Database\Query;

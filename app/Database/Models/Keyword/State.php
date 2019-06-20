@@ -1,20 +1,21 @@
 <?php
 
-namespace App\Database\Models;
+namespace App\Database\Models\Keyword;
 
 use App\Database\Model;
 use App\Database\Models\Keyword\Country;
-use App\Database\Models\Keyword\ResidenceState;
+use App\Database\Models\Keyword\Residence;
 
 class State extends Model {
 
     protected $table = 'keyword_states';
-    protected $visible = [
+    protected $fillable = [
         self::ID,
         self::COUNTRY_ID,
         self::NAME
     ];
 
+    const ID         = 'id';
     const COUNTRY_ID = 'country_id';
     const NAME       = 'name';
 
@@ -24,16 +25,31 @@ class State extends Model {
         self::NAME,
     ];
 
+    public function getExpandable()
+    {
+        return ['country', 'residence'];
+    }
+
+    public function country()
+    {
+        return $this->belongsTo(Country::class, 'country_id', 'id');
+    }
+
     public function countryQuery()
     {
-        return inst(Country::class)->aliasQuery()
+        return inst(Country::class)->query()
             ->qWhere(Country::ID, $this->{static::COUNTRY_ID});
+    }
+
+    public function residence()
+    {
+        return $this->hasOne(Residence::class, 'related_id', 'id');
     }
 
     public function residenceQuery()
     {
-        return inst(ResidenceState::class)->aliasQuery()
-            ->qWhere(ResidenceState::STATE_ID, $this->{static::ID});
+        return inst(Residence::class)->query()
+            ->qWhere(Residence::RELATED_ID, $this->{static::ID});
     }
 
 }

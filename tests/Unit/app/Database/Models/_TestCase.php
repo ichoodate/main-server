@@ -15,7 +15,7 @@ abstract class _TestCase extends TestCase {
         $pModel = $this->factory(static::class())->make($attrs);
 
         InstanceMocker::add($fClass, $fModel = Mockery::mock());
-        ModelMocker::aliasQuery($fModel, $fQuery = Mockery::mock());
+        ModelMocker::query($fModel, $fQuery = Mockery::mock());
         QueryMocker::qWhere($fQuery, $fIdName, $pModel->getKey());
 
         foreach ( $conditions as $key => $value )
@@ -32,7 +32,7 @@ abstract class _TestCase extends TestCase {
         $fModel  = $this->factory(static::class())->make($attrs);
 
         InstanceMocker::add($pClass, $pModel = Mockery::mock());
-        ModelMocker::aliasQuery($pModel, $pQuery = Mockery::mock());
+        ModelMocker::query($pModel, $pQuery = Mockery::mock());
         QueryMocker::qWhere($pQuery, $pIdName, $fModel->{$fIdName});
 
         $this->assertEquals($fModel->{$name . 'Query'}(), $pQuery);

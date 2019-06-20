@@ -4,8 +4,8 @@ namespace Tests\Unit\App\Services\ProfilePhoto;
 
 use App\Database\Models\ProfilePhoto;
 use App\Database\Models\User;
+use App\Services\CreatingService;
 use Tests\_InstanceMocker as InstanceMocker;
-use Tests\Unit\App\Database\Collections\_Mocker as CollectionMocker;
 use Tests\Unit\App\Database\Models\_Mocker as ModelMocker;
 use Tests\Unit\App\Services\_TestCase;
 
@@ -19,11 +19,18 @@ class ProfilePhotoCreatingServiceTest extends _TestCase {
     public function testArrRuleLists()
     {
         $this->verifyArrRuleLists([
-            'uploads'
-                => ['required', 'array'],
+            'auth_user'
+                => ['required'],
 
-            'uploads.*'
-                => ['base64_image']
+            'upload'
+                => ['required', 'base64']
+        ]);
+    }
+
+    public function testArrTraits()
+    {
+        $this->verifyArrTraits([
+            CreatingService::class
         ]);
     }
 
@@ -31,27 +38,19 @@ class ProfilePhotoCreatingServiceTest extends _TestCase {
     {
         $this->when(function ($proxy, $serv) {
 
-            $return     = $this->mMock();
-            $authUser   = $this->factory(User::class)->make();
-            $uploads    = [11, 22, 33];
-            $created    = ['model1', 'model2', 'model3'];
+            $profilePhoto = $this->mMock();
+            $authUser     = $this->factory(User::class)->make();
+            $upload       = $this->uniqueString();
+            $return       = $this->uniqueString();
 
-            InstanceMocker::add(ProfilePhoto::class, $return);
-            ModelMocker::newCollection($return, $return);
-
-            for ( $i = 0; $i < 3; $i++ )
-            {
-                InstanceMocker::add(ProfilePhoto::class, $inst = $this->mMock());
-                ModelMocker::create($inst, [
-                    ProfilePhoto::USER_ID => $authUser->getKey(),
-                    ProfilePhoto::DATA    => $uploads[$i],
-                ], $created[$i]);
-
-                CollectionMocker::push($return, $created[$i]);
-            }
+            InstanceMocker::add(ProfilePhoto::class, $profilePhoto);
+            ModelMocker::create($profilePhoto, [
+                ProfilePhoto::USER_ID => $authUser->getKey(),
+                ProfilePhoto::DATA    => $upload,
+            ], $return);
 
             $proxy->data->put('auth_user', $authUser);
-            $proxy->data->put('uploads', $uploads);
+            $proxy->data->put('upload', $upload);
 
             $this->verifyLoader($serv, 'created', $return);
         });

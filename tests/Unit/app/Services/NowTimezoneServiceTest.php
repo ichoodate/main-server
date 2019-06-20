@@ -10,8 +10,7 @@ class NowTimezoneServiceTest extends _TestCase {
 
     public function testArrBindNames()
     {
-        $this->verifyArrBindNames([
-        ]);
+        $this->verifyArrBindNames([]);
     }
 
     public function testArrRuleLists()
@@ -20,6 +19,11 @@ class NowTimezoneServiceTest extends _TestCase {
             'timezone'
                 => ['required', 'timezone']
         ]);
+    }
+
+    public function testArrTraits()
+    {
+        $this->verifyArrTraits([]);
     }
 
     public function testLoaderNowTimezoneDate()
@@ -73,16 +77,20 @@ class NowTimezoneServiceTest extends _TestCase {
         $this->when(function ($proxy, $serv) {
 
             $nowTimezoneDate = $this->uniqueString();
+            $timezone        = $this->uniqueString();
             $return          = [DateTimeChangingService::class, [
                 'after_timezone'
                     => 'UTC',
-                'before_datetime_obj'
+                'before_time'
                     => $nowTimezoneDate,
+                'before_timezone'
+                    => $timezone,
                 'type'
                     => DateTimeChangingService::TYPE_TIME
             ]];
 
             $proxy->data->put('now_timezone_date', $nowTimezoneDate);
+            $proxy->data->put('timezone', $timezone);
 
             $this->verifyLoader($serv, 'now_timezone_date_to_utc', $return);
         });

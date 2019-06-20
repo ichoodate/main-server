@@ -5,6 +5,7 @@ namespace App\Services\Reply;
 use App\Database\Models\Reply;
 use App\Database\Models\Ticket;
 use App\Service;
+use App\Services\FindingService;
 use App\Services\Ticket\TicketFindingService;
 use App\Services\AuthUserRequiringService;
 
@@ -14,7 +15,7 @@ class ReplyFindingService extends Service {
     {
         return [
             'model'
-                => 'reply of {{id}}'
+                => 'reply for {{id}}'
         ];
     }
 
@@ -58,13 +59,16 @@ class ReplyFindingService extends Service {
 
     public static function getArrRuleLists()
     {
-        return [];
+        return [
+            'auth_user'
+                => ['required']
+        ];
     }
 
     public static function getArrTraits()
     {
         return [
-            AuthUserRequiringService::class
+            FindingService::class
         ];
     }
 

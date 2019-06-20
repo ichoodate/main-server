@@ -4,11 +4,12 @@ namespace Tests\Unit\App\Services\Activity;
 
 use App\Database\Models\Activity;
 use App\Database\Models\Card;
-use App\Database\Models\Coin;
 use App\Database\Models\User;
+use App\Service;
+use App\Services\CreatingService;
+use App\Services\UsedCoinAddingService;
 use App\Services\Card\CardFindingService;
-use App\Services\Activity\CardActivityCreatingService as Serv;
-use App\Services\RequiredCoin\CardActivityRequiredCoinCountingService;
+use App\Services\RequiredCoin\CardActivityRequiredCoinReturningService;
 use Tests\Unit\App\Database\Models\_Mocker as ModelMocker;
 use Tests\_InstanceMocker as InstanceMocker;
 use Tests\Unit\App\Services\_TestCase;
@@ -32,17 +33,22 @@ class CardActivityCreatingServiceTest extends _TestCase {
             'auth_user'
                 => ['required'],
 
-            'card'
-                => ['not_null'],
-
             'card_id'
                 => ['required', 'integer'],
 
             'type'
-                => ['in:' . implode(',', [Activity::TYPE_CARD_FLIP, Activity::TYPE_CARD_OPEN, Activity::TYPE_CARD_PROPOSE])],
+                => ['required', 'in:' . implode(',', [Activity::TYPE_CARD_FLIP, Activity::TYPE_CARD_OPEN, Activity::TYPE_CARD_PROPOSE])],
 
             'timezone'
                 => ['required']
+        ]);
+    }
+
+    public function testArrTraits()
+    {
+        $this->verifyArrTraits([
+            CreatingService::class,
+            UsedCoinAddingService::class,
         ]);
     }
 
@@ -161,7 +167,7 @@ class CardActivityCreatingServiceTest extends _TestCase {
             $card     = $this->factory(Card::class)->make();
             $type     = $this->uniqueString();
             $timezone = $this->uniqueString();
-            $return   = [CardActivityRequiredCoinCountingService::class, [
+            $return   = [CardActivityRequiredCoinReturningService::class, [
                 'auth_user'
                     => $authUser,
                 'card'
@@ -178,7 +184,7 @@ class CardActivityCreatingServiceTest extends _TestCase {
                 'card'
                     => '{{card}}',
                 'card_id'
-                    => 'id of {{card}}',
+                    => '{{card_id}}',
                 'type'
                     => '{{type}}',
                 'timezone'
@@ -194,52 +200,4 @@ class CardActivityCreatingServiceTest extends _TestCase {
         });
     }
 
-    public function testDataRequiredCoin()
-    {
-        $this->when(function ($proxy, $serv) {
-
-            $authUser = $this->factory(User::class)->create(['id' => 1]);
-            $card     = $this->factory(Card::class)->create(['id' => 11, 'chooser_id' => $authUser->getKey(), 'created_at' => '2001-01-01 11:22:33']);
-            $type     = Activity::TYPE_CARD_FLIP;
-            $timezone = 'Asia/Seoul';
-
-            $proxy->data->put('auth_user', $authUser);
-            $proxy->data->put('card', $card);
-            $proxy->data->put('type', $type);
-            $proxy->data->put('timezone', $timezone);
-
-            $this->verifyData($proxy, 'required_coin', 5);
-        });
-    }
-
-    public function testRun()
-    {
-        $this->when(function ($proxy, $serv) {
-
-            $authUser = $this->factory(User::class)->create(['id' => 1]);
-            $card     = $this->factory(Card::class)->create(['id' => 11, 'chooser_id' => $authUser->getKey(), 'created_at' => '2001-01-01 11:22:33']);
-            $type     = Activity::TYPE_CARD_FLIP;
-            $timezone = 'Asia/Seoul';
-
-            $proxy->data->put('auth_user', $authUser);
-            $proxy->data->put('card_id', $card->getKey());
-            $proxy->data->put('type', $type);
-            $proxy->data->put('timezone', $timezone);
-
-            $result = $proxy->run();
-
-            $activity = Activity::query()
-                ->where('user_id', 1)
-                ->where('related_id', 11)
-                ->where('type', Activity::TYPE_CARD_FLIP)
-                ->first();
-
-            $this->assertNotNull($activity);
-            $this->assertEquals($activity, $result->fresh());
-            $this->assertTrue($proxy->data()->has('required_coin'));
-            $this->assertNotEquals(0, $proxy->data()->get('required_coin'));
-            $this->assertTrue($proxy->data()->has('used_coin'));
-            $this->assertNotNull($proxy->data()->get('used_coin'));
-        });
-    }
 }

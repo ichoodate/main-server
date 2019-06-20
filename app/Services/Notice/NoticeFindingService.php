@@ -4,6 +4,7 @@ namespace App\Services\Notice;
 
 use App\Database\Models\Notice;
 use App\Service;
+use App\Services\FindingService;
 
 class NoticeFindingService extends Service {
 
@@ -11,7 +12,7 @@ class NoticeFindingService extends Service {
     {
         return [
             'model'
-                => 'notice of {{id}}'
+                => 'notice for {{id}}'
         ];
     }
 
@@ -42,7 +43,9 @@ class NoticeFindingService extends Service {
 
     public static function getArrTraits()
     {
-        return [];
+        return [
+            FindingService::class
+        ];
     }
 
 }

@@ -4,6 +4,7 @@ namespace Tests\Unit\App\Services\FacePhoto;
 
 use App\Database\Models\FacePhoto;
 use App\Database\Models\User;
+use App\Services\ListingService;
 use Tests\Unit\App\Database\Queries\_Mocker as QueryMocker;
 use Tests\Unit\App\Services\_TestCase;
 
@@ -11,13 +12,21 @@ class FacePhotoListingServiceTest extends _TestCase {
 
     public function testArrBindNames()
     {
-        $this->verifyArrBindNames([
-        ]);
+        $this->verifyArrBindNames([]);
     }
 
     public function testArrRuleLists()
     {
         $this->verifyArrRuleLists([
+            'auth_user'
+                => ['required']
+        ]);
+    }
+
+    public function testArrTraits()
+    {
+        $this->verifyArrTraits([
+            ListingService::class
         ]);
     }
 

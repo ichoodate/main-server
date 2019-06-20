@@ -12,14 +12,22 @@ class ListingServiceTest extends _TestCase {
     public function testArrBindNames()
     {
         $this->verifyArrBindNames([
+            'available_fields'
+                => 'options for {{fields}}'
         ]);
     }
 
     public function testArrRuleLists()
     {
         $this->verifyArrRuleLists([
-            'fields' => ['several_in:{{available_fields}}']
+            'fields'
+                => ['several_in:{{available_fields}}']
         ]);
+    }
+
+    public function testArrTraits()
+    {
+        $this->verifyArrTraits([]);
     }
 
     public function testCallbackQueryFields()
@@ -55,8 +63,8 @@ class ListingServiceTest extends _TestCase {
     {
         $this->when(function ($proxy, $serv) {
 
-            $availableFields = $this->uniqueString();
-            $return          = $availableFields;
+            $availableFields = [$this->uniqueString()];
+            $return          = implode(',', $availableFields);
 
             $proxy->data->put('available_fields', $availableFields);
 
@@ -84,7 +92,7 @@ class ListingServiceTest extends _TestCase {
             $return     = $this->uniqueString();
 
             InstanceMocker::add($modelClass, $user);
-            ModelMocker::aliasQuery($user, $return);
+            ModelMocker::query($user, $return);
 
             $proxy->data->put('model_class', $modelClass);
 

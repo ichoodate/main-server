@@ -5,6 +5,7 @@ namespace App\Services\ChattingContent;
 use App\Database\Models\ChattingContent;
 use App\Database\Models\Match;
 use App\Service;
+use App\Services\FindingService;
 use App\Services\Match\MatchFindingService;
 
 class ChattingContentFindingService extends Service {
@@ -13,7 +14,7 @@ class ChattingContentFindingService extends Service {
     {
         return [
             'model'
-                => 'chatting_content of {{id}}'
+                => 'chatting_content for {{id}}'
         ];
     }
 
@@ -54,13 +55,15 @@ class ChattingContentFindingService extends Service {
 
     public static function getArrRuleLists()
     {
-        return [];
+        return [
+            'auth_user'
+                => ['required']
+        ];
     }
 
     public static function getArrTraits()
     {
         return [
-            AuthUserRequiringService::class,
             FindingService::class
         ];
     }

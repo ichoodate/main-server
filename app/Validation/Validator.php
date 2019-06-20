@@ -29,7 +29,7 @@ class Validator extends BaseValidator {
         ]);
     }
 
-    protected function getAttribute($attribute)
+    public function getDisplayableAttribute($attribute)
     {
         $pAttr        = $this->getPrimaryAttribute($attribute);
         $asteriskKeys = $this->getExplicitKeys($attribute);
@@ -46,7 +46,25 @@ class Validator extends BaseValidator {
 
     protected function getCustomAttribute($key)
     {
-        return $this->customAttributes[$key];
+        if ( array_key_exists($key, $this->customAttributes) )
+        {
+            return $this->customAttributes[$key];
+        }
+
+        return $key;
+    }
+
+    protected function getSize($attribute, $value)
+    {
+        if (is_numeric($value) ) {
+            return $value;
+        } elseif (is_array($value)) {
+            return count($value);
+        } elseif ($value instanceof File) {
+            return $value->getSize() / 1024;
+        }
+
+        return mb_strlen($value);
     }
 
     public function addError($attribute, $rule, $parameters)
@@ -62,6 +80,18 @@ class Validator extends BaseValidator {
     protected function replaceMore($message, $attribute, $rule, $parameters)
     {
         return str_replace(':more', $parameters[0], $message);
+    }
+
+    public function validateBase64($attribute, $value, $parameters, $validator)
+    {
+        if ( base64_encode(base64_decode($value, true)) === $value )
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public function validateDate($attribute, $value)
@@ -85,12 +115,17 @@ class Validator extends BaseValidator {
         return false;
     }
 
-    protected function validateGdImage($attribute, $value, $parameters, $validator)
+    public function validateFalse($attribute, $value, $parameters, $validator)
+    {
+        return $value === false || $value === 'false' || $value === 0 || $value === '0';
+    }
+
+    public function validateGdImage($attribute, $value, $parameters, $validator)
     {
         return $this->validateMimes($attribute, $value, ['jpeg', 'png', 'gif']);
     }
 
-    protected function validateInIf($attribute, $value, $parameters)
+    public function validateInIf($attribute, $value, $parameters)
     {
         $this->requireParameterCount(2, $parameters, 'in_if');
 
@@ -106,7 +141,7 @@ class Validator extends BaseValidator {
         return $this->validateIn($attribute, $value, $parameters);
     }
 
-    protected function validateIntegers($attribute, $value)
+    public function validateIntegers($attribute, $value)
     {
         if ( ! $this->validateString($attribute, $value) && ! $this->validateInteger($attribute, $value) )
         {
@@ -125,7 +160,7 @@ class Validator extends BaseValidator {
         return $result;
     }
 
-    protected function validateInUnless($attribute, $value, $parameters)
+    public function validateInUnless($attribute, $value, $parameters)
     {
         $this->requireParameterCount(2, $parameters, 'in_less');
 
@@ -141,7 +176,7 @@ class Validator extends BaseValidator {
         return $this->validateIn($attribute, $value, $parameters);
     }
 
-    protected function validateLess($attribute, $value, $parameters)
+    public function validateLess($attribute, $value, $parameters)
     {
         $this->requireParameterCount(1, $parameters, 'less');
 
@@ -152,19 +187,19 @@ class Validator extends BaseValidator {
         return $this->getSize($attribute, $value) < $parameters[0];
     }
 
-    protected function validateMore($attribute, $value, $parameters)
+    public function validateMore($attribute, $value, $parameters)
     {
         $this->requireParameterCount(1, $parameters, 'more');
 
         return $this->getSize($attribute, $value) > $parameters[0];
     }
 
-    protected function validateNotNull($attribute, $value)
+    public function validateNotNull($attribute, $value)
     {
         return ! $this->validateNull($attribute, $value);
     }
 
-    protected function validateNotNullIf($attribute, $value, $parameters)
+    public function validateNotNullIf($attribute, $value, $parameters)
     {
         $this->requireParameterCount(2, $parameters, 'not_null_if');
 
@@ -178,7 +213,7 @@ class Validator extends BaseValidator {
         return $this->validateNotNull($attribute, $value);
     }
 
-    protected function validateNotNullUnless($attribute, $value, $parameters)
+    public function validateNotNullUnless($attribute, $value, $parameters)
     {
         $this->requireParameterCount(2, $parameters, 'not_null_unless');
 
@@ -192,9 +227,9 @@ class Validator extends BaseValidator {
         return $this->validateNotNull($attribute, $value);
     }
 
-    protected function validateNull($attribute, $value)
+    public function validateNull($attribute, $value)
     {
-        if ( is_null($value) || $value === 'null' )
+        if ( is_null($value) )
         {
             return true;
         }
@@ -202,7 +237,7 @@ class Validator extends BaseValidator {
         return false;
     }
 
-    protected function validateNullIf($attribute, $value, $parameters)
+    public function validateNullIf($attribute, $value, $parameters)
     {
         $this->requireParameterCount(2, $parameters, 'null_if');
 
@@ -216,7 +251,7 @@ class Validator extends BaseValidator {
         return $this->validateNull($attribute, $value);
     }
 
-    protected function validateNullUnless($attribute, $value, $parameters)
+    public function validateNullUnless($attribute, $value, $parameters)
     {
         $this->requireParameterCount(2, $parameters, 'null_unless');
 
@@ -230,7 +265,35 @@ class Validator extends BaseValidator {
         return $this->validateNull($attribute, $value);
     }
 
-    protected function validateSeveralIn($attribute, $value, $parameters, $validator)
+    public function validateMax($attribute, $value, $parameters)
+    {
+        $this->requireParameterCount(1, $parameters, 'max');
+
+        $limit = $parameters[0];
+
+        if ( array_key_exists($limit, $this->data) )
+        {
+            $limit = $this->getValue($limit);
+        }
+
+        return $this->getSize($attribute, $value) <= $limit;
+    }
+
+    public function validateMin($attribute, $value, $parameters)
+    {
+        $this->requireParameterCount(1, $parameters, 'min');
+
+        $limit = $parameters[0];
+
+        if ( array_key_exists($limit, $this->data) )
+        {
+            $limit = $this->getValue($limit);
+        }
+
+        return $this->getSize($attribute, $value) >= $limit;
+    }
+
+    public function validateSeveralIn($attribute, $value, $parameters, $validator)
     {
         $this->requireParameterCount(1, $parameters, 'several_in');
 
@@ -243,7 +306,12 @@ class Validator extends BaseValidator {
         $options = implode(',', $options);
         $value = implode(',', $value);
 
-        return empty($value) || starts_with($options, $value);
+        return preg_match('/'.$value.'/', $options);
+    }
+
+    public function validateTrue($attribute, $value, $parameters, $validator)
+    {
+        return $value === true || $value === 'true' || $value === 1 || $value === '1';
     }
 
 }

@@ -2,44 +2,67 @@
 
 namespace App\Http\Middleware;
 
+use App\Database\Model;
+use App\Database\Collection;
+use App\Http\Controllers\ApiController;
+use Illuminate\Database\Eloquent\Relations\Relation;
+
 class Api {
 
     public function handle($request, $next)
     {
         $response = $next($request);
-        $arr      = $response->getData();
-        $class    = $arr[0];
-        $names    = (array) $arr[2];
+        $arr      = $response->getOriginalContent();
+        $service  = ApiController::servicify($arr);
+        $service->run();
 
-        foreach ( $arr[1] as $key => $value )
-        {
-            if ( ! ($value instanceof \stdClass) )
-            {
-                $data[$key] = $value;
-            }
-        }
-
-        $service = inst($class, [null, $data, $names]);
-
-        $service->runProcess();
-
-        $errors = $service->getTotalErrors();
+        $errors = $service->totalErrors();
         $result = $service->data()->get('result');
 
         if ( $errors->isEmpty() )
         {
             $response->setData([
-                'success' => $result
+                'result' => $this->restify($result)
             ]);
         }
         else
         {
             $response->setData([
-                'error' => $errors
+                'errors' => $errors
             ]);
         }
 
         return $response;
+    }
+
+    public static function restify($result)
+    {
+        if ( ! is_a($result, Model::class) && ! is_a($result, Collection::class) )
+        {
+            return $result;
+        }
+
+        $isModel = $result instanceof Model ? true : false;
+        $return  = [];
+        $items   = $isModel ? [$result] : $result->all();
+
+        foreach ( $items as $i => $item )
+        {
+            $type = array_flip(Relation::morphMap())[get_class($item)];
+            $value = [];
+            $value['_type'] = $type;
+            $value['_attributes'] = $item->getAttributes();
+            $value['_relations'] = [];
+
+            foreach ( $item->getRelations() as $key => $relation )
+            {
+                $value['_relations'][$key] = static::restify($relation);
+            }
+
+            $return[] = $value;
+        }
+
+        return $isModel ? $return[0] : $return;
     }
 
 }

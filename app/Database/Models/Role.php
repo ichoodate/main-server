@@ -3,36 +3,45 @@
 namespace App\Database\Models;
 
 use App\Database\Model;
-use App\Database\Models\RoleUser;
+use App\Database\Models\User;
 
 class Role extends Model {
 
     protected $table = 'roles';
     protected $casts = [
-        'id' => 'integer',
-        'user_id' => 'integer'
+        self::ID => 'integer',
+        self::USER_ID => 'integer'
     ];
-    protected $visible = [
+    protected $fillable = [
         self::ID,
         self::USER_ID,
         self::TYPE
     ];
 
+    const ID      = 'id';
     const USER_ID = 'user_id';
     const TYPE    = 'type';
 
     const TYPE_ADMIN  = 'admin';
-    const TYPE_NORMAL = 'normal';
 
     const TYPE_VALUES = [
-        self::TYPE_ADMIN,
-        self::TYPE_NORMAL
+        self::TYPE_ADMIN
     ];
 
-    public function roleUserQuery()
+    public function getExpandable()
     {
-        return inst(RoleUser::class)->aliasQuery()
-            ->qWhere(RoleUser::ROLE_ID, $this->{static::ID});
+        return ['user'];
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function userQuery()
+    {
+        return inst(User::class)->query()
+            ->qWhere(User::ID, $this->{static::USER_ID});
     }
 
 }

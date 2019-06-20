@@ -13,7 +13,7 @@ class ActivityFindingService extends Service {
     {
         return [
             'model'
-                => 'activity of {{id}}'
+                => 'activity for {{id}}'
         ];
     }
 

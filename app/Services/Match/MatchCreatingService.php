@@ -52,7 +52,7 @@ class MatchCreatingService extends Service {
 
             'existed' => ['auth_user', 'auth_user_id_field', 'matching_user_id_field', 'matching_user_ids', function ($authUser, $authUserIdField, $matchingUserIdField, $matchingUserIds) {
 
-                return inst(Match::class)->aliasQuery()
+                return inst(Match::class)->query()
                     ->qWhere($authUserIdField, $authUser->getKey())
                     ->qWhereIn($matchingUserIdField, $matchingUserIds)
                     ->get();
@@ -75,6 +75,11 @@ class MatchCreatingService extends Service {
                 }
             }],
 
+            'matching_users' => [function () {
+
+                throw new \Exception;
+            }],
+
             'matching_user_ids' => ['matching_users', function ($matchingUsers) {
 
                 return $matchingUsers->modelKeys();
@@ -95,19 +100,14 @@ class MatchCreatingService extends Service {
     public static function getArrRuleLists()
     {
         return [
-            'matching_users'
-                => ['required', 'array'],
-
-            'matching_users.*'
-                => ['not_null'],
+            'auth_user'
+                => ['required']
         ];
     }
 
     public static function getArrTraits()
     {
-        return [
-            AuthUserRequiringService::class
-        ];
+        return [];
     }
 
 }

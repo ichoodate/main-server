@@ -8,9 +8,32 @@ use Illuminate\Support\Collection;
 
 abstract class _TestCase extends TestCase {
 
-    // abstract public function testArrBindNames();
+    abstract public function testArrBindNames();
 
-    // abstract public function testGetArrRuleLists();
+    abstract public function testArrRuleLists();
+
+    abstract public function testArrTraits();
+
+    public function assertContainModelKeys($model, array $ids, $result)
+    {
+        $collection = $model::find($ids);
+
+        foreach ( $collection as $model )
+        {
+            $this->assertContains(
+                $model->getKey(),
+                $result->modelKeys()
+            );
+        }
+
+        $this->assertEquals(count($ids), $collection->count());
+    }
+
+    public function assertModel($model, integer $id, $result)
+    {
+        $this->assertNotNull($expect = $model::find($id));
+        $this->assertEquals($expect, $result);
+    }
 
     public function assertMethodExists($prefix, $key)
     {
@@ -101,6 +124,58 @@ abstract class _TestCase extends TestCase {
         $this->success();
     }
 
+    public function testDataRuleInverseStructure()
+    {
+        $class         = static::class();
+        $loaderArrKeys = array_keys(static::class()::getArrLoaders());
+
+        foreach ( $class::getAllTraits() as $class )
+        {
+            $keys = $class::getAllRuleLists()->keys()->all();
+            $loaderAllKeys = $class::getAllLoaders()->keys()->all();
+            $loaderKeys = array_diff($loaderArrKeys, $loaderAllKeys);
+
+            foreach ( $keys as $key )
+            {
+                $this->assertNotContains($key, $loaderKeys, $key . implode(',', $loaderArrKeys));
+            }
+        }
+
+        $this->success();
+    }
+
+    public function testResolverKey()
+    {
+        $class      = static::class();
+        $callbacks  = $class::getArrCallbackLists();
+        $loaders    = $class::getArrLoaders();
+        $ruleKeys   = $class::getAllRuleLists()->keys()->all();
+        $loaderKeys = $class::getAllLoaders()->keys()->all();
+        $allKeys    = array_merge($ruleKeys, $loaderKeys);
+
+        foreach ( $callbacks as $callback )
+        {
+            $deps = array_slice($callback, 0, -1);
+
+            foreach ( $deps as $dep )
+            {
+                $this->assertContains($dep, $allKeys);
+            }
+        }
+
+        // foreach ( $loaders as $loader )
+        // {
+        //     $deps = array_slice($loader, 0, -1);
+
+        //     foreach ( $deps as $dep )
+        //     {
+        //         $this->assertContains($dep, $allKeys);
+        //     }
+        // }
+
+        $this->success();
+    }
+
     public function verifyArrBindNames(array $expects)
     {
         $serv  = inst(static::class());
@@ -182,9 +257,12 @@ abstract class _TestCase extends TestCase {
         }
 
         $this->assertEquals($expect, $actual);
+
+        if ( is_array($expect) && array_key_exists(0, $expect) && get_parent_class($expect[0]) == Service::class )
+        {
+            $this->assertMethodExists('testData', $key);
+        }
     }
-
-
 
     public function verifyData($serv, $key, $expect)
     {
@@ -210,8 +288,14 @@ abstract class _TestCase extends TestCase {
         $ruleKeys   = $serv->getAllRuleLists()->keys()->all();
         $loaderKeys = $serv->getAllLoaders()->keys()->all();
         $keys       = array_merge($ruleKeys, $loaderKeys);
+        $values     = $keys;
 
-        $proxy->names = $proxy->names->merge(array_combine($keys, $keys));
+        foreach ( $values as $i => $value )
+        {
+            $values[$i] = '[' . $value . ']';
+        }
+
+        $proxy->names = $proxy->names->merge(array_combine($keys, $values));
 
         app('db')->beginTransaction();
 

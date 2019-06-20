@@ -7,18 +7,19 @@ use App\Database\Models\Obj;
 
 class Localizable extends Model {
 
-    protected $table = 'Localizables';
+    protected $table = 'localizables';
     protected $casts = [
-        'id' => 'integer',
-        'keyword_id' => 'integer'
+        self::ID => 'integer',
+        self::KEYWORD_ID => 'integer'
     ];
-    protected $visible = [
+    protected $fillable = [
         self::ID,
         self::KEYWORD_ID,
         self::LANGUAGE,
         self::TEXT
     ];
 
+    const ID         = 'id';
     const KEYWORD_ID = 'keyword_id';
     const LANGUAGE   = 'language';
     const TEXT       = 'text';
@@ -38,9 +39,19 @@ class Localizable extends Model {
         'zh-TW'
     ];
 
-    public function objQuery()
+    public function getExpandable()
     {
-        return inst(Obj::class)->aliasQuery()
+        return ['keyword.concrete'];
+    }
+
+    public function keyword()
+    {
+        return $this->belongsTo(Obj::class, 'keyword_id', 'id');
+    }
+
+    public function keywordQuery()
+    {
+        return inst(Obj::class)->query()
             ->qWhere(Obj::ID, $this->{static::KEYWORD_ID});
     }
 

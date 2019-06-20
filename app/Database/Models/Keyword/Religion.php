@@ -1,17 +1,18 @@
 <?php
 
-namespace App\Database\Models;
+namespace App\Database\Models\Keyword;
 
 use App\Database\Model;
 
 class Religion extends Model {
 
     protected $table = 'keyword_religions';
-    protected $visible = [
+    protected $fillable = [
         self::ID,
         self::TYPE
     ];
 
+    const ID   = 'id';
     const TYPE = 'type';
 
     const TYPE_IRRELIGION   = 'irreligion';
@@ -25,5 +26,10 @@ class Religion extends Model {
         self::TYPE_CATHOLICISM,
         self::TYPE_BUDDHISM
     ];
+
+    public function getExpandable()
+    {
+        return [];
+    }
 
 }

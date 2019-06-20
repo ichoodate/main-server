@@ -6,6 +6,7 @@ use App\Database\Models\Activity;
 use App\Database\Models\Notification;
 use App\Services\Activity\ActivityFindingService;
 use App\Service;
+use App\Services\ListingService;
 
 class ActivityNotificationListingService extends Service {
 
@@ -60,6 +61,9 @@ class ActivityNotificationListingService extends Service {
     public static function getArrRuleLists()
     {
         return [
+            'auth_user'
+                => ['required'],
+
             'activity_id'
                 => ['required', 'integer']
         ];
@@ -68,7 +72,7 @@ class ActivityNotificationListingService extends Service {
     public static function getArrTraits()
     {
         return [
-            AuthUserRequiringService::class
+            ListingService::class
         ];
     }
 

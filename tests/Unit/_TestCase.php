@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use Faker\Generator as Faker;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Mockery;
 use Tests\_InstanceMocker as InstanceMocker;
@@ -41,13 +42,11 @@ class _TestCase extends TestCase {
         $this->app = $this->createApplication();
     }
 
-    public function setUp()
+    public function setUp() : void
     {
         parent::setUp();
 
         $this->class = $this->class();
-
-        app('db')->getSchemaBuilder()->disableForeignKeyConstraints();
     }
 
     public static function setUpBeforeClass()
@@ -62,13 +61,26 @@ class _TestCase extends TestCase {
         }
     }
 
-    public function tearDown()
+    public function when()
     {
-        app('db')->getSchemaBuilder()->enableForeignKeyConstraints();
+        $inst  = inst($this->class());
+        $proxy = $this->proxy($inst);
+        $args  = func_get_args();
+        $func  = array_shift($args);
 
+        app('db')->beginTransaction();
+
+        call_user_func_array($func, array_merge([$proxy, $inst], $args));
+
+        app('db')->rollback();
+    }
+
+    public function tearDown() : void
+    {
         InstanceMocker::empty();
-
         Mockery::close();
+
+        inst(Faker::class)->unique($reset = true);
 
         parent::tearDown();
     }

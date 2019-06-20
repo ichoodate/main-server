@@ -4,6 +4,7 @@ namespace Tests\Unit\App\Database\Queries;
 
 use App\Database\Models\User;
 use App\Database\Models\Popularity;
+use Tests\Unit\App\Database\Queries\_TestCase;
 
 class PopularityQueryTest extends _TestCase {
 

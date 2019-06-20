@@ -17,6 +17,22 @@ class CreatingServiceTest extends _TestCase {
         $this->verifyArrRuleLists([]);
     }
 
+    public function testArrTraits()
+    {
+        $this->verifyArrTraits([]);
+    }
+
+    public function testLoaderCreated()
+    {
+        $this->when(function ($proxy, $serv) {
+
+            $this->assertException(function () use ($serv) {
+
+                $this->resolveLoader($serv, 'created');
+            });
+        });
+    }
+
     public function testLoaderResult()
     {
         $this->when(function ($proxy, $serv) {

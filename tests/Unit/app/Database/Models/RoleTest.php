@@ -3,16 +3,17 @@
 namespace Tests\Unit\App\Database\Models;
 
 use App\Database\Models\Role;
-use App\Database\Models\RoleUser;
+use App\Database\Models\User;
+use Tests\Unit\App\Database\Models\_TestCase;
 
 class RoleTest extends _TestCase {
 
-    public function testRoleUserQuery()
+    public function testUserQuery()
     {
-        $this->assertHasOneOrManyQuery(
-            'roleUser',
-            RoleUser::class,
-            RoleUser::ROLE_ID
+        $this->assertBelongsToQuery(
+            'user',
+            Role::USER_ID,
+            User::class
         );
     }
 

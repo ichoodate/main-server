@@ -13,10 +13,11 @@ class Collection extends \Illuminate\Database\Eloquent\Collection {
 
     public static function modelClass()
     {
-        $className = basename('\\', static::class);
+        $className = basename(static::class);
         $modelName = preg_replace('/Collection$/', '', $className);
+        $modelName = str_replace('Collections', 'Models', $modelName);
 
-        return 'App\\Database\\Models\\' . $modelName;
+        return $modelName;
     }
 
     public function fresh($with = [])
@@ -34,16 +35,18 @@ class Collection extends \Illuminate\Database\Eloquent\Collection {
         }
     }
 
-    public function sortById($ids)
+    public function sortByIds($ids)
     {
-        $items = [];
+        $result = inst(static::class);
 
         foreach ( $ids as $id )
         {
-            $items[] = $this->find($id);
+            $item = $this->find($id)? : null;
+
+            $result->push($item);
         }
 
-        return new static($items);
+        return $result;
     }
 
 }

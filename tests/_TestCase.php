@@ -7,18 +7,6 @@ use Mockery;
 
 abstract class _TestCase extends TestCase {
 
-    public static function class()
-    {
-        $parts = explode('\\', static::class);
-
-        array_shift($parts);
-        array_shift($parts);
-
-        $parts[count($parts) - 1] = preg_replace('/Test$/', '', end($parts));
-
-        return implode('\\', $parts);
-    }
-
     public static function assertException($executeClosure, $expectClosure = null)
     {
         try
@@ -42,9 +30,9 @@ abstract class _TestCase extends TestCase {
 
     public static function factory($modelClass, ...$args)
     {
-        $className = basename($modelClass);
+        $path = str_replace('App\\Database\\Models\\', '', $modelClass);
 
-        return inst('Database\\Factories\\Model\\' . $className . 'Factory');
+        return inst('Database\\Factories\\Models\\' . $path . 'Factory');
     }
 
     public static function invokeMethod($object, $method, $args, $public = true)
@@ -73,6 +61,13 @@ abstract class _TestCase extends TestCase {
     public static function ref(...$args)
     {
         return new \ReflectionClass(...$args);
+    }
+
+    public function setUp() : void
+    {
+        parent::setUp();
+
+        $this->faker = app(Faker::class);
     }
 
     public static function success()
