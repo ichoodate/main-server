@@ -3,7 +3,7 @@
 namespace Tests\Unit\App\Http\Controllers\Api\IdealTypeKeyword;
 
 use App\Database\Models\User;
-use App\Services\UserIdealTypeKwdPvt\AgeRangeUserIdealTypeKwdPvtUpdatingService;
+use App\Services\UserIdealTypeKwdPvt\AgeRangeUserIdealTypeKwdPvtCreatingService;
 use Tests\Unit\App\Http\Controllers\Api\_TestCase;
 
 class AgeRangeControllerTest extends _TestCase {
@@ -16,7 +16,7 @@ class AgeRangeControllerTest extends _TestCase {
         $this->setAuthUser($authUser);
         $this->setInputParameter('keyword_id', $keywordId);
 
-        $this->assertReturn([AgeRangeUserIdealTypeKwdPvtUpdatingService::class, [
+        $this->assertReturn([AgeRangeUserIdealTypeKwdPvtCreatingService::class, [
             'auth_user'
                 => $authUser,
             'keyword_id'

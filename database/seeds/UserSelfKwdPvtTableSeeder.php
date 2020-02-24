@@ -2,8 +2,8 @@
 
 namespace Database\Seeds;
 
-use App\Database\Models\UserSelfKwdPvt;
 use App\Database\Models\User;
+use App\Database\Models\UserSelfKwdPvt;
 use App\Database\Models\Keyword\BirthYear;
 use App\Database\Models\Keyword\Career;
 use App\Database\Models\Keyword\Drink;
@@ -14,9 +14,9 @@ use App\Database\Models\Keyword\Residence;
 use App\Database\Models\Keyword\Smoke;
 use App\Database\Models\Keyword\Stature;
 use App\Database\Models\Keyword\Weight;
-use Database\TableSeeder;
+use Illuminate\Database\Seeder;
 
-class UserSelfKwdPvtTableSeeder extends TableSeeder {
+class UserSelfKwdPvtTableSeeder extends Seeder {
 
     public function run()
     {

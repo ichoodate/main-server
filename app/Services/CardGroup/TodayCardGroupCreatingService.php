@@ -8,7 +8,6 @@ use App\Database\Models\UserIdealTypeKwdPvt;
 use App\Database\Models\Match;
 use App\Database\Models\User;
 use App\Service;
-use App\Services\NowTimezoneService;
 use App\Services\CardGroup\CardGroupCreatingService;
 use App\Services\User\MatchingUserRandommingService;
 
@@ -33,7 +32,9 @@ class TodayCardGroupCreatingService extends Service {
     public static function getArrLoaders()
     {
         return [
-            'today_card_group' => ['auth_user', 'now_timezone_date_to_utc', function ($authUser, $nowTimezoneDateToUtc) {
+            'today_card_group' => ['auth_user', function ($authUser) {
+
+                $time = new \DateTime('now', new \DateTimeZone('UTC'));
 
                 $query = inst(CardGroup::class)->query()
                     ->qSelect(CardGroup::ID)
@@ -43,7 +44,7 @@ class TodayCardGroupCreatingService extends Service {
                 return inst(CardGroup::class)->query()
                     ->qWhereIn(CardGroup::ID, $query)
                     ->qWhere(CardGroup::TYPE, CardGroup::TYPE_DAILY)
-                    ->qWhere(CardGroup::CREATED_AT, '>=', $nowTimezoneDateToUtc->format('Y-m-d H:i:s'))
+                    ->qWhere(CardGroup::CREATED_AT, '>=', $time->format('Y-m-d H:i:s'))
                     ->first();
             }],
 
@@ -67,16 +68,22 @@ class TodayCardGroupCreatingService extends Service {
                 return $userIdealTypeKwdPvts->pluck(UserIdealTypeKwdPvt::KEYWORD_ID)->all();
             }],
 
-            'users' => ['user_ideal_type_kwd_pvt_keyword_ids', function ($userIdealTypeKwdPvtKeywordIds) {
+            'users' => ['auth_user', 'user_ideal_type_kwd_pvt_keyword_ids', function ($authUser, $userIdealTypeKwdPvtKeywordIds) {
 
                 return [MatchingUserRandommingService::class, [
+                    'auth_user'
+                        => $authUser,
                     'keyword_ids'
                         => implode(',', $userIdealTypeKwdPvtKeywordIds),
                     'limit'
                         => 4
                 ], [
+                    'auth_user'
+                        => '{{auth_user}}',
                     'keyword_ids'
-                        => '{{user_ideal_type_kwd_pvt_keyword_ids}}'
+                        => '{{user_ideal_type_kwd_pvt_keyword_ids}}',
+                    'limit'
+                        => 'limit of matching users for {{user_ideal_type_kwd_pvt_keyword_ids}}'
                 ]];
             }],
 
@@ -111,7 +118,6 @@ class TodayCardGroupCreatingService extends Service {
     {
         return [
             CardGroupCreatingService::class,
-            NowTimezoneService::class
         ];
     }
 

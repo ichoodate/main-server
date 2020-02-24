@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Api\SelfKeyword;
 
 use App\Http\Controllers\ApiController;
-use App\Services\UserSelfKwdPvt\CareerUserSelfKwdPvtUpdatingService;
+use App\Services\UserSelfKwdPvt\CareerUserSelfKwdPvtCreatingService;
 
 class CareerController extends ApiController {
 
     public static function store()
     {
-        return [CareerUserSelfKwdPvtUpdatingService::class, [
+        return [CareerUserSelfKwdPvtCreatingService::class, [
             'auth_user'
                 => auth()->user(),
             'keyword_id'

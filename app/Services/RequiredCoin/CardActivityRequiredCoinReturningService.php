@@ -172,15 +172,17 @@ class CardActivityRequiredCoinReturningService extends Service {
                 }
             }],
 
-            'limited_min_time' => ['is_chooser', 'now_timezone_time', function ($isChooser, $nowTimezoneTime) {
+            'limited_min_time' => ['is_chooser', 'timezone', function ($isChooser, $timezone) {
+
+                $time = new \DateTime('now', new \DateTimeZone($timezone));
 
                 if ( $isChooser )
                 {
-                    return inst(\DateTime::class, [$nowTimezoneTime])->format('Y-m-d 00:00:00');
+                    return inst(\DateTime::class, [$time])->format('Y-m-d 00:00:00');
                 }
                 else
                 {
-                    return inst(\DateTime::class, [$nowTimezoneTime])
+                    return inst(\DateTime::class, [$time->format('Y-m-d H:i:s')])
                         ->modify('-1 day')
                         ->modify('+1 second')
                         ->format('Y-m-d H:i:s');

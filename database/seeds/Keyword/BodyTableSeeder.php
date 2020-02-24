@@ -4,9 +4,9 @@ namespace Database\Seeds\Keyword;
 
 use App\Database\Models\Obj;
 use App\Database\Models\Keyword\Body;
-use Database\TableSeeder;
+use Illuminate\Database\Seeder;
 
-class BodyTableSeeder extends TableSeeder {
+class BodyTableSeeder extends Seeder {
 
     public function run()
     {

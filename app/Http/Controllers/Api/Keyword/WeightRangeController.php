@@ -11,6 +11,8 @@ class WeightRangeController extends ApiController {
     public static function index()
     {
         return [WeightRangeListingService::class, [
+            'max'
+                => static::input('max'),
             'min'
                 => static::input('min'),
             'expands'
@@ -22,6 +24,8 @@ class WeightRangeController extends ApiController {
             'order_by'
                 => new \stdClass
         ], [
+            'max'
+                => '[max]',
             'min'
                 => '[min]',
             'expands'

@@ -16,6 +16,14 @@ class CardGroupPagingService extends Service {
     public static function getArrCallbackLists()
     {
         return [
+            'query.timezone' => ['query', 'after', 'timezone', function ($query, $after, $timezone) {
+
+                $time = new \DateTime($after, new \DateTimeZone($timezone));
+                $time->setTimezone(new \DateTimeZone('UTC'));
+
+                $query->qWhere(CardGroup::CREATED_AT, '>=', $time->format('Y-m-d H:i:s'));
+            }],
+
             'query.auth_user' => ['query', 'auth_user', function ($query, $authUser) {
 
                 $query->qWhere(CardGroup::USER_ID, $authUser->getKey());
@@ -56,8 +64,14 @@ class CardGroupPagingService extends Service {
     public static function getArrRuleLists()
     {
         return [
+            'after'
+                => ['required', 'date_format:Y-m-d'],
+
             'auth_user'
-                => ['required']
+                => ['required'],
+
+            'timezone'
+                => ['required', 'timezone']
         ];
     }
 

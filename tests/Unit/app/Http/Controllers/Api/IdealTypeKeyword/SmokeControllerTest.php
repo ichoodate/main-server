@@ -3,7 +3,7 @@
 namespace Tests\Unit\App\Http\Controllers\Api\IdealTypeKeyword;
 
 use App\Database\Models\User;
-use App\Services\UserIdealTypeKwdPvt\SmokeUserIdealTypeKwdPvtUpdatingService;
+use App\Services\UserIdealTypeKwdPvt\SmokeUserIdealTypeKwdPvtCreatingService;
 use Tests\Unit\App\Http\Controllers\Api\_TestCase;
 
 class SmokeControllerTest extends _TestCase {
@@ -16,7 +16,7 @@ class SmokeControllerTest extends _TestCase {
         $this->setAuthUser($authUser);
         $this->setInputParameter('keyword_id', $keywordId);
 
-        $this->assertReturn([SmokeUserIdealTypeKwdPvtUpdatingService::class, [
+        $this->assertReturn([SmokeUserIdealTypeKwdPvtCreatingService::class, [
             'auth_user'
                 => $authUser,
             'keyword_id'

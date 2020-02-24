@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Api\SelfKeyword;
 
 use App\Http\Controllers\ApiController;
-use App\Services\UserSelfKwdPvt\SmokeUserSelfKwdPvtUpdatingService;
+use App\Services\UserSelfKwdPvt\SmokeUserSelfKwdPvtCreatingService;
 
 class SmokeController extends ApiController {
 
     public static function store()
     {
-        return [SmokeUserSelfKwdPvtUpdatingService::class, [
+        return [SmokeUserSelfKwdPvtCreatingService::class, [
             'auth_user'
                 => auth()->user(),
             'keyword_id'

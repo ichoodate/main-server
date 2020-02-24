@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Api\SelfKeyword;
 
 use App\Http\Controllers\ApiController;
-use App\Services\UserSelfKwdPvt\DrinkUserSelfKwdPvtUpdatingService;
+use App\Services\UserSelfKwdPvt\DrinkUserSelfKwdPvtCreatingService;
 
 class DrinkController extends ApiController {
 
     public static function store()
     {
-        return [DrinkUserSelfKwdPvtUpdatingService::class, [
+        return [DrinkUserSelfKwdPvtCreatingService::class, [
             'auth_user'
                 => auth()->user(),
             'keyword_id'

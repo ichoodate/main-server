@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Api\SelfKeyword;
 
 use App\Http\Controllers\ApiController;
-use App\Services\UserSelfKwdPvt\WeightUserSelfKwdPvtUpdatingService;
+use App\Services\UserSelfKwdPvt\WeightUserSelfKwdPvtCreatingService;
 
 class WeightController extends ApiController {
 
     public static function store()
     {
-        return [WeightUserSelfKwdPvtUpdatingService::class, [
+        return [WeightUserSelfKwdPvtCreatingService::class, [
             'auth_user'
                 => auth()->user(),
             'keyword_id'

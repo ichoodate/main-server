@@ -35,11 +35,13 @@ class UsedCoinAddingService extends Service {
     public static function getArrLoaders()
     {
         return [
-            'balances' => ['auth_user', 'now_timezone_time', function ($authUser, $nowTimezoneTime) {
+            'balances' => ['auth_user', 'timezone', function ($authUser, $timezone) {
+
+                $time = new \DateTime('now', new \DateTimeZone($timezone));
 
                 return inst(Balance::class)->query()
                     ->qWhere(Balance::USER_ID, $authUser->getKey())
-                    ->qWhere(Balance::DELETED_AT, '>=', $nowTimezoneTime)
+                    ->qWhere(Balance::DELETED_AT, '>=', $time->format('Y-m-d H:i:s'))
                     ->qOrderBy(Balance::DELETED_AT, 'asc')
                     ->get();
             }],

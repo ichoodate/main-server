@@ -2,13 +2,12 @@
 
 namespace Database\Seeds\Keyword;
 
-use Illuminate\Support\Facades\DB;
 use App\Database\Models\Obj;
 use App\Database\Models\Keyword\Country;
 use App\Database\Models\Photo;
-use Database\TableSeeder;
+use Illuminate\Database\Seeder;
 
-class CountryTableSeeder extends TableSeeder {
+class CountryTableSeeder extends Seeder {
 
     public function run()
     {

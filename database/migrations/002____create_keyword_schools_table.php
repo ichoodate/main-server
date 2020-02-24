@@ -7,7 +7,7 @@ class CreateKeywordSchoolsTable extends Migration {
 
     public function up()
     {
-        Schema::create('school_keywords', function(Blueprint $table)
+        Schema::create('keyword_schools', function(Blueprint $table)
         {
             $table
                 ->bigInteger('id')
@@ -34,7 +34,7 @@ class CreateKeywordSchoolsTable extends Migration {
 
     public function down()
     {
-        Schema::drop('school_keywords');
+        Schema::drop('keyword_schools');
     }
 
 }

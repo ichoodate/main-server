@@ -1,9 +1,9 @@
 <?php
 
-use Illuminate\Database\Seeder;
 use Database\Seeds\ActivityTableSeeder;
 use Database\Seeds\CardTableSeeder;
 use Database\Seeds\ChattingContentTableSeeder;
+use Database\Seeds\FacePhotoTableSeeder;
 use Database\Seeds\MatchTableSeeder;
 use Database\Seeds\UserTableSeeder;
 use Database\Seeds\UserIdealTypeKwdPvtTableSeeder;
@@ -26,6 +26,7 @@ use Database\Seeds\Keyword\StatureTableSeeder;
 use Database\Seeds\Keyword\StatureRangeTableSeeder;
 use Database\Seeds\Keyword\WeightTableSeeder;
 use Database\Seeds\Keyword\WeightRangeTableSeeder;
+use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -36,31 +37,32 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(UserTableSeeder::class);
-        $this->call(MatchTableSeeder::class);
-        $this->call(CardTableSeeder::class);
-        $this->call(ActivityTableSeeder::class);
-        $this->call(ChattingContentTableSeeder::class);
-        $this->call(AgeRangeTableSeeder::class);
-        $this->call(BirthYearTableSeeder::class);
-        $this->call(BloodTableSeeder::class);
-        $this->call(BodyTableSeeder::class);
-        $this->call(CareerTableSeeder::class);
-        $this->call(CountryTableSeeder::class);
-        $this->call(DrinkTableSeeder::class);
-        $this->call(HobbyTableSeeder::class);
-        $this->call(LanguageTableSeeder::class);
-        $this->call(NationalityTableSeeder::class);
-        $this->call(ReligionTableSeeder::class);
-        $this->call(SmokeTableSeeder::class);
-        $this->call(StateTableSeeder::class);
-        $this->call(StatureTableSeeder::class);
-        $this->call(StatureRangeTableSeeder::class);
-        $this->call(WeightTableSeeder::class);
-        $this->call(WeightRangeTableSeeder::class);
-        $this->call(ResidenceTableSeeder::class);
-        $this->call(UserIdealTypeKwdPvtTableSeeder::class);
-        $this->call(UserSelfKwdPvtTableSeeder::class);
+        // $this->call(UserTableSeeder::class);
+        // $this->call(FacePhotoTableSeeder::class);
+        // $this->call(MatchTableSeeder::class);
+        // $this->call(CardTableSeeder::class);
+        // $this->call(ActivityTableSeeder::class);
+        // $this->call(ChattingContentTableSeeder::class);
+        // $this->call(AgeRangeTableSeeder::class);
+        // $this->call(BirthYearTableSeeder::class);
+        // $this->call(BloodTableSeeder::class);
+        // $this->call(BodyTableSeeder::class);
+        // $this->call(CareerTableSeeder::class);
+        // $this->call(CountryTableSeeder::class);
+        // $this->call(DrinkTableSeeder::class);
+        // $this->call(HobbyTableSeeder::class);
+        // $this->call(LanguageTableSeeder::class);
+        // $this->call(NationalityTableSeeder::class);
+        // $this->call(ReligionTableSeeder::class);
+        // $this->call(SmokeTableSeeder::class);
+        // $this->call(StateTableSeeder::class);
+        // $this->call(StatureTableSeeder::class);
+        // $this->call(StatureRangeTableSeeder::class);
+        // $this->call(WeightTableSeeder::class);
+        // $this->call(WeightRangeTableSeeder::class);
+        // $this->call(ResidenceTableSeeder::class);
+        // $this->call(UserIdealTypeKwdPvtTableSeeder::class);
+        // $this->call(UserSelfKwdPvtTableSeeder::class);
     }
 
 }

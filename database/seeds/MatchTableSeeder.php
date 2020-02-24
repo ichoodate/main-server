@@ -5,9 +5,9 @@ namespace Database\Seeds;
 use App\Database\Models\Match;
 use App\Database\Models\Obj;
 use App\Database\Models\User;
-use Database\TableSeeder;
+use Illuminate\Database\Seeder;
 
-class MatchTableSeeder extends TableSeeder {
+class MatchTableSeeder extends Seeder {
 
     public function run()
     {

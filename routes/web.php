@@ -10,12 +10,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-use App\Database\Models\Card;
-use App\Database\Models\Obj;
-use App\Database\Models\User;
-use App\Http\Controllers\Api\AuthSignInController;
-use Database\Factories\Models\UserFactory;
-use Illuminate\Support\Facades\DB;
 
 Route::prefix('api')->group(function () {
 
@@ -45,10 +39,15 @@ Route::prefix('api')->group(function () {
             'Api\AuthSignUpController'
         )->only(['store']);
 
-        Route::resource(
+        Route::get(
             'auth/user',
-            'Api\AuthUserController'
-        )->only(['index']);
+            'Api\AuthUserController@index'
+        );
+
+        Route::patch(
+            'auth/user',
+            'Api\AuthUserController@update'
+        );
 
         Route::resource(
             'balances',
@@ -59,6 +58,10 @@ Route::prefix('api')->group(function () {
             'cards',
             'Api\CardController'
         )->only(['index', 'show']);
+
+        Route::resource(
+            'card-groups',
+            'Api\CardGroupController')->only(['index', 'store', 'show']);
 
         Route::resource(
             'cards/{card}/activities',
@@ -73,12 +76,12 @@ Route::prefix('api')->group(function () {
         Route::resource(
             'face-photos',
             'Api\FacePhotoController'
-        )->only(['index', 'store', 'show']);
+        )->only(['store', 'show']);
 
         Route::resource(
             'keyword/age-ranges',
             'Api\Keyword\AgeRangeController'
-        )->only(['show']);
+        )->only(['index', 'show']);
 
         Route::resource(
             'keyword/birth-years',
@@ -131,36 +134,6 @@ Route::prefix('api')->group(function () {
         )->only(['show']);
 
         Route::resource(
-            'keyword/min-age-ranges',
-            'Api\Keyword\MinAgeRangeController'
-        )->only(['index']);
-
-        Route::resource(
-            'keyword/min-stature-ranges',
-            'Api\Keyword\MinStatureRangeController'
-        )->only(['index']);
-
-        Route::resource(
-            'keyword/min-weight-ranges',
-            'Api\Keyword\MinWeightRangeController'
-        )->only(['index']);
-
-        Route::resource(
-            'keyword/max-age-ranges',
-            'Api\Keyword\MaxAgeRangeController'
-        )->only(['index']);
-
-        Route::resource(
-            'keyword/max-stature-ranges',
-            'Api\Keyword\MaxStatureRangeController'
-        )->only(['index']);
-
-        Route::resource(
-            'keyword/max-weight-ranges',
-            'Api\Keyword\MaxWeightRangeController'
-        )->only(['index']);
-
-        Route::resource(
             'keyword/religions',
             'Api\Keyword\ReligionController'
         )->only(['index', 'show']);
@@ -181,13 +154,23 @@ Route::prefix('api')->group(function () {
         )->only(['index', 'show']);
 
         Route::resource(
-            'keyword/stature',
+            'keyword/statures',
             'Api\Keyword\StatureController'
         )->only(['index', 'show']);
 
         Route::resource(
-            'keyword/stature-range',
+            'keyword/stature-ranges',
             'Api\Keyword\StatureRangeController'
+        )->only(['index', 'show']);
+
+        Route::resource(
+            'keyword/weights',
+            'Api\Keyword\WeightController'
+        )->only(['index', 'show']);
+
+        Route::resource(
+            'keyword/weight-ranges',
+            'Api\Keyword\WeightRangeController'
         )->only(['index', 'show']);
 
         Route::resource(
@@ -351,6 +334,11 @@ Route::prefix('api')->group(function () {
         )->only(['index', 'store']);
 
         Route::resource(
+            'users',
+            'Api\UserController'
+        )->only(['show', 'update']);
+
+        Route::resource(
             'users/{user}/self-keywords',
             'Api\UserSelfKeywordController'
         )->only(['index']);
@@ -360,10 +348,4 @@ Route::prefix('api')->group(function () {
             'Api\UserProfilePhotoController'
         )->only(['index']);
     });
-});
-
-Route::get('/query', function () {
-
-    $obj = Obj::take(1)->get();
-    $obj->load('concrete');
 });

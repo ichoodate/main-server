@@ -3,7 +3,7 @@
 namespace Tests\Unit\App\Http\Controllers\Api\IdealTypeKeyword;
 
 use App\Database\Models\User;
-use App\Services\UserIdealTypeKwdPvt\StatureRangeUserIdealTypeKwdPvtUpdatingService;
+use App\Services\UserIdealTypeKwdPvt\StatureRangeUserIdealTypeKwdPvtCreatingService;
 use Tests\Unit\App\Http\Controllers\Api\_TestCase;
 
 class StatureRangeControllerTest extends _TestCase {
@@ -16,7 +16,7 @@ class StatureRangeControllerTest extends _TestCase {
         $this->setAuthUser($authUser);
         $this->setInputParameter('keyword_id', $keywordId);
 
-        $this->assertReturn([StatureRangeUserIdealTypeKwdPvtUpdatingService::class, [
+        $this->assertReturn([StatureRangeUserIdealTypeKwdPvtCreatingService::class, [
             'auth_user'
                 => $authUser,
             'keyword_id'

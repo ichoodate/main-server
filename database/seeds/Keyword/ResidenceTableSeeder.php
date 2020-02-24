@@ -6,9 +6,9 @@ use App\Database\Models\Obj;
 use App\Database\Models\Keyword\Country;
 use App\Database\Models\Keyword\State;
 use App\Database\Models\Keyword\Residence;
-use Database\TableSeeder;
+use Illuminate\Database\Seeder;
 
-class ResidenceTableSeeder extends TableSeeder {
+class ResidenceTableSeeder extends Seeder {
 
     public function run()
     {

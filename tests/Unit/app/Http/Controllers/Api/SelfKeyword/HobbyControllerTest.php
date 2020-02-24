@@ -3,7 +3,7 @@
 namespace Tests\Unit\App\Http\Controllers\Api\SelfKeyword;
 
 use App\Database\Models\User;
-use App\Services\UserSelfKwdPvt\HobbyUserSelfKwdPvtUpdatingService;
+use App\Services\UserSelfKwdPvt\HobbyUserSelfKwdPvtCreatingService;
 use Tests\Unit\App\Http\Controllers\Api\_TestCase;
 
 class HobbyControllerTest extends _TestCase {
@@ -16,7 +16,7 @@ class HobbyControllerTest extends _TestCase {
         $this->setAuthUser($authUser);
         $this->setInputParameter('keyword_ids', $keywordIds);
 
-        $this->assertReturn([HobbyUserSelfKwdPvtUpdatingService::class, [
+        $this->assertReturn([HobbyUserSelfKwdPvtCreatingService::class, [
             'auth_user'
                 => $authUser,
             'keyword_ids'

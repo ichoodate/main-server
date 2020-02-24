@@ -3,13 +3,13 @@
 namespace Database\Seeds;
 
 use App\Database\Models\Activity;
-use App\Database\Models\ChattingRoom;
 use App\Database\Models\ChattingContent;
 use App\Database\Models\Match;
 use App\Database\Models\User;
-use Database\TableSeeder;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
-class ChattingContentTableSeeder extends TableSeeder {
+class ChattingContentTableSeeder extends Seeder {
 
     public function run()
     {
@@ -36,7 +36,7 @@ class ChattingContentTableSeeder extends TableSeeder {
                 $this->factory(ChattingContent::class)->create([
                     ChattingContent::MATCH_ID  => $matchId,
                     ChattingContent::WRITER_ID => $userId,
-                    ChattingContent::MESSAGE   => str_random(25)
+                    ChattingContent::MESSAGE   => Str::random(25)
                 ]);
             }
         }

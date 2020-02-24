@@ -4,17 +4,19 @@ namespace Database\Seeds\Keyword;
 
 use App\Database\Models\Obj;
 use App\Database\Models\Keyword\Stature;
-use Database\TableSeeder;
+use Illuminate\Database\Seeder;
 
-class StatureTableSeeder extends TableSeeder {
+class StatureTableSeeder extends Seeder {
 
     public function run()
     {
-        foreach ( range(140, 200) as $type )
+        foreach ( range(140, 200) as $cm )
         {
-            Stature::create([
-                Stature::TYPE => $type
+            $stature = Stature::firstOrCreate([
+                Stature::CM => $cm
             ]);
+            $stature->{Stature::INCH} = (int)($cm * 0.393701);
+            $stature->save();
         }
     }
 

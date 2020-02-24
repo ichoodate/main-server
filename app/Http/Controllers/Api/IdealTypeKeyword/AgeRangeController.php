@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Api\IdealTypeKeyword;
 
 use App\Http\Controllers\ApiController;
-use App\Services\UserIdealTypeKwdPvt\AgeRangeUserIdealTypeKwdPvtUpdatingService;
+use App\Services\UserIdealTypeKwdPvt\AgeRangeUserIdealTypeKwdPvtCreatingService;
 
 class AgeRangeController extends ApiController {
 
     public static function store()
     {
-        return [AgeRangeUserIdealTypeKwdPvtUpdatingService::class, [
+        return [AgeRangeUserIdealTypeKwdPvtCreatingService::class, [
             'auth_user'
                 => auth()->user(),
             'keyword_id'

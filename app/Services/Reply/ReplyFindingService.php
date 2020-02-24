@@ -7,7 +7,6 @@ use App\Database\Models\Ticket;
 use App\Service;
 use App\Services\FindingService;
 use App\Services\Ticket\TicketFindingService;
-use App\Services\AuthUserRequiringService;
 
 class ReplyFindingService extends Service {
 

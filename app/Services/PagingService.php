@@ -99,11 +99,14 @@ class PagingService extends Service {
     public static function getArrRuleLists()
     {
         return [
-            'cursor_id' => ['integer'],
+            'cursor_id'
+                => ['integer'],
 
-            'limit' => ['integer', 'max:100'],
+            'limit'
+                => ['integer', 'max:100'],
 
-            'page' => ['integer']
+            'page'
+                => ['integer']
         ];
     }
 

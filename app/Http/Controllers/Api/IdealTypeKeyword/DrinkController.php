@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Api\IdealTypeKeyword;
 
 use App\Http\Controllers\ApiController;
-use App\Services\UserIdealTypeKwdPvt\DrinkUserIdealTypeKwdPvtUpdatingService;
+use App\Services\UserIdealTypeKwdPvt\DrinkUserIdealTypeKwdPvtCreatingService;
 
 class DrinkController extends ApiController {
 
     public static function store()
     {
-        return [DrinkUserIdealTypeKwdPvtUpdatingService::class, [
+        return [DrinkUserIdealTypeKwdPvtCreatingService::class, [
             'auth_user'
                 => auth()->user(),
             'keyword_id'

@@ -10,7 +10,7 @@ abstract class ApiController extends Controller {
 
     public static function input($key)
     {
-        return Input::get($key, new \stdClass);
+        return Input::get($key, '');
     }
 
     public static function servicify($arr)
@@ -23,7 +23,7 @@ abstract class ApiController extends Controller {
 
         foreach ( $data as $key => $value )
         {
-            if ( $value instanceof \stdClass)
+            if ( $value === '')
             {
                 unset($data[$key]);
             }

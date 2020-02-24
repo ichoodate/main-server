@@ -4,9 +4,9 @@ namespace Database\Seeds\Keyword;
 
 use App\Database\Models\Obj;
 use App\Database\Models\Keyword\Smoke;
-use Database\TableSeeder;
+use Illuminate\Database\Seeder;
 
-class SmokeTableSeeder extends TableSeeder {
+class SmokeTableSeeder extends Seeder {
 
     public function run()
     {

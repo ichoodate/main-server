@@ -506,11 +506,11 @@ class CardActivityRequiredCoinReturningServiceTest extends _TestCase {
         $this->when(function ($proxy, $serv) {
 
             $isChooser       = true;
-            $nowTimezoneDate = '2018-11-21 11:22:33';
+            $nowTimezoneTime = '2018-11-21 11:22:33';
             $return          = '2018-11-21 00:00:00';
 
             $proxy->data->put('is_chooser', $isChooser);
-            $proxy->data->put('now_timezone_time', $nowTimezoneDate);
+            $proxy->data->put('now_timezone_time', $nowTimezoneTime);
 
             $this->verifyLoader($serv, 'limited_min_time', $return);
         });
@@ -518,11 +518,11 @@ class CardActivityRequiredCoinReturningServiceTest extends _TestCase {
         $this->when(function ($proxy, $serv) {
 
             $isChooser       = false;
-            $nowTimezoneDate = '2018-11-22 11:22:33';
+            $nowTimezoneTime = '2018-11-22 11:22:33';
             $return          = '2018-11-21 11:22:34';
 
             $proxy->data->put('is_chooser', $isChooser);
-            $proxy->data->put('now_timezone_time', $nowTimezoneDate);
+            $proxy->data->put('now_timezone_time', $nowTimezoneTime);
 
             $this->verifyLoader($serv, 'limited_min_time', $return);
         });

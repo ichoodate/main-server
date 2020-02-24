@@ -4,9 +4,9 @@ namespace Database\Seeds\Keyword;
 
 use App\Database\Models\Obj;
 use App\Database\Models\Keyword\WeightRange;
-use Database\TableSeeder;
+use Illuminate\Database\Seeder;
 
-class WeightRangeTableSeeder extends TableSeeder {
+class WeightRangeTableSeeder extends Seeder {
 
     public function run()
     {

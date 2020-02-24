@@ -3,7 +3,7 @@
 namespace Tests\Unit\App\Http\Controllers\Api\IdealTypeKeyword;
 
 use App\Database\Models\User;
-use App\Services\UserIdealTypeKwdPvt\WeightRangeUserIdealTypeKwdPvtUpdatingService;
+use App\Services\UserIdealTypeKwdPvt\WeightRangeUserIdealTypeKwdPvtCreatingService;
 use Tests\Unit\App\Http\Controllers\Api\_TestCase;
 
 class WeightRangeControllerTest extends _TestCase {
@@ -16,7 +16,7 @@ class WeightRangeControllerTest extends _TestCase {
         $this->setAuthUser($authUser);
         $this->setInputParameter('keyword_id', $keywordId);
 
-        $this->assertReturn([WeightRangeUserIdealTypeKwdPvtUpdatingService::class, [
+        $this->assertReturn([WeightRangeUserIdealTypeKwdPvtCreatingService::class, [
             'auth_user'
                 => $authUser,
             'keyword_id'

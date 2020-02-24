@@ -7,7 +7,7 @@ use App\Database\Models\Role;
 use App\Database\Models\User;
 use App\Database\Models\Balance;
 use App\Services\CreatingService;
-use App\Services\FacePhoto\FacePhotoUpdatingService;
+use App\Services\FacePhoto\FacePhotoCreatingService;
 use App\Services\UserIdealTypeKwdPvt\UserIdealTypeKwdPvtMergingService;
 use App\Services\ProfilePhoto\ProfilePhotoCreatingService;
 use App\Services\UserSelfKwdPvt\UserSelfKwdPvtMergingService;
@@ -101,7 +101,7 @@ class AuthSignUpServiceTest extends _TestCase {
 
             $result = $this->factory(User::class)->make();
             $upload = $this->uniqueString();
-            $return = [FacePhotoUpdatingService::class, [
+            $return = [FacePhotoCreatingService::class, [
                 'auth_user'
                     => $result,
                 'upload'

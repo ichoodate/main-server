@@ -4,9 +4,9 @@ namespace Database\Seeds\Keyword;
 
 use App\Database\Models\Obj;
 use App\Database\Models\Keyword\Career;
-use Database\TableSeeder;
+use Illuminate\Database\Seeder;
 
-class CareerTableSeeder extends TableSeeder {
+class CareerTableSeeder extends Seeder {
 
     const COUNTS = [
         Career::TYPE_TABLE     => [2, 3],

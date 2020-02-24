@@ -3,7 +3,7 @@
 namespace Tests\Unit\App\Http\Controllers\Api\SelfKeyword;
 
 use App\Database\Models\User;
-use App\Services\UserSelfKwdPvt\DrinkUserSelfKwdPvtUpdatingService;
+use App\Services\UserSelfKwdPvt\DrinkUserSelfKwdPvtCreatingService;
 use Tests\Unit\App\Http\Controllers\Api\_TestCase;
 
 class DrinkControllerTest extends _TestCase {
@@ -16,7 +16,7 @@ class DrinkControllerTest extends _TestCase {
         $this->setAuthUser($authUser);
         $this->setInputParameter('keyword_id', $keywordId);
 
-        $this->assertReturn([DrinkUserSelfKwdPvtUpdatingService::class, [
+        $this->assertReturn([DrinkUserSelfKwdPvtCreatingService::class, [
             'auth_user'
                 => $authUser,
             'keyword_id'

@@ -22,7 +22,7 @@ class PermittedUserRequiringService extends Service {
     public static function getArrLoaders()
     {
         return [
-            'permitted_user' => [function () {
+            'permitted_user' => ['auth_user', 'model', function ($authUser, $model) {
 
                 throw new \Exception;
             }]

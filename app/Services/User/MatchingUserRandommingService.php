@@ -6,7 +6,7 @@ use App\Database\Models\User;
 use App\Database\Models\UserSelfKwdPvt;
 use App\Database\Models\Obj;
 use App\Service;
-use App\Services\RandommingService;
+use App\Services\ListingService;
 use App\Services\Obj\KeywordObjListingService;
 
 class MatchingUserRandommingService extends Service {
@@ -95,9 +95,7 @@ class MatchingUserRandommingService extends Service {
 
     public static function getArrTraits()
     {
-        return [
-            RandommingService::class
-        ];
+        return [];
     }
 
 }

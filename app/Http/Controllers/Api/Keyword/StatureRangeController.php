@@ -11,6 +11,8 @@ class StatureRangeController extends ApiController {
     public static function index()
     {
         return [StatureRangeListingService::class, [
+            'max'
+                => static::input('max'),
             'min'
                 => static::input('min'),
             'expands'

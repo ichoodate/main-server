@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Api\SelfKeyword;
 
 use App\Http\Controllers\ApiController;
-use App\Services\UserSelfKwdPvt\ReligionUserSelfKwdPvtUpdatingService;
+use App\Services\UserSelfKwdPvt\ReligionUserSelfKwdPvtCreatingService;
 
 class ReligionController extends ApiController {
 
     public static function store()
     {
-        return [ReligionUserSelfKwdPvtUpdatingService::class, [
+        return [ReligionUserSelfKwdPvtCreatingService::class, [
             'auth_user'
                 => auth()->user(),
             'keyword_id'

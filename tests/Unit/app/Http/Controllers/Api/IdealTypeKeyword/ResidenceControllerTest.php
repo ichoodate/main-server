@@ -3,7 +3,7 @@
 namespace Tests\Unit\App\Http\Controllers\Api\IdealTypeKeyword;
 
 use App\Database\Models\User;
-use App\Services\UserIdealTypeKwdPvt\ResidenceUserIdealTypeKwdPvtUpdatingService;
+use App\Services\UserIdealTypeKwdPvt\ResidenceUserIdealTypeKwdPvtCreatingService;
 use Tests\Unit\App\Http\Controllers\Api\_TestCase;
 
 class ResidenceControllerTest extends _TestCase {
@@ -16,7 +16,7 @@ class ResidenceControllerTest extends _TestCase {
         $this->setAuthUser($authUser);
         $this->setInputParameter('keyword_id', $keywordId);
 
-        $this->assertReturn([ResidenceUserIdealTypeKwdPvtUpdatingService::class, [
+        $this->assertReturn([ResidenceUserIdealTypeKwdPvtCreatingService::class, [
             'auth_user'
                 => $authUser,
             'keyword_id'

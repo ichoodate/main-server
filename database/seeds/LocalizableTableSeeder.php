@@ -3,9 +3,9 @@
 namespace Database\Seeds;
 
 use App\Database\Models\Localizable;
-use Database\TableSeeder;
+use Illuminate\Database\Seeder;
 
-class LocalizableTableSeeder extends TableSeeder {
+class LocalizableTableSeeder extends Seeder {
 
     public function run()
     {

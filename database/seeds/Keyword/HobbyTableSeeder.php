@@ -4,9 +4,9 @@ namespace Database\Seeds\Keyword;
 
 use App\Database\Models\Obj;
 use App\Database\Models\Keyword\Hobby;
-use Database\TableSeeder;
+use Illuminate\Database\Seeder;
 
-class HobbyTableSeeder extends TableSeeder {
+class HobbyTableSeeder extends Seeder {
 
     public function run()
     {

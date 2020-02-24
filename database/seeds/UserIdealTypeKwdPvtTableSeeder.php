@@ -2,8 +2,8 @@
 
 namespace Database\Seeds;
 
-use App\Database\Models\UserIdealTypeKwdPvt;
 use App\Database\Models\User;
+use App\Database\Models\UserIdealTypeKwdPvt;
 use App\Database\Models\Keyword\AgeRange;
 use App\Database\Models\Keyword\Career;
 use App\Database\Models\Keyword\Drink;
@@ -14,9 +14,9 @@ use App\Database\Models\Keyword\Residence;
 use App\Database\Models\Keyword\Smoke;
 use App\Database\Models\Keyword\StatureRange;
 use App\Database\Models\Keyword\WeightRange;
-use Database\TableSeeder;
+use Illuminate\Database\Seeder;
 
-class UserIdealTypeKwdPvtTableSeeder extends TableSeeder {
+class UserIdealTypeKwdPvtTableSeeder extends Seeder {
 
     public function run()
     {

@@ -5,9 +5,9 @@ namespace Database\Seeds\Keyword;
 use App\Database\Models\Obj;
 use App\Database\Models\Keyword\Country;
 use App\Database\Models\Keyword\Nationality;
-use Database\TableSeeder;
+use Illuminate\Database\Seeder;
 
-class NationalityTableSeeder extends TableSeeder {
+class NationalityTableSeeder extends Seeder {
 
     public function run()
     {

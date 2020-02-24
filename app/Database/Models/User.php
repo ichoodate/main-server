@@ -90,9 +90,9 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
             ->qWhere(Card::CHOOSER_ID, $this->{static::ID});
     }
 
-    public function facePhotos()
+    public function facePhoto()
     {
-        return $this->hasMany(FacePhoto::class, 'user_id', 'id');
+        return $this->hasOne(FacePhoto::class, 'user_id', 'id');
     }
 
     public function facePhotoQuery()

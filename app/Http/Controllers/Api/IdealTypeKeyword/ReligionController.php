@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Api\IdealTypeKeyword;
 
 use App\Http\Controllers\ApiController;
-use App\Services\UserIdealTypeKwdPvt\ReligionUserIdealTypeKwdPvtUpdatingService;
+use App\Services\UserIdealTypeKwdPvt\ReligionUserIdealTypeKwdPvtCreatingService;
 
 class ReligionController extends ApiController {
 
     public static function store()
     {
-        return [ReligionUserIdealTypeKwdPvtUpdatingService::class, [
+        return [ReligionUserIdealTypeKwdPvtCreatingService::class, [
             'auth_user'
                 => auth()->user(),
             'keyword_id'

@@ -5,10 +5,9 @@ namespace Database\Seeds;
 use App\Database\Models\Activity;
 use App\Database\Models\Card;
 use App\Database\Models\ChattingContent;
-use App\Database\Models\ChattingRoom;
-use Database\TableSeeder;
+use Illuminate\Database\Seeder;
 
-class ActivityTableSeeder extends TableSeeder {
+class ActivityTableSeeder extends Seeder {
 
     public function run()
     {

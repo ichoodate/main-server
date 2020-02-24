@@ -18,17 +18,6 @@ abstract class Model extends \Illuminate\Database\Eloquent\Model {
 
     abstract public function getExpandable();
 
-    public
-
-    public static function query()
-    {
-        $builder = static::query();
-
-        $builder->alias();
-
-        return $builder;
-    }
-
     public static function create(array $attributes = [])
     {
         if ( static::class != Obj::class && ! array_key_exists(static::ID, $attributes) )

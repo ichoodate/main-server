@@ -4,9 +4,9 @@ namespace Database\Seeds\Keyword;
 
 use App\Database\Models\Obj;
 use App\Database\Models\Keyword\Religion;
-use Database\TableSeeder;
+use Illuminate\Database\Seeder;
 
-class ReligionTableSeeder extends TableSeeder {
+class ReligionTableSeeder extends Seeder {
 
     public function run()
     {

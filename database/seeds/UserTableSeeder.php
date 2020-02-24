@@ -3,14 +3,14 @@
 namespace Database\Seeds;
 
 use App\Database\Models\User;
-use Database\TableSeeder;
+use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
-class UserTableSeeder extends TableSeeder {
+class UserTableSeeder extends Seeder {
 
     public function run()
     {
-        for ( $i = 0; $i < 10; $i++ )
+        for ( $i = 0; $i < 1000; $i++ )
         {
             if ( $i == 0 )
             {

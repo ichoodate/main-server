@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Api\IdealTypeKeyword;
 
 use App\Http\Controllers\ApiController;
-use App\Services\UserIdealTypeKwdPvt\CareerUserIdealTypeKwdPvtUpdatingService;
+use App\Services\UserIdealTypeKwdPvt\CareerUserIdealTypeKwdPvtCreatingService;
 
 class CareerController extends ApiController {
 
     public static function store()
     {
-        return [CareerUserIdealTypeKwdPvtUpdatingService::class, [
+        return [CareerUserIdealTypeKwdPvtCreatingService::class, [
             'auth_user'
                 => auth()->user(),
             'keyword_id'

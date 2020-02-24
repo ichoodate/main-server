@@ -3,7 +3,7 @@
 namespace Tests\Unit\App\Http\Controllers\Api\SelfKeyword;
 
 use App\Database\Models\User;
-use App\Services\UserSelfKwdPvt\SmokeUserSelfKwdPvtUpdatingService;
+use App\Services\UserSelfKwdPvt\SmokeUserSelfKwdPvtCreatingService;
 use Tests\Unit\App\Http\Controllers\Api\_TestCase;
 
 class SmokeControllerTest extends _TestCase {
@@ -16,7 +16,7 @@ class SmokeControllerTest extends _TestCase {
         $this->setAuthUser($authUser);
         $this->setInputParameter('keyword_id', $keywordId);
 
-        $this->assertReturn([SmokeUserSelfKwdPvtUpdatingService::class, [
+        $this->assertReturn([SmokeUserSelfKwdPvtCreatingService::class, [
             'auth_user'
                 => $authUser,
             'keyword_id'

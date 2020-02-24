@@ -9,15 +9,18 @@ class Stature extends Model {
     protected $table = 'keyword_statures';
     protected $fillable = [
         self::ID,
-        self::TYPE
+        self::CM,
+        self::INCH
     ];
 
     const ID   = 'id';
-    const TYPE = 'type';
+    const CM   = 'cm';
+    const INCH = 'inch';
 
     const ENTITIES = [
         self::ID,
-        self::TYPE
+        self::CM,
+        self::INCH
     ];
 
     public function getExpandable()

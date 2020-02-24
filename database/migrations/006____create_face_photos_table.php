@@ -29,7 +29,7 @@ class CreateFacePhotosTable extends Migration {
             $table
                 ->primary('id');
             $table
-                ->index('user_id');
+                ->unique('user_id');
 
             $table
                 ->foreign('id')

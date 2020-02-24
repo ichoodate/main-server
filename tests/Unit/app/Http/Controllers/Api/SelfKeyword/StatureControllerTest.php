@@ -3,7 +3,7 @@
 namespace Tests\Unit\App\Http\Controllers\Api\SelfKeyword;
 
 use App\Database\Models\User;
-use App\Services\UserSelfKwdPvt\StatureUserSelfKwdPvtUpdatingService;
+use App\Services\UserSelfKwdPvt\StatureUserSelfKwdPvtCreatingService;
 use Tests\Unit\App\Http\Controllers\Api\_TestCase;
 
 class StatureControllerTest extends _TestCase {
@@ -16,7 +16,7 @@ class StatureControllerTest extends _TestCase {
         $this->setAuthUser($authUser);
         $this->setInputParameter('keyword_id', $keywordId);
 
-        $this->assertReturn([StatureUserSelfKwdPvtUpdatingService::class, [
+        $this->assertReturn([StatureUserSelfKwdPvtCreatingService::class, [
             'auth_user'
                 => $authUser,
             'keyword_id'

@@ -5,12 +5,15 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\ApiController;
 use App\Services\CardGroup\CardGroupFindingService;
 use App\Services\CardGroup\CardGroupPagingService;
+use App\Services\CardGroup\TodayCardGroupCreatingService;
 
 class CardGroupController extends ApiController {
 
     public static function index()
     {
         return [CardGroupPagingService::class, [
+            'after'
+                => static::input('after'),
             'auth_user'
                 => auth()->user(),
             'cursor_id'
@@ -26,8 +29,12 @@ class CardGroupController extends ApiController {
             'group_by'
                 => new \stdClass,
             'order_by'
-                => new \stdClass
+                => new \stdClass,
+            'timezone'
+                => static::input('timezone'),
         ], [
+            'after'
+                => '[after]',
             'auth_user'
                 => 'authorized user',
             'cursor_id'
@@ -43,7 +50,9 @@ class CardGroupController extends ApiController {
             'group_by'
                 => '[group_by]',
             'order_by'
-                => '[order_by]'
+                => '[order_by]',
+            'timezone'
+                => '[timezone]',
         ]];
     }
 
@@ -67,6 +76,17 @@ class CardGroupController extends ApiController {
                 => '[fields]',
             'id'
                 => request()->route()->card_group
+        ]];
+    }
+
+    public static function store()
+    {
+        return [TodayCardGroupCreatingService::class, [
+            'auth_user'
+                => auth()->user()
+        ], [
+            'auth_user'
+                => 'authorized user'
         ]];
     }
 

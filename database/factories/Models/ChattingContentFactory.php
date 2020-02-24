@@ -20,7 +20,7 @@ class ChattingContentFactory extends ModelFactory {
                 => inst(Faker::class)->unique()->randomNumber(8),
 
             ChattingContent::MESSAGE
-                => inst(Faker::class)->text,
+                => inst(Faker::class)->word,
 
             ChattingContent::CREATED_AT
                 => inst(Faker::class)->dateTimeThisYear->format('Y-m-d H:i:s')

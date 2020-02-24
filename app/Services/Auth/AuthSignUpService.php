@@ -8,7 +8,7 @@ use App\Database\Models\Role;
 use App\Database\Models\User;
 use App\Service;
 use App\Services\CreatingService;
-use App\Services\FacePhoto\FacePhotoUpdatingService;
+use App\Services\FacePhoto\FacePhotoCreatingService;
 use App\Services\UserIdealTypeKwdPvt\UserIdealTypeKwdPvtMergingService;
 use App\Services\ProfilePhoto\ProfilePhotoCreatingService;
 use App\Services\UserSelfKwdPvt\UserSelfKwdPvtMergingService;
@@ -70,7 +70,7 @@ class AuthSignUpService extends Service {
 
             'face_photo' => ['result', 'face_photo_upload', function ($result, $facePhotoUpload) {
 
-                return [FacePhotoUpdatingService::class, [
+                return [FacePhotoCreatingService::class, [
                     'auth_user'
                         => $result,
                     'upload'

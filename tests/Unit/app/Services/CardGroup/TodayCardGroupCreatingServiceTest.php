@@ -68,7 +68,7 @@ class TodayCardGroupCreatingServiceTest extends _TestCase {
         $this->when(function ($proxy, $serv) {
 
             $authUser             = $this->factory(User::class)->make();
-            $nowTimezoneDateToUtc = new \DateTime;
+            $nowTimezoneTimeToUtc = new \DateTime;
             $cardGroup            = $this->mMock();
             $cardGroupQuery       = $this->mMock();
             $cardGroupBaseQuery   = $this->mMock();
@@ -86,11 +86,11 @@ class TodayCardGroupCreatingServiceTest extends _TestCase {
             ModelMocker::query($cardGroup2, $cardGroupQuery2);
             QueryMocker::qWhereIn($cardGroupQuery2, CardGroup::ID, $cardGroupBaseQuery);
             QueryMocker::qWhere($cardGroupQuery2, CardGroup::TYPE, CardGroup::TYPE_DAILY);
-            QueryMocker::qWhereOp($cardGroupQuery2, CardGroup::CREATED_AT, '>=', $nowTimezoneDateToUtc->format('Y-m-d H:i:s'));
+            QueryMocker::qWhereOp($cardGroupQuery2, CardGroup::CREATED_AT, '>=', $nowTimezoneTimeToUtc->format('Y-m-d H:i:s'));
             QueryMocker::first($cardGroupQuery2, $return);
 
             $proxy->data->put('auth_user', $authUser);
-            $proxy->data->put('now_timezone_date_to_utc', $nowTimezoneDateToUtc);
+            $proxy->data->put('now_timezone_time_to_utc', $nowTimezoneTimeToUtc);
 
             $this->verifyLoader($serv, 'today_card_group', $return);
         });

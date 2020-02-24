@@ -6,10 +6,10 @@ use App\Database\Models\Card;
 use App\Database\Models\CardGroup;
 use App\Database\Models\Match;
 use App\Database\Models\User;
-use Database\TableSeeder;
+use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class CardTableSeeder extends TableSeeder {
+class CardTableSeeder extends Seeder {
 
     public function run()
     {

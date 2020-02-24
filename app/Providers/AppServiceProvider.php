@@ -14,6 +14,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        date_default_timezone_set('UTC');
         Relation::morphMap([
             'activity'
                 => 'App\Database\Models\Activity',
@@ -117,8 +118,8 @@ class AppServiceProvider extends ServiceProvider
             'profile_photo'
                 => 'App\Database\Models\ProfilePhoto',
 
-            'pwd_reset'
-                => 'App\Database\Models\PwdReset',
+            'email_verification'
+                => 'App\Database\Models\EmailVerification',
 
             'reply'
                 => 'App\Database\Models\Reply',

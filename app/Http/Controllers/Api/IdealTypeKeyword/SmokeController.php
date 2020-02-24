@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Api\IdealTypeKeyword;
 
 use App\Http\Controllers\ApiController;
-use App\Services\UserIdealTypeKwdPvt\SmokeUserIdealTypeKwdPvtUpdatingService;
+use App\Services\UserIdealTypeKwdPvt\SmokeUserIdealTypeKwdPvtCreatingService;
 
 class SmokeController extends ApiController {
 
     public static function store()
     {
-        return [SmokeUserIdealTypeKwdPvtUpdatingService::class, [
+        return [SmokeUserIdealTypeKwdPvtCreatingService::class, [
             'auth_user'
                 => auth()->user(),
             'keyword_id'
