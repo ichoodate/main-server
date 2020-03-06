@@ -36,13 +36,13 @@ class FacePhotoController extends ApiController {
         return [FacePhotoCreatingService::class, [
             'auth_user'
                 => auth()->user(),
-            'upload'
-                => static::input('upload')
+            'data'
+                => static::input('data')
         ], [
             'auth_user'
                 => 'authorized user',
-            'upload'
-                => '[upload]'
+            'data'
+                => '[data]',
         ]];
     }
 

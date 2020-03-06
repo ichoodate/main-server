@@ -11,8 +11,8 @@ class UserProfilePhotoController extends ApiController {
     public static function index()
     {
         return [ProfilePhotoPagingService::class, [
-            'auth_user'
-                => User::find(request()->route()->user),
+            'user_id'
+                => request()->route()->user,
             'cursor_id'
                 => static::input('cursor_id'),
             'limit'
@@ -28,8 +28,8 @@ class UserProfilePhotoController extends ApiController {
             'order_by'
                 => ''
         ], [
-            'auth_user'
-                => 'user for '.request()->route()->user,
+            'user_id'
+                => request()->route()->user,
             'cursor_id'
                 => '[cursor_id]',
             'limit'

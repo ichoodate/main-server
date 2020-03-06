@@ -5,6 +5,7 @@ use Database\Seeds\CardTableSeeder;
 use Database\Seeds\ChattingContentTableSeeder;
 use Database\Seeds\FacePhotoTableSeeder;
 use Database\Seeds\MatchTableSeeder;
+use Database\Seeds\ProfilePhotoTableSeeder;
 use Database\Seeds\UserTableSeeder;
 use Database\Seeds\UserIdealTypeKwdPvtTableSeeder;
 use Database\Seeds\UserSelfKwdPvtTableSeeder;
@@ -39,6 +40,7 @@ class DatabaseSeeder extends Seeder
     {
         // $this->call(UserTableSeeder::class);
         // $this->call(FacePhotoTableSeeder::class);
+        // $this->call(ProfilePhotoTableSeeder::class);
         // $this->call(MatchTableSeeder::class);
         // $this->call(CardTableSeeder::class);
         // $this->call(ActivityTableSeeder::class);

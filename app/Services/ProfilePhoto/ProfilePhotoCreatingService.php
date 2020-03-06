@@ -21,12 +21,19 @@ class ProfilePhotoCreatingService extends Service {
     public static function getArrLoaders()
     {
         return [
-            'created' => ['upload', 'auth_user', function ($upload, $authUser) {
+            'created' => ['data', 'auth_user', function ($data, $authUser) {
 
-                return inst(ProfilePhoto::class)->create([
-                    ProfilePhoto::USER_ID => $authUser->getKey(),
-                    ProfilePhoto::DATA    => $upload
-                ]);
+                $collection = inst(ProfilePhoto::class)->newCollection();
+
+                foreach ( $data as $k => $v )
+                {
+                    $collection->push(inst(ProfilePhoto::class)->create([
+                        ProfilePhoto::USER_ID => $authUser->getKey(),
+                        ProfilePhoto::DATA    => $v
+                    ]));
+                }
+
+                return $collection;
             }]
         ];
     }
@@ -42,8 +49,8 @@ class ProfilePhotoCreatingService extends Service {
             'auth_user'
                 => ['required'],
 
-            'upload'
-                => ['required', 'base64']
+            'data'
+                => ['required', 'regex:/data:image\/([a-zA-Z]*);base64,([^\"]*)/'],
         ];
     }
 

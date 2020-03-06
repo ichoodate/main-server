@@ -6,6 +6,7 @@ use App\Database\Models\ProfilePhoto;
 use App\Service;
 use App\Services\PagingService;
 use App\Services\ProfilePhoto\ProfilePhotoFindingService;
+use App\Services\User\UserFindingService;
 
 class ProfilePhotoPagingService extends Service {
 
@@ -17,9 +18,9 @@ class ProfilePhotoPagingService extends Service {
     public static function getArrCallbackLists()
     {
         return [
-            'query.auth_user' => ['query', 'auth_user', function ($query, $authUser) {
+            'query.user' => ['query', 'user', function ($query, $user) {
 
-                $query->qWhere(ProfilePhoto::USER_ID, $authUser->getKey());
+                $query->qWhere(ProfilePhoto::USER_ID, $user->getKey());
             }]
         ];
     }
@@ -27,16 +28,23 @@ class ProfilePhotoPagingService extends Service {
     public static function getArrLoaders()
     {
         return [
-            'cursor' => ['auth_user', 'cursor_id', function ($authUser, $cursorId) {
+            'user' => ['user_id', function ($userId) {
+
+                return [UserFindingService::class, [
+                    'id'
+                        => $userId
+                ], [
+                    'id'
+                        => '{{user_id}}'
+                ]];
+            }],
+
+            'cursor' => ['cursor_id', function ($cursorId) {
 
                 return [ProfilePhotoFindingService::class, [
-                    'auth_user'
-                        => $authUser,
                     'id'
                         => $cursorId
                 ], [
-                    'auth_user'
-                        => '{{auth_user}}',
                     'id'
                         => '{{cursor_id}}'
                 ]];
@@ -57,8 +65,8 @@ class ProfilePhotoPagingService extends Service {
     public static function getArrRuleLists()
     {
         return [
-            'auth_user'
-                => ['required']
+            'user_id'
+                => ['required', 'integer']
         ];
     }
 

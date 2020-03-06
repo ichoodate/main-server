@@ -12,6 +12,8 @@ class ProfilePhotoController extends ApiController {
     public static function index()
     {
         return [ProfilePhotoPagingService::class, [
+            'user'
+                => auth()->user() ? auth()->user() : '',
             'user_id'
                 => auth()->user() ? auth()->user()->getKey() : '',
             'cursor_id'
@@ -29,6 +31,8 @@ class ProfilePhotoController extends ApiController {
             'order_by'
                 => ''
         ], [
+            'user'
+                => 'authorized user',
             'user_id'
                 => 'id of authorized user',
             'cursor_id'
@@ -76,13 +80,13 @@ class ProfilePhotoController extends ApiController {
         return [ProfilePhotoCreatingService::class, [
             'auth_user'
                 => auth()->user(),
-            'upload'
-                => static::input('upload')
+            'data'
+                => static::input('data'),
         ], [
             'auth_user'
                 => 'authorized user',
-            'upload'
-                => '[upload]'
+            'data'
+                => '[data]',
         ]];
     }
 

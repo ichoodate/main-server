@@ -9,26 +9,27 @@ class UserProfilePhotoControllerTest extends _TestCase {
 
     public function testIndex()
     {
-        $this->factory(User::class)->create(['id' => 1234]);
-        $this->factory(User::class)->create(['id' => 2345]);
-
+        $userId   = $this->uniqueString();
         $cursorId = $this->uniqueString();
         $limit    = $this->uniqueString();
         $page     = $this->uniqueString();
         $expands  = $this->uniqueString();
         $fields   = $this->uniqueString();
-        $id       = 1234;
+        $groupBy  = $this->uniqueString();
+        $orderBy  = $this->uniqueString();
 
+        $this->setRouteParameter('user', $userId);
         $this->setInputParameter('cursor_id', $cursorId);
         $this->setInputParameter('limit', $limit);
         $this->setInputParameter('page', $page);
         $this->setInputParameter('expands', $expands);
         $this->setInputParameter('fields', $fields);
-        $this->setRouteParameter('user', $id);
+        $this->setInputParameter('group_by', $groupBy);
+        $this->setInputParameter('order_by', $orderBy);
 
         $this->assertReturn([ProfilePhotoPagingService::class, [
-            'auth_user'
-                => User::find($id),
+            'user_id'
+                => $userId,
             'cursor_id'
                 => $cursorId,
             'limit'
@@ -44,8 +45,8 @@ class UserProfilePhotoControllerTest extends _TestCase {
             'order_by'
                 => ''
         ], [
-            'auth_user'
-                => 'user for '.$id,
+            'user_id'
+                => $userId,
             'cursor_id'
                 => '[cursor_id]',
             'limit'

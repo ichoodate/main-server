@@ -46,21 +46,21 @@ class FacePhotoControllerTest extends _TestCase {
     public function testStore()
     {
         $authUser = $this->factory(User::class)->make();
-        $upload   = $this->uniqueString();
+        $data     = $this->uniqueString();
 
         $this->setAuthUser($authUser);
-        $this->setInputParameter('upload', $upload);
+        $this->setInputParameter('data', $data);
 
         $this->assertReturn([FacePhotoCreatingService::class, [
             'auth_user'
                 => $authUser,
-            'upload'
-                => $upload,
+            'data'
+                => $data,
         ], [
             'auth_user'
                 => 'authorized user',
-            'upload'
-                => '[upload]'
+            'data'
+                => '[data]',
         ]]);
     }
 

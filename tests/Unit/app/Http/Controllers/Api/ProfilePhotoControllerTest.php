@@ -27,6 +27,8 @@ class ProfilePhotoControllerTest extends _TestCase {
         $this->setInputParameter('fields', $fields);
 
         $this->assertReturn([ProfilePhotoListingService::class, [
+            'user'
+                => $authUser,
             'user_id'
                 => $authUser->getKey(),
             'cursor_id'
@@ -44,6 +46,8 @@ class ProfilePhotoControllerTest extends _TestCase {
             'order_by'
                 => ''
         ], [
+            'user'
+                => 'authorized user',
             'user_id'
                 => 'id of authorized user',
             'cursor_id'
@@ -99,21 +103,21 @@ class ProfilePhotoControllerTest extends _TestCase {
     public function testStore()
     {
         $authUser = $this->factory(User::class)->make();
-        $uploads  = $this->uniqueString();
+        $data     = $this->uniqueString();
 
         $this->setAuthUser($authUser);
-        $this->setInputParameter('uploads', $uploads);
+        $this->setInputParameter('data', $data);
 
         $this->assertReturn([ProfilePhotoCreatingService::class, [
             'auth_user'
                 => $authUser,
-            'uploads'
-                => $uploads
+            'data'
+                => $data
         ], [
             'auth_user'
                 => 'authorized user',
-            'uploads'
-                => '[uploads]'
+            'data'
+                => '[data]',
         ]]);
     }
 

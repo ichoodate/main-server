@@ -34,7 +34,7 @@ class CardGroup extends Model {
 
     public function getExpandable()
     {
-        return ['cards', 'user'];
+        return ['cards.showner.facePhoto', 'user'];
     }
 
     public function cards()

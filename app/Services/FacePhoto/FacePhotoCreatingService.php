@@ -27,11 +27,11 @@ class FacePhotoCreatingService extends Service {
     public static function getArrLoaders()
     {
         return [
-            'result' => ['upload', 'auth_user', function ($upload, $authUser) {
+            'result' => ['auth_user', 'data', function ($authUser, $data) {
 
                 return inst(FacePhoto::class)->create([
                     FacePhoto::USER_ID => $authUser->getKey(),
-                    FacePhoto::DATA    => $upload
+                    FacePhoto::DATA    => $data
                 ]);
             }]
         ];
@@ -51,8 +51,8 @@ class FacePhotoCreatingService extends Service {
             'auth_user'
                 => ['required'],
 
-            'upload'
-                => ['required', 'base64_image']
+            'data'
+                => ['required', 'regex:/data:image\/([a-zA-Z]*);base64,([^\"]*)/']
         ];
     }
 
