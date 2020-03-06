@@ -25,9 +25,9 @@ class ProfilePhotoController extends ApiController {
             'fields'
                 => static::input('fields'),
             'group_by'
-                => new \stdClass,
+                => '',
             'order_by'
-                => new \stdClass
+                => ''
         ], [
             'user_id'
                 => 'id of authorized user',

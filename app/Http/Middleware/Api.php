@@ -4,16 +4,31 @@ namespace App\Http\Middleware;
 
 use App\Database\Model;
 use App\Database\Collection;
-use App\Http\Controllers\ApiController;
+use App\Service;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Support\Facades\DB;
 
 class Api {
 
     public function handle($request, $next)
     {
+        DB::beginTransaction();
+
         $response = $next($request);
         $arr      = $response->getOriginalContent();
-        $service  = ApiController::servicify($arr);
+
+        if ( !Service::isCanServicify($arr) )
+        {
+            $response->setContent([
+                'result' => $arr
+            ]);
+
+            DB::commit();
+
+            return $response;
+        }
+
+        $service = Service::initService($arr);
         $service->run();
 
         $errors = $service->totalErrors();
@@ -24,12 +39,16 @@ class Api {
             $response->setData([
                 'result' => $this->restify($result)
             ]);
+
+            DB::commit();
         }
         else
         {
             $response->setData([
                 'errors' => $errors
             ]);
+
+            DB::rollback();
         }
 
         return $response;

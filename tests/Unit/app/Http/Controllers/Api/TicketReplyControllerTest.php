@@ -43,9 +43,9 @@ class TicketReplyControllerTest extends _TestCase {
             'page'
                 => $page,
             'group_by'
-                => new \stdClass,
+                => '',
             'order_by'
-                => new \stdClass
+                => ''
         ], [
             'auth_user'
                 => 'authorized user',

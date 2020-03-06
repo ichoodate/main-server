@@ -33,7 +33,7 @@ class ParameterCasting {
 
     public function cast($value)
     {
-        if ( $value == 'null' )
+        if ( $value === 'null' )
         {
             $value = null;
         }

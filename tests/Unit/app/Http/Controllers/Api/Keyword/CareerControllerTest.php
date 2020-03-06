@@ -26,9 +26,9 @@ class CareerControllerTest extends _TestCase {
             'parent_id'
                 => $parentId,
             'group_by'
-                => new \stdClass,
+                => '',
             'order_by'
-                => new \stdClass
+                => ''
         ], [
             'expands'
                 => '[expands]',

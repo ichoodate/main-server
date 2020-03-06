@@ -16,9 +16,9 @@ class SmokeController extends ApiController {
             'fields'
                 => static::input('fields'),
             'group_by'
-                => new \stdClass,
+                => '',
             'order_by'
-                => new \stdClass
+                => ''
         ], [
             'expands'
                 => '[expands]',

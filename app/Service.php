@@ -24,15 +24,20 @@ class Service {
     protected $processed;
     protected $validated;
 
-    public function __construct(array $inputs = [], array $names = [])
+    public function __construct(array $inputs = [], array $names = [], $validated = [])
     {
         $this->childs    = inst(Collection::class);
         $this->data      = inst(Collection::class);
         $this->errors    = inst(Collection::class);
         $this->inputs    = inst(Collection::class, [$inputs]);
         $this->names     = inst(Collection::class, [$names]);
-        $this->validated = inst(Collection::class);
+        $this->validated = inst(Collection::class, [array_fill_keys($validated, true)]);
         $this->processed = false;
+
+        foreach ( $validated as $value )
+        {
+            $this->data->put($value, $inputs[$value]);
+        }
     }
 
     public function childs()
@@ -268,21 +273,26 @@ class Service {
         return is_object($value) && $value instanceof $errorClass;
     }
 
-    protected function initService($value)
+    public static function initService($value)
     {
         $value = array_add($value, 1, []);
         $value = array_add($value, 2, []);
+        $value = array_add($value, 3, []);
 
-        $class = $value[0];
-        $data  = $value[1];
-        $names = $value[2];
+        $class  = $value[0];
+        $data   = $value[1];
+        $names  = $value[2];
+        $valids = $value[3];
 
-        foreach ( $names as $key => $name )
+        foreach ( $data as $key => $value )
         {
-            $names[$key] = $this->resolveBindName($name);
+            if ( $value === '')
+            {
+                unset($data[$key]);
+            }
         }
 
-        return inst($class, [$data, $names]);
+        return inst($class, [$data, $names, $valids]);
     }
 
     protected function resolve(array $arr = [])
@@ -328,9 +338,16 @@ class Service {
             $loader = $this->getAllLoaders()->get($key);
             $value  = $this->resolve($loader);
 
-            if ( is_array($value) && array_key_exists(0, $value) && is_string($value[0]) && class_exists($value[0]) && get_parent_class($value[0]) == Service::class )
+            if ( static::isCanServicify($value) )
             {
-                $service = $this->initService($value);
+                $value = array_add($value, 2, []);
+
+                foreach ( $value[2] as $k => $name )
+                {
+                    $value[2][$k] = $this->resolveBindName($name);
+                }
+
+                $service = static::initService($value);
                 $value   = $service->run();
 
                 $this->childs->put($key, $service);
@@ -344,6 +361,12 @@ class Service {
 
         return $data;
     }
+
+    public static function isCanServicify($value)
+    {
+        return is_array($value) && array_key_exists(0, $value) && is_string($value[0]) && class_exists($value[0]) && get_parent_class($value[0]) == Service::class;
+    }
+
 
     protected function getAvailableRulesWith($key)
     {

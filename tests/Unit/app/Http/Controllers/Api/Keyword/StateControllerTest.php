@@ -26,9 +26,9 @@ class StateControllerTest extends _TestCase {
             'fields'
                 => $fields,
             'group_by'
-                => new \stdClass,
+                => '',
             'order_by'
-                => new \stdClass
+                => ''
         ], [
             'country_id'
                 => '[country_id]',

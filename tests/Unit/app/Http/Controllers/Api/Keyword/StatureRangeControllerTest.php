@@ -27,9 +27,9 @@ class StatureRangeControllerTest extends _TestCase {
             'fields'
                 => $fields,
             'group_by'
-                => new \stdClass,
+                => '',
             'order_by'
-                => new \stdClass
+                => ''
         ], [
             'min'
                 => '[min]',

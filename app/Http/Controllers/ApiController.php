@@ -13,23 +13,4 @@ abstract class ApiController extends Controller {
         return Input::get($key, '');
     }
 
-    public static function servicify($arr)
-    {
-        $arr   = array_add($arr, 1, []);
-        $arr   = array_add($arr, 2, []);
-        $class = $arr[0];
-        $data  = $arr[1];
-        $names = $arr[2];
-
-        foreach ( $data as $key => $value )
-        {
-            if ( $value === '')
-            {
-                unset($data[$key]);
-            }
-        }
-
-        return inst($class, [$data, $names]);
-    }
-
 }

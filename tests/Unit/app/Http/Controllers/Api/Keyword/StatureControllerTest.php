@@ -22,9 +22,9 @@ class StatureControllerTest extends _TestCase {
             'fields'
                 => $fields,
             'group_by'
-                => new \stdClass,
+                => '',
             'order_by'
-                => new \stdClass
+                => ''
         ], [
             'expands'
                 => '[expands]',

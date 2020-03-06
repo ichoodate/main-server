@@ -42,9 +42,9 @@ class BalanceControllerTest extends _TestCase {
             'fields'
                 => $fields,
             'group_by'
-                => new \stdClass,
+                => '',
             'order_by'
-                => new \stdClass
+                => ''
         ], [
             'auth_user'
                 => 'authorized user',
