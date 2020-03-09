@@ -13,6 +13,8 @@ class _TestCase extends TestCase {
 
     use DatabaseMigrations;
 
+    public $environment = 'unit';
+
     public static function class()
     {
         $parts = explode('\\', static::class);
@@ -33,13 +35,6 @@ class _TestCase extends TestCase {
     public function proxy($instance)
     {
         return inst(_Stub::class, [$instance]);
-    }
-
-    protected function refreshApplication()
-    {
-        putenv('APP_ENV=unit-testing');
-
-        $this->app = $this->createApplication();
     }
 
     public function setUp() : void

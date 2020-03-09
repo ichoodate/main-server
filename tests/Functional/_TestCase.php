@@ -3,7 +3,7 @@
 namespace Tests\Functional;
 
 use App\Database\Model;
-use App\Http\Controllers\ApiController;
+use App\Service;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Tests\_TestCase as TestCase;
@@ -12,6 +12,8 @@ class _TestCase extends TestCase {
 
     use DatabaseMigrations;
     use WithoutMiddleware;
+
+    public $environment = 'functional';
 
     public function assertResult($expect)
     {
@@ -103,11 +105,14 @@ class _TestCase extends TestCase {
     public function assertResultWithPaging($expectIds)
     {
         $serv    = $this->runService();
-        $result  = $serv->data()->get('result');
+        $result  = $serv->data()->get('result')->modelKeys();
         $errors  = $serv->totalErrors()->all();
 
+        sort($expectIds);
+        sort($result);
+
         $this->assertEquals([], $errors, implode(',', $errors));
-        $this->assertEquals($result->modelKeys(), $expectIds);
+        $this->assertEquals($result, $expectIds);
     }
 
     public function assertResultWithReturning($expect)
@@ -150,10 +155,9 @@ class _TestCase extends TestCase {
         $response = $this->getResponse();
         $content  = $response->getOriginalContent();
 
-        $this->assertIsArray($content);
+        $this->assertTrue(Service::isCanServicify($content));
 
-        $service  = ApiController::servicify($content);
-
+        $service = Service::initService($content);
         $service->run();
 
         return $service;
