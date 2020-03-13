@@ -2,7 +2,6 @@
 
 namespace App\Services\Payment;
 
-use App\Database\Models\Activity;
 use App\Database\Models\Payment;
 use App\Service;
 use App\Services\PagingService;

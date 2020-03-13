@@ -2,8 +2,8 @@
 
 namespace App\Database\Queries;
 
-use App\Database\Models\Activity;
 use App\Database\Models\Card;
+use App\Database\Models\CardFlip;
 use App\Database\Models\FacePhoto;
 use App\Database\Models\UserIdealTypeKwdPvt;
 use App\Database\Models\Match;
@@ -18,12 +18,12 @@ use App\Database\Query;
 
 class UserQuery extends Query {
 
-    public function activityQuery()
+    public function cardFlipQuery()
     {
         $subQuery = $this->qSelect(User::ID)->getQuery();
 
-        return inst(Activity::class)->query()
-            ->qWhereIn(Activity::USER_ID, $subQuery);
+        return inst(CardFlip::class)->query()
+            ->qWhereIn(CardFlip::USER_ID, $subQuery);
     }
 
     public function chooserCardQuery()

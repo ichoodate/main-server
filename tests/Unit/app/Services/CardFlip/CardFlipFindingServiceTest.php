@@ -1,8 +1,8 @@
 <?php
 
-namespace Tests\Unit\App\Services\Activity;
+namespace Tests\Unit\App\Services\CardFlip;
 
-use App\Database\Models\Activity;
+use App\Database\Models\CardFlip;
 use App\Database\Models\Notification;
 use App\Database\Models\Obj;
 use App\Database\Models\User;
@@ -12,13 +12,13 @@ use Tests\Unit\App\Services\_TestCase;
 use Tests\Unit\App\Database\Models\_Mocker as ModelMocker;
 use Tests\Unit\App\Database\Queries\_Mocker as QueryMocker;
 
-class ActivityFindingServiceTest extends _TestCase {
+class CardFlipFindingServiceTest extends _TestCase {
 
     public function testArrBindNames()
     {
         $this->verifyArrBindNames([
             'model'
-                => 'activity for {{id}}'
+                => 'card_flip for {{id}}'
         ]);
     }
 
@@ -39,7 +39,7 @@ class ActivityFindingServiceTest extends _TestCase {
     {
         $this->when(function ($proxy, $serv) {
 
-            $this->verifyLoader($serv, 'model_class', Activity::class);
+            $this->verifyLoader($serv, 'model_class', CardFlip::class);
         });
     }
 
@@ -48,7 +48,7 @@ class ActivityFindingServiceTest extends _TestCase {
         $this->when(function ($proxy, $serv) {
 
             $authUser = $this->factory(User::class)->make();
-            $model    = $this->factory(Activity::class)->make();
+            $model    = $this->factory(CardFlip::class)->make();
             $return   = null;
 
             $proxy->data->put('auth_user', $authUser);
@@ -60,7 +60,7 @@ class ActivityFindingServiceTest extends _TestCase {
         $this->when(function ($proxy, $serv) {
 
             $authUser = $this->factory(User::class)->make();
-            $model    = $this->factory(Activity::class)->make([Activity::USER_ID => $authUser->getKey()]);
+            $model    = $this->factory(CardFlip::class)->make([CardFlip::USER_ID => $authUser->getKey()]);
             $return   = $authUser;
 
             $proxy->data->put('auth_user', $authUser);

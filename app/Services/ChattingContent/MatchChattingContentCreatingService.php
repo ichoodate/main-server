@@ -2,7 +2,7 @@
 
 namespace App\Services\ChattingContent;
 
-use App\Database\Models\Activity;
+use App\Database\Models\Friend;
 use App\Database\Models\ChattingContent;
 use App\Service;
 use App\Services\CreatingService;
@@ -58,9 +58,8 @@ class MatchChattingContentCreatingService extends Service {
 
             'match_propose' => ['auth_user', 'match', function ($authUser, $match) {
 
-                return inst(Activity::class)->query()
-                    ->qWhere(Activity::TYPE, Activity::TYPE_MATCH_PROPOSE)
-                    ->qWhere(Activity::RELATED_ID, $match->getKey())
+                return inst(Friend::class)->query()
+                    ->qWhere(Friend::MATCH_ID, $match->getKey())
                     ->first();
             }]
         ];

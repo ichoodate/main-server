@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\App\Services;
 
-use App\Database\Models\Activity;
+use App\Database\Models\CardFlip;
 use App\Database\Models\Balance;
 use App\Database\Models\Coin;
 use App\Database\Models\User;
@@ -125,7 +125,7 @@ class UsedCoinAddingServiceTest extends _TestCase {
             $model1       = $this->uniqueString();
             $model2       = $this->uniqueString();
             $authUser     = $this->factory(User::class)->make();
-            $result       = $this->factory(Activity::class)->make();
+            $result       = $this->factory(CardFlip::class)->make();
             $requiredCoin = 150;
             $balances     = collect([
                 $this->factory(Balance::class)->make([Balance::COUNT => 100]),

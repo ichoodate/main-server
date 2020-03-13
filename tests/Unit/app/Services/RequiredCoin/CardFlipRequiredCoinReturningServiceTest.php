@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\App\Services\RequiredCoin;
 
-use App\Database\Models\Activity;
+use App\Database\Models\CardFlip;
 use App\Database\Models\Card;
 use App\Database\Models\User;
 use App\Services\NowTimezoneService;
@@ -13,7 +13,7 @@ use Tests\Unit\App\Services\_TestCase;
 use Tests\Unit\App\Database\Models\_Mocker as ModelMocker;
 use Tests\Unit\App\Database\Queries\_Mocker as QueryMocker;
 
-class CardActivityRequiredCoinReturningServiceTest extends _TestCase {
+class CardFlipRequiredCoinReturningServiceTest extends _TestCase {
 
     public function testArrBindNames()
     {
@@ -42,19 +42,19 @@ class CardActivityRequiredCoinReturningServiceTest extends _TestCase {
                 => ['required'],
 
             'card_flip'
-                => ['null_if:{{type}},' . Activity::TYPE_CARD_FLIP, 'not_null_if:{{type}},' . Activity::TYPE_CARD_OPEN],
+                => ['null_if:{{type}},' . CardFlip::TYPE_CARD_FLIP, 'not_null_if:{{type}},' . CardFlip::TYPE_CARD_OPEN],
 
             'card_id'
                 => ['required', 'integer'],
 
             'match_open'
-                => ['null_if:{{type}},' . Activity::TYPE_CARD_OPEN, 'not_null_if:{{type}},' . Activity::TYPE_CARD_PROPOSE],
+                => ['null_if:{{type}},' . CardFlip::TYPE_CARD_OPEN, 'not_null_if:{{type}},' . CardFlip::TYPE_CARD_PROPOSE],
 
             'match_propose'
-                => ['null_if:{{type}},' . Activity::TYPE_CARD_PROPOSE],
+                => ['null_if:{{type}},' . CardFlip::TYPE_CARD_PROPOSE],
 
             'type'
-                => ['in:' . implode(',', [Activity::TYPE_CARD_FLIP, Activity::TYPE_CARD_OPEN, Activity::TYPE_CARD_PROPOSE])]
+                => ['in:' . implode(',', [CardFlip::TYPE_CARD_FLIP, CardFlip::TYPE_CARD_OPEN, CardFlip::TYPE_CARD_PROPOSE])]
         ]);
     }
 
@@ -101,11 +101,11 @@ class CardActivityRequiredCoinReturningServiceTest extends _TestCase {
             $card     = $this->factory(Card::class)->make();
             $return   = $this->uniqueString();
 
-            InstanceMocker::add(Activity::class, $inst);
+            InstanceMocker::add(CardFlip::class, $inst);
             ModelMocker::query($inst, $query);
-            QueryMocker::qWhere($query, Activity::RELATED_ID, $card->getKey());
-            QueryMocker::qWhere($query, Activity::USER_ID, $authUser->getKey());
-            QueryMocker::qWhere($query, Activity::TYPE, Activity::TYPE_CARD_FLIP);
+            QueryMocker::qWhere($query, CardFlip::RELATED_ID, $card->getKey());
+            QueryMocker::qWhere($query, CardFlip::USER_ID, $authUser->getKey());
+            QueryMocker::qWhere($query, CardFlip::TYPE, CardFlip::TYPE_CARD_FLIP);
             QueryMocker::first($query, $return);
 
             $proxy->data->put('auth_user', $authUser);
@@ -125,11 +125,11 @@ class CardActivityRequiredCoinReturningServiceTest extends _TestCase {
             $card     = $this->factory(Card::class)->make();
             $return   = $this->uniqueString();
 
-            InstanceMocker::add(Activity::class, $inst);
+            InstanceMocker::add(CardFlip::class, $inst);
             ModelMocker::query($inst, $query);
-            QueryMocker::qWhere($query, Activity::RELATED_ID, $card->{Card::MATCH_ID});
-            QueryMocker::qWhere($query, Activity::USER_ID, $authUser->getKey());
-            QueryMocker::qWhere($query, Activity::TYPE, Activity::TYPE_MATCH_OPEN);
+            QueryMocker::qWhere($query, CardFlip::RELATED_ID, $card->{Card::MATCH_ID});
+            QueryMocker::qWhere($query, CardFlip::USER_ID, $authUser->getKey());
+            QueryMocker::qWhere($query, CardFlip::TYPE, CardFlip::TYPE_MATCH_OPEN);
             QueryMocker::first($query, $return);
 
             $proxy->data->put('auth_user', $authUser);
@@ -149,11 +149,11 @@ class CardActivityRequiredCoinReturningServiceTest extends _TestCase {
             $card     = $this->factory(Card::class)->make();
             $return   = $this->uniqueString();
 
-            InstanceMocker::add(Activity::class, $inst);
+            InstanceMocker::add(CardFlip::class, $inst);
             ModelMocker::query($inst, $query);
-            QueryMocker::qWhere($query, Activity::RELATED_ID, $card->{Card::MATCH_ID});
-            QueryMocker::qWhere($query, Activity::USER_ID, $authUser->getKey());
-            QueryMocker::qWhere($query, Activity::TYPE, Activity::TYPE_MATCH_PROPOSE);
+            QueryMocker::qWhere($query, CardFlip::RELATED_ID, $card->{Card::MATCH_ID});
+            QueryMocker::qWhere($query, CardFlip::USER_ID, $authUser->getKey());
+            QueryMocker::qWhere($query, CardFlip::TYPE, CardFlip::TYPE_MATCH_PROPOSE);
             QueryMocker::first($query, $return);
 
             $proxy->data->put('auth_user', $authUser);
@@ -184,12 +184,12 @@ class CardActivityRequiredCoinReturningServiceTest extends _TestCase {
             QueryMocker::qWhere($subQuery, Card::GROUP_ID, $card->{Card::GROUP_ID});
             QueryMocker::getQuery($subQuery, $subBaseQuery);
 
-            InstanceMocker::add(Activity::class, $inst);
+            InstanceMocker::add(CardFlip::class, $inst);
             ModelMocker::query($inst, $query);
             QueryMocker::lockForUpdate($query);
-            QueryMocker::qWhereIn($query, Activity::RELATED_ID, $subBaseQuery);
-            QueryMocker::qWhere($query, Activity::USER_ID, $authUser->getKey());
-            QueryMocker::qWhere($query, Activity::TYPE, $type);
+            QueryMocker::qWhereIn($query, CardFlip::RELATED_ID, $subBaseQuery);
+            QueryMocker::qWhere($query, CardFlip::USER_ID, $authUser->getKey());
+            QueryMocker::qWhere($query, CardFlip::TYPE, $type);
             QueryMocker::count($query, $return);
 
             $proxy->data->put('auth_user', $authUser);
@@ -210,12 +210,12 @@ class CardActivityRequiredCoinReturningServiceTest extends _TestCase {
             $authUser       = $this->factory(User::class)->make();
             $card           = $this->factory(Card::class)->make([Card::SHOWNER_ID => $authUser->getKey()]);
 
-            InstanceMocker::add(Activity::class, $inst);
+            InstanceMocker::add(CardFlip::class, $inst);
             ModelMocker::query($inst, $query);
             QueryMocker::lockForUpdate($query);
-            QueryMocker::qWhere($query, Activity::USER_ID, $authUser->getKey()) ;
-            QueryMocker::qWhere($query, Activity::TYPE, $type);
-            QueryMocker::qWhereOp($query, Activity::CREATED_AT, '>=', $limitedMinTime);
+            QueryMocker::qWhere($query, CardFlip::USER_ID, $authUser->getKey()) ;
+            QueryMocker::qWhere($query, CardFlip::TYPE, $type);
+            QueryMocker::qWhereOp($query, CardFlip::CREATED_AT, '>=', $limitedMinTime);
             QueryMocker::count($query, $return);
 
             $proxy->data->put('auth_user', $authUser);
@@ -431,7 +431,7 @@ class CardActivityRequiredCoinReturningServiceTest extends _TestCase {
         $this->when(function ($proxy, $serv) {
 
             $isChooser = true;
-            $type      = Activity::TYPE_CARD_FLIP;
+            $type      = CardFlip::TYPE_CARD_FLIP;
             $return    = 2;
 
             $proxy->data->put('is_chooser', $isChooser);
@@ -443,7 +443,7 @@ class CardActivityRequiredCoinReturningServiceTest extends _TestCase {
         $this->when(function ($proxy, $serv) {
 
             $isChooser = true;
-            $type      = Activity::TYPE_CARD_OPEN;
+            $type      = CardFlip::TYPE_CARD_OPEN;
             $return    = 1;
 
             $proxy->data->put('is_chooser', $isChooser);
@@ -455,7 +455,7 @@ class CardActivityRequiredCoinReturningServiceTest extends _TestCase {
         $this->when(function ($proxy, $serv) {
 
             $isChooser = true;
-            $type      = Activity::TYPE_CARD_PROPOSE;
+            $type      = CardFlip::TYPE_CARD_PROPOSE;
             $return    = 1;
 
             $proxy->data->put('is_chooser', $isChooser);
@@ -467,7 +467,7 @@ class CardActivityRequiredCoinReturningServiceTest extends _TestCase {
         $this->when(function ($proxy, $serv) {
 
             $isChooser = false;
-            $type      = Activity::TYPE_CARD_FLIP;
+            $type      = CardFlip::TYPE_CARD_FLIP;
             $return    = INF;
 
             $proxy->data->put('is_chooser', $isChooser);
@@ -479,7 +479,7 @@ class CardActivityRequiredCoinReturningServiceTest extends _TestCase {
         $this->when(function ($proxy, $serv) {
 
             $isChooser = false;
-            $type      = Activity::TYPE_CARD_OPEN;
+            $type      = CardFlip::TYPE_CARD_OPEN;
             $return    = INF;
 
             $proxy->data->put('is_chooser', $isChooser);
@@ -491,7 +491,7 @@ class CardActivityRequiredCoinReturningServiceTest extends _TestCase {
         $this->when(function ($proxy, $serv) {
 
             $isChooser = false;
-            $type      = Activity::TYPE_CARD_PROPOSE;
+            $type      = CardFlip::TYPE_CARD_PROPOSE;
             $return    = INF;
 
             $proxy->data->put('is_chooser', $isChooser);
@@ -532,7 +532,7 @@ class CardActivityRequiredCoinReturningServiceTest extends _TestCase {
     {
         $this->when(function ($proxy, $serv) {
 
-            $type   = Activity::TYPE_CARD_FLIP;
+            $type   = CardFlip::TYPE_CARD_FLIP;
             $return = 5;
 
             $proxy->data->put('type', $type);
@@ -542,7 +542,7 @@ class CardActivityRequiredCoinReturningServiceTest extends _TestCase {
 
         $this->when(function ($proxy, $serv) {
 
-            $type   = Activity::TYPE_CARD_OPEN;
+            $type   = CardFlip::TYPE_CARD_OPEN;
             $return = 5;
 
             $proxy->data->put('type', $type);
@@ -552,7 +552,7 @@ class CardActivityRequiredCoinReturningServiceTest extends _TestCase {
 
         $this->when(function ($proxy, $serv) {
 
-            $type   = Activity::TYPE_CARD_PROPOSE;
+            $type   = CardFlip::TYPE_CARD_PROPOSE;
             $return = 5;
 
             $proxy->data->put('type', $type);

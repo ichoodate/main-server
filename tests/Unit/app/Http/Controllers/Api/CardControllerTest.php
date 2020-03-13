@@ -2,7 +2,6 @@
 
 namespace Tests\Unit\App\Http\Controllers\Api;
 
-use App\Database\Models\Activity;
 use App\Database\Models\Card;
 use App\Database\Models\Match;
 use App\Database\Models\User;

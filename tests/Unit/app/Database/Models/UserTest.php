@@ -2,13 +2,11 @@
 
 namespace Tests\Unit\App\Database\Models;
 
-use App\Database\Models\Activity;
 use App\Database\Models\Card;
-use App\Database\Models\CardAct;
+use App\Database\Models\CardFlip;
 use App\Database\Models\FacePhoto;
 use App\Database\Models\UserIdealTypeKwdPvt;
 use App\Database\Models\Match;
-use App\Database\Models\MatchAct;
 use App\Database\Models\Popularity;
 use App\Database\Models\ProfilePhoto;
 use App\Database\Models\UserSelfKwdPvt;
@@ -20,12 +18,12 @@ use Tests\Unit\App\Database\Models\_TestCase;
 
 class UserTest extends _TestCase {
 
-    public function testActivityQuery()
+    public function testCardFlipQuery()
     {
         $this->assertHasOneOrManyQuery(
-            'activity',
-            Activity::class,
-            Activity::USER_ID
+            'cardFlip',
+            CardFlip::class,
+            CardFlip::USER_ID
         );
     }
 

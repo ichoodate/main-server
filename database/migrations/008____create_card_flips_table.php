@@ -3,11 +3,11 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateActivitiesTable extends Migration {
+class CreateCardFlipsTable extends Migration {
 
     public function up()
     {
-        Schema::create('activities', function (Blueprint $table)
+        Schema::create('card_flips', function (Blueprint $table)
         {
             $table
                 ->bigInteger('id')
@@ -16,9 +16,7 @@ class CreateActivitiesTable extends Migration {
                 ->bigInteger('user_id')
                 ->unsigned();
             $table
-                ->string('type');
-            $table
-                ->bigInteger('related_id')
+                ->bigInteger('card_id')
                 ->unsigned();
             $table
                 ->timestamp('created_at')
@@ -29,7 +27,7 @@ class CreateActivitiesTable extends Migration {
             $table
                 ->index('user_id');
             $table
-                ->index('related_id');
+                ->index('card_id');
 
             $table
                 ->foreign('id')
@@ -42,7 +40,7 @@ class CreateActivitiesTable extends Migration {
                 ->on('objs')
                 ->onDelete('cascade');
             $table
-                ->foreign('related_id')
+                ->foreign('card_id')
                 ->references('id')
                 ->on('objs')
                 ->onDelete('cascade');
@@ -51,7 +49,7 @@ class CreateActivitiesTable extends Migration {
 
     public function down()
     {
-        Schema::drop('activities');
+        Schema::drop('card_flips');
     }
 
 }

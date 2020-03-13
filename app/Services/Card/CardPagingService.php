@@ -2,14 +2,13 @@
 
 namespace App\Services\Card;
 
-use App\Database\Models\Activity;
 use App\Database\Models\Card;
+use App\Database\Models\CardFlip;
+use App\Database\Models\Friend;
 use App\Database\Models\Match;
 use App\Database\Models\User;
 use App\Service;
 use App\Services\PagingService;
-use App\Services\CardActivity\CardActivityFindingService;
-use App\Services\Match\MatchFindingService;
 
 class CardPagingService extends Service {
 
@@ -23,22 +22,18 @@ class CardPagingService extends Service {
         self::CARD_TYPE_SHOWNER
     ];
 
-    const USER_STATUS_ALL               = 'all';
-    const USER_STATUS_CARD_FLIP         = 'card_flip';
-    const USER_STATUS_CARD_FLIP_STEP    = 'card_flip_step';
-    const USER_STATUS_CARD_OPEN         = 'card_open';
-    const USER_STATUS_CARD_OPEN_STEP    = 'card_open_step';
-    const USER_STATUS_CARD_PROPOSE      = 'card_propose';
-    const USER_STATUS_CARD_PROPOSE_STEP = 'card_propose_step';
+    const USER_STATUS_ALL            = 'all';
+    const USER_STATUS_CARD_FLIP      = 'card_flip';
+    const USER_STATUS_CARD_FLIP_STEP = 'card_flip_step';
+    const USER_STATUS_FRIEND         = 'friend';
+    const USER_STATUS_FRIEND_STEP    = 'friend_step';
 
     const USER_STATUS_VALUES = [
         self::USER_STATUS_ALL,
         self::USER_STATUS_CARD_FLIP,
         self::USER_STATUS_CARD_FLIP_STEP,
-        self::USER_STATUS_CARD_OPEN,
-        self::USER_STATUS_CARD_OPEN_STEP,
-        self::USER_STATUS_CARD_PROPOSE,
-        self::USER_STATUS_CARD_PROPOSE_STEP
+        self::USER_STATUS_FRIEND,
+        self::USER_STATUS_FRIEND_STEP,
     ];
 
     public static function getArrBindNames()
@@ -191,11 +186,7 @@ class CardPagingService extends Service {
 
                 return function ($cardQuery, $userQuery, $userStatus) use ($queryBuilder2) {
 
-                    if ( $userStatus == self::USER_STATUS_ALL )
-                    {
-
-                    }
-                    else if ( in_array($userStatus, [self::USER_STATUS_CARD_FLIP, self::USER_STATUS_CARD_OPEN, self::USER_STATUS_CARD_PROPOSE]) )
+                    if ( in_array($userStatus, [self::USER_STATUS_CARD_FLIP, self::USER_STATUS_FRIEND]) )
                     {
                         $subQuery = $queryBuilder2->call($this, $userQuery, $userStatus);
 
@@ -207,25 +198,17 @@ class CardPagingService extends Service {
 
                         $cardQuery->qWhereNotIn(Card::ID, $subQuery);
                     }
-                    else if ( in_array($userStatus, [self::USER_STATUS_CARD_OPEN_STEP, self::USER_STATUS_CARD_PROPOSE_STEP]) )
+                    else if ( $userStatus == self::USER_STATUS_FRIEND_STEP )
                     {
-                        if ( $userStatus == self::USER_STATUS_CARD_OPEN_STEP )
-                        {
-                            $inStatus    = self::USER_STATUS_CARD_FLIP;
-                            $notInStatus = self::USER_STATUS_CARD_OPEN;
-                        }
-                        else if ( $userStatus == self::USER_STATUS_CARD_PROPOSE_STEP )
-                        {
-                            $inStatus    = self::USER_STATUS_CARD_OPEN;
-                            $notInStatus = self::USER_STATUS_CARD_PROPOSE;
-                        }
-
-                        $inSubQuery    = $queryBuilder2->call($this, $userQuery, $inStatus);
-                        $notInSubQuery = $queryBuilder2->call($this, $userQuery, $notInStatus);
+                        $inSubQuery    = $queryBuilder2->call($this, $userQuery, self::USER_STATUS_CARD_FLIP);
+                        $notInSubQuery = $queryBuilder2->call($this, $userQuery, self::USER_STATUS_FRIEND);
 
                         $cardQuery->qWhereIn(Card::ID, $inSubQuery);
                         $cardQuery->qWhereNotIn(Card::ID, $notInSubQuery);
                     }
+                    // else if ( $userStatus == self::USER_STATUS_ALL )
+                    // {
+                    // }
 
                     return $cardQuery->getQuery();
                 };
@@ -235,24 +218,28 @@ class CardPagingService extends Service {
 
                 return function ($userQuery, $userStatus) {
 
-                    $query = inst(Activity::class)->query()
-                        ->qWhereIn(Activity::USER_ID, $userQuery)
-                        ->qSelect(Activity::RELATED_ID);
+                    $flipQuery = inst(CardFlip::class)->query()
+                        ->qWhereIn(CardFlip::USER_ID, $userQuery)
+                        ->qSelect(CardFlip::CARD_ID)
+                        ->getQuery();
 
                     if ( $userStatus == self::USER_STATUS_CARD_FLIP )
                     {
-                        $query->qWhere(Activity::TYPE, Activity::TYPE_CARD_FLIP);
+                        return $flipQuery;
                     }
-                    else if ( $userStatus == self::USER_STATUS_CARD_OPEN )
+                    else if ( $userStatus == self::USER_STATUS_FRIEND )
                     {
-                        $query->qWhere(Activity::TYPE, Activity::TYPE_CARD_OPEN);
-                    }
-                    else if ( $userStatus == self::USER_STATUS_CARD_PROPOSE )
-                    {
-                        $query->qWhere(Activity::TYPE, Activity::TYPE_CARD_PROPOSE);
-                    }
+                        $friendQuery = inst(Friend::class)->query()
+                            ->qWhereIn(Friend::SENDER_ID, $userQuery)
+                            ->qSelect(Friend::MATCH_ID)
+                            ->getQuery();
 
-                    return $query->getQuery();
+                        return inst(Card::class)->query()
+                            ->qWhereIn(Card::MATCH_ID, $friendQuery)
+                            ->qWhereIn(Card::ID, $flipQuery)
+                            ->qSelect(Card::ID)
+                            ->getQuery();
+                    }
                 };
             }]
         ];

@@ -2,19 +2,19 @@
 
 namespace App\Database\Queries;
 
-use App\Database\Models\Activity;
 use App\Database\Models\Notification;
+use App\Database\Models\Obj;
 use App\Database\Models\User;
 use App\Database\Query;
 
 class NotificationQuery extends Query {
 
-    public function activityQuery()
+    public function relatedQuery()
     {
-        $subQuery = $this->qSelect(Notification::ACTIVITY_ID)->getQuery();
+        $subQuery = $this->qSelect(Notification::RELATED_ID)->getQuery();
 
-        return inst(Activity::class)->query()
-            ->qWhereIn(Activity::ID, $subQuery);
+        return inst(Obj::class)->query()
+            ->qWhereIn(Obj::ID, $subQuery);
     }
 
     public function userQuery()

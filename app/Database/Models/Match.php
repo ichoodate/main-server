@@ -3,8 +3,8 @@
 namespace App\Database\Models;
 
 use App\Database\Model;
-use App\Database\Models\Activity;
 use App\Database\Models\Card;
+use App\Database\Models\Friend;
 use App\Database\Models\User;
 
 class Match extends Model {
@@ -21,28 +21,28 @@ class Match extends Model {
         self::WOMAN_ID
     ];
 
-    const ID         = 'id';
-    const ACTIVITIES = 'activities';
-    const MAN        = 'man';
-    const MAN_ID     = 'man_id';
-    const WOMAN      = 'woman';
-    const WOMAN_ID   = 'woman_id';
-    const CARDS      = 'cards';
+    const ID       = 'id';
+    const FRIENDS  = 'friends';
+    const MAN      = 'man';
+    const MAN_ID   = 'man_id';
+    const WOMAN    = 'woman';
+    const WOMAN_ID = 'woman_id';
+    const CARDS    = 'cards';
 
     public function getExpandable()
     {
-        return ['activities', 'man', 'woman', 'cards'];
+        return ['friends', 'man', 'woman', 'cards'];
     }
 
-    public function activities()
+    public function friends()
     {
-        return $this->hasMany(Activity::class, 'related_id', 'id');
+        return $this->hasMany(Friend::class, 'match_id', 'id');
     }
 
-    public function activityQuery()
+    public function friendQuery()
     {
-        return inst(Activity::class)->query()
-            ->qWhere(Activity::RELATED_ID, $this->{static::ID});
+        return inst(Friend::class)->query()
+            ->qWhere(Friend::RELATED_ID, $this->{static::ID});
     }
 
     public function cards()

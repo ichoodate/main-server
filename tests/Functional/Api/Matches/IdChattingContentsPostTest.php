@@ -2,7 +2,7 @@
 
 namespace Tests\Functional\Api\Matches;
 
-use App\Database\Models\Activity;
+use App\Database\Models\Friend;
 use App\Database\Models\ChattingContent;
 use App\Database\Models\Match;
 use App\Database\Models\User;
@@ -19,8 +19,8 @@ class IdChattingContentsPostTest extends _TestCase {
         $this->factory(User::class)->create(['id' => 3]);
         $this->factory(Match::class)->create(['id' => 11, 'man_id' => 1, 'woman_id' => 2]);
         $this->factory(Match::class)->create(['id' => 12, 'man_id' => 3, 'woman_id' => 2]);
-        $this->factory(Activity::class)->create(['id' => 101, 'user_id' => 1, 'related_id' => 11, 'type' => Activity::TYPE_MATCH_PROPOSE]);
-        $this->factory(Activity::class)->create(['id' => 102, 'user_id' => 3, 'related_id' => 12, 'type' => Activity::TYPE_MATCH_PROPOSE]);
+        $this->factory(Friend::class)->create(['id' => 101, 'from_id' => 1, 'related_id' => 11, 'to_id' => 12]);
+        $this->factory(Friend::class)->create(['id' => 102, 'from_id' => 3, 'related_id' => 12, 'to_id' => 11]);
 
         $this->when(function () {
 

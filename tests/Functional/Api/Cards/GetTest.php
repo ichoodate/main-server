@@ -2,8 +2,9 @@
 
 namespace Tests\Functional\Api\Cards;
 
-use App\Database\Models\Activity;
 use App\Database\Models\Card;
+use App\Database\Models\CardFlip;
+use App\Database\Models\Friend;
 use App\Database\Models\Match;
 use App\Database\Models\User;
 use App\Services\Card\CardPagingService;
@@ -33,180 +34,46 @@ class GetTest extends _TestCase {
         $this->factory(Match::class)->create([
             Match::MAN_ID => $rand ? 1 : 2,
             Match::WOMAN_ID => $rand ? 2 : 1,
+            Match::FRIENDS => [[
+                Friend::SENDER_ID => 1,
+                Friend::RECEIVER_ID => 2
+            ]],
             Match::CARDS => [[
                 Card::ID => $namedIds['1_ch_none_2_sh_none'] = 110,
                 Card::CHOOSER_ID => 1,
                 Card::SHOWNER_ID => 2,
-                Card::ACTIVITIES => []
+                Card::FLIPS => []
             ], [
                 Card::ID => $namedIds['1_ch_flip_2_sh_none'] = 120,
                 Card::CHOOSER_ID => 1,
                 Card::SHOWNER_ID => 2,
-                Card::ACTIVITIES => [[
-                    Activity::TYPE => Activity::TYPE_CARD_FLIP,
-                    Activity::USER_ID => 1
-                ]]
-            ], [
-                Card::ID => $namedIds['1_ch_open_2_sh_none'] = 130,
-                Card::CHOOSER_ID => 1,
-                Card::SHOWNER_ID => 2,
-                Card::ACTIVITIES => [[
-                    Activity::TYPE => Activity::TYPE_CARD_OPEN,
-                    Activity::USER_ID => 1
-                ]]
-            ], [
-                Card::ID => $namedIds['1_ch_prop_2_sh_none'] = 140,
-                Card::CHOOSER_ID => 1,
-                Card::SHOWNER_ID => 2,
-                Card::ACTIVITIES => [[
-                    Activity::TYPE => Activity::TYPE_CARD_PROPOSE,
-                    Activity::USER_ID => 1
+                Card::FLIPS => [[
+                    CardFlip::USER_ID => 1
                 ]]
             ], [
                 Card::ID => $namedIds['1_ch_none_2_sh_flip'] = 150,
                 Card::CHOOSER_ID => 1,
                 Card::SHOWNER_ID => 2,
-                Card::ACTIVITIES => [[
-                    Activity::TYPE => Activity::TYPE_CARD_FLIP,
-                    Activity::USER_ID => 2
+                Card::FLIPS => [[
+                    CardFlip::USER_ID => 2
                 ]]
             ], [
                 Card::ID => $namedIds['1_ch_flip_2_sh_flip'] = 160,
                 Card::CHOOSER_ID => 1,
                 Card::SHOWNER_ID => 2,
-                Card::ACTIVITIES => [[
-                    Activity::TYPE => Activity::TYPE_CARD_FLIP,
-                    Activity::USER_ID => 1
+                Card::FLIPS => [[
+                    CardFlip::USER_ID => 1
                 ], [
-                    Activity::TYPE => Activity::TYPE_CARD_FLIP,
-                    Activity::USER_ID => 2
+                    CardFlip::USER_ID => 2
                 ]]
             ], [
-                Card::ID => $namedIds['1_ch_open_2_sh_flip'] = 170,
-                Card::CHOOSER_ID => 1,
-                Card::SHOWNER_ID => 2,
-                Card::ACTIVITIES => [[
-                    Activity::TYPE => Activity::TYPE_CARD_OPEN,
-                    Activity::USER_ID => 1,
-                ], [
-                    Activity::TYPE => Activity::TYPE_CARD_FLIP,
-                    Activity::USER_ID => 2
-                ]]
-            ], [
-                Card::ID => $namedIds['1_ch_prop_2_sh_flip'] = 180,
-                Card::CHOOSER_ID => 1,
-                Card::SHOWNER_ID => 2,
-                Card::ACTIVITIES => [[
-                    Activity::TYPE => Activity::TYPE_CARD_PROPOSE,
-                    Activity::USER_ID => 1
-                ], [
-                    Activity::TYPE => Activity::TYPE_CARD_FLIP,
-                    Activity::USER_ID => 2
-                ]]
-            ], [
-                Card::ID => $namedIds['1_ch_none_2_sh_open'] = 190,
-                Card::CHOOSER_ID => 1,
-                Card::SHOWNER_ID => 2,
-                Card::ACTIVITIES => [[
-                    Activity::TYPE => Activity::TYPE_CARD_FLIP,
-                    Activity::USER_ID => 2
-                ], [
-                    Activity::TYPE => Activity::TYPE_CARD_OPEN,
-                    Activity::USER_ID => 2
-                ]]
-            ], [
-                Card::ID => $namedIds['1_ch_flip_2_sh_open'] = 200,
-                Card::CHOOSER_ID => 1,
-                Card::SHOWNER_ID => 2,
-                Card::ACTIVITIES => [[
-                    Activity::TYPE => Activity::TYPE_CARD_FLIP,
-                    Activity::USER_ID => 1
-                ], [
-                    Activity::TYPE => Activity::TYPE_CARD_FLIP,
-                    Activity::USER_ID => 2
-                ], [
-                    Activity::TYPE => Activity::TYPE_CARD_OPEN,
-                    Activity::USER_ID => 2
-                ]]
-            ], [
-                Card::ID => $namedIds['1_ch_open_2_sh_open'] = 210,
-                Card::CHOOSER_ID => 1,
-                Card::SHOWNER_ID => 2,
-                Card::ACTIVITIES => [[
-                    Activity::TYPE => Activity::TYPE_CARD_OPEN,
-                    Activity::USER_ID => 1
-                ], [
-                    Activity::TYPE => Activity::TYPE_CARD_OPEN,
-                    Activity::USER_ID => 2
-                ]]
-            ], [
-                Card::ID => $namedIds['1_ch_prop_2_sh_open'] = 220,
-                Card::CHOOSER_ID => 1,
-                Card::SHOWNER_ID => 2,
-                Card::ACTIVITIES => [[
-                    Activity::TYPE => Activity::TYPE_CARD_PROPOSE,
-                    Activity::USER_ID => 1
-                ], [
-                    Activity::TYPE => Activity::TYPE_CARD_OPEN,
-                    Activity::USER_ID => 2
-                ]]
-            ], [
-                Card::ID => $namedIds['1_ch_none_2_sh_prop'] = 230,
-                Card::CHOOSER_ID => 1,
-                Card::SHOWNER_ID => 2,
-                Card::ACTIVITIES => [[
-                    Activity::TYPE => Activity::TYPE_CARD_FLIP,
-                    Activity::USER_ID => 2
-                ], [
-                    Activity::TYPE => Activity::TYPE_CARD_OPEN,
-                    Activity::USER_ID => 2
-                ], [
-                    Activity::TYPE => Activity::TYPE_CARD_PROPOSE,
-                    Activity::USER_ID => 2
-                ]]
-            ], [
-                Card::ID => $namedIds['1_ch_flip_2_sh_prop'] = 240,
-                Card::CHOOSER_ID => 1,
-                Card::SHOWNER_ID => 2,
-                Card::ACTIVITIES => [[
-                    Activity::TYPE => Activity::TYPE_CARD_FLIP,
-                    Activity::USER_ID => 1
-                ], [
-                    Activity::TYPE => Activity::TYPE_CARD_PROPOSE,
-                    Activity::USER_ID => 2
-                ]]
-            ], [
-                Card::ID => $namedIds['1_ch_open_2_sh_prop'] = 250,
-                Card::CHOOSER_ID => 1,
-                Card::SHOWNER_ID => 2,
-                Card::ACTIVITIES => [[
-                    Activity::TYPE => Activity::TYPE_CARD_OPEN,
-                    Activity::USER_ID => 1
-                ], [
-                    Activity::TYPE => Activity::TYPE_CARD_PROPOSE,
-                    Activity::USER_ID => 2
-                ]]
-            ], [
-                Card::ID => $namedIds['1_ch_prop_2_sh_prop'] = 260,
-                Card::CHOOSER_ID => 1,
-                Card::SHOWNER_ID => 2,
-                Card::ACTIVITIES => [[
-                    Activity::TYPE => Activity::TYPE_CARD_PROPOSE,
-                    Activity::USER_ID => 1
-                ], [
-                    Activity::TYPE => Activity::TYPE_CARD_PROPOSE,
-                    Activity::USER_ID => 2
-                ]]
-            ], [
-                Card::ID => $namedIds['2_ch_flip_1_sh_open'] = 270,
+                Card::ID => $namedIds['2_ch_flip_1_sh_flip'] = 270,
                 Card::CHOOSER_ID => 2,
                 Card::SHOWNER_ID => 1,
-                Card::ACTIVITIES => [[
-                    Activity::TYPE => Activity::TYPE_CARD_FLIP,
-                    Activity::USER_ID => 2
+                Card::FLIPS => [[
+                    CardFlip::USER_ID => 2
                 ], [
-                    Activity::TYPE => Activity::TYPE_CARD_OPEN,
-                    Activity::USER_ID => 1
+                    CardFlip::USER_ID => 1
                 ]]
             ]]
         ]);
@@ -214,16 +81,18 @@ class GetTest extends _TestCase {
         $this->factory(Match::class)->create([
             Match::MAN_ID => $rand ? 3 : 2,
             Match::WOMAN_ID => $rand ? 2 : 3,
+            Match::FRIENDS => [[
+                Friend::SENDER_ID => 2,
+                Friend::RECEIVER_ID => 3
+            ]],
             Match::CARDS => [[
-                Card::ID => $namedIds['2_ch_flip_3_sh_open'] = 280,
+                Card::ID => $namedIds['2_ch_flip_3_sh_flip'] = 280,
                 Card::CHOOSER_ID => 2,
                 Card::SHOWNER_ID => 3,
-                Card::ACTIVITIES => [[
-                    Activity::TYPE => Activity::TYPE_CARD_FLIP,
-                    Activity::USER_ID => 2
+                Card::FLIPS => [[
+                    CardFlip::USER_ID => 2
                 ], [
-                    Activity::TYPE => Activity::TYPE_CARD_OPEN,
-                    Activity::USER_ID => 3
+                    CardFlip::USER_ID => 3
                 ]]
             ]]
         ]);
@@ -239,316 +108,178 @@ class GetTest extends _TestCase {
             CardPagingService::CARD_TYPE_CHOOSER,
             CardPagingService::USER_STATUS_CARD_FLIP_STEP,
             CardPagingService::USER_STATUS_CARD_FLIP,
-            ['1_ch_none_2_sh_flip', '1_ch_none_2_sh_open', '1_ch_none_2_sh_prop']
+            ['1_ch_none_2_sh_flip']
         ], [ // 2
             1,
             CardPagingService::CARD_TYPE_CHOOSER,
             CardPagingService::USER_STATUS_CARD_FLIP_STEP,
-            CardPagingService::USER_STATUS_CARD_OPEN_STEP,
+            CardPagingService::USER_STATUS_FRIEND_STEP,
             ['1_ch_none_2_sh_flip']
         ], [ // 3
             1,
             CardPagingService::CARD_TYPE_CHOOSER,
             CardPagingService::USER_STATUS_CARD_FLIP_STEP,
-            CardPagingService::USER_STATUS_CARD_OPEN,
-            ['1_ch_none_2_sh_open', '1_ch_none_2_sh_prop']
+            CardPagingService::USER_STATUS_FRIEND,
+            []
         ], [ // 4
             1,
             CardPagingService::CARD_TYPE_CHOOSER,
             CardPagingService::USER_STATUS_CARD_FLIP_STEP,
-            CardPagingService::USER_STATUS_CARD_PROPOSE_STEP,
-            ['1_ch_none_2_sh_open']
+            CardPagingService::USER_STATUS_ALL,
+            ['1_ch_none_2_sh_none', '1_ch_none_2_sh_flip']
         ], [ // 5
             1,
             CardPagingService::CARD_TYPE_CHOOSER,
+            CardPagingService::USER_STATUS_CARD_FLIP,
             CardPagingService::USER_STATUS_CARD_FLIP_STEP,
-            CardPagingService::USER_STATUS_CARD_PROPOSE,
-            ['1_ch_none_2_sh_prop']
+            ['1_ch_flip_2_sh_none', '1_ch_open_2_sh_none']
         ], [ // 6
             1,
             CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_CARD_FLIP_STEP,
-            CardPagingService::USER_STATUS_ALL,
-            ['1_ch_none_2_sh_none', '1_ch_none_2_sh_flip', '1_ch_none_2_sh_open', '1_ch_none_2_sh_prop']
+            CardPagingService::USER_STATUS_CARD_FLIP,
+            CardPagingService::USER_STATUS_CARD_FLIP,
+            ['1_ch_flip_2_sh_flip']
         ], [ // 7
             1,
             CardPagingService::CARD_TYPE_CHOOSER,
             CardPagingService::USER_STATUS_CARD_FLIP,
-            CardPagingService::USER_STATUS_CARD_FLIP_STEP,
-            ['1_ch_flip_2_sh_none', '1_ch_open_2_sh_none', '1_ch_prop_2_sh_none']
+            CardPagingService::USER_STATUS_FRIEND_STEP,
+            ['1_ch_flip_2_sh_flip']
         ], [ // 8
             1,
             CardPagingService::CARD_TYPE_CHOOSER,
             CardPagingService::USER_STATUS_CARD_FLIP,
-            CardPagingService::USER_STATUS_CARD_FLIP,
-            ['1_ch_flip_2_sh_flip', '1_ch_open_2_sh_flip', '1_ch_prop_2_sh_flip', '1_ch_flip_2_sh_open', '1_ch_open_2_sh_open', '1_ch_prop_2_sh_open', '1_ch_flip_2_sh_prop', '1_ch_open_2_sh_prop', '1_ch_prop_2_sh_prop']
+            CardPagingService::USER_STATUS_FRIEND,
+            []
         ], [ // 9
             1,
             CardPagingService::CARD_TYPE_CHOOSER,
             CardPagingService::USER_STATUS_CARD_FLIP,
-            CardPagingService::USER_STATUS_CARD_OPEN_STEP,
-            ['1_ch_flip_2_sh_flip', '1_ch_open_2_sh_flip', '1_ch_prop_2_sh_flip']
+            CardPagingService::USER_STATUS_ALL,
+            ['1_ch_flip_2_sh_none', '1_ch_flip_2_sh_flip']
         ], [ // 10
             1,
             CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_CARD_FLIP,
-            CardPagingService::USER_STATUS_CARD_OPEN,
-            ['1_ch_flip_2_sh_open', '1_ch_open_2_sh_open', '1_ch_prop_2_sh_open', '1_ch_flip_2_sh_prop', '1_ch_open_2_sh_prop', '1_ch_prop_2_sh_prop']
+            CardPagingService::USER_STATUS_FRIEND_STEP,
+            CardPagingService::USER_STATUS_CARD_FLIP_STEP,
+            []
         ], [ // 11
             1,
             CardPagingService::CARD_TYPE_CHOOSER,
+            CardPagingService::USER_STATUS_FRIEND_STEP,
             CardPagingService::USER_STATUS_CARD_FLIP,
-            CardPagingService::USER_STATUS_CARD_PROPOSE_STEP,
-            ['1_ch_flip_2_sh_open', '1_ch_open_2_sh_open', '1_ch_prop_2_sh_open']
+            []
         ], [ // 12
             1,
             CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_CARD_FLIP,
-            CardPagingService::USER_STATUS_CARD_PROPOSE,
-            ['1_ch_flip_2_sh_prop', '1_ch_open_2_sh_prop', '1_ch_prop_2_sh_prop']
+            CardPagingService::USER_STATUS_FRIEND_STEP,
+            CardPagingService::USER_STATUS_FRIEND_STEP,
+            []
         ], [ // 13
             1,
             CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_CARD_FLIP,
-            CardPagingService::USER_STATUS_ALL,
-            ['1_ch_flip_2_sh_none', '1_ch_open_2_sh_none', '1_ch_prop_2_sh_none', '1_ch_flip_2_sh_flip', '1_ch_open_2_sh_flip', '1_ch_prop_2_sh_flip', '1_ch_flip_2_sh_open', '1_ch_open_2_sh_open', '1_ch_prop_2_sh_open', '1_ch_flip_2_sh_prop', '1_ch_open_2_sh_prop', '1_ch_prop_2_sh_prop']
+            CardPagingService::USER_STATUS_FRIEND_STEP,
+            CardPagingService::USER_STATUS_FRIEND,
+            []
         ], [ // 14
             1,
             CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_CARD_OPEN_STEP,
-            CardPagingService::USER_STATUS_CARD_FLIP_STEP,
-            ['1_ch_flip_2_sh_none']
+            CardPagingService::USER_STATUS_FRIEND_STEP,
+            CardPagingService::USER_STATUS_ALL,
+            []
         ], [ // 15
             1,
             CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_CARD_OPEN_STEP,
-            CardPagingService::USER_STATUS_CARD_FLIP,
-            ['1_ch_flip_2_sh_flip', '1_ch_flip_2_sh_open', '1_ch_flip_2_sh_prop']
+            CardPagingService::USER_STATUS_FRIEND,
+            CardPagingService::USER_STATUS_CARD_FLIP_STEP,
+            ['1_ch_flip_2_sh_none']
         ], [ // 16
             1,
             CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_CARD_OPEN_STEP,
-            CardPagingService::USER_STATUS_CARD_OPEN_STEP,
+            CardPagingService::USER_STATUS_FRIEND,
+            CardPagingService::USER_STATUS_CARD_FLIP,
             ['1_ch_flip_2_sh_flip']
         ], [ // 17
             1,
             CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_CARD_OPEN_STEP,
-            CardPagingService::USER_STATUS_CARD_OPEN,
-            ['1_ch_flip_2_sh_open', '1_ch_flip_2_sh_prop']
+            CardPagingService::USER_STATUS_FRIEND,
+            CardPagingService::USER_STATUS_FRIEND_STEP,
+            ['1_ch_flip_2_sh_flip']
         ], [ // 18
             1,
             CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_CARD_OPEN_STEP,
-            CardPagingService::USER_STATUS_CARD_PROPOSE_STEP,
-            ['1_ch_flip_2_sh_open']
+            CardPagingService::USER_STATUS_FRIEND,
+            CardPagingService::USER_STATUS_FRIEND,
+            []
         ], [ // 19
             1,
             CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_CARD_OPEN_STEP,
-            CardPagingService::USER_STATUS_CARD_PROPOSE,
-            ['1_ch_flip_2_sh_prop']
+            CardPagingService::USER_STATUS_FRIEND,
+            CardPagingService::USER_STATUS_ALL,
+            ['1_ch_flip_2_sh_none', '1_ch_flip_2_sh_flip']
         ], [ // 20
             1,
             CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_CARD_OPEN_STEP,
             CardPagingService::USER_STATUS_ALL,
-            ['1_ch_flip_2_sh_none', '1_ch_flip_2_sh_flip', '1_ch_flip_2_sh_open', '1_ch_flip_2_sh_prop']
+            CardPagingService::USER_STATUS_CARD_FLIP_STEP,
+            ['1_ch_none_2_sh_none', '1_ch_flip_2_sh_none']
         ], [ // 21
             1,
             CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_CARD_OPEN,
-            CardPagingService::USER_STATUS_CARD_FLIP_STEP,
-            ['1_ch_open_2_sh_none', '1_ch_prop_2_sh_none']
+            CardPagingService::USER_STATUS_ALL,
+            CardPagingService::USER_STATUS_CARD_FLIP,
+            ['1_ch_none_2_sh_flip', '1_ch_flip_2_sh_flip']
         ], [ // 22
             1,
             CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_CARD_OPEN,
-            CardPagingService::USER_STATUS_CARD_FLIP,
-            ['1_ch_open_2_sh_flip', '1_ch_prop_2_sh_flip', '1_ch_open_2_sh_open', '1_ch_prop_2_sh_open', '1_ch_open_2_sh_prop', '1_ch_prop_2_sh_prop']
+            CardPagingService::USER_STATUS_ALL,
+            CardPagingService::USER_STATUS_FRIEND_STEP,
+            ['1_ch_none_2_sh_flip', '1_ch_flip_2_sh_flip']
         ], [ // 23
             1,
             CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_CARD_OPEN,
-            CardPagingService::USER_STATUS_CARD_OPEN_STEP,
-            ['1_ch_open_2_sh_flip', '1_ch_prop_2_sh_flip']
+            CardPagingService::USER_STATUS_ALL,
+            CardPagingService::USER_STATUS_FRIEND,
+            []
         ], [ // 24
             1,
             CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_CARD_OPEN,
-            CardPagingService::USER_STATUS_CARD_OPEN,
-            ['1_ch_open_2_sh_open', '1_ch_prop_2_sh_open', '1_ch_open_2_sh_prop', '1_ch_prop_2_sh_prop']
+            CardPagingService::USER_STATUS_ALL,
+            CardPagingService::USER_STATUS_ALL,
+            ['1_ch_none_2_sh_none', '1_ch_flip_2_sh_none', '1_ch_none_2_sh_flip', '1_ch_flip_2_sh_flip']
         ], [ // 25
-            1,
-            CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_CARD_OPEN,
-            CardPagingService::USER_STATUS_CARD_PROPOSE_STEP,
-            ['1_ch_open_2_sh_open', '1_ch_prop_2_sh_open']
-        ], [ // 26
-            1,
-            CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_CARD_OPEN,
-            CardPagingService::USER_STATUS_CARD_PROPOSE,
-            ['1_ch_open_2_sh_prop', '1_ch_prop_2_sh_prop']
-        ], [ // 27
-            1,
-            CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_CARD_OPEN,
-            CardPagingService::USER_STATUS_ALL,
-            ['1_ch_open_2_sh_none', '1_ch_prop_2_sh_none', '1_ch_open_2_sh_flip', '1_ch_prop_2_sh_flip', '1_ch_open_2_sh_open', '1_ch_prop_2_sh_open', '1_ch_open_2_sh_prop', '1_ch_prop_2_sh_prop']
-        ], [ // 28
-            1,
-            CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_CARD_PROPOSE_STEP,
-            CardPagingService::USER_STATUS_CARD_FLIP_STEP,
-            ['1_ch_open_2_sh_none']
-        ], [ // 29
-            1,
-            CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_CARD_PROPOSE_STEP,
-            CardPagingService::USER_STATUS_CARD_FLIP,
-            ['1_ch_open_2_sh_flip', '1_ch_open_2_sh_open', '1_ch_open_2_sh_prop']
-        ], [ // 30
-            1,
-            CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_CARD_PROPOSE_STEP,
-            CardPagingService::USER_STATUS_CARD_OPEN_STEP,
-            ['1_ch_open_2_sh_flip']
-        ], [ // 31
-            1,
-            CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_CARD_PROPOSE_STEP,
-            CardPagingService::USER_STATUS_CARD_OPEN,
-            ['1_ch_open_2_sh_open', '1_ch_open_2_sh_prop']
-        ], [ // 32
-            1,
-            CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_CARD_PROPOSE_STEP,
-            CardPagingService::USER_STATUS_CARD_PROPOSE_STEP,
-            ['1_ch_open_2_sh_open']
-        ], [ // 33
-            1,
-            CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_CARD_PROPOSE_STEP,
-            CardPagingService::USER_STATUS_CARD_PROPOSE,
-            ['1_ch_open_2_sh_prop']
-        ], [ // 34
-            1,
-            CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_CARD_PROPOSE_STEP,
-            CardPagingService::USER_STATUS_ALL,
-            ['1_ch_open_2_sh_none', '1_ch_open_2_sh_flip', '1_ch_open_2_sh_open', '1_ch_open_2_sh_prop']
-        ], [ // 35
-            1,
-            CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_CARD_PROPOSE,
-            CardPagingService::USER_STATUS_CARD_FLIP_STEP,
-            ['1_ch_prop_2_sh_none']
-        ], [ // 36
-            1,
-            CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_CARD_PROPOSE,
-            CardPagingService::USER_STATUS_CARD_FLIP,
-            ['1_ch_prop_2_sh_flip', '1_ch_prop_2_sh_open', '1_ch_prop_2_sh_prop']
-        ], [ // 37
-            1,
-            CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_CARD_PROPOSE,
-            CardPagingService::USER_STATUS_CARD_OPEN_STEP,
-            ['1_ch_prop_2_sh_flip']
-        ], [ // 38
-            1,
-            CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_CARD_PROPOSE,
-            CardPagingService::USER_STATUS_CARD_OPEN,
-            ['1_ch_prop_2_sh_open', '1_ch_prop_2_sh_prop']
-        ], [ // 39
-            1,
-            CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_CARD_PROPOSE,
-            CardPagingService::USER_STATUS_CARD_PROPOSE_STEP,
-            ['1_ch_prop_2_sh_open']
-        ], [ // 40
-            1,
-            CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_CARD_PROPOSE,
-            CardPagingService::USER_STATUS_CARD_PROPOSE,
-            ['1_ch_prop_2_sh_prop']
-        ], [ // 41
-            1,
-            CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_CARD_PROPOSE,
-            CardPagingService::USER_STATUS_ALL,
-            ['1_ch_prop_2_sh_none', '1_ch_prop_2_sh_flip', '1_ch_prop_2_sh_open', '1_ch_prop_2_sh_prop']
-        ], [ // 42
-            1,
-            CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_ALL,
-            CardPagingService::USER_STATUS_CARD_FLIP_STEP,
-            ['1_ch_none_2_sh_none', '1_ch_flip_2_sh_none', '1_ch_open_2_sh_none', '1_ch_prop_2_sh_none']
-        ], [ // 43
-            1,
-            CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_ALL,
-            CardPagingService::USER_STATUS_CARD_FLIP,
-            ['1_ch_none_2_sh_flip', '1_ch_flip_2_sh_flip', '1_ch_open_2_sh_flip', '1_ch_prop_2_sh_flip', '1_ch_none_2_sh_open', '1_ch_flip_2_sh_open', '1_ch_open_2_sh_open', '1_ch_prop_2_sh_open', '1_ch_none_2_sh_prop', '1_ch_flip_2_sh_prop', '1_ch_open_2_sh_prop', '1_ch_prop_2_sh_prop']
-        ], [ // 44
-            1,
-            CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_ALL,
-            CardPagingService::USER_STATUS_CARD_OPEN_STEP,
-            ['1_ch_none_2_sh_flip', '1_ch_flip_2_sh_flip', '1_ch_open_2_sh_flip', '1_ch_prop_2_sh_flip']
-        ], [ // 45
-            1,
-            CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_ALL,
-            CardPagingService::USER_STATUS_CARD_OPEN,
-            ['1_ch_none_2_sh_open', '1_ch_flip_2_sh_open', '1_ch_open_2_sh_open', '1_ch_prop_2_sh_open', '1_ch_none_2_sh_prop', '1_ch_flip_2_sh_prop', '1_ch_open_2_sh_prop', '1_ch_prop_2_sh_prop']
-        ], [ // 46
-            1,
-            CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_ALL,
-            CardPagingService::USER_STATUS_CARD_PROPOSE_STEP,
-            ['1_ch_none_2_sh_open', '1_ch_flip_2_sh_open', '1_ch_open_2_sh_open', '1_ch_prop_2_sh_open']
-        ], [ // 47
-            1,
-            CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_ALL,
-            CardPagingService::USER_STATUS_CARD_PROPOSE,
-            ['1_ch_none_2_sh_prop', '1_ch_flip_2_sh_prop', '1_ch_open_2_sh_prop', '1_ch_prop_2_sh_prop']
-        ], [ // 48
-            1,
-            CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_ALL,
-            CardPagingService::USER_STATUS_ALL,
-            ['1_ch_none_2_sh_none', '1_ch_flip_2_sh_none', '1_ch_open_2_sh_none', '1_ch_prop_2_sh_none', '1_ch_none_2_sh_flip', '1_ch_flip_2_sh_flip', '1_ch_open_2_sh_flip', '1_ch_prop_2_sh_flip', '1_ch_none_2_sh_open', '1_ch_flip_2_sh_open', '1_ch_open_2_sh_open', '1_ch_prop_2_sh_open', '1_ch_none_2_sh_prop', '1_ch_flip_2_sh_prop', '1_ch_open_2_sh_prop', '1_ch_prop_2_sh_prop']
-        ], [ // 49
             1,
             CardPagingService::CARD_TYPE_SHOWNER,
             CardPagingService::USER_STATUS_ALL,
             CardPagingService::USER_STATUS_ALL,
-            ['2_ch_flip_1_sh_open']
-        ], [ // 50
+            ['2_ch_flip_1_sh_flip']
+        ], [ // 26
             1,
             CardPagingService::CARD_TYPE_BOTH,
             CardPagingService::USER_STATUS_ALL,
             CardPagingService::USER_STATUS_ALL,
-            ['1_ch_none_2_sh_none', '1_ch_flip_2_sh_none', '1_ch_open_2_sh_none', '1_ch_prop_2_sh_none', '1_ch_none_2_sh_flip', '1_ch_flip_2_sh_flip', '1_ch_open_2_sh_flip', '1_ch_prop_2_sh_flip', '1_ch_none_2_sh_open', '1_ch_flip_2_sh_open', '1_ch_open_2_sh_open', '1_ch_prop_2_sh_open', '1_ch_none_2_sh_prop', '1_ch_flip_2_sh_prop', '1_ch_open_2_sh_prop', '1_ch_prop_2_sh_prop', '2_ch_flip_1_sh_open']
-        ], [ // 51
+            ['1_ch_none_2_sh_none', '1_ch_flip_2_sh_none', '1_ch_none_2_sh_flip', '1_ch_flip_2_sh_flip', '2_ch_flip_1_sh_flip']
+        ], [ // 27
             2,
             CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_CARD_OPEN_STEP,
-            CardPagingService::USER_STATUS_CARD_PROPOSE_STEP,
-            ['2_ch_flip_1_sh_open', '2_ch_flip_3_sh_open']
-        ], [ // 52
+            CardPagingService::USER_STATUS_FRIEND,
+            CardPagingService::USER_STATUS_ALL,
+            ['2_ch_flip_3_sh_flip']
+        ], [ // 28
             2,
             CardPagingService::CARD_TYPE_BOTH,
-            CardPagingService::USER_STATUS_CARD_OPEN_STEP,
-            CardPagingService::USER_STATUS_CARD_PROPOSE_STEP,
-            ['1_ch_open_2_sh_flip', '2_ch_flip_1_sh_open', '2_ch_flip_3_sh_open']
+            CardPagingService::USER_STATUS_ALL,
+            CardPagingService::USER_STATUS_ALL,
+            ['1_ch_none_2_sh_none', '1_ch_flip_2_sh_none', '1_ch_none_2_sh_flip', '1_ch_flip_2_sh_flip', '2_ch_flip_1_sh_flip', '2_ch_flip_3_sh_flip']
+        ], [ // 29
+            3,
+            CardPagingService::CARD_TYPE_BOTH,
+            CardPagingService::USER_STATUS_ALL,
+            CardPagingService::USER_STATUS_ALL,
+            ['2_ch_flip_3_sh_flip']
         ]] as $i => $args )
         {
-            $this->when(function () use ($args, $namedIds) {
+            $this->when(function () use ($i, $args, $namedIds) {
 
                 $authUser = User::find($args[0]);
                 $cardType = $args[1];

@@ -2,21 +2,21 @@
 
 namespace Tests\Unit\App\Database\Models;
 
-use App\Database\Models\Activity;
 use App\Database\Models\Card;
 use App\Database\Models\ChattingContent;
+use App\Database\Models\Friend;
 use App\Database\Models\Match;
 use App\Database\Models\User;
 use Tests\Unit\App\Database\Models\_TestCase;
 
 class MatchTest extends _TestCase {
 
-    public function testActivityQuery()
+    public function testFriendQuery()
     {
         $this->assertHasOneOrManyQuery(
-            'activity',
-            Activity::class,
-            Activity::RELATED_ID
+            'firends',
+            Friend::class,
+            Friend::MATCH_ID
         );
     }
 

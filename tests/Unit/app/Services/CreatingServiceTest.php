@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\App\Services;
 
-use App\Services\Activity\ActivityCreatingService;
+use App\Services\CardFlip\CardFlipCreatingService;
 use Tests\Unit\App\Services\_TestCase;
 
 class CreatingServiceTest extends _TestCase {

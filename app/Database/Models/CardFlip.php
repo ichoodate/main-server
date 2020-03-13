@@ -6,46 +6,42 @@ use App\Database\Model;
 use App\Database\Models\Card;
 use App\Database\Models\User;
 
-class CardGroup extends Model {
+class CardFlip extends Model {
 
-    protected $table = 'card_groups';
+    protected $table = 'card_flips';
     protected $casts = [
         self::ID => 'integer',
-        self::USER_ID => 'integer'
+        self::USER_ID => 'integer',
+        self::CARD_ID => 'integer'
     ];
     protected $fillable = [
         self::ID,
         self::USER_ID,
-        self::TYPE,
+        self::CARD_ID,
         self::CREATED_AT
     ];
 
     const ID         = 'id';
-    const CARDS      = 'cards';
+    const CARD       = 'card';
+    const CARD_ID    = 'card_id';
     const USER       = 'user';
     const USER_ID    = 'user_id';
-    const TYPE       = 'type';
     const CREATED_AT = 'created_at';
-
-    const TYPE_DAILY = 'daily';
-    const TYPE_VALUES = [
-        self::TYPE_DAILY
-    ];
 
     public function getExpandable()
     {
-        return ['cards.flips', 'cards.showner.facePhoto', 'user'];
+        return ['user', 'card.concrete'];
     }
 
-    public function cards()
+    public function card()
     {
-        return $this->hasMany(Card::class, 'group_id', 'id');
+        return $this->belongsTo(Card::class, 'card_id', 'id');
     }
 
     public function cardQuery()
     {
         return inst(Card::class)->query()
-            ->qWhere(Card::GROUP_ID, $this->{static::ID});
+            ->qWhere(Card::ID, $this->{static::CARD_ID});
     }
 
     public function user()

@@ -27,9 +27,9 @@ class Obj extends Model {
     const TYPE        = 'type';
     const MODEL_CLASS = 'model_class';
 
-    const TYPE_ACTIVITY                    = 'activity';
     const TYPE_BALANCE                     = 'balance';
     const TYPE_CARD                        = 'card';
+    const TYPE_CARD_FLIP                   = 'card_flip';
     const TYPE_CARD_GROUP                  = 'card_group';
     const TYPE_CHATTING_CONTENT            = 'chatting_content';
     const TYPE_COIN                        = 'coin';
@@ -72,9 +72,9 @@ class Obj extends Model {
     const TYPE_USER_SELF_KWD_PVT           = 'user_self_kwd_pvt';
 
     const TYPE_VALUES = [
-        self::TYPE_ACTIVITY,
         self::TYPE_BALANCE,
         self::TYPE_CARD,
+        self::TYPE_CARD_FLIP,
         self::TYPE_CARD_GROUP,
         self::TYPE_CHATTING_CONTENT,
         self::TYPE_FACE_PHOTO,

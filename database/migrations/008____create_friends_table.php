@@ -3,37 +3,36 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateNotificationsTable extends Migration {
+class CreateFriendsTable extends Migration {
 
     public function up()
     {
-        Schema::create('notifications', function(Blueprint $table)
+        Schema::create('friends', function (Blueprint $table)
         {
             $table
                 ->bigInteger('id')
                 ->unsigned();
             $table
-                ->bigInteger('related_id')
+                ->bigInteger('sender_id')
                 ->unsigned();
             $table
-                ->bigInteger('user_id')
+                ->bigInteger('receiver_id')
+                ->unsigned();
+            $table
+                ->bigInteger('match_id')
                 ->unsigned();
             $table
                 ->timestamp('created_at')
                 ->default(app('db')->raw('CURRENT_TIMESTAMP'));
-            $table
-                ->timestamp('updated_at')
-                ->default(app('db')->raw('CURRENT_TIMESTAMP'));
-            $table
-                ->timestamp('deleted_at')
-                ->nullable();
 
             $table
                 ->primary('id');
             $table
-                ->index('related_id');
+                ->index('sender_id');
             $table
-                ->index('user_id');
+                ->index('match_id');
+            $table
+                ->index('receiver_id');
 
             $table
                 ->foreign('id')
@@ -41,12 +40,17 @@ class CreateNotificationsTable extends Migration {
                 ->on('objs')
                 ->onDelete('cascade');
             $table
-                ->foreign('related_id')
+                ->foreign('sender_id')
                 ->references('id')
                 ->on('objs')
                 ->onDelete('cascade');
             $table
-                ->foreign('user_id')
+                ->foreign('match_id')
+                ->references('id')
+                ->on('objs')
+                ->onDelete('cascade');
+            $table
+                ->foreign('receiver_id')
                 ->references('id')
                 ->on('objs')
                 ->onDelete('cascade');
@@ -55,7 +59,7 @@ class CreateNotificationsTable extends Migration {
 
     public function down()
     {
-        Schema::drop('notifications');
+        Schema::drop('friends');
     }
 
 }

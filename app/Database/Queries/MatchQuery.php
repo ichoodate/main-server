@@ -2,22 +2,14 @@
 
 namespace App\Database\Queries;
 
-use App\Database\Models\Activity;
 use App\Database\Models\Card;
 use App\Database\Models\ChattingContent;
+use App\Database\Models\Friend;
 use App\Database\Models\Match;
 use App\Database\Models\User;
 use App\Database\Query;
 
 class MatchQuery extends Query {
-
-    public function activityQuery()
-    {
-        $subQuery = $this->qSelect(Match::ID)->getQuery();
-
-        return inst(Activity::class)->query()
-            ->qWhereIn(Activity::RELATED_ID, $subQuery);
-    }
 
     public function cardQuery()
     {
@@ -33,6 +25,14 @@ class MatchQuery extends Query {
 
         return inst(ChattingContent::class)->query()
             ->qWhereIn(ChattingContent::MATCH_ID, $subQuery);
+    }
+
+    public function friendQuery()
+    {
+        $subQuery = $this->qSelect(Match::ID)->getQuery();
+
+        return inst(Friend::class)->query()
+            ->qWhereIn(Friend::MATCH_ID, $subQuery);
     }
 
     public function manQuery()

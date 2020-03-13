@@ -2,8 +2,8 @@
 
 namespace Tests\Unit\App\Database\Models;
 
-use App\Database\Models\Activity;
 use App\Database\Models\Card;
+use App\Database\Models\CardFlip;
 use App\Database\Models\CardGroup;
 use App\Database\Models\Coin;
 use App\Database\Models\ChattingContent;
@@ -39,10 +39,10 @@ class ObjTest extends _TestCase {
         };
 
         foreach ( [
-            Obj::TYPE_ACTIVITY
-                => Activity::class,
             Obj::TYPE_CARD
                 => Card::class,
+            Obj::TYPE_CARD_FLIP
+                => CardFlip::class,
             Obj::TYPE_CARD_GROUP
                 => CardGroup::class,
             Obj::TYPE_CHATTING_CONTENT

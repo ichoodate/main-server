@@ -2,9 +2,8 @@
 
 namespace Tests\Unit\App\Services\Card;
 
-use App\Database\Models\Activity;
 use App\Database\Models\Card;
-use App\Database\Models\CardAct;
+use App\Database\Models\CardFlip;
 use App\Database\Models\MatchAct;
 use App\Database\Models\Match;
 use App\Database\Models\User;
@@ -486,19 +485,19 @@ class CardPagingServiceTest extends _TestCase {
             $activityQuery = $this->mMock();
             $return        = $this->mMock();
 
-            InstanceMocker::add(Activity::class, $activity);
+            InstanceMocker::add(CardFlip::class, $activity);
 
             ModelMocker::query($activity, $activityQuery);
-            QueryMocker::qSelect($activityQuery, Activity::RELATED_ID);
-            QueryMocker::qWhere($activityQuery, Activity::TYPE, $activityType);
-            QueryMocker::qWhereIn($activityQuery, Activity::USER_ID, $userQuery);
+            QueryMocker::qSelect($activityQuery, CardFlip::RELATED_ID);
+            QueryMocker::qWhere($activityQuery, CardFlip::TYPE, $activityType);
+            QueryMocker::qWhereIn($activityQuery, CardFlip::USER_ID, $userQuery);
             QueryMocker::getQuery($activityQuery, $return);
 
             $this->verifyLoader($serv, 'query_builder_2', $return, [$userQuery, $userStatus]);
-        }, static::class()::USER_STATUS_CARD_FLIP, Activity::TYPE_CARD_FLIP);
+        }, static::class()::USER_STATUS_CARD_FLIP, CardFlip::TYPE_CARD_FLIP);
 
-        $this->when($func, static::class()::USER_STATUS_CARD_OPEN, Activity::TYPE_CARD_OPEN);
-        $this->when($func, static::class()::USER_STATUS_CARD_PROPOSE, Activity::TYPE_CARD_PROPOSE);
+        $this->when($func, static::class()::USER_STATUS_CARD_OPEN, CardFlip::TYPE_CARD_OPEN);
+        $this->when($func, static::class()::USER_STATUS_CARD_PROPOSE, CardFlip::TYPE_CARD_PROPOSE);
     }
 
 }

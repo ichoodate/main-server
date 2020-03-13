@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Services\Activity;
+namespace App\Services\CardFlip;
 
-use App\Database\Models\Activity;
+use App\Database\Models\CardFlip;
 use App\Service;
 use App\Services\FindingService;
 use App\Services\PermittedUserRequiringService;
 
-class ActivityFindingService extends Service {
+class CardFlipFindingService extends Service {
 
     public static function getArrBindNames()
     {
         return [
             'model'
-                => 'activity for {{id}}'
+                => 'card_flip for {{id}}'
         ];
     }
 
@@ -27,12 +27,12 @@ class ActivityFindingService extends Service {
         return [
             'model_class' => [function () {
 
-                return Activity::class;
+                return CardFlip::class;
             }],
 
             'permitted_user' => ['auth_user', 'model', function ($authUser, $model) {
 
-                if ( $authUser->getkey() == $model->{Activity::USER_ID} )
+                if ( $authUser->getkey() == $model->{CardFlip::USER_ID} )
                 {
                     return $authUser;
                 }
@@ -53,8 +53,8 @@ class ActivityFindingService extends Service {
     public static function getArrTraits()
     {
         return [
-            PermittedUserRequiringService::class,
-            FindingService::class
+            FindingService::class,
+            PermittedUserRequiringService::class
         ];
     }
 

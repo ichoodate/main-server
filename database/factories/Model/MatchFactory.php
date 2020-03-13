@@ -3,7 +3,7 @@
 namespace Database\Factories\Model;
 
 use App\Database\Models\Card;
-use App\Database\Models\Activity;
+use App\Database\Models\Friend;
 use App\Database\Models\Match;
 use App\Database\Models\User;
 use Database\Factories\ModelFactory;
@@ -16,7 +16,7 @@ class MatchFactory extends ModelFactory {
         $model = parent::create($data);
 
         $data  = array_add($data, Match::CARDS, []);
-        $data  = array_add($data, Match::ACTIVITIES, []);
+        $data  = array_add($data, Match::FRIENDS, []);
 
         foreach ( $data[Match::CARDS] as $card )
         {
@@ -34,10 +34,17 @@ class MatchFactory extends ModelFactory {
                 $card[$cardUserIdKey] = $addableMatchUserIdVal;
             }
 
-            $card[Card::MATCH] = $model->getAttributes();
+            $card[Card::MATCH] = $model;
             $card[Card::MATCH_ID] = $model->getKey();
 
             static::factory(Card::class)->create($card);
+        }
+
+        foreach ( $data[Match::FRIENDS] as $friend )
+        {
+            $friend[Card::MATCH_ID] = $model->getKey();
+
+            static::factory(Friend::class)->create($friend);
         }
 
         return $model;

@@ -1,20 +1,20 @@
 <?php
 
-namespace Tests\Unit\App\Services\Activity;
+namespace Tests\Unit\App\Services\CardFlip;
 
-use App\Database\Models\Activity;
+use App\Database\Models\CardFlip;
 use App\Database\Models\Card;
 use App\Database\Models\User;
 use App\Service;
 use App\Services\CreatingService;
 use App\Services\UsedCoinAddingService;
 use App\Services\Card\CardFindingService;
-use App\Services\RequiredCoin\CardActivityRequiredCoinReturningService;
+use App\Services\RequiredCoin\CardFlipRequiredCoinReturningService;
 use Tests\Unit\App\Database\Models\_Mocker as ModelMocker;
 use Tests\_InstanceMocker as InstanceMocker;
 use Tests\Unit\App\Services\_TestCase;
 
-class CardActivityCreatingServiceTest extends _TestCase {
+class CardFlipCreatingServiceTest extends _TestCase {
 
     public function testArrBindNames()
     {
@@ -35,9 +35,6 @@ class CardActivityCreatingServiceTest extends _TestCase {
 
             'card_id'
                 => ['required', 'integer'],
-
-            'type'
-                => ['required', 'in:' . implode(',', [Activity::TYPE_CARD_FLIP, Activity::TYPE_CARD_OPEN, Activity::TYPE_CARD_PROPOSE])],
 
             'timezone'
                 => ['required']
@@ -86,10 +83,10 @@ class CardActivityCreatingServiceTest extends _TestCase {
             $type     = $this->uniqueString();
             $return   = $this->mMock();
 
-            ModelMocker::create(Activity::class, [
-                Activity::USER_ID    => $authUser->getKey(),
-                Activity::RELATED_ID => $card->getKey(),
-                Activity::TYPE       => $type
+            ModelMocker::create(CardFlip::class, [
+                CardFlip::USER_ID    => $authUser->getKey(),
+                CardFlip::RELATED_ID => $card->getKey(),
+                CardFlip::TYPE       => $type
             ], $return);
 
             $proxy->data->put('auth_user', $authUser);
@@ -100,13 +97,13 @@ class CardActivityCreatingServiceTest extends _TestCase {
         });
     }
 
-    public function testLoaderMatchActivity()
+    public function testLoaderMatchCardFlip()
     {
         $this->when(function ($proxy, $serv) {
 
             $authUser = $this->factory(User::class)->make();
             $card     = $this->factory(Card::class)->make();
-            $type     = Activity::TYPE_CARD_FLIP;
+            $type     = CardFlip::TYPE_CARD_FLIP;
             $return   = null;
 
             $proxy->data->put('auth_user', $authUser);
@@ -120,14 +117,14 @@ class CardActivityCreatingServiceTest extends _TestCase {
 
             $authUser = $this->factory(User::class)->make();
             $card     = $this->factory(Card::class)->make();
-            $type     = Activity::TYPE_CARD_OPEN;
+            $type     = CardFlip::TYPE_CARD_OPEN;
             $return   = $this->mMock();
 
-            InstanceMocker::add(Activity::class, $return);
+            InstanceMocker::add(CardFlip::class, $return);
             ModelMocker::create($return, [
-                Activity::RELATED_ID => $card->{Card::MATCH_ID},
-                Activity::USER_ID    => $authUser->getKey(),
-                Activity::TYPE       => Activity::TYPE_MATCH_OPEN
+                CardFlip::RELATED_ID => $card->{Card::MATCH_ID},
+                CardFlip::USER_ID    => $authUser->getKey(),
+                CardFlip::TYPE       => CardFlip::TYPE_MATCH_OPEN
             ], $return);
 
             $proxy->data->put('auth_user', $authUser);
@@ -141,14 +138,14 @@ class CardActivityCreatingServiceTest extends _TestCase {
 
             $authUser = $this->factory(User::class)->make();
             $card     = $this->factory(Card::class)->make();
-            $type     = Activity::TYPE_CARD_PROPOSE;
+            $type     = CardFlip::TYPE_CARD_PROPOSE;
             $return   = $this->mMock();
 
-            InstanceMocker::add(Activity::class, $return);
+            InstanceMocker::add(CardFlip::class, $return);
             ModelMocker::create($return, [
-                Activity::RELATED_ID => $card->{Card::MATCH_ID},
-                Activity::USER_ID    => $authUser->getKey(),
-                Activity::TYPE       => Activity::TYPE_MATCH_PROPOSE
+                CardFlip::RELATED_ID => $card->{Card::MATCH_ID},
+                CardFlip::USER_ID    => $authUser->getKey(),
+                CardFlip::TYPE       => CardFlip::TYPE_MATCH_PROPOSE
             ], $return);
 
             $proxy->data->put('auth_user', $authUser);
@@ -167,7 +164,7 @@ class CardActivityCreatingServiceTest extends _TestCase {
             $card     = $this->factory(Card::class)->make();
             $type     = $this->uniqueString();
             $timezone = $this->uniqueString();
-            $return   = [CardActivityRequiredCoinReturningService::class, [
+            $return   = [CardFlipRequiredCoinReturningService::class, [
                 'auth_user'
                     => $authUser,
                 'card'

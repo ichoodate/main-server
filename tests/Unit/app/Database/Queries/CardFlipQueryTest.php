@@ -2,20 +2,19 @@
 
 namespace Tests\Unit\App\Database\Queries;
 
-use App\Database\Models\Activity;
-use App\Database\Models\Notification;
-use App\Database\Models\Obj;
+use App\Database\Models\Card;
+use App\Database\Models\CardFlip;
 use App\Database\Models\User;
 use Tests\Unit\App\Database\Queries\_TestCase;
 
-class ActivityQueryTest extends _TestCase {
+class CardFlipQueryTest extends _TestCase {
 
-    public function testRelatedQuery()
+    public function testCardQuery()
     {
         $this->assertBelongsToQuery(
-            'related',
-            Activity::RELATED_ID,
-            Obj::class
+            'card',
+            CardFlip::CARD_ID,
+            Card::class
         );
     }
 
@@ -23,7 +22,7 @@ class ActivityQueryTest extends _TestCase {
     {
         $this->assertBelongsToQuery(
             'user',
-            Activity::USER_ID,
+            CardFlip::USER_ID,
             User::class
         );
     }

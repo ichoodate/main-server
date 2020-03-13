@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Services\Activity;
+namespace App\Services\CardFlip;
 
-use App\Database\Models\Activity;
 use App\Database\Models\Card;
+use App\Database\Models\CardFlip;
 use App\Service;
 use App\Services\CreatingService;
 use App\Services\UsedCoinAddingService;
 use App\Services\Card\CardFindingService;
-use App\Services\RequiredCoin\CardActivityRequiredCoinReturningService;
+use App\Services\RequiredCoin\CardFlipRequiredCoinReturningService;
 
-class CardActivityCreatingService extends Service {
+class CardFlipCreatingService extends Service {
 
     public static function getArrBindNames()
     {
@@ -19,7 +19,7 @@ class CardActivityCreatingService extends Service {
                 => 'card for {{card_id}}',
 
             'required_coin'
-                => 'required coin for activity of {{card}}'
+                => 'required coin for flip of {{card}}'
         ];
     }
 
@@ -46,48 +46,25 @@ class CardActivityCreatingService extends Service {
                 ]];
             }],
 
-            'match_activity' => ['auth_user', 'card', 'type', function ($authUser, $card, $type) {
+            'created' => ['auth_user', 'card', function ($authUser, $card) {
 
-                if ( $type == Activity::TYPE_CARD_OPEN )
-                {
-                    return inst(Activity::class)->create([
-                        Activity::RELATED_ID => $card->{Card::MATCH_ID},
-                        Activity::USER_ID    => $authUser->getKey(),
-                        Activity::TYPE       => Activity::TYPE_MATCH_OPEN
-                    ]);
-                }
-                else if ( $type == Activity::TYPE_CARD_PROPOSE )
-                {
-                    return inst(Activity::class)->create([
-                        Activity::RELATED_ID => $card->{Card::MATCH_ID},
-                        Activity::USER_ID    => $authUser->getKey(),
-                        Activity::TYPE       => Activity::TYPE_MATCH_PROPOSE
-                    ]);
-                }
-            }],
-
-            'created' => ['auth_user', 'card', 'type', function ($authUser, $card, $type) {
-
-                $return = inst(Activity::class)->create([
-                    Activity::RELATED_ID => $card->getKey(),
-                    Activity::USER_ID    => $authUser->getKey(),
-                    Activity::TYPE       => $type
+                $return = inst(CardFlip::class)->create([
+                    CardFlip::CARD_ID => $card->getKey(),
+                    CardFlip::USER_ID => $authUser->getKey()
                 ]);
 
                 return $return;
             }],
 
-            'required_coin' => ['auth_user', 'card', 'type', 'timezone', function ($authUser, $card, $type, $timezone) {
+            'required_coin' => ['auth_user', 'card', 'timezone', function ($authUser, $card, $timezone) {
 
-                return [CardActivityRequiredCoinReturningService::class, [
+                return [CardFlipRequiredCoinReturningService::class, [
                     'auth_user'
                         => $authUser,
                     'card'
                         => $card,
                     'card_id'
                         => $card->getKey(),
-                    'type'
-                        => $type,
                     'timezone'
                         => $timezone
                 ], [
@@ -97,8 +74,6 @@ class CardActivityCreatingService extends Service {
                         => '{{card}}',
                     'card_id'
                         => '{{card_id}}',
-                    'type'
-                        => '{{type}}',
                     'timezone'
                         => '{{timezone}}'
                 ]];
@@ -122,9 +97,6 @@ class CardActivityCreatingService extends Service {
 
             'card_id'
                 => ['required', 'integer'],
-
-            'type'
-                => ['required', 'in:' . implode(',', [Activity::TYPE_CARD_FLIP, Activity::TYPE_CARD_OPEN, Activity::TYPE_CARD_PROPOSE])],
 
             'timezone'
                 => ['required']

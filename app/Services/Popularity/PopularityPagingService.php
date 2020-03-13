@@ -2,7 +2,6 @@
 
 namespace App\Services\Popularity;
 
-use App\Database\Models\Activity;
 use App\Database\Models\Popularity;
 use App\Service;
 use App\Services\PagingService;

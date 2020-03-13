@@ -3,8 +3,8 @@
 namespace App\Database\Models;
 
 use App\Database\Model;
-use App\Database\Models\Activity;
 use App\Database\Models\Card;
+use App\Database\Models\CardFlip;
 use App\Database\Models\FacePhoto;
 use App\Database\Models\UserIdealTypeKwdPvt;
 use App\Database\Models\Match;
@@ -68,15 +68,15 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         return ['facePhoto'];
     }
 
-    public function activities()
+    public function cardFlips()
     {
-        return $this->hasMany(Activity::class, 'user_id', 'id');
+        return $this->hasMany(CardFlip::class, 'user_id', 'id');
     }
 
-    public function activityQuery()
+    public function cardFlipQuery()
     {
-        return inst(Activity::class)->query()
-            ->qWhere(Activity::USER_ID, $this->{static::ID});
+        return inst(CardFlip::class)->query()
+            ->qWhere(CardFlip::USER_ID, $this->{static::ID});
     }
 
     public function chooserCards()

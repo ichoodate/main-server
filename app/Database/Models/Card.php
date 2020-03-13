@@ -3,7 +3,7 @@
 namespace App\Database\Models;
 
 use App\Database\Model;
-use App\Database\Models\Activity;
+use App\Database\Models\CardFlip;
 use App\Database\Models\CardGroup;
 use App\Database\Models\Match;
 use App\Database\Models\User;
@@ -29,32 +29,32 @@ class Card extends Model {
     ];
 
     const ID         = 'id';
-    const ACTIVITIES = 'activities';
+    const CREATED_AT = 'created_at';
     const CHOOSER    = 'chooser';
     const CHOOSER_ID = 'chooser_id';
-    const SHOWNER    = 'showner';
-    const SHOWNER_ID = 'showner_id';
+    const FLIPS      = 'flips';
     const GROUP      = 'group';
     const GROUP_ID   = 'group_id';
     const MATCH      = 'match';
     const MATCH_ID   = 'match_id';
-    const CREATED_AT = 'created_at';
+    const SHOWNER    = 'showner';
+    const SHOWNER_ID = 'showner_id';
     const UPDATED_AT = 'updated_at';
 
     public function getExpandable()
     {
-        return ['activities', 'chooser', 'chooser.facePhoto', 'group', 'match', 'match.activities', 'showner', 'showner.facePhoto'];
+        return ['flips', 'chooser', 'chooser.facePhoto', 'group', 'match', 'match.following', 'showner', 'showner.facePhoto'];
     }
 
-    public function activities()
+    public function flips()
     {
-        return $this->hasMany(Activity::class, 'related_id', 'id');
+        return $this->hasMany(CardFlip::class, 'card_id', 'id');
     }
 
-    public function activityQuery()
+    public function flipQuery()
     {
-        return inst(Activity::class)->query()
-            ->qWhere(Activity::RELATED_ID, $this->{static::ID});
+        return inst(CardFlip::class)->query()
+            ->qWhere(CardFlip::CARD_ID, $this->{static::ID});
     }
 
     public function chooser()

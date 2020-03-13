@@ -20,11 +20,6 @@ Route::prefix('api')->group(function () {
     ])->group(function () {
 
         Route::resource(
-            'activities',
-            'Api\ActivityController'
-        )->only(['show']);
-
-        Route::resource(
             'auth/sign-in',
             'Api\AuthSignInController'
         )->only(['store']);
@@ -60,13 +55,9 @@ Route::prefix('api')->group(function () {
         )->only(['index', 'show']);
 
         Route::resource(
-            'card-groups',
-            'Api\CardGroupController')->only(['index', 'store', 'show']);
-
-        Route::resource(
-            'cards/{card}/activities',
-            'Api\CardActivityController'
-        )->only(['store']);
+            'card-flips',
+            'Api\CardFlipController'
+        )->only(['show', 'store']);
 
         Route::resource(
             'card-groups',

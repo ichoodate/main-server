@@ -2,19 +2,19 @@
 
 namespace Tests\Unit\App\Database\Queries;
 
-use App\Database\Models\Activity;
+use App\Database\Models\Obj;
 use App\Database\Models\Notification;
 use App\Database\Models\User;
 use Tests\Unit\App\Database\Queries\_TestCase;
 
 class NotificationQueryTest extends _TestCase {
 
-    public function testActivityQuery()
+    public function testRelatedQuery()
     {
         $this->assertBelongsToQuery(
-            'activity',
-            Notification::ACTIVITY_ID,
-            Activity::class
+            'related',
+            Notification::RELATED_ID,
+            Obj::class
         );
     }
 

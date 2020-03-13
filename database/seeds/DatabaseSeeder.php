@@ -1,6 +1,6 @@
 <?php
 
-use Database\Seeds\Table\ActivityTableSeeder;
+use Database\Seeds\Table\CardFlipTableSeeder;
 use Database\Seeds\Table\CardTableSeeder;
 use Database\Seeds\Table\ChattingContentTableSeeder;
 use Database\Seeds\Table\FacePhotoTableSeeder;
@@ -43,7 +43,7 @@ class DatabaseSeeder extends Seeder
         // $this->call(ProfilePhotoTableSeeder::class);
         // $this->call(MatchTableSeeder::class);
         // $this->call(CardTableSeeder::class);
-        // $this->call(ActivityTableSeeder::class);
+        // $this->call(CardFlipTableSeeder::class);
         // $this->call(ChattingContentTableSeeder::class);
         // $this->call(AgeRangeTableSeeder::class);
         // $this->call(BirthYearTableSeeder::class);

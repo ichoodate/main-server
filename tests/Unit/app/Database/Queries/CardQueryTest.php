@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\App\Database\Queries;
 
-use App\Database\Models\Activity;
+use App\Database\Models\CardFlip;
 use App\Database\Models\Card;
 use App\Database\Models\CardGroup;
 use App\Database\Models\Match;
@@ -11,12 +11,12 @@ use Tests\Unit\App\Database\Queries\_TestCase;
 
 class CardQueryTest extends _TestCase {
 
-    public function testActivityQuery()
+    public function testCardFlipQuery()
     {
         $this->assertHasOneOrManyQuery(
-            'activity',
-            Activity::class,
-            Activity::RELATED_ID
+            'flip',
+            CardFlip::class,
+            CardFlip::CARD_ID
         );
     }
 

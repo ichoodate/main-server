@@ -2,7 +2,7 @@
 
 namespace Database\Factories\Model;
 
-use App\Database\Models\Activity;
+use App\Database\Models\CardFlip;
 use App\Database\Models\Card;
 use App\Database\Models\Obj;
 use App\Database\Models\Match;
@@ -13,48 +13,12 @@ class CardFactory extends ModelFactory {
 
     public static function create(array $data = [])
     {
-        $data  = array_add($data, Card::ACTIVITIES, []);
+        $data  = array_add($data, Card::FLIPS, []);
         $model = parent::create($data);
 
-        foreach ( $data[Card::ACTIVITIES] as $activity )
+        foreach ( $data[Card::FLIPS] as $flip  )
         {
-            if ( array_key_exists(Activity::TYPE, $activity) && $activity[Activity::TYPE] == Activity::TYPE_CARD_PROPOSE )
-            {
-                $searched = array_where($data[Card::ACTIVITIES], function ($values) use ($activity) {
-
-                    return $values[Activity::TYPE] == Activity::TYPE_CARD_OPEN && $values[Activity::USER_ID] == $activity[Activity::USER_ID];
-                });
-
-                if ( empty($searched) )
-                {
-                    $activity[Activity::TYPE] = Activity::TYPE_CARD_OPEN;
-
-                    array_push($data[Card::ACTIVITIES], $activity);
-                }
-            }
-        }
-
-        foreach ( $data[Card::ACTIVITIES] as $activity )
-        {
-            if ( array_key_exists(Activity::TYPE, $activity) && $activity[Activity::TYPE] == Activity::TYPE_CARD_OPEN )
-            {
-                $searched = array_where($data[Card::ACTIVITIES], function ($values) use ($activity) {
-
-                    return $values[Activity::TYPE] == Activity::TYPE_CARD_FLIP && $values[Activity::USER_ID] == $activity[Activity::USER_ID];
-                });
-
-                if ( empty($searched) )
-                {
-                    $activity[Activity::TYPE] = Activity::TYPE_CARD_FLIP;
-
-                    array_push($data[Card::ACTIVITIES], $activity);
-                }
-            }
-        }
-
-        foreach ( $data[Card::ACTIVITIES] as $activity  )
-        {
-            if ( ! array_key_exists(Activity::USER_ID, $activity) )
+            if ( ! array_key_exists(CardFlip::USER_ID, $flip) )
             {
                 $addableUserIds = array_values(array_only($data, [
                     Card::CHOOSER_ID, Card::SHOWNER_ID
@@ -62,12 +26,12 @@ class CardFactory extends ModelFactory {
 
                 shuffle($addableUserIds);
 
-                $activity[Activity::USER_ID] = $addableUserIds[0];
+                $flip[CardFlip::USER_ID] = $addableUserIds[0];
             }
 
-            $activity[Activity::RELATED_ID] = $model->getKey();
+            $flip[CardFlip::CARD_ID] = $model->getKey();
 
-            static::factory(Activity::class)->create($activity);
+            static::factory(CardFlip::class)->create($flip);
         }
 
         return $model;

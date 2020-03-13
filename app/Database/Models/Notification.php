@@ -3,47 +3,47 @@
 namespace App\Database\Models;
 
 use App\Database\Model;
-use App\Database\Models\Activity;
+use App\Database\Models\Obj;
 use App\Database\Models\User;
 
 class Notification extends Model {
 
     protected $table = 'notifications';
     protected $casts = [
-        self::ID => 'integer',
-        self::USER_ID => 'integer',
-        self::ACTIVITY_ID => 'integer'
+        self::ID         => 'integer',
+        self::USER_ID    => 'integer',
+        self::RELATED_ID => 'integer'
     ];
     protected $fillable = [
         self::ID,
         self::USER_ID,
-        self::ACTIVITY_ID,
+        self::RELATED_ID,
         self::CREATED_AT,
         self::UPDATED_AT,
         self::DELETED_AT
     ];
 
-    const ID          = 'id';
-    const USER_ID     = 'user_id';
-    const ACTIVITY_ID = 'activity_id';
-    const CREATED_AT  = 'created_at';
-    const UPDATED_AT  = 'updated_at';
-    const DELETED_AT  = 'deleted_at';
+    const ID         = 'id';
+    const USER_ID    = 'user_id';
+    const RELATED_ID = 'related_id';
+    const CREATED_AT = 'created_at';
+    const UPDATED_AT = 'updated_at';
+    const DELETED_AT = 'deleted_at';
 
     public function getExpandable()
     {
-        return ['activity', 'user'];
+        return ['related', 'user'];
     }
 
-    public function activity()
+    public function related()
     {
-        return $this->belongsTo(Activity::class, 'activity_id', 'id');
+        return $this->belongsTo(Obj::class, 'related_id', 'id');
     }
 
-    public function activityQuery()
+    public function relatedQuery()
     {
-        return inst(Activity::class)->query()
-            ->qWhere(Activity::ID, $this->{static::ACTIVITY_ID});
+        return inst(Obj::class)->query()
+            ->qWhere(Obj::ID, $this->{static::RELATED_ID});
     }
 
     public function user()

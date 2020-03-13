@@ -2,8 +2,8 @@
 
 namespace Tests\Unit\App\Database\Queries;
 
-use App\Database\Models\Activity;
 use App\Database\Models\Card;
+use App\Database\Models\CardFlip;
 use App\Database\Models\FacePhoto;
 use App\Database\Models\UserIdealTypeKwdPvt;
 use App\Database\Models\MatchAct;
@@ -18,12 +18,12 @@ use Tests\Unit\App\Database\Queries\_TestCase;
 
 class UserQueryTest extends _TestCase {
 
-    public function testActivityQuery()
+    public function testCardFlipQuery()
     {
         $this->assertHasOneOrManyQuery(
-            'activity',
-            Activity::class,
-            Activity::USER_ID
+            'cardFlip',
+            CardFlip::class,
+            CardFlip::USER_ID
         );
     }
 

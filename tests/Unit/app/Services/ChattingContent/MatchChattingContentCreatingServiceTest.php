@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\App\Services\ChattingContent;
 
-use App\Database\Models\Activity;
+use App\Database\Models\Friend;
 use App\Database\Models\ChattingContent;
 use App\Database\Models\Match;
 use App\Database\Models\User;
@@ -113,9 +113,8 @@ class MatchChattingContentCreatingServiceTest extends _TestCase {
             $query    = $this->mMock();
             $return   = $this->uniqueString();
 
-            ModelMocker::query(Activity::class, $query);
-            QueryMocker::qWhere($query, Activity::TYPE, Activity::TYPE_MATCH_PROPOSE);
-            QueryMocker::qWhere($query, Activity::RELATED_ID, $match->getKey());
+            ModelMocker::query(Friend::class, $query);
+            QueryMocker::qWhere($query, Friend::MATCH_ID, $match->getKey());
             QueryMocker::first($query, $return);
 
             $proxy->data->put('auth_user', $authUser);

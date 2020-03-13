@@ -2,20 +2,20 @@
 
 namespace Tests\Functional\Api\Activities;
 
-use App\Database\Models\Activity;
+use App\Database\Models\CardFlip;
 use App\Database\Models\User;
 use Tests\Functional\_TestCase;
 
 class IdGetTest extends _TestCase {
 
-    protected $uri = 'api/activities/{id}';
+    protected $uri = 'api/card-flips/{id}';
 
     public function test()
     {
         $this->factory(User::class)->create(['id' => 1]);
         $this->factory(User::class)->create(['id' => 2]);
-        $this->factory(Activity::class)->create(['id' => 11, 'user_id' => 1]);
-        $this->factory(Activity::class)->create(['id' => 12, 'user_id' => 2]);
+        $this->factory(CardFlip::class)->create(['id' => 11, 'user_id' => 1]);
+        $this->factory(CardFlip::class)->create(['id' => 12, 'user_id' => 2]);
 
         $this->when(function () {
 
@@ -44,20 +44,20 @@ class IdGetTest extends _TestCase {
 
     public function testErrorNotNullRuleModel()
     {
-        $this->factory(Activity::class)->create(['id' => 11]);
-        $this->factory(Activity::class)->create(['id' => 12]);
+        $this->factory(CardFlip::class)->create(['id' => 11]);
+        $this->factory(CardFlip::class)->create(['id' => 12]);
 
         $this->when(function () {
 
             $this->setRouteParameter('id', 13);
 
-            $this->assertError('activity for 13 must exist.');
+            $this->assertError('card_flip for 13 must exist.');
         });
     }
 
     public function testErrorRequiredRuleAuthUser()
     {
-        $this->factory(Activity::class)->create(['id' => 11, 'user_id' => 1]);
+        $this->factory(CardFlip::class)->create(['id' => 11, 'user_id' => 1]);
         $this->when(function () {
 
             $this->assertError('authorized user is required.');
@@ -68,8 +68,8 @@ class IdGetTest extends _TestCase {
     {
         $this->factory(User::class)->create(['id' => 1]);
         $this->factory(User::class)->create(['id' => 2]);
-        $this->factory(Activity::class)->create(['id' => 11, 'user_id' => 1]);
-        $this->factory(Activity::class)->create(['id' => 12, 'user_id' => 2]);
+        $this->factory(CardFlip::class)->create(['id' => 11, 'user_id' => 1]);
+        $this->factory(CardFlip::class)->create(['id' => 12, 'user_id' => 2]);
 
         $this->when(function () {
 
@@ -77,7 +77,7 @@ class IdGetTest extends _TestCase {
 
             $this->setRouteParameter('id', 11);
 
-            $this->assertError('authorized user who is related user of activity for 11 is required.');
+            $this->assertError('authorized user who is related user of card_flip for 11 is required.');
         });
 
         $this->when(function () {
@@ -86,7 +86,7 @@ class IdGetTest extends _TestCase {
 
             $this->setRouteParameter('id', 12);
 
-            $this->assertError('authorized user who is related user of activity for 12 is required.');
+            $this->assertError('authorized user who is related user of card_flip for 12 is required.');
         });
     }
 

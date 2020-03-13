@@ -16,14 +16,14 @@ class AppServiceProvider extends ServiceProvider
     {
         date_default_timezone_set('UTC');
         Relation::morphMap([
-            'activity'
-                => 'App\Database\Models\Activity',
-
             'balance'
                 => 'App\Database\Models\Balance',
 
             'card'
                 => 'App\Database\Models\Card',
+
+            'card_flip'
+                => 'App\Database\Models\CardFlip',
 
             'card_group'
                 => 'App\Database\Models\CardGroup',
@@ -36,6 +36,9 @@ class AppServiceProvider extends ServiceProvider
 
             'face_photo'
                 => 'App\Database\Models\FacePhoto',
+
+            'friend'
+                => 'App\Database\Models\Friend',
 
             'invoice'
                 => 'App\Database\Models\Invoice',

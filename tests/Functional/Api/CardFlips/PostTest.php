@@ -2,16 +2,16 @@
 
 namespace Tests\Functional\Api\Cards;
 
-use App\Database\Models\Activity;
 use App\Database\Models\Balance;
-use App\Database\Models\Match;
 use App\Database\Models\Card;
+use App\Database\Models\CardFlip;
+use App\Database\Models\Match;
 use App\Database\Models\User;
 use Tests\Functional\_TestCase;
 
-class IdActivitiesPostTest extends _TestCase {
+class PostTest extends _TestCase {
 
-    protected $uri = 'api/cards/{id}/activities';
+    protected $uri = 'api/card-flips';
 
     public function test()
     {
@@ -25,56 +25,56 @@ class IdActivitiesPostTest extends _TestCase {
 
             $this->setAuthUser(User::find(1));
             $this->setInputParameter('timezone', 'Asia/Seoul');
-            $this->setInputParameter('type', Activity::TYPE_CARD_FLIP);
+            $this->setInputParameter('type', CardFlip::TYPE_CARD_FLIP);
             $this->setRouteParameter('id', 11);
 
-            $this->assertResultWithPersisting(new Activity([
+            $this->assertResultWithPersisting(new CardFlip([
                 'user_id'    => 1,
                 'related_id' => 11,
-                'type'       => Activity::TYPE_CARD_FLIP
+                'type'       => CardFlip::TYPE_CARD_FLIP
             ]));
             $this->assertNotEquals(10000, Balance::find(201)->{Balance::COUNT});
         });
 
-        $this->factory(Activity::class)->create(['id' => 1001, 'user_id' => 1, 'related_id' => 11, 'type' => Activity::TYPE_CARD_FLIP]);
+        $this->factory(CardFlip::class)->create(['id' => 1001, 'user_id' => 1, 'related_id' => 11, 'type' => CardFlip::TYPE_CARD_FLIP]);
 
         $this->when(function () {
 
             $this->setAuthUser(User::find(1));
             $this->setInputParameter('timezone', 'Asia/Seoul');
-            $this->setInputParameter('type', Activity::TYPE_CARD_OPEN);
+            $this->setInputParameter('type', CardFlip::TYPE_CARD_OPEN);
             $this->setRouteParameter('id', 11);
 
-            $this->assertResultWithPersisting(new Activity([
+            $this->assertResultWithPersisting(new CardFlip([
                 'user_id'    => 1,
                 'related_id' => 11,
-                'type'       => Activity::TYPE_CARD_OPEN
+                'type'       => CardFlip::TYPE_CARD_OPEN
             ]));
-            $this->assertPersistence(new Activity([
+            $this->assertPersistence(new CardFlip([
                 'user_id'    => 1,
                 'related_id' => 101,
-                'type'       => Activity::TYPE_MATCH_OPEN
+                'type'       => CardFlip::TYPE_MATCH_OPEN
             ]));
         });
 
-        $this->factory(Activity::class)->create(['id' => 1002, 'user_id' => 1, 'related_id' => 101, 'type' => Activity::TYPE_MATCH_OPEN]);
+        $this->factory(CardFlip::class)->create(['id' => 1002, 'user_id' => 1, 'related_id' => 101, 'type' => CardFlip::TYPE_MATCH_OPEN]);
 
         $this->when(function () {
 
             $this->setAuthUser(User::find(1));
             $this->setInputParameter('timezone', 'Asia/Seoul');
-            $this->setInputParameter('type', Activity::TYPE_CARD_PROPOSE);
+            $this->setInputParameter('type', CardFlip::TYPE_CARD_PROPOSE);
             $this->setRouteParameter('id', 11);
 
-            $this->assertResultWithPersisting(new Activity([
+            $this->assertResultWithPersisting(new CardFlip([
                 'user_id'    => 1,
                 'related_id' => 11,
-                'type'       => Activity::TYPE_CARD_PROPOSE
+                'type'       => CardFlip::TYPE_CARD_PROPOSE
             ]));
-            $this->assertPersistence(new Activity([
+            $this->assertPersistence(new CardFlip([
                 'user_id'    => 1,
                 'related_id' => 101,
-                'type'       => Activity::TYPE_MATCH_PROPOSE
+                'type'       => CardFlip::TYPE_MATCH_PROPOSE
             ]));
         });
     }
@@ -99,7 +99,7 @@ class IdActivitiesPostTest extends _TestCase {
 
             $this->setAuthUser(User::find(1));
             $this->setInputParameter('timezone', 'Asia/Seoul');
-            $this->setInputParameter('type', Activity::TYPE_CARD_OPEN);
+            $this->setInputParameter('type', CardFlip::TYPE_CARD_OPEN);
             $this->setRouteParameter('id', 11);
 
             $this->assertError('flip status acted by authorized user for card for 11 must exist.');
@@ -116,7 +116,7 @@ class IdActivitiesPostTest extends _TestCase {
 
             $this->setAuthUser(User::find(1));
             $this->setInputParameter('timezone', 'Asia/Seoul');
-            $this->setInputParameter('type', Activity::TYPE_CARD_PROPOSE);
+            $this->setInputParameter('type', CardFlip::TYPE_CARD_PROPOSE);
             $this->setRouteParameter('id', 11);
 
             $this->assertError('profile open status acted by matching users of card for 11 must exist.');
@@ -128,13 +128,13 @@ class IdActivitiesPostTest extends _TestCase {
         $this->factory(User::class)->create(['id' => 1]);
         $this->factory(Match::class)->create(['id' => 101, 'man_id' => 1, 'woman_id' => 2]);
         $this->factory(Card::class)->create(['id' => 11, 'match_id' => 101, 'chooser_id' => 1, 'showner_id' => 2]);
-        $this->factory(Activity::class)->create(['id' => 1001, 'user_id' => 1, 'related_id' => 11, 'type' => Activity::TYPE_CARD_FLIP]);
+        $this->factory(CardFlip::class)->create(['id' => 1001, 'user_id' => 1, 'related_id' => 11, 'type' => CardFlip::TYPE_CARD_FLIP]);
 
         $this->when(function () {
 
             $this->setAuthUser(User::find(1));
             $this->setInputParameter('timezone', 'Asia/Seoul');
-            $this->setInputParameter('type', Activity::TYPE_CARD_FLIP);
+            $this->setInputParameter('type', CardFlip::TYPE_CARD_FLIP);
             $this->setRouteParameter('id', 11);
 
             $this->assertError('flip status acted by authorized user for card for 11 must not exist.');
@@ -146,13 +146,13 @@ class IdActivitiesPostTest extends _TestCase {
         $this->factory(User::class)->create(['id' => 1]);
         $this->factory(Match::class)->create(['id' => 101, 'man_id' => 1, 'woman_id' => 2]);
         $this->factory(Card::class)->create(['id' => 11, 'match_id' => 101, 'chooser_id' => 1, 'showner_id' => 2]);
-        $this->factory(Activity::class)->create(['id' => 1001, 'user_id' => 1, 'related_id' => 101, 'type' => Activity::TYPE_MATCH_OPEN]);
+        $this->factory(CardFlip::class)->create(['id' => 1001, 'user_id' => 1, 'related_id' => 101, 'type' => CardFlip::TYPE_MATCH_OPEN]);
 
         $this->when(function () {
 
             $this->setAuthUser(User::find(1));
             $this->setInputParameter('timezone', 'Asia/Seoul');
-            $this->setInputParameter('type', Activity::TYPE_CARD_OPEN);
+            $this->setInputParameter('type', CardFlip::TYPE_CARD_OPEN);
             $this->setRouteParameter('id', 11);
 
             $this->assertError('profile open status acted by matching users of card for 11 must not exist.');
@@ -164,13 +164,13 @@ class IdActivitiesPostTest extends _TestCase {
         $this->factory(User::class)->create(['id' => 1]);
         $this->factory(Match::class)->create(['id' => 101, 'man_id' => 1, 'woman_id' => 2]);
         $this->factory(Card::class)->create(['id' => 11, 'match_id' => 101, 'chooser_id' => 1, 'showner_id' => 2]);
-        $this->factory(Activity::class)->create(['id' => 1001, 'user_id' => 1, 'related_id' => 101, 'type' => Activity::TYPE_MATCH_PROPOSE]);
+        $this->factory(CardFlip::class)->create(['id' => 1001, 'user_id' => 1, 'related_id' => 101, 'type' => CardFlip::TYPE_MATCH_PROPOSE]);
 
         $this->when(function () {
 
             $this->setAuthUser(User::find(1));
             $this->setInputParameter('timezone', 'Asia/Seoul');
-            $this->setInputParameter('type', Activity::TYPE_CARD_PROPOSE);
+            $this->setInputParameter('type', CardFlip::TYPE_CARD_PROPOSE);
             $this->setRouteParameter('id', 11);
 
             $this->assertError('propose status acted by matching users of card for 11 must not exist.');
