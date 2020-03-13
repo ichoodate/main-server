@@ -13,7 +13,9 @@ class CreateKeywordStaturesTable extends Migration {
                 ->bigInteger('id')
                 ->unsigned();
             $table
-                ->string('type');
+                ->string('cm');
+            $table
+                ->string('inch');
 
             $table
                 ->primary('id')
@@ -21,6 +23,11 @@ class CreateKeywordStaturesTable extends Migration {
                 ->references('id')
                 ->on('objs')
                 ->onDelete('cascade');
+
+            $table
+                ->index('cm');
+            $table
+                ->index('inch');
         });
     }
 
