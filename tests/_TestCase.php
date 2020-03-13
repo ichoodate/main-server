@@ -28,11 +28,11 @@ abstract class _TestCase extends TestCase {
         static::fail();
     }
 
-    public static function factory($modelClass, ...$args)
+    public static function factory($modelClass)
     {
         $path = str_replace('App\\Database\\Models\\', '', $modelClass);
 
-        return inst('Database\\Factories\\Models\\' . $path . 'Factory');
+        return inst('Database\\Factories\\Model\\' . $path . 'Factory');
     }
 
     public static function invokeMethod($object, $method, $args, $public = true)
