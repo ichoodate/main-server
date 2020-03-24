@@ -38,32 +38,14 @@ class Country extends Model {
         return $this->hasOne(Nationality::class, 'country_id', 'id');
     }
 
-    public function nationalityQuery()
-    {
-        return app(Nationality::class)->query()
-            ->qWhere(Nationality::COUNTRY_ID, $this->{static::ID});
-    }
-
     public function residence()
     {
         return $this->hasOne(Residence::class, 'related_id', 'id');
     }
 
-    public function residenceQuery()
-    {
-        return app(Residence::class)->query()
-            ->qWhere(Residence::RELATED_ID, $this->{static::ID});
-    }
-
     public function state()
     {
         return $this->hasMany(State::class, 'country_id', 'id');
-    }
-
-    public function stateQuery()
-    {
-        return app(State::class)->query()
-            ->qWhere(State::COUNTRY_ID, $this->{static::ID});
     }
 
 }

@@ -43,32 +43,14 @@ class Coin extends Model {
         return $this->belongsTo(Balance::class, 'balance_id', 'id');
     }
 
-    public function balanceQuery()
-    {
-        return inst(Balance::class)->query()
-            ->qWhere(Balance::ID, $this->{static::BALANCE_ID});
-    }
-
     public function related()
     {
         return $this->belongsTo(Obj::class, 'related_id', 'id');
     }
 
-    public function relatedQuery()
-    {
-        return inst(Obj::class)->query()
-            ->qWhere(Obj::ID, $this->{static::RELATED_ID});
-    }
-
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
-    }
-
-    public function userQuery()
-    {
-        return inst(User::class)->query()
-            ->qWhere(User::ID, $this->{static::USER_ID});
     }
 
 }

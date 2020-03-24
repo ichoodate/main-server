@@ -34,10 +34,4 @@ class ProfilePhoto extends Model {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public function userQuery()
-    {
-        return inst(User::class)->query()
-           ->qWhere(User::ID, $this->{static::USER_ID});
-    }
-
 }

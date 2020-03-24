@@ -42,21 +42,9 @@ class CardGroup extends Model {
         return $this->hasMany(Card::class, 'group_id', 'id');
     }
 
-    public function cardQuery()
-    {
-        return inst(Card::class)->query()
-            ->qWhere(Card::GROUP_ID, $this->{static::ID});
-    }
-
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
-    }
-
-    public function userQuery()
-    {
-        return inst(User::class)->query()
-            ->qWhere(User::ID, $this->{static::USER_ID});
     }
 
 }

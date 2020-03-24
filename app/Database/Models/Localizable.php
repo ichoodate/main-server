@@ -49,10 +49,4 @@ class Localizable extends Model {
         return $this->belongsTo(Obj::class, 'keyword_id', 'id');
     }
 
-    public function keywordQuery()
-    {
-        return inst(Obj::class)->query()
-            ->qWhere(Obj::ID, $this->{static::KEYWORD_ID});
-    }
-
 }

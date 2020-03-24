@@ -40,21 +40,9 @@ class Subscription extends Model {
         return $this->belongsTo(Payment::class, 'payment_id', 'id');
     }
 
-    public function paymentQuery()
-    {
-        return inst(Payment::class)->query()
-            ->qWhere(Payment::ID, $this->{static::PAYMENT_ID});
-    }
-
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
-    }
-
-    public function userQuery()
-    {
-        return inst(User::class)->query()
-            ->qWhere(User::ID, $this->{static::USER_ID});
     }
 
 }

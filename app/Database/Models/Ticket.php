@@ -39,21 +39,9 @@ class Ticket extends Model {
         return $this->hasMany(Reply::class, 'ticket_id', 'id');
     }
 
-    public function replyQuery()
-    {
-        return inst(Reply::class)->query()
-            ->qWhere(Reply::TICKET_ID, $this->{static::ID});
-    }
-
     public function writer()
     {
         return $this->belongsTo(User::class, 'writer_id', 'id');
-    }
-
-    public function writerQuery()
-    {
-        return inst(User::class)->query()
-            ->qWhere(User::ID, $this->{static::WRITER_ID});
     }
 
 }

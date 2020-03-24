@@ -30,10 +30,4 @@ class Nationality extends Model {
         return $this->belongsTo(Country::class, 'country_id', 'id');
     }
 
-    public function countryQuery()
-    {
-        return inst(Country::class)->query()
-            ->qWhere(Country::ID, $this->{static::COUNTRY_ID});
-    }
-
 }

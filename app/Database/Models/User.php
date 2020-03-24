@@ -73,21 +73,9 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         return $this->hasMany(CardFlip::class, 'user_id', 'id');
     }
 
-    public function cardFlipQuery()
-    {
-        return inst(CardFlip::class)->query()
-            ->qWhere(CardFlip::USER_ID, $this->{static::ID});
-    }
-
     public function chooserCards()
     {
         return $this->hasMany(Card::class, 'chooser_id', 'id');
-    }
-
-    public function chooserCardQuery()
-    {
-        return inst(Card::class)->query()
-            ->qWhere(Card::CHOOSER_ID, $this->{static::ID});
     }
 
     public function facePhoto()
@@ -95,21 +83,9 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         return $this->hasOne(FacePhoto::class, 'user_id', 'id');
     }
 
-    public function facePhotoQuery()
-    {
-        return inst(FacePhoto::class)->query()
-            ->qWhere(FacePhoto::USER_ID, $this->{static::ID});
-    }
-
     public function userIdealTypeKwdPvts()
     {
         return $this->hasMany(UserIdealTypeKwdPvt::class, 'user_id', 'id');
-    }
-
-    public function userIdealTypeKwdPvtQuery()
-    {
-        return inst(UserIdealTypeKwdPvt::class)->query()
-            ->qWhere(UserIdealTypeKwdPvt::USER_ID, $this->{static::ID});
     }
 
     public function matches()
@@ -124,29 +100,9 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         }
     }
 
-    public function matchQuery()
-    {
-        $query = inst(Match::class)->query();
-
-        if ( $this->{static::GENDER} === static::GENDER_MAN )
-        {
-            return $query->qWhere(Match::MAN_ID, $this->{static::ID});
-        }
-        else if ( $this->{static::GENDER} === static::GENDER_WOMAN )
-        {
-            return $query->qWhere(Match::WOMAN_ID, $this->{static::ID});
-        }
-    }
-
     public function userSelfKwdPvts()
     {
         return $this->hasMany(UserSelfKwdPvt::class, 'user_id', 'id');
-    }
-
-    public function userSelfKwdPvtQuery()
-    {
-        return inst(UserSelfKwdPvt::class)->query()
-            ->qWhere(UserSelfKwdPvt::USER_ID, $this->{static::ID});
     }
 
     public function profilePhotos()
@@ -154,21 +110,9 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         return $this->hasMany(ProfilePhoto::class, 'user_id', 'id');
     }
 
-    public function profilePhotoQuery()
-    {
-        return inst(ProfilePhoto::class)->query()
-            ->qWhere(ProfilePhoto::USER_ID, $this->{static::ID});
-    }
-
     public function tickets()
     {
         return $this->hasMany(Ticket::class, 'writer_id', 'id');
-    }
-
-    public function ticketQuery()
-    {
-        return inst(Ticket::class)->query()
-            ->qWhere(Ticket::WRITER_ID, $this->{static::ID});
     }
 
     public function receivedPopularities()
@@ -176,21 +120,9 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         return $this->hasMany(Popularity::class, 'receiver_id', 'id');
     }
 
-    public function receivedPopularityQuery()
-    {
-        return inst(Popularity::class)->query()
-            ->qWhere(Popularity::RECEIVER_ID, $this->{static::ID});
-    }
-
     public function replies()
     {
         return $this->hasMany(Reply::class, 'writer_id', 'id');
-    }
-
-    public function replyQuery()
-    {
-        return inst(Reply::class)->query()
-            ->qWhere(Reply::WRITER_ID, $this->{static::ID});
     }
 
     public function roles()
@@ -198,32 +130,14 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         return $this->hasMany(Role::class, 'user_id', 'id');
     }
 
-    public function roleQuery()
-    {
-        return inst(Role::class)->query()
-            ->qWhere(Role::USER_ID, $this->{static::ID});
-    }
-
     public function sentPopularities()
     {
         return $this->hasMany(Popularity::class, 'sender_id', 'id');
     }
 
-    public function sentPopularityQuery()
-    {
-        return inst(Popularity::class)->query()
-            ->qWhere(Popularity::SENDER_ID, $this->{static::ID});
-    }
-
     public function shownerCards()
     {
         return $this->hasMany(Card::class, 'showner_id', 'id');
-    }
-
-    public function shownerCardQuery()
-    {
-        return inst(Card::class)->query()
-            ->qWhere(Card::SHOWNER_ID, $this->{static::ID});
     }
 
 }

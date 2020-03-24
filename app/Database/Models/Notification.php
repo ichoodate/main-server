@@ -40,21 +40,9 @@ class Notification extends Model {
         return $this->belongsTo(Obj::class, 'related_id', 'id');
     }
 
-    public function relatedQuery()
-    {
-        return inst(Obj::class)->query()
-            ->qWhere(Obj::ID, $this->{static::RELATED_ID});
-    }
-
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
-    }
-
-    public function userQuery()
-    {
-        return inst(User::class)->query()
-            ->qWhere(User::ID, $this->{static::USER_ID});
     }
 
 }

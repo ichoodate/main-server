@@ -38,21 +38,9 @@ class Popularity extends Model {
         return $this->belongsTo(User::class, 'receiver_id', 'id');
     }
 
-    public function receiverQuery()
-    {
-        return inst(User::class)->query()
-            ->qWhere(User::ID, $this->{static::RECEIVER_ID});
-    }
-
     public function sender()
     {
         return $this->belongsTo(User::class, 'sender_id', 'id');
-    }
-
-    public function senderQuery()
-    {
-        return inst(User::class)->query()
-            ->qWhere(User::ID, $this->{static::SENDER_ID});
     }
 
 }

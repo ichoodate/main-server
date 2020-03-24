@@ -33,21 +33,9 @@ class MatchingKwdPvt extends Model {
         return $this->belongsTo(Obj::class, 'ideal_kwd_id', 'id');
     }
 
-    public function idealTypeKeywordQuery()
-    {
-        return inst(Obj::class)->query()
-            ->qWhere(Obj::ID, $this->{static::IDEAL_TYPE_KWD_ID});
-    }
-
     public function matchingKeywords()
     {
         return $this->belongsTo(Obj::class, 'self_kwd_id', 'id');
-    }
-
-    public function matchingKeywordQuery()
-    {
-        return inst(Obj::class)->query()
-            ->qWhere(Obj::ID, $this->{static::MATCHING_KWD_ID});
     }
 
 }

@@ -40,21 +40,9 @@ class Payment extends Model {
         return $this->belongsTo(Item::class, 'item_id', 'id');
     }
 
-    public function itemQuery()
-    {
-        return inst(Item::class)->query()
-            ->qWhere(Item::ID, $this->{static::ITEM_ID});
-    }
-
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
-    }
-
-    public function userQuery()
-    {
-        return inst(User::class)->query()
-            ->qWhere(User::ID, $this->{static::USER_ID});
     }
 
 }

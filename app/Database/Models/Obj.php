@@ -168,12 +168,4 @@ class Obj extends Model {
         return $this->morphTo(null, 'type', 'id');
     }
 
-    public function concreteQuery()
-    {
-        $class = $this->{static::MODEL_CLASS};
-
-        return inst($class)->query()
-            ->qWhere($class::ID, $this->{static::ID});
-    }
-
 }

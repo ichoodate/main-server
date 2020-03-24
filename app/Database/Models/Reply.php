@@ -41,21 +41,9 @@ class Reply extends Model {
         return $this->belongsTo(Ticket::class, 'ticket_id', 'id');
     }
 
-    public function ticketQuery()
-    {
-        return inst(Ticket::class)->query()
-            ->qWhere(Ticket::ID, $this->{static::TICKET_ID});
-    }
-
     public function writer()
     {
         return $this->belongsTo(User::class, 'writer_id', 'id');
-    }
-
-    public function writerQuery()
-    {
-        return inst(User::class)->query()
-            ->qWhere(User::ID, $this->{static::WRITER_ID});
     }
 
 }

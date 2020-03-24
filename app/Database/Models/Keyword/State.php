@@ -35,21 +35,9 @@ class State extends Model {
         return $this->belongsTo(Country::class, 'country_id', 'id');
     }
 
-    public function countryQuery()
-    {
-        return inst(Country::class)->query()
-            ->qWhere(Country::ID, $this->{static::COUNTRY_ID});
-    }
-
     public function residence()
     {
         return $this->hasOne(Residence::class, 'related_id', 'id');
-    }
-
-    public function residenceQuery()
-    {
-        return inst(Residence::class)->query()
-            ->qWhere(Residence::RELATED_ID, $this->{static::ID});
     }
 
 }

@@ -39,21 +39,9 @@ class ChattingContent extends Model {
         return $this->belongsTo(Match::class, 'match_id', 'id');
     }
 
-    public function matchQuery()
-    {
-        return inst(Match::class)->query()
-            ->qWhere(Match::ID, $this->{static::MATCH_ID});
-    }
-
     public function writer()
     {
         return $this->belongsTo(User::class, 'writer_id', 'id');
-    }
-
-    public function writerQuery()
-    {
-        return inst(User::class)->query()
-            ->qWhere(User::ID, $this->{static::WRITER_ID});
     }
 
 }

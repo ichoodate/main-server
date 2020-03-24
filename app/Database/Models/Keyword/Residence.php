@@ -34,10 +34,4 @@ class Residence extends Model {
         return $this->belongsTo(Obj::class, 'related_id', 'id');
     }
 
-    public function relatedQuery()
-    {
-        return inst(Obj::class)->query()
-            ->qWhere(Obj::ID, $this->{static::KEYWORD_ID});
-    }
-
 }

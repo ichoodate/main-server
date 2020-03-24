@@ -51,21 +51,9 @@ class Card extends Model {
         return $this->hasMany(CardFlip::class, 'card_id', 'id');
     }
 
-    public function flipQuery()
-    {
-        return inst(CardFlip::class)->query()
-            ->qWhere(CardFlip::CARD_ID, $this->{static::ID});
-    }
-
     public function chooser()
     {
         return $this->belongsTo(User::class, 'chooser_id', 'id');
-    }
-
-    public function chooserQuery()
-    {
-        return inst(User::class)->query()
-            ->qWhere(User::ID, $this->{static::CHOOSER_ID});
     }
 
     public function group()
@@ -73,32 +61,14 @@ class Card extends Model {
         return $this->belongsTo(CardGroup::class, 'group_id', 'id');
     }
 
-    public function groupQuery()
-    {
-        return inst(CardGroup::class)->query()
-            ->qWhere(CardGroup::ID, $this->{static::GROUP_ID});
-    }
-
     public function match()
     {
         return $this->belongsTo(Match::class, 'match_id', 'id');
     }
 
-    public function matchQuery()
-    {
-        return inst(Match::class)->query()
-            ->qWhere(Match::ID, $this->{static::MATCH_ID});
-    }
-
     public function showner()
     {
         return $this->belongsTo(User::class, 'showner_id', 'id');
-    }
-
-    public function shownerQuery()
-    {
-        return inst(User::class)->query()
-            ->qWhere(User::ID, $this->{static::SHOWNER_ID});
     }
 
 }
