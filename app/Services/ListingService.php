@@ -40,21 +40,21 @@ class ListingService extends Service {
                 $query->qSelect($groupBy);
             }],
 
-            'query.expands' => ['query', 'expands', function ($query, $expands) {
-
-                $expands = preg_split('/\s*,\s*/', $expands);
-
-                $query->with($expands);
-            }],
-
             'query.order_by_list' => ['query', 'order_by_list', function ($query, $orderByList) {
 
                 foreach ( $orderByList as $key => $direction )
                 {
                     $query->qOrderBy($key, $direction);
                 }
+            }],
+
+            'result' => ['result', 'expands', function ($result, $expands) {
+
+                $expands = preg_split('/\s*,\s*/', $expands);
+
+                $result->loadVisible($expands);
             }]
-         ];
+        ];
     }
 
     public static function getArrLoaders()

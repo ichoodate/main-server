@@ -2,8 +2,8 @@
 
 namespace App\Database;
 
+use App\Database\Collection;
 use App\Database\Models\Obj;
-use Carbon\Carbon;
 
 abstract class Model extends \Illuminate\Database\Eloquent\Model {
 
@@ -38,9 +38,7 @@ abstract class Model extends \Illuminate\Database\Eloquent\Model {
 
     public function newCollection(array $models = [])
     {
-        $class = str_replace('Models', 'Collections', static::class) . 'Collection';
-
-        return new $class($models);
+        return new Collection($models);
     }
 
     public function newEloquentBuilder($query)
@@ -63,28 +61,4 @@ abstract class Model extends \Illuminate\Database\Eloquent\Model {
 
         return $this;
     }
-
-    public function freshTimestamp()
-    {
-        return new Carbon(app('nowUtcTime'));
-    }
-
-    // deprecated
-    // it converted use mysql timestamp option at date column
-    // /**
-    //  * overriding laravel/framework
-    //  */
-    // protected function updateTimestamps()
-    // {
-    //     $time = $this->freshTimestamp();
-
-    //     // if (! $this->isDirty(static::UPDATED_AT)) {
-    //     //     $this->setUpdatedAt($time);
-    //     // }
-
-    //     if (! $this->exists && ! $this->isDirty(static::CREATED_AT)) {
-    //         $this->setCreatedAt($time);
-    //     }
-    // }
-
 }

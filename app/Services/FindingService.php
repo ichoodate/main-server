@@ -19,10 +19,10 @@ class FindingService extends Service {
         return [
             'result' => ['result', 'expands', function ($result, $expands) {
 
+                $expands = preg_split('/\s*,\s*/', $expands);
                 $collection = $result->newCollection();
-
                 $collection->push($result);
-                $collection->load($expands);
+                $collection->loadVisible($expands);
             }]
         ];
     }
