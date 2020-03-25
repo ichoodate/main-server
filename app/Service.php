@@ -5,6 +5,7 @@ namespace App;
 use App\Validation\Validator;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Validation\Factory as ValidationFactory;
 
@@ -195,6 +196,7 @@ class Service {
         return [];
     }
 
+/*
     protected function getDependencies($key)
     {
         $loader       = $this->getAllLoaders()->get($key, []);
@@ -219,6 +221,7 @@ class Service {
 
         return $deps;
     }
+*/
 
     protected function getValidationErrors($data, $ruleList)
     {
@@ -245,6 +248,7 @@ class Service {
         return $this->errors->get($key, []);
     }
 
+/*
     public function hasInvalidDepandencyLoader($key)
     {
         $loader = $this->getAllLoaders()->get($key, []);
@@ -260,6 +264,7 @@ class Service {
 
         return false;
     }
+*/
 
     public function inputs()
     {
@@ -370,9 +375,10 @@ class Service {
 
     protected function getAvailableRulesWith($key)
     {
-        $rules = $this->getAllRuleLists()->get($key, []);
+        $rules   = $this->getAllRuleLists()->get($key, []);
+        $mainKey = explode('.', $key)[0];
 
-        if ( ! $this->getAllLoaders()->has(explode('.', $key)[0]) && ! $this->inputs->has(explode('.', $key)[0]) )
+        if ( ! $this->getAllLoaders()->has($mainKey) && ! $this->inputs->has($mainKey) )
         {
             // addable options: required_if, required_unless, requred_with, required_without. but this options is deprecated with trait method
             if ( in_array('required', $rules) )
@@ -507,6 +513,7 @@ class Service {
             throw new \Exception('does not support validation with child key');
         }
 
+
         if ( $this->validated->has($key) )
         {
             return $this->validated->get($key);
@@ -529,7 +536,8 @@ class Service {
             }
         }
 
-        $deps = $this->getDependencies($key);
+        $loader = $this->getAllLoaders()->get($key, []);
+        $deps   = array_slice($loader, 0, -1);
 
         foreach ( $deps as $dep )
         {
@@ -539,10 +547,11 @@ class Service {
             }
         }
 
-        if ( $this->hasInvalidDepandencyLoader($key) )
+        if ( $this->validated->get($key) === false )
         {
             return false;
         }
+
 
         $ruleList = [$key => $this->getAvailableRulesWith($key)];
         $data     = $this->getAvailableDataWith($key);
@@ -574,6 +583,16 @@ class Service {
 
             foreach ( $callbackList as $callback )
             {
+                $deps = array_slice($callback, 0, -1);
+
+                foreach ( $deps as $dep )
+                {
+                    if ( ! $this->validate($dep) )
+                    {
+                        $this->validated->put($key, false);
+                    }
+                }
+
                 $this->resolve($callback);
             }
 
