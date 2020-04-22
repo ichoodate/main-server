@@ -35,6 +35,11 @@ class Service {
         {
             $this->data->put($value, $inputs[$value]);
         }
+
+        foreach ( $this->inputs as $key => $value )
+        {
+            $this->validate($key);
+        }
     }
 
     public function childs()
