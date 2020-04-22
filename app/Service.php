@@ -242,6 +242,11 @@ class Service {
         return is_array($value) && array_key_exists(0, $value) && is_string($value[0]) && class_exists($value[0]) && get_parent_class($value[0]) == Service::class;
     }
 
+    protected function isRequiredRule($rule)
+    {
+        return preg_match('/^required/', $rule);
+    }
+
     protected function isResolveError($value)
     {
         $errorClass = get_class($this->resolveError());
@@ -332,7 +337,7 @@ class Service {
                     continue;
                 }
 
-                if ( ! $this->data()->has($bindKey) )
+                if ( ! $this->isRequiredRule($rule) && ! $this->data()->has($bindKey) )
                 {
                     throw new \Exception('"' . $bindKey . '" key required rule not exists');
                 }
