@@ -60,18 +60,6 @@ class Service {
         return clone $this->errors;
     }
 
-    public function totalErrors()
-    {
-        $errors = $this->errors()->flatten();
-
-        foreach ( $this->childs() as $child )
-        {
-            $errors = $errors->merge($child->totalErrors());
-        }
-
-        return $errors;
-    }
-
     public static function getAllBindNames()
     {
         $arr = [];
@@ -266,18 +254,6 @@ class Service {
     }
 */
 
-    public function inputs()
-    {
-        return clone $this->inputs;
-    }
-
-    protected function isResolveError($value)
-    {
-        $errorClass = get_class($this->resolveError());
-
-        return is_object($value) && $value instanceof $errorClass;
-    }
-
     public static function initService($value)
     {
         $value = array_add($value, 1, []);
@@ -300,31 +276,21 @@ class Service {
         return inst($class, [$data, $names, $valids]);
     }
 
-    protected function resolve(array $arr = [])
+    public function inputs()
     {
-        $resolver = \Closure::bind(array_last($arr), $this);
-        $depNames = array_slice($arr, 0, -1);
-        $depVals  = [];
-        $params   = (new \ReflectionFunction($resolver))->getParameters();
+        return clone $this->inputs;
+    }
 
-        foreach ( $depNames as $i => $depName )
-        {
-            if ( $this->data->has($depName) )
-            {
-                $depVals[] = $this->data->get($depName);
-            }
-            else if ( $params[$i]->isDefaultValueAvailable() )
-            {
-                $depVals[] = $params[$i]->getDefaultValue();
-            }
-            else
-            {
-                // must not throw exception, but only return
-                return $this->resolveError();
-            }
-        }
+    public static function isCanServicify($value)
+    {
+        return is_array($value) && array_key_exists(0, $value) && is_string($value[0]) && class_exists($value[0]) && get_parent_class($value[0]) == Service::class;
+    }
 
-        return call_user_func_array($resolver, $depVals);
+    protected function isResolveError($value)
+    {
+        $errorClass = get_class($this->resolveError());
+
+        return is_object($value) && $value instanceof $errorClass;
     }
 
     protected function getAvailableDataWith($key)
@@ -366,12 +332,6 @@ class Service {
 
         return $data;
     }
-
-    public static function isCanServicify($value)
-    {
-        return is_array($value) && array_key_exists(0, $value) && is_string($value[0]) && class_exists($value[0]) && get_parent_class($value[0]) == Service::class;
-    }
-
 
     protected function getAvailableRulesWith($key)
     {
@@ -440,6 +400,33 @@ class Service {
         return $matches[1];
     }
 
+    protected function resolve(array $arr = [])
+    {
+        $resolver = \Closure::bind(array_last($arr), $this);
+        $depNames = array_slice($arr, 0, -1);
+        $depVals  = [];
+        $params   = (new \ReflectionFunction($resolver))->getParameters();
+
+        foreach ( $depNames as $i => $depName )
+        {
+            if ( $this->data->has($depName) )
+            {
+                $depVals[] = $this->data->get($depName);
+            }
+            else if ( $params[$i]->isDefaultValueAvailable() )
+            {
+                $depVals[] = $params[$i]->getDefaultValue();
+            }
+            else
+            {
+                // must not throw exception, but only return
+                return $this->resolveError();
+            }
+        }
+
+        return call_user_func_array($resolver, $depVals);
+    }
+
     protected function resolveBindName(string $name)
     {
         while ( $boundKeys = $this->getBindKeys($name) )
@@ -503,6 +490,18 @@ class Service {
         }
 
         return $this->data()->get('result');
+    }
+
+    public function totalErrors()
+    {
+        $errors = $this->errors()->flatten();
+
+        foreach ( $this->childs() as $child )
+        {
+            $errors = $errors->merge($child->totalErrors());
+        }
+
+        return $errors;
     }
 
     protected function validate($key)
