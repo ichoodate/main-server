@@ -9,10 +9,6 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Validation\Factory as ValidationFactory;
 
-/**
- * todo test
- * xxxx.* not exist in promise list, loader, callback list
- */
 class Service {
 
     const BIND_NAME_EXP = '/\{\{([a-z0-9\_\.\*]+)\}\}/';
@@ -184,33 +180,6 @@ class Service {
         return [];
     }
 
-/*
-    protected function getDependencies($key)
-    {
-        $loader       = $this->getAllLoaders()->get($key, []);
-        $ruleList     = $this->getAllRuleLists()->get($key, []);
-        $callbackList = $this->getAllCallbackLists()->get($key, []);
-        $deps         = array_slice($loader, 0, -1);
-
-        // foreach ( $ruleList as $rule )
-        // {
-        //     $deps = array_merge($deps, $this->getBindKeys($rule));
-        // }
-
-        // foreach ( $this->getAllRuleLists()->get($key.'.*', []) as $rule )
-        // {
-        //     $deps = array_merge($deps, $this->getBindKeys($rule));
-        // }
-
-        foreach ( $callbackList as $callback )
-        {
-            $deps = array_merge($deps, array_slice($callback, 1, -1));
-        }
-
-        return $deps;
-    }
-*/
-
     protected function getValidationErrors($data, $ruleList)
     {
         $factory = inst(ValidationFactory::class);
@@ -235,24 +204,6 @@ class Service {
 
         return $this->errors->get($key, []);
     }
-
-/*
-    public function hasInvalidDepandencyLoader($key)
-    {
-        $loader = $this->getAllLoaders()->get($key, []);
-        $deps   = array_slice($loader, 0, -1);
-
-        foreach ( $deps as $dep )
-        {
-            if ( ! $this->validated->get($dep) )
-            {
-                return true;
-            }
-        }
-
-        return false;
-    }
-*/
 
     public static function initService($value)
     {
