@@ -301,15 +301,9 @@ class Service {
 
         if ( ! $this->getAllLoaders()->has($mainKey) && ! $this->inputs->has($mainKey) )
         {
-            // addable options: required_if, required_unless, requred_with, required_without. but this options is deprecated with trait method
-            if ( in_array('required', $rules) )
-            {
-                $rules = ['required'];
-            }
-            else
-            {
-                $rules = [];
-            }
+            $rules = array_filter($rules, function ($rule) {
+                return $this->isRequiredRule($rule);
+            });
         }
 
         if ( empty($rules) )
