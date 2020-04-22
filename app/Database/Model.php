@@ -48,6 +48,13 @@ abstract class Model extends \Illuminate\Database\Eloquent\Model {
         return new $class($query);
     }
 
+    public function relation($related, array $localKeys, array $otherKeys, $isManyRelation)
+    {
+        $query = (new $related)->newQuery();
+
+        return new Relation($query, $this, $localKeys, $otherKeys, $isManyRelation);
+    }
+
     public function setAttribute($key, $value)
     {
         if ( $this->hasSetMutator($key) || in_array($key, $this->getFillable()) )
