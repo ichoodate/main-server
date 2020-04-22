@@ -239,7 +239,7 @@ class Service {
 
     public static function isCanServicify($value)
     {
-        return is_array($value) && array_key_exists(0, $value) && is_string($value[0]) && class_exists($value[0]) && get_parent_class($value[0]) == Service::class;
+        return is_array($value) && array_key_exists(0, $value) && is_string($value[0]) && preg_match('/Service$/', $value[0]);
     }
 
     protected function isRequiredRule($rule)
