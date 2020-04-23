@@ -4,6 +4,10 @@ namespace App\Database\Models;
 
 use App\Database\Model;
 use App\Database\Models\FacePhoto;
+use App\Database\Models\Friend;
+use App\Database\Models\Match;
+use App\Database\Models\Popularity;
+use App\Database\Models\User;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\MustVerifyEmail;
 use Illuminate\Auth\Passwords\CanResetPassword;
@@ -60,6 +64,21 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     public function facePhoto()
     {
         return $this->hasOne(FacePhoto::class, 'user_id', 'id');
+    }
+
+    public function friend()
+    {
+        return $this->relation(Friend::class, ['id', ':auth_user_id:'], ['receiver_id', 'sender_id'], false);
+    }
+
+    public function match()
+    {
+        return $this->{User::GENDER} == User::GENDER_MAN ? $this->relation(Match::class, ['id', ':auth_user_id:'], ['man_id', 'woman_id'], false) : $this->relation(Match::class, ['id', ':auth_user_id:'], ['woman_id', 'man_id'], false);
+    }
+
+    public function popularity()
+    {
+        return $this->relation(Popularity::class, ['id', ':auth_user_id:'], ['receiver_id', 'sender_id'], false);
     }
 
 }
