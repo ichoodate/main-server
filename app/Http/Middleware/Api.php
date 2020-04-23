@@ -6,6 +6,7 @@ use App\Database\Model;
 use App\Database\Collection;
 use App\Service;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Pagination\AbstractPaginator;
 use Illuminate\Support\Facades\DB;
 
 class Api {
@@ -34,10 +35,22 @@ class Api {
         $errors = $service->totalErrors();
         $result = $service->data()->get('result');
 
+        if ( $result instanceof AbstractPaginator )
+        {
+            $data = $result->getCollection();
+            $data = $this->restify($data);
+
+            $result->setCollection(collect($data));
+        }
+        else
+        {
+            $result = $this->restify($result);
+        }
+
         if ( $errors->isEmpty() )
         {
             $response->setData([
-                'result' => $this->restify($result)
+                'result' => $result
             ]);
 
             DB::commit();
