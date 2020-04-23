@@ -43,7 +43,7 @@ class Card extends Model {
 
     public function getExpandable()
     {
-        return ['flips', 'chooser', 'chooser.facePhoto', 'group', 'match', 'match.following', 'showner', 'showner.facePhoto'];
+        return ['flips', 'chooser', 'chooser.facePhoto', 'chooser.popularity', 'group', 'match', 'match.following', 'showner', 'showner.facePhoto', 'showner.popularity'];
     }
 
     public function flips()

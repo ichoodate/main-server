@@ -34,7 +34,7 @@ class CardGroup extends Model {
 
     public function getExpandable()
     {
-        return ['cards.flips', 'cards.showner.facePhoto', 'user'];
+        return ['cards.flips', 'cards.chooser.facePhoto', 'cards.chooser.popularity', 'cards.showner.facePhoto', 'cards.showner.popularity', 'user'];
     }
 
     public function cards()
