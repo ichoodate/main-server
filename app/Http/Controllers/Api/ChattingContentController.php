@@ -4,18 +4,18 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\ApiController;
 use App\Services\ChattingContent\ChattingContentFindingService;
-use App\Services\ChattingContent\MatchChattingContentListingService;
-use App\Services\ChattingContent\MatchChattingContentCreatingService;
+use App\Services\ChattingContent\ChattingContentListingService;
+use App\Services\ChattingContent\ChattingContentCreatingService;
 
-class MatchChattingContentController extends ApiController {
+class ChattingContentController extends ApiController {
 
     public static function index()
     {
-        return [MatchChattingContentListingService::class, [
+        return [ChattingContentListingService::class, [
             'auth_user'
                 => auth()->user(),
             'match_id'
-                => request()->route()->match,
+                => static::input('match_id'),
             'cursor_id'
                 => static::input('cursor_id'),
             'limit'
@@ -34,7 +34,7 @@ class MatchChattingContentController extends ApiController {
             'auth_user'
                 => 'authorized user',
             'match_id'
-                => request()->route()->match,
+                => '[match_id]',
             'cursor_id'
                 => '[cursor_id]',
             'expands'
@@ -77,18 +77,18 @@ class MatchChattingContentController extends ApiController {
 
     public static function store()
     {
-        return [MatchChattingContentCreatingService::class, [
+        return [ChattingContentCreatingService::class, [
             'auth_user'
                 => auth()->user(),
             'match_id'
-                => request()->route()->match,
+                => static::input('match_id'),
             'message'
                 => static::input('message')
         ], [
             'auth_user'
                 => 'authorized user',
             'match_id'
-                => request()->route()->match,
+                => '[match_id]',
             'message'
                 => '[message]'
         ]];

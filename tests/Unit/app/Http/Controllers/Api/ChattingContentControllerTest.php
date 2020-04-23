@@ -3,10 +3,12 @@
 namespace Tests\Unit\App\Http\Controllers\Api;
 
 use App\Database\Models\User;
-use App\Services\ChattingContent\MatchChattingContentListingService;
+use App\Services\ChattingContent\ChattingContentFindingService;
+use App\Services\ChattingContent\ChattingContentListingService;
+use App\Services\ChattingContent\ChattingContentCreatingService;
 use Tests\Unit\App\Http\Controllers\Api\_TestCase;
 
-class MatchChattingContentControllerTest extends _TestCase {
+class ChattingContentControllerTest extends _TestCase {
 
     public function testIndex()
     {
@@ -16,7 +18,7 @@ class MatchChattingContentControllerTest extends _TestCase {
         $page     = $this->uniqueString();
         $expands  = $this->uniqueString();
         $fields   = $this->uniqueString();
-        $id       = $this->uniqueString();
+        $matchId  = $this->uniqueString();
 
         $this->setAuthUser($authUser);
         $this->setInputParameter('cursor_id', $cursorId);
@@ -24,13 +26,13 @@ class MatchChattingContentControllerTest extends _TestCase {
         $this->setInputParameter('page', $page);
         $this->setInputParameter('expands', $expands);
         $this->setInputParameter('fields', $fields);
-        $this->setRouteParameter('id', $id);
+        $this->setInputParameter('match_id', $matchId);
 
-        $this->assertReturn([MatchChattingContentListingService::class, [
+        $this->assertReturn([ChattingContentListingService::class, [
             'auth_user'
                 => $authUser,
             'match_id'
-                => $id,
+                => $matchId,
             'cursor_id'
                 => $cursorId,
             'limit'
@@ -49,7 +51,7 @@ class MatchChattingContentControllerTest extends _TestCase {
             'auth_user'
                 => 'authorized user',
             'match_id'
-                => $id,
+                => '[match_id]',
             'cursor_id'
                 => '[cursor_id]',
             'limit'
@@ -67,28 +69,61 @@ class MatchChattingContentControllerTest extends _TestCase {
         ]]);
     }
 
+    public function testShow()
+    {
+        $authUser = $this->factory(User::class)->make();;
+        $expands  = $this->uniqueString();
+        $fields   = $this->uniqueString();
+        $id       = $this->uniqueString();
+
+        $this->setAuthUser($authUser);
+        $this->setInputParameter('expands', $expands);
+        $this->setInputParameter('fields', $fields);
+        $this->setRouteParameter('chatting_content', $id);
+
+        $this->assertReturn([ChattingContentFindingService::class, [
+            'auth_user'
+                => $authUser,
+            'expands'
+                => $expands,
+            'fields'
+                => $fields,
+            'id'
+                => $id,
+        ], [
+            'auth_user'
+                => 'authorized user',
+            'expands'
+                => '[expands]',
+            'fields'
+                => '[fields]',
+            'id'
+                => $id,
+        ]]);
+    }
+
     public function testStore()
     {
         $authUser = $this->factory(User::class)->make();
         $message  = $this->uniqueString();
-        $id       = $this->uniqueString();
+        $matchId  = $this->uniqueString();
 
         $this->setAuthUser($authUser);
         $this->setInputParameter('message', $message);
-        $this->setRouteParameter('id', $id);
+        $this->setInputParameter('match_id', $matchId);
 
-        $this->assertReturn([MatchChattingContentListingService::class, [
+        $this->assertReturn([ChattingContentCreatingService::class, [
             'auth_user'
                 => $authUser,
             'match_id'
-                => $id,
+                => $matchId,
             'message'
                 => $message
         ], [
             'auth_user'
                 => 'authorized user',
             'match_id'
-                => $id,
+                => '[match_id]',
             'message'
                 => '[message]'
         ]]);

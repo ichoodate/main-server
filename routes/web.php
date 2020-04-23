@@ -65,6 +65,11 @@ Route::prefix('api')->group(function () {
         )->only(['index', 'store', 'show']);
 
         Route::resource(
+            'chatting-contents',
+            'Api\ChattingContentController'
+        )->only(['index', 'store']);
+
+        Route::resource(
             'face-photos',
             'Api\FacePhotoController'
         )->only(['store', 'show']);
@@ -258,11 +263,6 @@ Route::prefix('api')->group(function () {
             'invoices',
             'Api\InvoiceController'
         )->only(['index', 'show']);
-
-        Route::resource(
-            'matches/{match}/chatting-contents',
-            'Api\MatchChattingContentController'
-        )->only(['index', 'store']);
 
         Route::resource(
             'notices',

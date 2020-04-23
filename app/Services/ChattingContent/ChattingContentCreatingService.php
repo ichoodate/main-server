@@ -8,7 +8,7 @@ use App\Service;
 use App\Services\CreatingService;
 use App\Services\Match\MatchFindingService;
 
-class MatchChattingContentCreatingService extends Service {
+class ChattingContentCreatingService extends Service {
 
     public static function getArrBindNames()
     {
@@ -16,8 +16,11 @@ class MatchChattingContentCreatingService extends Service {
             'match'
                 => 'match of {{match_id}}',
 
-            'match_propose'
-                => 'match_propose for {{match}}'
+            'matching_user_friend'
+                => '{{auth_user}} in friend list of matching-user for {{match_id}}',
+
+            'auth_user_friend'
+                => 'matching_user in friend list of {{auth_user}}'
         ];
     }
 
@@ -29,7 +32,15 @@ class MatchChattingContentCreatingService extends Service {
     public static function getArrLoaders()
     {
         return [
-            'created' => ['match', 'auth_user', 'message', function ($match, $authUser, $message) {
+            'auth_user_friend' => ['auth_user', 'matching_user_id', function ($authUser, $matchingUserId) {
+
+                return Friend::query()
+                    ->where(Friend::SENDER_ID, $authUser->getKey())
+                    ->where(Friend::RECEIVER_ID, $matchingUserId)
+                    ->first();
+            }],
+
+            'created' => ['auth_user', 'match', 'message', function ($authUser, $match, $message) {
 
                 return inst(ChattingContent::class)->create([
                     ChattingContent::WRITER_ID
@@ -56,11 +67,17 @@ class MatchChattingContentCreatingService extends Service {
                 ]];
             }],
 
-            'match_propose' => ['auth_user', 'match', function ($authUser, $match) {
+            'matching_user_friend' => ['auth_user', 'matching_user_id', function ($authUser, $matchingUserId) {
 
-                return inst(Friend::class)->query()
-                    ->qWhere(Friend::MATCH_ID, $match->getKey())
+                return Friend::query()
+                    ->where(Friend::SENDER_ID, $matchingUserId)
+                    ->where(Friend::RECEIVER_ID, $authUser->getKey())
                     ->first();
+            }],
+
+            'matching_user_id' => ['auth_user', 'match', function ($authUser, $match) {
+
+                return $match->{Match::MAN_ID} == $authUser->getKey() ? $match->{Match::WOMAN_ID} : $match->{Match::MAN_ID};
             }]
         ];
     }
@@ -69,7 +86,7 @@ class MatchChattingContentCreatingService extends Service {
     {
         return [
             'created'
-                => ['match_propose']
+                => ['auth_user_friend', 'matching_user_friend']
         ];
     }
 
@@ -79,13 +96,16 @@ class MatchChattingContentCreatingService extends Service {
             'auth_user'
                 => ['required'],
 
+            'auth_user_friend'
+                => ['not_null'],
+
             'match'
                 => ['not_null'],
 
             'match_id'
                 => ['required', 'integer'],
 
-            'match_propose'
+            'matching_user_friend'
                 => ['not_null'],
 
             'message'

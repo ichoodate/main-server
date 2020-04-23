@@ -12,7 +12,7 @@ use Tests\Unit\App\Database\Models\_Mocker as ModelMocker;
 use Tests\Unit\App\Database\Queries\_Mocker as QueryMocker;
 use Tests\Unit\App\Services\_TestCase;
 
-class MatchChattingContentCreatingServiceTest extends _TestCase {
+class ChattingContentCreatingServiceTest extends _TestCase {
 
     public function testArrBindNames()
     {
