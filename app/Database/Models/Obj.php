@@ -49,8 +49,7 @@ class Obj extends Model {
     const TYPE_KEYWORD_RELIGION            = 'keyword/religion';
     const TYPE_KEYWORD_SMOKE               = 'keyword/smoke';
     const TYPE_KEYWORD_STATE               = 'keyword/state';
-    const TYPE_KEYWORD_RESIDENCE_COUNTRY   = 'keyword/residence_country';
-    const TYPE_KEYWORD_RESIDENCE_STATE     = 'keyword/residence_state';
+    const TYPE_KEYWORD_RESIDENCE           = 'keyword/residence';
     const TYPE_KEYWORD_STATURE             = 'keyword/stature';
     const TYPE_KEYWORD_STATURE_RANGE       = 'keyword/stature_range';
     const TYPE_KEYWORD_WEIGHT              = 'keyword/weight';
@@ -91,8 +90,7 @@ class Obj extends Model {
         self::TYPE_KEYWORD_LANGUAGE,
         self::TYPE_KEYWORD_NATIONALITY,
         self::TYPE_KEYWORD_RELIGION,
-        self::TYPE_KEYWORD_RESIDENCE_COUNTRY,
-        self::TYPE_KEYWORD_RESIDENCE_STATE,
+        self::TYPE_KEYWORD_RESIDENCE,
         self::TYPE_KEYWORD_SMOKE,
         self::TYPE_KEYWORD_STATE,
         self::TYPE_KEYWORD_STATURE,
@@ -129,8 +127,7 @@ class Obj extends Model {
         self::TYPE_KEYWORD_LANGUAGE,
         self::TYPE_KEYWORD_NATIONALITY,
         self::TYPE_KEYWORD_RELIGION,
-        self::TYPE_KEYWORD_RESIDENCE_COUNTRY,
-        self::TYPE_KEYWORD_RESIDENCE_STATE,
+        self::TYPE_KEYWORD_RESIDENCE,
         self::TYPE_KEYWORD_SMOKE,
         self::TYPE_KEYWORD_STATE,
         self::TYPE_KEYWORD_STATURE,
