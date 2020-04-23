@@ -58,7 +58,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 
     public function getExpandable()
     {
-        return ['facePhoto'];
+        return ['facePhoto', 'friend', 'match', 'match.cards.flips', 'popularity'];
     }
 
     public function facePhoto()
