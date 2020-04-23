@@ -26,9 +26,9 @@ class ListingService extends Service {
     public static function getArrCallbackLists()
     {
         return [
-            'query.fields' => ['query', 'fields', function ($query, $fields) {
+            'query.fields' => ['query', 'available_fields', 'fields', function ($query, $availableFields, $fields='') {
 
-                $fields = preg_split('/\s*,\s*/', $fields);
+                $fields = $fields ? preg_split('/\s*,\s*/', $fields) : $availableFields;
 
                 $query->qSelect($fields);
             }],
@@ -87,11 +87,6 @@ class ListingService extends Service {
                 {
                     return ['created_at desc, id desc'];
                 }
-            }],
-
-            'fields' => ['available_fields', function ($availableFields) {
-
-                return implode(',', $availableFields);
             }],
 
             'model_class' => [function () {
