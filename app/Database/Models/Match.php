@@ -49,6 +49,18 @@ class Match extends Model {
         return $this->belongsTo(User::class, 'man_id', 'id');
     }
 
+    public function user()
+    {
+        if ( auth()->user() && auth()->user()->{User::GENDER} == User::GENDER_MAN )
+        {
+            return $this->woman();
+        }
+        else if ( auth()->user() && auth()->user()->{User::GENDER} == User::GENDER_WOMAN )
+        {
+            return $this->man();
+        }
+    }
+
     public function woman()
     {
         return $this->belongsTo(User::class, 'woman_id', 'id');
