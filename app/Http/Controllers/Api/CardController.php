@@ -11,10 +11,14 @@ class CardController extends ApiController {
     public static function index()
     {
         return [CardListingService::class, [
+            'after'
+                => static::input('after'),
             'auth_user'
                 => auth()->user(),
             'auth_user_status'
                 => static::input('auth_user_status'),
+            'before'
+                => static::input('before'),
             'card_type'
                 => static::input('card_type'),
             'cursor_id'
@@ -35,11 +39,17 @@ class CardController extends ApiController {
                 => '',
             'page'
                 => static::input('page'),
+            'timezone'
+                => static::input('timezone')
         ], [
+            'after'
+                => '[after]',
             'auth_user'
                 => 'authorized user',
             'auth_user_status'
                 => '[auth_user_status]',
+            'before'
+                => '[before]',
             'card_type'
                 => '[card_type]',
             'cursor_id'
@@ -60,6 +70,8 @@ class CardController extends ApiController {
                 => '[order_by]',
             'page'
                 => '[page]',
+            'timezone'
+                => '[timezone]'
         ]];
     }
 

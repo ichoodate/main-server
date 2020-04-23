@@ -69,7 +69,23 @@ class CardListingService extends Service {
                     $queryBuilder1->call($this, $query, $authUserQuery, $authUserStatus);
                     $queryBuilder1->call($this, $query, $matchingUserQuery, $matchingUserStatus);
                 }
-            }]
+            }],
+
+            'query.after' => ['query', 'after', 'timezone', function ($query, $after, $timezone) {
+
+                $time = new \DateTime($after, new \DateTimeZone($timezone));
+                $time->setTimezone(new \DateTimeZone('UTC'));
+
+                $query->qWhere(Card::UPDATED_AT, '>=', $time->format('Y-m-d H:i:s'));
+            }],
+
+            'query.before' => ['query', 'before', 'timezone', function ($query, $before, $timezone) {
+
+                $time = new \DateTime($before, new \DateTimeZone($timezone));
+                $time->setTimezone(new \DateTimeZone('UTC'));
+
+                $query->qWhere(Card::UPDATED_AT, '<=', $time->format('Y-m-d H:i:s'));
+            }],
         ];
     }
 
@@ -253,11 +269,17 @@ class CardListingService extends Service {
     public static function getArrRuleLists()
     {
         return [
+            'after'
+                => ['date_format:Y-m-d H:i:s'],
+
             'auth_user'
                 => ['required'],
 
             'auth_user_status'
                 => ['in:' . implode(',', static::USER_STATUS_VALUES)],
+
+            'before'
+                => ['date_format:Y-m-d H:i:s'],
 
             'card_type'
                 => ['in:' . implode(',', static::CARD_TYPE_VALUES)],
@@ -267,6 +289,9 @@ class CardListingService extends Service {
 
             'matching_user_status'
                 => ['in:' . implode(',', static::USER_STATUS_VALUES)],
+
+            'timezone'
+                => ['required', 'timezone'],
         ];
     }
 

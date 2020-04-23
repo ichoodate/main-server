@@ -14,10 +14,13 @@ class CardControllerTest extends _TestCase {
     public function testIndex()
     {
         $authUser           = $this->factory(User::class)->make();
+        $after              = $this->uniqueString();
         $authUserStatus     = $this->uniqueString();
+        $before             = $this->uniqueString();
         $cardType           = $this->uniqueString();
         $matchStatus        = $this->uniqueString();
         $matchingUserStatus = $this->uniqueString();
+        $timezone           = $this->uniqueString();
         $cursorId           = $this->uniqueString();
         $limit              = $this->uniqueString();
         $page               = $this->uniqueString();
@@ -27,10 +30,13 @@ class CardControllerTest extends _TestCase {
         $orderBy            = $this->uniqueString();
 
         $this->setAuthUser($authUser);
+        $this->setInputParameter('after', $after);
         $this->setInputParameter('auth_user_status', $authUserStatus);
+        $this->setInputParameter('before', $before);
         $this->setInputParameter('card_type', $cardType);
         $this->setInputParameter('match_status', $matchStatus);
         $this->setInputParameter('matching_user_status', $matchingUserStatus);
+        $this->setInputParameter('timezone', $timezone);
         $this->setInputParameter('cursor_id', $cursorId);
         $this->setInputParameter('limit', $limit);
         $this->setInputParameter('page', $page);
@@ -40,10 +46,14 @@ class CardControllerTest extends _TestCase {
         $this->setInputParameter('order_by', $orderBy);
 
         $this->assertReturn([CardListingService::class, [
+            'after'
+                => $after,
             'auth_user'
                 => $authUser,
             'auth_user_status'
                 => $authUserStatus,
+            'before'
+                => $before,
             'card_type'
                 => $cardType,
             'match_status'
@@ -67,10 +77,14 @@ class CardControllerTest extends _TestCase {
             'order_by'
                 => ''
         ], [
+            'after'
+                => '[after]',
             'auth_user'
                 => 'authorized user',
             'auth_user_status'
                 => '[auth_user_status]',
+            'before'
+                => '[before]',
             'card_type'
                 => '[card_type]',
             'match_status'
