@@ -65,7 +65,7 @@ class CardGroupPagingService extends Service {
     {
         return [
             'after'
-                => ['required', 'date_format:Y-m-d'],
+                => ['required', 'date_format:Y-m-d H:i:s'],
 
             'auth_user'
                 => ['required'],
