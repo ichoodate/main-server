@@ -6,7 +6,6 @@ use App\Database\Models\CardFlip;
 use App\Database\Models\Balance;
 use App\Database\Models\Coin;
 use App\Database\Models\User;
-use App\Services\NowTimezoneService;
 use Tests\_InstanceMocker as InstanceMocker;
 use Tests\Unit\App\Database\Collections\_Mocker as CollectionMocker;
 use Tests\Unit\App\Database\Models\_Mocker as ModelMocker;
@@ -37,7 +36,6 @@ class UsedCoinAddingServiceTest extends _TestCase {
     public function testArrTraits()
     {
         $this->verifyArrTraits([
-            NowTimezoneService::class
         ]);
     }
 

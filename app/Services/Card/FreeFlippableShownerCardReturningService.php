@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Services\RequiredCoin;
+namespace App\Services\Card;
 
+use App\Database\Models\Card;
 use App\Service;
+use App\Services\Card\FreeFlippableCardReturningService;
 
-class RequiredCoinReturningService extends Service {
+class FreeFlippableShownerCardReturningService extends Service {
 
     public static function getArrBindNames()
     {
@@ -19,20 +21,15 @@ class RequiredCoinReturningService extends Service {
     public static function getArrLoaders()
     {
         return [
-            'is_free' => [function () {
+            'evaluated_time' => ['card', function ($card) {
 
-                throw new \Exception;
+                return $card->{Card::UPDATED_AT};
             }],
 
-            'price' => [function () {
+            'is_free' => ['is_free_time', function ($isFreeTime) {
 
-                throw new \Exception;
+                return $isFreeTime;
             }],
-
-            'result' => ['is_free', 'price', function ($isFree, $price) {
-
-                return $isFree ? 0 : $price;
-            }]
         ];
     }
 
@@ -48,7 +45,9 @@ class RequiredCoinReturningService extends Service {
 
     public static function getArrTraits()
     {
-        return [];
+        return [
+            FreeFlippableCardReturningService::class
+        ];
     }
 
 }

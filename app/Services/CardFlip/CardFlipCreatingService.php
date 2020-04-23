@@ -8,7 +8,8 @@ use App\Service;
 use App\Services\CreatingService;
 use App\Services\UsedCoinAddingService;
 use App\Services\Card\CardFindingService;
-use App\Services\RequiredCoin\CardFlipRequiredCoinReturningService;
+use App\Services\Card\FreeFlippableChooserCardReturningService;
+use App\Services\Card\FreeFlippableShownerCardReturningService;
 
 class CardFlipCreatingService extends Service {
 
@@ -18,14 +19,25 @@ class CardFlipCreatingService extends Service {
             'card'
                 => 'card for {{card_id}}',
 
-            'required_coin'
-                => 'required coin for flip of {{card}}'
+            'card_flip'
+                => '{{auth_user}}\'s flip activity about {{card}}',
+
+            'free_flippable_card'
+                => 'free flippable card for {{card_id}}'
         ];
     }
 
     public static function getArrCallbackLists()
     {
-        return [];
+        return [
+            'created.card' => ['card', 'auth_user', function ($card, $authUser) {
+
+                if ( $card->{Card::SHOWNER_ID} == $authUser->getKey() )
+                {
+                    $card->touch();
+                }
+            }]
+        ];
     }
 
     public static function getArrLoaders()
@@ -42,42 +54,57 @@ class CardFlipCreatingService extends Service {
                     'auth_user'
                         => '{{auth_user}}',
                     'id'
-                        => '{{card_id}}',
+                        => '{{card_id}}'
                 ]];
+            }],
+
+            'card_flip' => ['auth_user', 'card', function ($authUser, $card) {
+
+                return CardFlip::query()
+                    ->where(CardFlip::USER_ID, $authUser->getKey())
+                    ->where(CardFlip::CARD_ID, $card->getKey())
+                    ->first();
             }],
 
             'created' => ['auth_user', 'card', function ($authUser, $card) {
 
-                $return = inst(CardFlip::class)->create([
+                return inst(CardFlip::class)->create([
                     CardFlip::CARD_ID => $card->getKey(),
                     CardFlip::USER_ID => $authUser->getKey()
                 ]);
-
-                return $return;
             }],
 
-            'required_coin' => ['auth_user', 'card', 'timezone', function ($authUser, $card, $timezone) {
+            'free_flippable_card' => ['auth_user', 'card', function ($authUser, $card) {
 
-                return [CardFlipRequiredCoinReturningService::class, [
-                    'auth_user'
-                        => $authUser,
-                    'card'
-                        => $card,
-                    'card_id'
-                        => $card->getKey(),
-                    'timezone'
-                        => $timezone
-                ], [
-                    'auth_user'
-                        => '{{auth_user}}',
-                    'card'
-                        => '{{card}}',
-                    'card_id'
-                        => '{{card_id}}',
-                    'timezone'
-                        => '{{timezone}}'
-                ]];
-            }]
+                if ( $card->{Card::CHOOSER_ID} == $authUser->getKey() )
+                {
+                    return [FreeFlippableChooserCardReturningService::class, [
+                        'auth_user'
+                            => $authUser,
+                        'card'
+                            => $card
+                    ], [
+                        'auth_user'
+                            => '{{auth_user}}',
+                        'card'
+                            => '{{card}}'
+                    ]];
+                }
+                else
+                {
+                    return [FreeFlippableShownerCardReturningService::class, [
+                        'auth_user'
+                            => $authUser,
+                        'card'
+                            => $card
+                    ], [
+                        'auth_user'
+                            => '{{auth_user}}',
+                        'card'
+                            => '{{card}}'
+                    ]];
+                }
+            }],
         ];
     }
 
@@ -85,7 +112,7 @@ class CardFlipCreatingService extends Service {
     {
         return [
             'created'
-                => ['required_coin']
+                => ['card_flip', 'free_flippable_card']
         ];
     }
 
@@ -98,16 +125,15 @@ class CardFlipCreatingService extends Service {
             'card_id'
                 => ['required', 'integer'],
 
-            'timezone'
-                => ['required']
+            'card_flip'
+                => ['null']
         ];
     }
 
     public static function getArrTraits()
     {
         return [
-            CreatingService::class,
-            UsedCoinAddingService::class
+            CreatingService::class
         ];
     }
 

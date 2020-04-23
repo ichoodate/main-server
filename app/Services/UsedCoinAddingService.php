@@ -5,7 +5,6 @@ namespace App\Services;
 use App\Database\Models\Balance;
 use App\Database\Models\Coin;
 use App\Service;
-use App\Services\NowTimezoneService;
 
 class UsedCoinAddingService extends Service {
 
@@ -117,9 +116,7 @@ class UsedCoinAddingService extends Service {
 
     public static function getArrTraits()
     {
-        return [
-            NowTimezoneService::class
-        ];
+        return [];
     }
 
 }

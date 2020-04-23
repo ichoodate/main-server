@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\ApiController;
-use App\Services\CardFlip\CardFlipCreatingService;
+use App\Services\CardFlip\FreeCardFlipCreatingService;
 use App\Services\CardFlip\CardFlipFindingService;
 
 class CardFlipController extends ApiController {
@@ -33,20 +33,16 @@ class CardFlipController extends ApiController {
 
     public static function store()
     {
-        return [CardFlipCreatingService::class, [
+        return [FreeCardFlipCreatingService::class, [
             'auth_user'
                 => auth()->user(),
             'card_id'
-                => request()->route()->card,
-            'timezone'
-                => static::input('timezone')
+                => static::input('card_id')
         ], [
             'auth_user'
                 => 'authorized user',
             'card_id'
-                => request()->route()->card,
-            'timezone'
-                => '[timezone]'
+                => '[card_id]'
         ]];
     }
 
