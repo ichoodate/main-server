@@ -44,11 +44,6 @@ class Match extends Model {
         return $this->hasMany(Friend::class, 'match_id', 'id');
     }
 
-    public function chattingContents()
-    {
-        return $this->hasMany(ChattingContent::class, 'match_id', 'id');
-    }
-
     public function man()
     {
         return $this->belongsTo(User::class, 'man_id', 'id');
