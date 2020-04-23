@@ -32,6 +32,14 @@ class TodayCardGroupCreatingService extends Service {
     public static function getArrLoaders()
     {
         return [
+            'created' => ['auth_user', function ($authUser) {
+
+                return inst(CardGroup::class)->create([
+                    CardGroup::USER_ID => $authUser->getKey(),
+                    CardGroup::TYPE    => CardGroup::TYPE_DAILY
+                ]);
+            }],
+
             'today_card_group' => ['auth_user', function ($authUser) {
 
                 $time = new \DateTime('now', new \DateTimeZone('UTC'));
@@ -46,14 +54,6 @@ class TodayCardGroupCreatingService extends Service {
                     ->qWhere(CardGroup::TYPE, CardGroup::TYPE_DAILY)
                     ->qWhere(CardGroup::CREATED_AT, '>=', $time->format('Y-m-d H:i:s'))
                     ->first();
-            }],
-
-            'created' => ['auth_user', function ($authUser) {
-
-                return inst(CardGroup::class)->create([
-                    CardGroup::USER_ID => $authUser->getKey(),
-                    CardGroup::TYPE    => CardGroup::TYPE_DAILY
-                ]);
             }],
 
             'user_ideal_type_kwd_pvts' => ['auth_user', function ($authUser) {
