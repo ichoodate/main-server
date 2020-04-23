@@ -31,17 +31,17 @@ class Match extends Model {
 
     public function getExpandable()
     {
-        return ['friends', 'man', 'woman', 'cards'];
-    }
-
-    public function friends()
-    {
-        return $this->hasMany(Friend::class, 'match_id', 'id');
+        return ['cards', 'friends', 'man', 'woman'];
     }
 
     public function cards()
     {
         return $this->hasMany(Card::class, 'match_id', 'id');
+    }
+
+    public function friends()
+    {
+        return $this->hasMany(Friend::class, 'match_id', 'id');
     }
 
     public function chattingContents()
