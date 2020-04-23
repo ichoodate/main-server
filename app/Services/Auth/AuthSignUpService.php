@@ -68,66 +68,6 @@ class AuthSignUpService extends Service {
                 ]);
             }],
 
-            'face_photo' => ['result', 'face_photo_upload', function ($result, $facePhotoUpload) {
-
-                return [FacePhotoCreatingService::class, [
-                    'auth_user'
-                        => $result,
-                    'upload'
-                        => $facePhotoUpload
-                ], [
-                    'auth_user'
-                        => '{{result}}',
-                    'upload'
-                        => '{{face_photo_upload}}'
-                ]];
-            }],
-
-            'user_ideal_type_kwd_pvts' => ['result', 'ideal_type_keyword_ids', function ($result, $idealTypeKeywordIds) {
-
-                return [UserIdealTypeKwdPvtMergingService::class, [
-                    'auth_user'
-                        => $result,
-                    'keyword_ids'
-                        => $idealTypeKeywordIds
-                ], [
-                    'auth_user'
-                        => '{{result}}',
-                    'keyword_ids'
-                        => '{{ideal_type_keyword_ids}}'
-                ]];
-            }],
-
-            'profile_photos' => ['result', 'profile_photo_uploads', function ($result, $profilePhotoUploads) {
-
-                return [ProfilePhotoCreatingService::class, [
-                    'auth_user'
-                        => $result,
-                    'uploads'
-                        => $profilePhotoUploads
-                ], [
-                    'auth_user'
-                        => '{{result}}',
-                    'uploads'
-                        => '{{profile_photo_uploads}}'
-                ]];
-            }],
-
-            'user_self_kwd_pvts' => ['result', 'self_keyword_ids', function ($result, $selfKeywordIds) {
-
-                return [UserSelfKwdPvtMergingService::class, [
-                    'auth_user'
-                        => $result,
-                    'keyword_ids'
-                        => $selfKeywordIds
-                ], [
-                    'auth_user'
-                        => '{{result}}',
-                    'keyword_ids'
-                        => '{{self_keyword_ids}}'
-                ]];
-            }],
-
             'same_email_user' => ['email', function ($email) {
 
                 return inst(User::class)->query()

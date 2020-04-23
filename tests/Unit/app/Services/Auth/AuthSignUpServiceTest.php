@@ -95,56 +95,6 @@ class AuthSignUpServiceTest extends _TestCase {
         });
     }
 
-    public function testLoaderFacePhoto()
-    {
-        $this->when(function ($proxy, $serv) {
-
-            $result = $this->factory(User::class)->make();
-            $upload = $this->uniqueString();
-            $return = [FacePhotoCreatingService::class, [
-                'auth_user'
-                    => $result,
-                'upload'
-                    => $upload
-            ], [
-                'auth_user'
-                    => '{{result}}',
-                'upload'
-                    => '{{face_photo_upload}}'
-            ]];
-
-            $proxy->data->put('face_photo_upload', $upload);
-            $proxy->data->put('result', $result);
-
-            $this->verifyLoader($serv, 'face_photo', $return);
-        });
-    }
-
-    public function testLoaderUserIdealTypeKwdPvts()
-    {
-        $this->when(function ($proxy, $serv) {
-
-            $result     = $this->factory(User::class)->make();
-            $keywordIds = $this->uniqueString();
-            $return     = [UserIdealTypeKwdPvtMergingService::class, [
-                'auth_user'
-                    => $result,
-                'keyword_ids'
-                    => $keywordIds
-            ], [
-                'auth_user'
-                    => '{{result}}',
-                'keyword_ids'
-                    => '{{ideal_type_keyword_ids}}'
-            ]];
-
-            $proxy->data->put('ideal_type_keyword_ids', $keywordIds);
-            $proxy->data->put('result', $result);
-
-            $this->verifyLoader($serv, 'user_ideal_type_kwd_pvts', $return);
-        });
-    }
-
     public function testLoaderCreated()
     {
         $this->when(function ($proxy, $serv) {
@@ -180,56 +130,6 @@ class AuthSignUpServiceTest extends _TestCase {
             $proxy->data->put('name',     $name);
 
             $this->verifyLoader($serv, 'created', $return);
-        });
-    }
-
-    public function testLoaderUserSelfKwdPvts()
-    {
-        $this->when(function ($proxy, $serv) {
-
-            $result     = $this->factory(User::class)->make();
-            $keywordIds = $this->uniqueString();
-            $return     = [UserSelfKwdPvtMergingService::class, [
-                'auth_user'
-                    => $result,
-                'keyword_ids'
-                    => $keywordIds
-            ], [
-                'auth_user'
-                    => '{{result}}',
-                'keyword_ids'
-                    => '{{self_keyword_ids}}'
-            ]];
-
-            $proxy->data->put('self_keyword_ids', $keywordIds);
-            $proxy->data->put('result', $result);
-
-            $this->verifyLoader($serv, 'user_self_kwd_pvts', $return);
-        });
-    }
-
-    public function testLoaderProfilePhotos()
-    {
-        $this->when(function ($proxy, $serv) {
-
-            $result  = $this->factory(User::class)->make();
-            $uploads = $this->uniqueString();
-            $return  = [ProfilePhotoCreatingService::class, [
-                'auth_user'
-                    => $result,
-                'uploads'
-                    => $uploads
-            ], [
-                'auth_user'
-                    => '{{result}}',
-                'uploads'
-                    => '{{profile_photo_uploads}}'
-            ]];
-
-            $proxy->data->put('profile_photo_uploads', $uploads);
-            $proxy->data->put('result', $result);
-
-            $this->verifyLoader($serv, 'profile_photos', $return);
         });
     }
 
