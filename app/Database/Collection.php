@@ -26,6 +26,10 @@ class Collection extends \Illuminate\Database\Eloquent\Collection {
             return;
         }
 
+        $collect = $collect->filter(function ($item) {
+            return $item != null;
+        });
+
         if ( is_a($collect->first(), static::class) ) {
             $collect = new static($collect->flatten(1)->all());
         }
