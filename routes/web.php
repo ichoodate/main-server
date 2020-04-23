@@ -275,6 +275,11 @@ Route::prefix('api')->group(function () {
         )->only(['index', 'show']);
 
         Route::resource(
+            'popularities',
+            'Api\PopularityController'
+        )->only(['index', 'show', 'store']);
+
+        Route::resource(
             'profile-photos',
             'Api\ProfilePhotoController'
         )->only(['index', 'show', 'store']);

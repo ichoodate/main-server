@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\ApiController;
+use App\Services\Popularity\PopularityCreatingService;
 use App\Services\Popularity\PopularityFindingService;
 use App\Services\Popularity\PopularityListingService;
 
@@ -67,6 +68,25 @@ class PopularityController extends ApiController {
                 => '[fields]',
             'id'
                 => request()->route()->popularity
+        ]];
+    }
+
+    public static function store()
+    {
+        return [PopularityCreatingService::class, [
+            'auth_user'
+                => auth()->user(),
+            'user_id'
+                => static::input('user_id'),
+            'point'
+                => static::input('point'),
+        ], [
+            'auth_user'
+                => 'authorized user',
+            'user_id'
+                => '[user_id]',
+            'point'
+                => '[point]',
         ]];
     }
 

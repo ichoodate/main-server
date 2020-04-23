@@ -3,6 +3,7 @@
 namespace Tests\Unit\App\Http\Controllers\Api;
 
 use App\Database\Models\User;
+use App\Services\Popularity\PopularityCreatingService;
 use App\Services\Popularity\PopularityFindingService;
 use App\Services\Popularity\PopularityListingService;
 
@@ -94,4 +95,26 @@ class PopularityControllerTest extends _TestCase {
         ]]);
     }
 
+    public function testStore()
+    {
+        $authUser = $this->setAuthUser();
+        $point    = $this->setInputParameter('point');
+        $userId   = $this->setInputParameter('user_id');
+
+        $this->assertReturn([PopularityCreatingService::class, [
+            'auth_user'
+                => auth()->user(),
+            'point'
+                => $point,
+            'user_id'
+                => $userId,
+        ], [
+            'auth_user'
+                => 'authorized user',
+            'point'
+                => '[point]',
+            'user_id'
+                => '[user_id]',
+        ]]);
+    }
 }
