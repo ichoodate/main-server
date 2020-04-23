@@ -22,12 +22,12 @@ class Match extends Model {
     ];
 
     const ID       = 'id';
+    const CARDS    = 'cards';
     const FRIENDS  = 'friends';
     const MAN      = 'man';
     const MAN_ID   = 'man_id';
     const WOMAN    = 'woman';
     const WOMAN_ID = 'woman_id';
-    const CARDS    = 'cards';
 
     public function getExpandable()
     {

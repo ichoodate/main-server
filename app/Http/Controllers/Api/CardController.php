@@ -17,24 +17,24 @@ class CardController extends ApiController {
                 => static::input('auth_user_status'),
             'card_type'
                 => static::input('card_type'),
-            'match_status'
-                => static::input('match_status'),
-            'matching_user_status'
-                => static::input('matching_user_status'),
             'cursor_id'
                 => static::input('cursor_id'),
-            'limit'
-                => static::input('limit'),
-            'page'
-                => static::input('page'),
             'expands'
                 => static::input('expands'),
             'fields'
                 => static::input('fields'),
             'group_by'
                 => '',
+            'limit'
+                => static::input('limit'),
+            'match_status'
+                => static::input('match_status'),
+            'matching_user_status'
+                => static::input('matching_user_status'),
             'order_by'
-                => ''
+                => '',
+            'page'
+                => static::input('page'),
         ], [
             'auth_user'
                 => 'authorized user',
@@ -42,24 +42,24 @@ class CardController extends ApiController {
                 => '[auth_user_status]',
             'card_type'
                 => '[card_type]',
-            'match_status'
-                => '[match_status]',
-            'matching_user_status'
-                => '[matching_user_status]',
             'cursor_id'
                 => '[cursor_id]',
-            'limit'
-                => '[limit]',
-            'page'
-                => '[page]',
             'expands'
                 => '[expands]',
             'fields'
                 => '[fields]',
             'group_by'
                 => '[group_by]',
+            'limit'
+                => '[limit]',
+            'match_status'
+                => '[match_status]',
+            'matching_user_status'
+                => '[matching_user_status]',
             'order_by'
-                => '[order_by]'
+                => '[order_by]',
+            'page'
+                => '[page]',
         ]];
     }
 
