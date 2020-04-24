@@ -31,6 +31,8 @@ class CreateMatchesTable extends Migration {
                 ->index('man_id');
             $table
                 ->index('woman_id');
+            $table
+                ->unique(['man_id', 'woman_id']);
 
             $table
                 ->foreign('id')

@@ -21,7 +21,7 @@ class CreateProfilePhotosTable extends Migration {
                 ->bigInteger('user_id')
                 ->unsigned();
             $table
-                ->string('data');
+                ->mediumText('data');
             $table
                 ->timestamp('created_at')
                 ->default(app('db')->raw('CURRENT_TIMESTAMP'));
