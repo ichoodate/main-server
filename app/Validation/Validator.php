@@ -149,12 +149,14 @@ class Validator extends BaseValidator {
         }
 
         $integers = preg_split('/\s*,\s*/', $value);
-        $result = true;
+        $result   = true;
 
         foreach ( $integers as $integer )
         {
-            ! $this->validateInteger($attribute, $integer) ?
-                $result = false : null;
+            if ( ! $this->validateInteger($attribute, $integer) )
+            {
+                $result = false;
+            }
         }
 
         return $result;
