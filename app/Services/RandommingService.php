@@ -28,6 +28,13 @@ class RandommingService extends Service {
             'limit' => [function () {
 
                 return 12;
+            }],
+
+            'result' => ['query', function ($query) {
+
+                return $query
+                    ->orderByRaw('rand()')
+                    ->get();
             }]
         ];
     }
