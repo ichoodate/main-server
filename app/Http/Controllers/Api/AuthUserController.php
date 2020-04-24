@@ -3,17 +3,24 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\ApiController;
-use App\Services\Auth\AuthUserReturningService;
+use App\Services\User\UserFindingService;
 use App\Services\Auth\AuthUserUpdatingService;
 
 class AuthUserController extends ApiController {
 
     public static function index()
     {
-        return [AuthUserReturningService::class, [
-            'expands' => static::input('expands')
+        return !auth()->user() ? null : [UserFindingService::class, [
+            'expands'
+                => static::input('expands'),
+            'id'
+                => auth()->user()->getKey()
+
         ], [
-            'expands' => '[expands]'
+            'expands'
+                => '[expands]',
+            'id'
+                => 'authorized user\'s ID'
         ]];
     }
 
