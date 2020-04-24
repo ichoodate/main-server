@@ -12,11 +12,10 @@ class StatureTableSeeder extends Seeder {
     {
         foreach ( range(140, 200) as $cm )
         {
-            $stature = Stature::firstOrCreate([
-                Stature::CM => $cm
+            $stature = Stature::create([
+                Stature::CM => $cm,
+                Stature::INCH => (int)($cm * 0.393701)
             ]);
-            $stature->{Stature::INCH} = (int)($cm * 0.393701);
-            $stature->save();
         }
     }
 
