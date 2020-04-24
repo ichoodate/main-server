@@ -295,20 +295,23 @@ class Validator extends BaseValidator {
         return $this->getSize($attribute, $value) >= $limit;
     }
 
-    public function validateSeveralIn($attribute, $value, $parameters, $validator)
+    public function validateSeveralInArray($attribute, $value, $parameters, $validator)
     {
-        $this->requireParameterCount(1, $parameters, 'several_in');
+        $this->requireParameterCount(1, $parameters, 'several_in_array');
 
-        $value   = preg_split('/\s*,\s*/', $value);
         $options = $this->getValue($parameters[0]);
+        $result  = true;
+        $value   = preg_split('/\s*,\s*/', $value);
 
-        sort($value);
-        sort($options);
+        foreach ( $value as $option )
+        {
+            if ( !in_array($option, $options) )
+            {
+                $result = false;
+            }
+        }
 
-        $options = implode(',', $options);
-        $value = implode(',', $value);
-
-        return preg_match('/'.$value.'/', $options);
+        return $result;
     }
 
     public function validateTrue($attribute, $value, $parameters, $validator)

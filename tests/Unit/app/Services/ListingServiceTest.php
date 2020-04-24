@@ -21,7 +21,7 @@ class ListingServiceTest extends _TestCase {
     {
         $this->verifyArrRuleLists([
             'fields'
-                => ['several_in:{{available_fields}}']
+                => ['several_in_array:{{available_fields}}']
         ]);
     }
 
