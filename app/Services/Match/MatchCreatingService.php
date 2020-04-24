@@ -88,6 +88,11 @@ class MatchCreatingService extends Service {
             'new_matching_user_ids' => ['matching_user_ids', 'existed_matching_user_ids', function ($matchingUserIds, $existedMatchingUserIds) {
 
                 return array_values(array_diff($matchingUserIds, $existedMatchingUserIds));
+            }],
+
+            'result' => ['created', 'existed', function ($created, $existed) {
+
+                return $created->merge($existed);
             }]
         ];
     }
@@ -99,10 +104,7 @@ class MatchCreatingService extends Service {
 
     public static function getArrRuleLists()
     {
-        return [
-            'auth_user'
-                => ['required']
-        ];
+        return [];
     }
 
     public static function getArrTraits()

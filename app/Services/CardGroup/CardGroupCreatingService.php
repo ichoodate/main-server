@@ -54,17 +54,6 @@ class CardGroupCreatingService extends Service {
                         => $authUser,
                     'matching_users'
                         => $users,
-                    'matching_user_ids'
-                        => implode(',', $users->modelKeys())
-                ], [
-                    'auth_user'
-                        => '{{auth_user}}',
-                    'matching_users'
-                        => '{{users}}',
-                    'matching_users.*'
-                        => '{{users.*}}',
-                    'matching_user_ids'
-                        => 'ids of {{users}}'
                 ]];
             }],
 
