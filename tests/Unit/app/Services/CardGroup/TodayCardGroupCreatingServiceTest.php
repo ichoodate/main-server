@@ -8,7 +8,6 @@ use App\Database\Models\UserIdealTypeKwdPvt;
 use App\Database\Models\Match;
 use App\Database\Models\User;
 use App\Services\CardGroup\CardGroupCreatingService;
-use App\Services\NowTimezoneService;
 use App\Services\User\MatchingUserRandommingService;
 use Tests\_InstanceMocker as InstanceMocker;
 use Tests\Unit\App\Database\Models\_Mocker as ModelMocker;
@@ -40,8 +39,7 @@ class TodayCardGroupCreatingServiceTest extends _TestCase {
     public function testArrTraits()
     {
         $this->verifyArrTraits([
-            CardGroupCreatingService::class,
-            NowTimezoneService::class
+            CardGroupCreatingService::class
         ]);
     }
 
