@@ -6,37 +6,53 @@ use App\Database\Models\User;
 use App\Database\Models\UserSelfKwdPvt;
 use App\Database\Models\Obj;
 use App\Service;
-use App\Services\ListingService;
+use App\Services\RandommingService;
 use App\Services\Obj\KeywordObjListingService;
+use Illuminate\Support\Facades\DB;
 
 class MatchingUserRandommingService extends Service {
 
     public static function getArrBindNames()
     {
-        return [];
+        return [
+            'keywords.*'
+                => 'keyword for {{keyword_ids}}.*'
+        ];
     }
 
     public static function getArrCallbackLists()
     {
         return [
-            'query.keywords' => ['query', 'keywords', 'matching_gender', function ($query, $keywords, $matchingGender) {
+            'query.keywords' => ['query', 'keywords', 'matching_gender', 'strict', function ($query, $keywords = '', $matchingGender, $strict) {
 
                 $nested = inst(User::class)->query()
+                    ->select(User::ID)
                     ->qWhere(User::GENDER, $matchingGender)
                     ->getQuery();
 
                 $sub = inst(UserSelfKwdPvt::class)->query()
-                    ->qSelect(UserSelfKwdPvt::USER_ID)
-                    ->qGroupBy(UserSelfKwdPvt::USER_ID)
-                    ->qWhereIn(UserSelfKwdPvt::KEYWORD_ID, $keywords->modelKeys())
+                    ->select(UserSelfKwdPvt::USER_ID)
                     ->qWhereIn(UserSelfKwdPvt::USER_ID, $nested)
-                    ->orderByRaw('count(*) desc')
-                    ->limit(1000)
-                    ->getQuery();
+                    ->qGroupBy(UserSelfKwdPvt::USER_ID);
+
+                if ( $keywords )
+                {
+                    $count = count($keywords->modelKeys());
+                    $sub->qWhereIn(UserSelfKwdPvt::KEYWORD_ID, $keywords->modelKeys());
+                    $sub->take(1000);
+
+                    if ( $strict )
+                    {
+                        $sub->having(DB::raw('count(*)'), $count);
+                    }
+                    else
+                    {
+                        $sub->orderByRaw('count(*) desc');
+                    }
+                }
 
                 $query
-                    ->qWhereIn(User::ID, $sub)
-                    ->orderByRaw('rand()');
+                    ->qWhereIn(User::ID, $sub->getQuery()->get()->pluck(UserSelfKwdPvt::USER_ID)->all());
             }]
         ];
     }
@@ -70,6 +86,11 @@ class MatchingUserRandommingService extends Service {
             'model_class' => [function () {
 
                 return User::class;
+            }],
+
+            'strict' => [function () {
+
+                return false;
             }]
         ];
     }
@@ -86,16 +107,21 @@ class MatchingUserRandommingService extends Service {
                 => ['required'],
 
             'keyword_ids'
-                => ['required', 'integers'],
+                => ['integers'],
 
             'keywords.*'
-                => ['not_null']
+                => ['not_null'],
+
+            'strict'
+                => ['boolean']
         ];
     }
 
     public static function getArrTraits()
     {
-        return [];
+        return [
+            RandommingService::class
+        ];
     }
 
 }

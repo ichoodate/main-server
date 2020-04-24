@@ -355,9 +355,9 @@ Route::prefix('api')->group(function () {
         )->only(['index', 'store']);
 
         Route::resource(
-            'users',
-            'Api\UserController'
-        )->only(['show', 'update']);
+            'matching-users',
+            'Api\MatchingUserController'
+        )->only(['index', 'show']);
 
         Route::resource(
             'users/{user}/self-keywords',

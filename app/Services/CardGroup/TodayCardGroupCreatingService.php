@@ -76,14 +76,17 @@ class TodayCardGroupCreatingService extends Service {
                     'keyword_ids'
                         => implode(',', $userIdealTypeKwdPvtKeywordIds),
                     'limit'
-                        => 4
+                        => 4,
+                    'strict'
+                        => false
                 ], [
                     'auth_user'
                         => '{{auth_user}}',
                     'keyword_ids'
                         => '{{user_ideal_type_kwd_pvt_keyword_ids}}',
-                    'limit'
-                        => 'limit of matching users for {{user_ideal_type_kwd_pvt_keyword_ids}}'
+                ], [
+                    'limit',
+                    'strict'
                 ]];
             }],
 
