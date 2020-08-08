@@ -136,11 +136,6 @@ class Obj extends Model {
         self::TYPE_KEYWORD_WEIGHT_RANGE
     ];
 
-    public function getExpandable()
-    {
-        return ['concrete'];
-    }
-
     public function getModelClassAttribute()
     {
         $segments = [];

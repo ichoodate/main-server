@@ -28,10 +28,4 @@ class EduBg extends Model {
         self::TYPE_COLLEGE,
         self::TYPE_UNIVERSITY
     ];
-
-    public function getExpandable()
-    {
-        return [];
-    }
-
 }

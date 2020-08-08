@@ -27,6 +27,11 @@ class PaymentListingService extends Service {
      public static function getArrLoaders()
     {
         return [
+            'available_expands' => [function () {
+
+                return ['item', 'user'];
+            }],
+
             'cursor' => ['auth_user', 'cursor_id', function ($authUser, $cursorId) {
 
                 return [PaymentFindingService::class, [

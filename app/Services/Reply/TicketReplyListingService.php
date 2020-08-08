@@ -31,6 +31,11 @@ class TicketReplyListingService extends Service {
     public static function getArrLoaders()
     {
         return [
+            'available_expands' => [function () {
+
+                return ['ticket', 'writer'];
+            }],
+
             'cursor' => ['auth_user', 'cursor_id', function ($authUser, $cursorId) {
 
                 return [ReplyFindingService::class, [

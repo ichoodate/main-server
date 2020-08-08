@@ -38,9 +38,4 @@ class Notice extends Model {
         self::TYPE_FAQ
     ];
 
-    public function getExpandable()
-    {
-        return [];
-    }
-
 }

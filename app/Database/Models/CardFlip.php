@@ -28,11 +28,6 @@ class CardFlip extends Model {
     const USER_ID    = 'user_id';
     const CREATED_AT = 'created_at';
 
-    public function getExpandable()
-    {
-        return ['user', 'card.concrete'];
-    }
-
     public function card()
     {
         return $this->belongsTo(Card::class, 'card_id', 'id');

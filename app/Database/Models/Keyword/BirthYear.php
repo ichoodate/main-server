@@ -14,10 +14,4 @@ class BirthYear extends Model {
 
     const ID   = 'id';
     const TYPE = 'type';
-
-    public function getExpandable()
-    {
-        return [];
-    }
-
 }

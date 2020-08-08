@@ -26,10 +26,4 @@ class Blood extends Model {
         self::TYPE_O,
         self::TYPE_AB
     ];
-
-    public function getExpandable()
-    {
-        return [];
-    }
-
 }

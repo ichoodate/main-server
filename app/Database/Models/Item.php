@@ -35,9 +35,4 @@ class Item extends Model {
         self::TYPE_SUBSCRIPTION
     ];
 
-    public function getExpandable()
-    {
-        return [];
-    }
-
 }

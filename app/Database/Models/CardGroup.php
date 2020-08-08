@@ -32,11 +32,6 @@ class CardGroup extends Model {
         self::TYPE_DAILY
     ];
 
-    public function getExpandable()
-    {
-        return ['cards.flips', 'cards.chooser.facePhoto', 'cards.chooser.popularity', 'cards.showner.facePhoto', 'cards.showner.popularity', 'user'];
-    }
-
     public function cards()
     {
         return $this->hasMany(Card::class, 'group_id', 'id');

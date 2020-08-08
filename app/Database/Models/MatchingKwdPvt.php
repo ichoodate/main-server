@@ -23,11 +23,6 @@ class MatchingKwdPvt extends Model {
     const IDEAL_TYPE_KWD_ID = 'ideal_type_kwd_id';
     const MATCHING_KWD_ID   = 'matching_kwd_id';
 
-    public function getExpandable()
-    {
-        return ['idealTypeKeywords', 'matchingKeywords'];
-    }
-
     public function idealTypeKeywords()
     {
         return $this->belongsTo(Obj::class, 'ideal_kwd_id', 'id');

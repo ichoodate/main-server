@@ -25,6 +25,11 @@ class NotificationFindingService extends Service {
     public static function getArrLoaders()
     {
         return [
+            'available_expands' => [function () {
+
+                return ['related', 'user'];
+            }],
+
             'model_class' => [function () {
 
                 return Notification::class;

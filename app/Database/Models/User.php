@@ -56,11 +56,6 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         self::GENDER_WOMAN
     ];
 
-    public function getExpandable()
-    {
-        return ['facePhoto', 'friend', 'match', 'match.cards.flips', 'popularity'];
-    }
-
     public function facePhoto()
     {
         return $this->hasOne(FacePhoto::class, 'user_id', 'id');

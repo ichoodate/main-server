@@ -28,10 +28,4 @@ class Drink extends Model {
         self::TYPE_A_LITTLE_FREQUENTLY,
         self::TYPE_A_LOT_FREQUENTLY
     ];
-
-    public function getExpandable()
-    {
-        return [];
-    }
-
 }

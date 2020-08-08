@@ -24,6 +24,11 @@ class UserFindingService extends Service {
     public static function getArrLoaders()
     {
         return [
+            'available_expands' => [function () {
+
+                return ['facePhoto', 'friend', 'match', 'match.cards.flips', 'popularity'];
+            }],
+
             'model_class' => [function () {
 
                 return User::class;

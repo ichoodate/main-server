@@ -41,11 +41,6 @@ class Card extends Model {
     const SHOWNER_ID = 'showner_id';
     const UPDATED_AT = 'updated_at';
 
-    public function getExpandable()
-    {
-        return ['flips', 'chooser', 'chooser.facePhoto', 'chooser.popularity', 'group', 'match', 'match.following', 'showner', 'showner.facePhoto', 'showner.popularity'];
-    }
-
     public function flips()
     {
         return $this->hasMany(CardFlip::class, 'card_id', 'id');

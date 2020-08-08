@@ -22,10 +22,4 @@ class StatureRange extends Model {
         self::MIN,
         self::MAX,
     ];
-
-    public function getExpandable()
-    {
-        return [];
-    }
-
 }

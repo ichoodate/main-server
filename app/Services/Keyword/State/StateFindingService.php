@@ -24,6 +24,11 @@ class StateFindingService extends Service {
     public static function getArrLoaders()
     {
         return [
+            'available_expands' => [function () {
+
+                return ['country', 'residence'];
+            }],
+
             'model_class' => [function () {
 
                 return State::class;

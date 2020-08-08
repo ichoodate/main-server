@@ -28,6 +28,11 @@ class ProfilePhotoListingService extends Service {
     public static function getArrLoaders()
     {
         return [
+            'available_expands' => [function () {
+
+                return ['user'];
+            }],
+
             'user' => ['user_id', function ($userId) {
 
                 return [UserFindingService::class, [

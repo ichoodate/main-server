@@ -28,6 +28,11 @@ class SubscriptionListingService extends Service {
     public static function getArrLoaders()
     {
         return [
+            'available_expands' => [function () {
+
+                return ['payment', 'user'];
+            }],
+
             'cursor' => ['auth_user', 'cursor_id', function ($authUser, $cursorId) {
 
                 return [SubscriptionFindingService::class, [

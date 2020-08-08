@@ -30,11 +30,6 @@ class Subscription extends Model {
 
     const TYPE_VALUES = ['level1', 'level2', 'level3'];
 
-    public function getExpandable()
-    {
-        return ['payment', 'user'];
-    }
-
     public function payment()
     {
         return $this->belongsTo(Payment::class, 'payment_id', 'id');

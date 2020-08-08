@@ -26,6 +26,11 @@ class ResidenceListingService extends Service {
     public static function getArrLoaders()
     {
         return [
+            'available_expands' => [function () {
+
+                return ['related', 'related.concrete'];
+            }],
+
             'model_class' => [function () {
 
                 return Residence::class;

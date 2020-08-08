@@ -34,6 +34,11 @@ class CardGroupListingService extends Service {
     public static function getArrLoaders()
     {
         return [
+            'available_expands' => [function () {
+
+                return ['cards.flips', 'cards.chooser.facePhoto', 'cards.chooser.popularity', 'cards.showner.facePhoto', 'cards.showner.popularity', 'user'];
+            }],
+
             'cursor' => ['auth_user', 'cursor_id', function ($authUser, $cursorId) {
 
                 return [CardGroupFindingService::class, [

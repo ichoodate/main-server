@@ -25,6 +25,11 @@ class PaymentFindingService extends Service {
     public static function getArrLoaders()
     {
         return [
+            'available_expands' => [function () {
+
+                return ['item', 'user'];
+            }],
+
             'model_class' => [function () {
 
                 return Payment::class;

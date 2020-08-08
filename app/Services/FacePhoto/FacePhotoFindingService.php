@@ -25,6 +25,11 @@ class FacePhotoFindingService extends Service {
     public static function getArrLoaders()
     {
         return [
+            'available_expands' => [function () {
+
+                return ['user'];
+            }],
+
             'model_class' => [function () {
 
                 return FacePhoto::class;

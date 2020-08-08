@@ -27,6 +27,11 @@ class StateListingService extends Service {
     public static function getArrLoaders()
     {
         return [
+            'available_expands' => [function () {
+
+                return ['country', 'residence'];
+            }],
+
             'country' => ['country_id', function ($countryId) {
 
                 return [CountryFindingService::class, [

@@ -25,6 +25,11 @@ class PopularityFindingService extends Service {
     public static function getArrLoaders()
     {
         return [
+            'available_expands' => [function () {
+
+                return ['receiver', 'sender'];
+            }],
+
             'model_class' => [function () {
 
                 return Popularity::class;

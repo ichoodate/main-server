@@ -20,11 +20,6 @@ class Nationality extends Model {
         self::COUNTRY_ID
     ];
 
-    public function getExpandable()
-    {
-        return ['country'];
-    }
-
     public function country()
     {
         return $this->belongsTo(Country::class, 'country_id', 'id');

@@ -35,10 +35,4 @@ class Body extends Model {
         self::TYPE_LITTLE_PLUMP,
         self::TYPE_PLUMP
     ];
-
-    public function getExpandable()
-    {
-        return [];
-    }
-
 }

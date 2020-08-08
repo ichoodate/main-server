@@ -16,10 +16,4 @@ class AgeRange extends Model {
     const ID  = 'id';
     const MIN = 'min';
     const MAX = 'max';
-
-    public function getExpandable()
-    {
-        return [];
-    }
-
 }

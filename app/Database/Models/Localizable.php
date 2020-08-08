@@ -39,11 +39,6 @@ class Localizable extends Model {
         'zh-TW'
     ];
 
-    public function getExpandable()
-    {
-        return ['keyword.concrete'];
-    }
-
     public function keyword()
     {
         return $this->belongsTo(Obj::class, 'keyword_id', 'id');

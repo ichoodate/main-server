@@ -24,11 +24,6 @@ class UserSelfKwdPvt extends Model {
     const USER_ID    = 'user_id';
     const KEYWORD_ID = 'keyword_id';
 
-    public function getExpandable()
-    {
-        return ['keyword.concrete', 'user'];
-    }
-
     public function keyword()
     {
         return $this->belongsTo(Obj::class, 'keyword_id', 'id');

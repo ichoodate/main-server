@@ -112,6 +112,11 @@ class CardListingService extends Service {
                     ->getQuery();
             }],
 
+            'available_expands' => [function () {
+
+                return ['flips', 'chooser', 'chooser.facePhoto', 'chooser.popularity', 'group', 'match', 'match.following', 'showner', 'showner.facePhoto', 'showner.popularity'];
+            }],
+
             'card_type' => [function () {
 
                 return self::CARD_TYPE_BOTH;

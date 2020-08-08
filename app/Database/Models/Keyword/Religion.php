@@ -26,10 +26,4 @@ class Religion extends Model {
         self::TYPE_CATHOLICISM,
         self::TYPE_BUDDHISM
     ];
-
-    public function getExpandable()
-    {
-        return [];
-    }
-
 }

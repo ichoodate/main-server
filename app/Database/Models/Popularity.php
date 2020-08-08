@@ -28,11 +28,6 @@ class Popularity extends Model {
     const POINT       = 'point';
     const CREATED_AT  = 'created_at';
 
-    public function getExpandable()
-    {
-        return ['receiver', 'sender'];
-    }
-
     public function receiver()
     {
         return $this->belongsTo(User::class, 'receiver_id', 'id');

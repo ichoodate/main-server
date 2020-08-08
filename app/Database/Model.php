@@ -16,8 +16,6 @@ abstract class Model extends \Illuminate\Database\Eloquent\Model {
     protected $dateFormat = 'Y-m-d H:i:s';
     public $incrementing = false;
 
-    abstract public function getExpandable();
-
     public static function create(array $attributes = [])
     {
         if ( static::class != Obj::class && ! array_key_exists(static::ID, $attributes) )

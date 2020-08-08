@@ -30,9 +30,9 @@ class FindingService extends Service {
     public static function getArrLoaders()
     {
         return [
-            'available_expands' => ['model_class', function ($model_class) {
+            'available_expands' => [function () {
 
-                return inst($model_class)->getExpandable();
+                return [];
             }],
 
             'model' => ['model_class', 'id', function ($modelClass, $id) {

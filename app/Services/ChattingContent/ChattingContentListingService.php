@@ -28,6 +28,11 @@ class ChattingContentListingService extends Service {
     public static function getArrLoaders()
     {
         return [
+            'available_expands' => [function () {
+
+                return ['match', 'writer'];
+            }],
+
             'cursor' => ['auth_user', 'cursor_id', function ($authUser, $cursorId) {
 
                 return [ChattingContentFindingService::class, [

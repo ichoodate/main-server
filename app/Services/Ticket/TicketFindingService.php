@@ -26,6 +26,11 @@ class TicketFindingService extends Service {
     public static function getArrLoaders()
     {
         return [
+            'available_expands' => [function () {
+
+                return ['replies', 'writer'];
+            }],
+
             'model_class' => [function () {
 
                 return Ticket::class;

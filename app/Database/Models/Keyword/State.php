@@ -25,11 +25,6 @@ class State extends Model {
         self::NAME,
     ];
 
-    public function getExpandable()
-    {
-        return ['country', 'residence'];
-    }
-
     public function country()
     {
         return $this->belongsTo(Country::class, 'country_id', 'id');

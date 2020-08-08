@@ -26,6 +26,11 @@ class UserIdealTypeKwdPvtListingService extends Service {
     public static function getArrLoaders()
     {
         return [
+            'available_expands' => [function () {
+
+                return ['keyword.concrete', 'user'];
+            }],
+
             'model_class' => [function () {
 
                 return UserIdealTypeKwdPvt::class;

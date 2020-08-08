@@ -60,11 +60,6 @@ class ListingService extends Service {
     public static function getArrLoaders()
     {
         return [
-            'available_expands' => ['model_class', function ($model_class) {
-
-                return inst($model_class)->getExpandable();
-            }],
-
             'available_group_by' => [function () {
 
                 return [];

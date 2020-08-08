@@ -31,11 +31,6 @@ class Reply extends Model {
     const CREATED_AT  = 'created_at';
     const UPDATED_AT  = 'updated_at';
 
-    public function getExpandable()
-    {
-        return ['ticket', 'writer'];
-    }
-
     public function ticket()
     {
         return $this->belongsTo(Ticket::class, 'ticket_id', 'id');

@@ -29,11 +29,6 @@ class Match extends Model {
     const WOMAN    = 'woman';
     const WOMAN_ID = 'woman_id';
 
-    public function getExpandable()
-    {
-        return ['cards', 'friends', 'man', 'woman'];
-    }
-
     public function cards()
     {
         return $this->hasMany(Card::class, 'match_id', 'id');

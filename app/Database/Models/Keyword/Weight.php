@@ -19,10 +19,4 @@ class Weight extends Model {
         self::ID,
         self::TYPE
     ];
-
-    public function getExpandable()
-    {
-        return [];
-    }
-
 }

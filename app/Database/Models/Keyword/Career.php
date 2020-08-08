@@ -34,10 +34,4 @@ class Career extends Model {
         self::TYPE_CLASS,
         self::TYPE_SUB_CLASS
     ];
-
-    public function getExpandable()
-    {
-        return [];
-    }
-
 }

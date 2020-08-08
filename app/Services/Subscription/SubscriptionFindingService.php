@@ -25,6 +25,11 @@ class SubscriptionFindingService extends Service {
     public static function getArrLoaders()
     {
         return [
+            'available_expands' => [function () {
+
+                return ['payment', 'user'];
+            }],
+
             'model_class' => [function () {
 
                 return Subscription::class;

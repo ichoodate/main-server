@@ -25,6 +25,11 @@ class CardFlipFindingService extends Service {
     public static function getArrLoaders()
     {
         return [
+            'available_expands' => [function () {
+
+                return ['user', 'card.concrete'];
+            }],
+
             'model_class' => [function () {
 
                 return CardFlip::class;

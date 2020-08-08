@@ -28,11 +28,6 @@ class Country extends Model {
     const CURRENCY  = 'currency';
     const LANGUAGE  = 'language';
 
-    public function getExpandable()
-    {
-        return ['state', 'residence', 'nationality'];
-    }
-
     public function nationality()
     {
         return $this->hasOne(Nationality::class, 'country_id', 'id');

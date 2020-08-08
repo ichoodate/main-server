@@ -24,6 +24,11 @@ class NationalityFindingService extends Service {
     public static function getArrLoaders()
     {
         return [
+            'available_expands' => [function () {
+
+                return ['country'];
+            }],
+
             'model_class' => [function () {
 
                 return Nationality::class;

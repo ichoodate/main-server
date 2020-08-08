@@ -27,6 +27,11 @@ class BalanceListingService extends Service {
      public static function getArrLoaders()
     {
         return [
+            'available_expands' => [function () {
+
+                return ['user'];
+            }],
+
             'cursor' => ['auth_user', 'cursor_id', function ($authUser, $cursorId) {
 
                 return [BalanceFindingService::class, [

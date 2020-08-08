@@ -22,10 +22,4 @@ class Stature extends Model {
         self::CM,
         self::INCH
     ];
-
-    public function getExpandable()
-    {
-        return [];
-    }
-
 }

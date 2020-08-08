@@ -30,11 +30,6 @@ class Notification extends Model {
     const UPDATED_AT = 'updated_at';
     const DELETED_AT = 'deleted_at';
 
-    public function getExpandable()
-    {
-        return ['related', 'user'];
-    }
-
     public function related()
     {
         return $this->belongsTo(Obj::class, 'related_id', 'id');

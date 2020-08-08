@@ -29,11 +29,6 @@ class Friend extends Model {
     const MATCH_ID    = 'match_id';
     const CREATED_AT  = 'created_at';
 
-    public function getExpandable()
-    {
-        return ['sender', 'receiver'];
-    }
-
     public function sender()
     {
         return $this->belongsTo(User::class, 'sender_id', 'id');

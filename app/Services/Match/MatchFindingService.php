@@ -25,6 +25,11 @@ class MatchFindingService extends Service {
     public static function getArrLoaders()
     {
         return [
+            'available_expands' => [function () {
+
+                return ['cards', 'friends', 'man', 'woman'];
+            }],
+
             'model_class' => [function () {
 
                 return Match::class;

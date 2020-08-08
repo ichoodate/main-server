@@ -22,10 +22,4 @@ class WeightRange extends Model {
         self::MIN,
         self::MAX,
     ];
-
-    public function getExpandable()
-    {
-        return [];
-    }
-
 }

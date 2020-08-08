@@ -24,10 +24,4 @@ class Smoke extends Model {
         'smoker',
         'non_smoker'
     ];
-
-    public function getExpandable()
-    {
-        return [];
-    }
-
 }

@@ -26,6 +26,11 @@ class ChattingContentFindingService extends Service {
     public static function getArrLoaders()
     {
         return [
+            'available_expands' => [function () {
+
+                return ['match', 'writer'];
+            }],
+
             'match' => ['auth_user', 'model', function ($authUser, $model) {
 
                 return [MatchFindingService::class, [

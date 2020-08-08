@@ -22,10 +22,4 @@ class Hobby extends Model {
         'hobby4',
         'hobby5'
     ];
-
-    public function getExpandable()
-    {
-        return [];
-    }
-
 }

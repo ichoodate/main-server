@@ -60,6 +60,11 @@ class MatchingUserListingService extends Service {
     public static function getArrLoaders()
     {
         return [
+            'available_expands' => [function () {
+
+                return ['facePhoto', 'friend', 'match', 'match.cards.flips', 'popularity'];
+            }],
+
             'keywords' => ['keyword_ids', function ($keywordIds) {
 
                 $keywordIds = preg_split('/\s*,\s*/', $keywordIds);

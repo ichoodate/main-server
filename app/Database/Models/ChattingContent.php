@@ -29,11 +29,6 @@ class ChattingContent extends Model {
     const MESSAGE    = 'message';
     const CREATED_AT = 'created_at';
 
-    public function getExpandable()
-    {
-        return ['match', 'writer'];
-    }
-
     public function match()
     {
         return $this->belongsTo(Match::class, 'match_id', 'id');

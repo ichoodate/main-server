@@ -30,11 +30,6 @@ class Payment extends Model {
     const CURRENCY   = 'currency';
     const CREATED_AT = 'created_at';
 
-    public function getExpandable()
-    {
-        return ['item', 'user'];
-    }
-
     public function item()
     {
         return $this->belongsTo(Item::class, 'item_id', 'id');

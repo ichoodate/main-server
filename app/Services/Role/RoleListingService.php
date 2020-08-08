@@ -26,6 +26,11 @@ class RoleListingService extends Service {
     public static function getArrLoaders()
     {
         return [
+            'available_expands' => [function () {
+
+                return ['user'];
+            }],
+
             'model_class' => [function () {
 
                 return Role::class;

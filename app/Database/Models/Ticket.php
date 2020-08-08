@@ -29,11 +29,6 @@ class Ticket extends Model {
     const CREATED_AT  = 'created_at';
     const UPDATED_AT  = 'updated_at';
 
-    public function getExpandable()
-    {
-        return ['replies', 'writer'];
-    }
-
     public function replies()
     {
         return $this->hasMany(Reply::class, 'ticket_id', 'id');

@@ -42,10 +42,4 @@ class Language extends Model {
         self::TYPE_ZH_CN,
         self::TYPE_ZH_TW
     ];
-
-    public function getExpandable()
-    {
-        return [];
-    }
-
 }

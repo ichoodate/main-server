@@ -33,11 +33,6 @@ class Coin extends Model {
     const COUNT      = 'count';
     const CREATED_AT = 'created_at';
 
-    public function getExpandable()
-    {
-        return ['balance', 'related', 'user'];
-    }
-
     public function balance()
     {
         return $this->belongsTo(Balance::class, 'balance_id', 'id');

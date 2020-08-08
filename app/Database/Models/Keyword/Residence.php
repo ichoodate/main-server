@@ -24,11 +24,6 @@ class Residence extends Model {
         self::RELATED_ID
     ];
 
-    public function getExpandable()
-    {
-        return ['related', 'related.concrete'];
-    }
-
     public function related()
     {
         return $this->belongsTo(Obj::class, 'related_id', 'id');
