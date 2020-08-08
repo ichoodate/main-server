@@ -35,14 +35,14 @@ class FindingService extends Service {
                 return inst($model_class)->getExpandable();
             }],
 
-            'model_class' => [function () {
-
-                throw new \Exception;
-            }],
-
             'model' => ['model_class', 'id', function ($modelClass, $id) {
 
                 return inst($modelClass)->find($id);
+            }],
+
+            'model_class' => [function () {
+
+                throw new \Exception;
             }],
 
             'result' => ['model', function ($model) {
