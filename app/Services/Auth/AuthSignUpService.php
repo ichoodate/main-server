@@ -12,7 +12,6 @@ use App\Services\FacePhoto\FacePhotoCreatingService;
 use App\Services\UserIdealTypeKwdPvt\UserIdealTypeKwdPvtMergingService;
 use App\Services\ProfilePhoto\ProfilePhotoCreatingService;
 use App\Services\UserSelfKwdPvt\UserSelfKwdPvtMergingService;
-use Illuminate\Support\Facades\Hash;
 
 class AuthSignUpService extends Service {
 
@@ -64,7 +63,7 @@ class AuthSignUpService extends Service {
                     User::NAME
                         => $name,
                     User::PASSWORD
-                        => Hash::make($password)
+                        => $password
                 ]);
             }],
 
