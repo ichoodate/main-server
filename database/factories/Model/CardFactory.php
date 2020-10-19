@@ -7,7 +7,6 @@ use App\Database\Models\Card;
 use App\Database\Models\Obj;
 use App\Database\Models\Match;
 use Database\Factories\ModelFactory;
-use Faker\Generator as Faker;
 
 class CardFactory extends ModelFactory {
 
@@ -41,25 +40,25 @@ class CardFactory extends ModelFactory {
     {
         return [
             Card::ID
-                => inst(Faker::class)->unique()->randomNumber(8),
+                => static::faker()->unique()->randomNumber(8),
 
             Card::GROUP_ID
-                => inst(Faker::class)->unique()->randomNumber(8),
+                => static::faker()->unique()->randomNumber(8),
 
             Card::MATCH_ID
-                => inst(Faker::class)->unique()->randomNumber(8),
+                => static::faker()->unique()->randomNumber(8),
 
             Card::CHOOSER_ID
-                => inst(Faker::class)->unique()->randomNumber(8),
+                => static::faker()->unique()->randomNumber(8),
 
             Card::SHOWNER_ID
-                => inst(Faker::class)->unique()->randomNumber(8),
+                => static::faker()->unique()->randomNumber(8),
 
             Card::CREATED_AT
-                => inst(Faker::class)->dateTimeThisYear->format('Y-m-d H:i:s'),
+                => static::faker()->dateTimeThisYear->format('Y-m-d H:i:s'),
 
             Card::UPDATED_AT
-                => inst(Faker::class)->dateTimeThisYear->format('Y-m-d H:i:s')
+                => static::faker()->dateTimeThisYear->format('Y-m-d H:i:s')
         ];
     }
 

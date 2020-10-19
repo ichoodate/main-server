@@ -4,7 +4,6 @@ namespace Database\Factories\Model;
 
 use App\Database\Models\Subscription;
 use Database\Factories\ModelFactory;
-use Faker\Generator as Faker;
 
 class SubscriptionFactory extends ModelFactory {
 
@@ -12,22 +11,22 @@ class SubscriptionFactory extends ModelFactory {
     {
         return [
             Subscription::ID
-                => inst(Faker::class)->unique()->randomNumber(8),
+                => static::faker()->unique()->randomNumber(8),
 
             Subscription::USER_ID
-                => inst(Faker::class)->unique()->randomNumber(8),
+                => static::faker()->unique()->randomNumber(8),
 
             Subscription::PAYMENT_ID
-                => inst(Faker::class)->unique()->randomNumber(8),
+                => static::faker()->unique()->randomNumber(8),
 
             Subscription::TYPE
-                => inst(Faker::class)->randomElement(Subscription::TYPE_VALUES),
+                => static::faker()->randomElement(Subscription::TYPE_VALUES),
 
             Subscription::CREATED_AT
-                => inst(Faker::class)->dateTimeThisYear->format('Y-m-d H:i:s'),
+                => static::faker()->dateTimeThisYear->format('Y-m-d H:i:s'),
 
             Subscription::DELETED_AT
-                => inst(Faker::class)->dateTimeThisYear->format('Y-m-d H:i:s'),
+                => static::faker()->dateTimeThisYear->format('Y-m-d H:i:s'),
         ];
     }
 

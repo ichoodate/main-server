@@ -4,7 +4,6 @@ namespace Database\Factories\Model;
 
 use App\Database\Models\Obj;
 use Database\Factories\ModelFactory;
-use Faker\Generator as Faker;
 
 class ObjFactory extends ModelFactory {
 
@@ -12,10 +11,10 @@ class ObjFactory extends ModelFactory {
     {
         return [
             Obj::ID
-                => inst(Faker::class)->unique()->randomNumber(8),
+                => static::faker()->unique()->randomNumber(8),
 
             Obj::TYPE
-                => inst(Faker::class)->randomElement(Obj::TYPE_VALUES)
+                => static::faker()->randomElement(Obj::TYPE_VALUES)
         ];
     }
 

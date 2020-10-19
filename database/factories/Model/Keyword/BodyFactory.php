@@ -4,7 +4,6 @@ namespace Database\Factories\Model\Keyword;
 
 use Database\Factories\ModelFactory;
 use App\Database\Models\Keyword\Body;
-use Faker\Generator as Faker;
 
 class BodyFactory extends ModelFactory {
 
@@ -12,10 +11,10 @@ class BodyFactory extends ModelFactory {
     {
         return [
             Body::ID
-                => inst(Faker::class)->unique()->randomNumber(8),
+                => static::faker()->unique()->randomNumber(8),
 
             Body::TYPE
-                => inst(Faker::class)->randomElement(Body::TYPE_VALUES)
+                => static::faker()->randomElement(Body::TYPE_VALUES)
         ];
     }
 

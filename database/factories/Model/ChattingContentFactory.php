@@ -4,7 +4,6 @@ namespace Database\Factories\Model;
 
 use App\Database\Models\ChattingContent;
 use Database\Factories\ModelFactory;
-use Faker\Generator as Faker;
 
 class ChattingContentFactory extends ModelFactory {
 
@@ -12,19 +11,19 @@ class ChattingContentFactory extends ModelFactory {
     {
         return [
             ChattingContent::ID
-                => inst(Faker::class)->unique()->randomNumber(8),
+                => static::faker()->unique()->randomNumber(8),
 
             ChattingContent::MATCH_ID
-                => inst(Faker::class)->unique()->randomNumber(8),
+                => static::faker()->unique()->randomNumber(8),
 
             ChattingContent::WRITER_ID
-                => inst(Faker::class)->unique()->randomNumber(8),
+                => static::faker()->unique()->randomNumber(8),
 
             ChattingContent::MESSAGE
-                => inst(Faker::class)->word,
+                => static::faker()->word,
 
             ChattingContent::CREATED_AT
-                => inst(Faker::class)->dateTimeThisYear->format('Y-m-d H:i:s')
+                => static::faker()->dateTimeThisYear->format('Y-m-d H:i:s')
         ];
     }
 

@@ -4,7 +4,6 @@ namespace Database\Factories\Model;
 
 use App\Database\Models\Ticket;
 use Database\Factories\ModelFactory;
-use Faker\Generator as Faker;
 
 class TicketFactory extends ModelFactory {
 
@@ -12,22 +11,22 @@ class TicketFactory extends ModelFactory {
     {
         return [
             Ticket::ID
-                => inst(Faker::class)->unique()->randomNumber(8),
+                => static::faker()->unique()->randomNumber(8),
 
             Ticket::WRITER_ID
-                => inst(Faker::class)->unique()->randomNumber(8),
+                => static::faker()->unique()->randomNumber(8),
 
             Ticket::SUBJECT
-                => inst(Faker::class)->text,
+                => static::faker()->text,
 
             Ticket::DESCRIPTION
-                => inst(Faker::class)->text,
+                => static::faker()->text,
 
             Ticket::CREATED_AT
-                => inst(Faker::class)->dateTimeThisYear->format('Y-m-d H:i:s'),
+                => static::faker()->dateTimeThisYear->format('Y-m-d H:i:s'),
 
             Ticket::UPDATED_AT
-                => inst(Faker::class)->dateTimeThisYear->format('Y-m-d H:i:s')
+                => static::faker()->dateTimeThisYear->format('Y-m-d H:i:s')
         ];
     }
 

@@ -4,7 +4,6 @@ namespace Database\Factories\Model;
 
 use App\Database\Models\Payment;
 use Database\Factories\ModelFactory;
-use Faker\Generator as Faker;
 
 class PaymentFactory extends ModelFactory {
 
@@ -12,22 +11,22 @@ class PaymentFactory extends ModelFactory {
     {
         return [
             Payment::ID
-                => inst(Faker::class)->unique()->randomNumber(8),
+                => static::faker()->unique()->randomNumber(8),
 
             Payment::USER_ID
-                => inst(Faker::class)->unique()->randomNumber(8),
+                => static::faker()->unique()->randomNumber(8),
 
             Payment::ITEM_ID
-                => inst(Faker::class)->unique()->randomNumber(8),
+                => static::faker()->unique()->randomNumber(8),
 
             Payment::AMOUNT
-                => inst(Faker::class)->randomNumber(),
+                => static::faker()->randomNumber(),
 
             Payment::CURRENCY
-                => inst(Faker::class)->currencyCode,
+                => static::faker()->currencyCode,
 
             Payment::CREATED_AT
-                => inst(Faker::class)->dateTimeThisYear->format('Y-m-d H:i:s'),
+                => static::faker()->dateTimeThisYear->format('Y-m-d H:i:s'),
 
         ];
     }

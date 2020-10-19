@@ -4,7 +4,6 @@ namespace Database\Factories\Model\Keyword;
 
 use Database\Factories\ModelFactory;
 use App\Database\Models\Keyword\EduBg;
-use Faker\Generator as Faker;
 
 class EduBgFactory extends ModelFactory {
 
@@ -12,10 +11,10 @@ class EduBgFactory extends ModelFactory {
     {
         return [
             EduBg::ID
-                => inst(Faker::class)->unique()->randomNumber(8),
+                => static::faker()->unique()->randomNumber(8),
 
             EduBg::TYPE
-                => inst(Faker::class)->randomElement(EduBg::TYPE_VALUES)
+                => static::faker()->randomElement(EduBg::TYPE_VALUES)
         ];
     }
 

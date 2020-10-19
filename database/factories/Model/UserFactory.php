@@ -4,7 +4,6 @@ namespace Database\Factories\Model;
 
 use App\Database\Models\User;
 use Database\Factories\ModelFactory;
-use Faker\Generator as Faker;
 
 class UserFactory extends ModelFactory {
 
@@ -12,28 +11,28 @@ class UserFactory extends ModelFactory {
     {
         return [
             User::ID
-                => inst(Faker::class)->unique()->randomNumber(8),
+                => static::faker()->unique()->randomNumber(8),
 
             User::EMAIL
-                => inst(Faker::class)->unique()->email,
+                => static::faker()->unique()->email,
 
             User::PASSWORD
-                => inst(Faker::class)->password,
+                => static::faker()->password,
 
             User::BIRTH
-                => inst(Faker::class)->dateTime->format('Y-m-d'),
+                => static::faker()->dateTime->format('Y-m-d'),
 
             User::GENDER
-                => inst(Faker::class)->randomElement(User::GENDER_VALUES),
+                => static::faker()->randomElement(User::GENDER_VALUES),
 
             User::NAME
-                => inst(Faker::class)->name(),
+                => static::faker()->name(),
 
             User::EMAIL_VERIFIED
-                => inst(Faker::class)->boolean,
+                => static::faker()->boolean,
 
             User::CREATED_AT
-                => inst(Faker::class)->dateTimeThisYear->format('Y-m-d H:i:s'),
+                => static::faker()->dateTimeThisYear->format('Y-m-d H:i:s'),
         ];
     }
 

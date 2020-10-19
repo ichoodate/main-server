@@ -5,7 +5,6 @@ namespace Database\Factories\Model;
 use App\Database\Models\Card;
 use App\Database\Models\CardGroup;
 use Database\Factories\ModelFactory;
-use Faker\Generator as Faker;
 
 class CardGroupFactory extends ModelFactory {
 
@@ -29,16 +28,16 @@ class CardGroupFactory extends ModelFactory {
     {
         return [
             CardGroup::ID
-                => inst(Faker::class)->unique()->randomNumber(8),
+                => static::faker()->unique()->randomNumber(8),
 
             CardGroup::USER_ID
-                => inst(Faker::class)->unique()->randomNumber(8),
+                => static::faker()->unique()->randomNumber(8),
 
             CardGroup::TYPE
-                => inst(Faker::class)->randomElement(CardGroup::TYPE_VALUES),
+                => static::faker()->randomElement(CardGroup::TYPE_VALUES),
 
             CardGroup::CREATED_AT
-                => inst(Faker::class)->dateTimeThisYear->format('Y-m-d H:i:s')
+                => static::faker()->dateTimeThisYear->format('Y-m-d H:i:s')
         ];
     }
 

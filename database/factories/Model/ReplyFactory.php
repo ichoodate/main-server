@@ -4,7 +4,6 @@ namespace Database\Factories\Model;
 
 use App\Database\Models\Reply;
 use Database\Factories\ModelFactory;
-use Faker\Generator as Faker;
 
 class ReplyFactory extends ModelFactory {
 
@@ -12,19 +11,19 @@ class ReplyFactory extends ModelFactory {
     {
         return [
             Reply::ID
-                => inst(Faker::class)->unique()->randomNumber(8),
+                => static::faker()->unique()->randomNumber(8),
 
             Reply::TICKET_ID
-                => inst(Faker::class)->unique()->randomNumber(8),
+                => static::faker()->unique()->randomNumber(8),
 
             Reply::WRITER_ID
-                => inst(Faker::class)->unique()->randomNumber(8),
+                => static::faker()->unique()->randomNumber(8),
 
             Reply::DESCRIPTION
-                => inst(Faker::class)->text,
+                => static::faker()->text,
 
             Reply::CREATED_AT
-                => inst(Faker::class)->dateTimeThisYear->format('Y-m-d H:i:s')
+                => static::faker()->dateTimeThisYear->format('Y-m-d H:i:s')
         ];
     }
 

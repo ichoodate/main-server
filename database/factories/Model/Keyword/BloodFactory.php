@@ -4,7 +4,6 @@ namespace Database\Factories\Model\Keyword;
 
 use Database\Factories\ModelFactory;
 use App\Database\Models\Keyword\Blood;
-use Faker\Generator as Faker;
 
 class BloodFactory extends ModelFactory {
 
@@ -12,10 +11,10 @@ class BloodFactory extends ModelFactory {
     {
         return [
             Blood::ID
-                => inst(Faker::class)->unique()->randomNumber(8),
+                => static::faker()->unique()->randomNumber(8),
 
             Blood::TYPE
-                => inst(Faker::class)->randomElement(Blood::TYPE_VALUES)
+                => static::faker()->randomElement(Blood::TYPE_VALUES)
         ];
     }
 

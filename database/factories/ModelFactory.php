@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Database\Models\Card;
 use App\Database\Models\Obj;
+use Faker;
 use Mockery;
 
 abstract class ModelFactory {
@@ -41,6 +42,11 @@ abstract class ModelFactory {
         $path = str_replace('App\\Database\\Models\\', '', $modelClass);
 
         return inst('Database\\Factories\\Model\\' . $path . 'Factory');
+    }
+
+    public static function faker()
+    {
+        return Faker\Factory::create();
     }
 
     public static function make(array $data = [], $itemCount = null)

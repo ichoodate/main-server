@@ -4,7 +4,6 @@ namespace Database\Factories\Model\Keyword;
 
 use Database\Factories\ModelFactory;
 use App\Database\Models\Keyword\Nationality;
-use Faker\Generator as Faker;
 
 class NationalityFactory extends ModelFactory {
 
@@ -12,10 +11,10 @@ class NationalityFactory extends ModelFactory {
     {
         return [
             Nationality::ID
-                => inst(Faker::class)->unique()->randomNumber(8),
+                => static::faker()->unique()->randomNumber(8),
 
             Nationality::COUNTRY_ID
-                => inst(Faker::class)->unique()->randomNumber(8)
+                => static::faker()->unique()->randomNumber(8)
         ];
     }
 

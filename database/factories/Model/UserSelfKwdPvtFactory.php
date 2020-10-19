@@ -4,7 +4,6 @@ namespace Database\Factories\Model;
 
 use App\Database\Models\UserSelfKwdPvt;
 use Database\Factories\ModelFactory;
-use Faker\Generator as Faker;
 
 class UserSelfKwdPvtFactory extends ModelFactory {
 
@@ -12,13 +11,13 @@ class UserSelfKwdPvtFactory extends ModelFactory {
     {
         return [
             UserSelfKwdPvt::ID
-                => inst(Faker::class)->unique()->randomNumber(8),
+                => static::faker()->unique()->randomNumber(8),
 
             UserSelfKwdPvt::USER_ID
-                => inst(Faker::class)->unique()->randomNumber(8),
+                => static::faker()->unique()->randomNumber(8),
 
             UserSelfKwdPvt::KEYWORD_ID
-                => inst(Faker::class)->unique()->randomNumber(8)
+                => static::faker()->unique()->randomNumber(8)
         ];
     }
 

@@ -4,7 +4,6 @@ namespace Database\Factories\Model;
 
 use App\Database\Models\Notice;
 use Database\Factories\ModelFactory;
-use Faker\Generator as Faker;
 
 class NoticeFactory extends ModelFactory {
 
@@ -12,19 +11,19 @@ class NoticeFactory extends ModelFactory {
     {
         return [
             Notice::ID
-                => inst(Faker::class)->unique()->randomNumber(8),
+                => static::faker()->unique()->randomNumber(8),
 
             Notice::TYPE
-                => inst(Faker::class)->randomElement(Notice::TYPE_VALUES),
+                => static::faker()->randomElement(Notice::TYPE_VALUES),
 
             Notice::SUBJECT
-                => inst(Faker::class)->text,
+                => static::faker()->text,
 
             Notice::DESCRIPTION
-                => inst(Faker::class)->text,
+                => static::faker()->text,
 
             Notice::CREATED_AT
-                => inst(Faker::class)->dateTimeThisYear->format('Y-m-d H:i:s')
+                => static::faker()->dateTimeThisYear->format('Y-m-d H:i:s')
         ];
     }
 

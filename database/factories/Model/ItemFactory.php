@@ -4,7 +4,6 @@ namespace Database\Factories\Model;
 
 use App\Database\Models\Item;
 use Database\Factories\ModelFactory;
-use Faker\Generator as Faker;
 
 class ItemFactory extends ModelFactory {
 
@@ -12,25 +11,25 @@ class ItemFactory extends ModelFactory {
     {
         return [
             Item::ID
-                => inst(Faker::class)->unique()->randomNumber(8),
+                => static::faker()->unique()->randomNumber(8),
 
             Item::TYPE
-                => inst(Faker::class)->randomElement(Item::TYPE_VALUES),
+                => static::faker()->randomElement(Item::TYPE_VALUES),
 
             Item::ORIGINAL_PRICE
-                => inst(Faker::class)->randomNumber(),
+                => static::faker()->randomNumber(),
 
             Item::FINAL_PRICE
-                => inst(Faker::class)->randomNumber(),
+                => static::faker()->randomNumber(),
 
             Item::CURRENCY
-                => inst(Faker::class)->currencyCode,
+                => static::faker()->currencyCode,
 
             Item::CREATED_AT
-                => inst(Faker::class)->dateTimeThisYear->format('Y-m-d H:i:s'),
+                => static::faker()->dateTimeThisYear->format('Y-m-d H:i:s'),
 
             Item::DELETED_AT
-                => inst(Faker::class)->dateTimeThisYear->format('Y-m-d H:i:s')
+                => static::faker()->dateTimeThisYear->format('Y-m-d H:i:s')
         ];
     }
 
