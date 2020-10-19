@@ -42,7 +42,7 @@ class ChattingContentCreatingService extends Service {
 
             'created' => ['auth_user', 'match', 'message', function ($authUser, $match, $message) {
 
-                return inst(ChattingContent::class)->create([
+                return (new ChattingContent)->create([
                     ChattingContent::WRITER_ID
                         => $authUser->getKey(),
                     ChattingContent::MESSAGE

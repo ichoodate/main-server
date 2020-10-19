@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use Faker\Generator as Faker;
+use Faker;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Mockery;
 use Tests\_InstanceMocker as InstanceMocker;
@@ -75,7 +75,7 @@ class _TestCase extends TestCase {
         InstanceMocker::empty();
         Mockery::close();
 
-        inst(Faker::class)->unique($reset = true);
+        Faker\Factory::create()->unique($reset = true);
 
         parent::tearDown();
     }

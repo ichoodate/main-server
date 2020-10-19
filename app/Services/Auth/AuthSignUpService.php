@@ -42,7 +42,7 @@ class AuthSignUpService extends Service {
         return [
             'balance' => ['result', function ($result) {
 
-                return inst(Balance::class)->create([
+                return (new Balance)->create([
                     Balance::USER_ID => $result->getKey(),
                     Balance::TYPE => Balance::TYPE_BASIC,
                     Balance::COUNT => 0,
@@ -52,7 +52,7 @@ class AuthSignUpService extends Service {
 
             'created' => ['birth', 'email', 'password', 'gender', 'name', function ($birth, $email, $password, $gender, $name) {
 
-                return inst(User::class)->create([
+                return (new User)->create([
                     User::BIRTH
                         => $birth,
                     User::EMAIL_VERIFIED
@@ -70,7 +70,7 @@ class AuthSignUpService extends Service {
 
             'same_email_user' => ['email', function ($email) {
 
-                return inst(User::class)->query()
+                return (new User)->query()
                     ->lockForUpdate()
                     ->qWhere(User::EMAIL, $email)
                     ->first();

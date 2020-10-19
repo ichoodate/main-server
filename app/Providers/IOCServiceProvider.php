@@ -31,7 +31,7 @@ class IOCServiceProvider extends ServiceProvider
         {
             $this->app->singleton('faker', function () {
 
-                return inst(Faker::class);
+                return new Faker;
             });
 
             $this->app->bind('collection', function ($app, $args) {

@@ -23,11 +23,11 @@ class ProfilePhotoCreatingService extends Service {
         return [
             'created' => ['data', 'auth_user', function ($data, $authUser) {
 
-                $collection = inst(ProfilePhoto::class)->newCollection();
+                $collection = (new ProfilePhoto)->newCollection();
 
                 foreach ( $data as $k => $v )
                 {
-                    $collection->push(inst(ProfilePhoto::class)->create([
+                    $collection->push((new ProfilePhoto)->create([
                         ProfilePhoto::USER_ID => $authUser->getKey(),
                         ProfilePhoto::DATA    => $v
                     ]));

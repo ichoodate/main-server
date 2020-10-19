@@ -25,11 +25,11 @@ class CardGroupCreatingService extends Service {
         return [
             'cards' => ['auth_user', 'matches', 'users', 'created', function ($authUser, $matches, $users, $created) {
 
-                $cards = inst(Card::class)->newCollection();
+                $cards = (new Card)->newCollection();
 
                 foreach ( $matches as $i => $match )
                 {
-                    $card = inst(Card::class)->create([
+                    $card = (new Card)->create([
                         Card::GROUP_ID   => $created->getKey(),
                         Card::MATCH_ID   => $matches[$i]->getKey(),
                         Card::CHOOSER_ID => $authUser->getKey(),

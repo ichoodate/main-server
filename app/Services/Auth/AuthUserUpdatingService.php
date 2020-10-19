@@ -19,20 +19,20 @@ class AuthUserUpdatingService extends Service {
         return [
             'auth_user.birth' => ['auth_user', 'birth', function ($authUser, $birth) {
 
-                $keywordIds = inst(BirthYear::class)->query()
+                $keywordIds = (new BirthYear)->query()
                     ->qSelect(BirthYear::ID)
                     ->getQuery();
 
-                inst(UserSelfKwdPvt::class)->query()
+                (new UserSelfKwdPvt)->query()
                     ->qWhere(UserSelfKwdPvt::USER_ID, $authUser->getKey())
                     ->qWhereIn(UserSelfKwdPvt::KEYWORD_ID, $keywordIds)
                     ->delete();
 
-                $keyword = inst(BirthYear::class)->query()
+                $keyword = (new BirthYear)->query()
                     ->qWhere(BirthYear::TYPE, substr($birth, 0, 4))
                     ->first();
 
-                inst(UserSelfKwdPvt::class)->create([
+                (new UserSelfKwdPvt)->create([
                     UserSelfKwdPvt::USER_ID => $authUser->getKey(),
                     UserSelfKwdPvt::KEYWORD_ID => $keyword->getKey()
                 ]);
@@ -53,7 +53,7 @@ class AuthUserUpdatingService extends Service {
                 $authUser->{User::EMAIL_VERIFIED} = false;
                 $authUser->save();
 
-                // inst(EmailVerfication::class)->create([
+                // (new EmailVerfication)->create([
                 //     EmailVerfication::EMAIL => $email,
                 //     EmailVerfication::CODE => str_random(6)
                 // ]);

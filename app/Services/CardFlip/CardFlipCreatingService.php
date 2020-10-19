@@ -68,7 +68,7 @@ class CardFlipCreatingService extends Service {
 
             'created' => ['auth_user', 'card', function ($authUser, $card) {
 
-                return inst(CardFlip::class)->create([
+                return (new CardFlip)->create([
                     CardFlip::CARD_ID => $card->getKey(),
                     CardFlip::USER_ID => $authUser->getKey()
                 ]);

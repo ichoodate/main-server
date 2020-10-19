@@ -23,7 +23,7 @@ class TicketCreatingService extends Service {
         return [
             'created' => ['auth_user', 'subject', 'description', function ($authUser, $subject, $description) {
 
-                return inst(Ticket::class)->create([
+                return (new Ticket)->create([
                     Ticket::WRITER_ID   => $authUser->getKey(),
                     Ticket::SUBJECT     => $subject,
                     Ticket::DESCRIPTION => $description

@@ -20,11 +20,11 @@ class DrinkUserSelfKwdPvtCreatingService extends Service {
         return [
             'auth_user' => ['auth_user', function ($authUser) {
 
-                $keywordIds = inst(Drink::class)->query()
+                $keywordIds = (new Drink)->query()
                     ->qSelect(Drink::ID)
                     ->getQuery();
 
-                inst(UserSelfKwdPvt::class)->query()
+                (new UserSelfKwdPvt)->query()
                     ->qWhere(UserSelfKwdPvt::USER_ID, $authUser->getKey())
                     ->qWhereIn(UserSelfKwdPvt::KEYWORD_ID, $keywordIds)
                     ->delete();
@@ -48,7 +48,7 @@ class DrinkUserSelfKwdPvtCreatingService extends Service {
 
             'result' => ['auth_user', 'keyword', function ($authUser, $keyword) {
 
-                return inst(UserSelfKwdPvt::class)->create([
+                return (new UserSelfKwdPvt)->create([
                     UserSelfKwdPvt::USER_ID => $authUser->getKey(),
                     UserSelfKwdPvt::KEYWORD_ID => $keyword->getKey()
                 ]);

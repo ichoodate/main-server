@@ -48,7 +48,7 @@ class CardListingService extends Service {
 
                 if ( $matchStatus != null )
                 {
-                    $userQuery = inst(User::class)->query()
+                    $userQuery = (new User)->query()
                         ->qSelect(User::ID)
                         ->qWhereIn(User::ID, $matchingUserQuery)
                         ->qOrWhereIn(User::ID, $authUserQuery)
@@ -106,7 +106,7 @@ class CardListingService extends Service {
 
             'auth_user_query' => ['auth_user', function ($authUser) {
 
-                return inst(User::class)->query()
+                return (new User)->query()
                     ->qSelect(User::ID)
                     ->qWhere(User::ID, $authUser->getKey())
                     ->getQuery();
@@ -141,30 +141,30 @@ class CardListingService extends Service {
 
                 if ( $cardType == self::CARD_TYPE_CHOOSER )
                 {
-                    $userQuery = inst(Card::class)->query()
+                    $userQuery = (new Card)->query()
                         ->qSelect(Card::SHOWNER_ID)
                         ->qWhere(Card::CHOOSER_ID, $authUser->getKey())
                         ->getQuery();
                 }
                 else if ( $cardType == self::CARD_TYPE_SHOWNER )
                 {
-                    $userQuery = inst(Card::class)->query()
+                    $userQuery = (new Card)->query()
                         ->qSelect(Card::CHOOSER_ID)
                         ->qWhere(Card::SHOWNER_ID, $authUser->getKey())
                         ->getQuery();
                 }
                 else if ( $cardType == self::CARD_TYPE_BOTH )
                 {
-                    $subQuery1 = inst(Card::class)->query()
+                    $subQuery1 = (new Card)->query()
                         ->qSelect(Card::SHOWNER_ID)
                         ->qWhere(Card::CHOOSER_ID, $authUser->getKey())
                         ->getQuery();
-                    $subQuery2 = inst(Card::class)->query()
+                    $subQuery2 = (new Card)->query()
                         ->qSelect(Card::CHOOSER_ID)
                         ->qWhere(Card::SHOWNER_ID, $authUser->getKey())
                         ->getQuery();
 
-                    $userQuery = inst(User::class)->query()
+                    $userQuery = (new User)->query()
                         ->qSelect(User::ID)
                         ->qWhereIn(User::ID, $subQuery1)
                         ->qOrWhereIn(User::ID, $subQuery2)
@@ -181,7 +181,7 @@ class CardListingService extends Service {
 
             'query' => ['auth_user', 'card_type', 'auth_user_id_field', function ($authUser, $cardType, $authUserIdField) {
 
-                $return = inst(Card::class)->query();
+                $return = (new Card)->query();
 
                 if ( $cardType == self::CARD_TYPE_CHOOSER )
                 {
@@ -193,7 +193,7 @@ class CardListingService extends Service {
                 }
                 else if ( $cardType == self::CARD_TYPE_BOTH )
                 {
-                    $subQuery = inst(Match::class)->query()
+                    $subQuery = (new Match)->query()
                         ->qWhere($authUserIdField, $authUser->getKey())
                         ->selectIdQuery();
 
@@ -239,7 +239,7 @@ class CardListingService extends Service {
 
                 return function ($userQuery, $userStatus) {
 
-                    $flipQuery = inst(CardFlip::class)->query()
+                    $flipQuery = (new CardFlip)->query()
                         ->qWhereIn(CardFlip::USER_ID, $userQuery)
                         ->qSelect(CardFlip::CARD_ID)
                         ->getQuery();
@@ -250,12 +250,12 @@ class CardListingService extends Service {
                     }
                     else if ( $userStatus == self::USER_STATUS_FRIEND )
                     {
-                        $friendQuery = inst(Friend::class)->query()
+                        $friendQuery = (new Friend)->query()
                             ->qWhereIn(Friend::SENDER_ID, $userQuery)
                             ->qSelect(Friend::MATCH_ID)
                             ->getQuery();
 
-                        return inst(Card::class)->query()
+                        return (new Card)->query()
                             ->qWhereIn(Card::MATCH_ID, $friendQuery)
                             ->qWhereIn(Card::ID, $flipQuery)
                             ->qSelect(Card::ID)

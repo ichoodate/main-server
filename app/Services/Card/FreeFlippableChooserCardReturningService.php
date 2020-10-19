@@ -24,12 +24,12 @@ class FreeFlippableChooserCardReturningService extends Service {
         return [
             'evaluated_count' => ['auth_user', 'card', function ($authUser, $card) {
 
-                $cardQuery = inst(Card::class)->query()
+                $cardQuery = (new Card)->query()
                     ->qSelect([Card::ID])
                     ->qWhere(Card::GROUP_ID, $card->{Card::GROUP_ID})
                     ->getQuery();
 
-                return inst(CardFlip::class)->query()
+                return (new CardFlip)->query()
                     ->lockForUpdate()
                     ->qWhereIn(CardFlip::CARD_ID, $cardQuery)
                     ->qWhere(CardFlip::USER_ID, $authUser->getKey())

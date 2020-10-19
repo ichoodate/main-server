@@ -23,11 +23,11 @@ class HobbyUserIdealTypeKwdPvtCreatingService extends Service {
         return [
             'auth_user' => ['auth_user', function ($authUser) {
 
-                $keywordIds = inst(Hobby::class)->query()
+                $keywordIds = (new Hobby)->query()
                     ->qSelect(Hobby::ID)
                     ->getQuery();
 
-                inst(UserIdealTypeKwdPvt::class)->query()
+                (new UserIdealTypeKwdPvt)->query()
                     ->qWhere(UserIdealTypeKwdPvt::USER_ID, $authUser->getKey())
                     ->qWhereIn(UserIdealTypeKwdPvt::KEYWORD_ID, $keywordIds)
                     ->delete();
@@ -49,11 +49,11 @@ class HobbyUserIdealTypeKwdPvtCreatingService extends Service {
 
             'result' => ['auth_user', 'keywords', function ($authUser, $keywords) {
 
-                $result = inst(UserIdealTypeKwdPvt::class)->newCollection();
+                $result = (new UserIdealTypeKwdPvt)->newCollection();
 
                 foreach ( $keywords as $keyword )
                 {
-                    $result->push(inst(UserIdealTypeKwdPvt::class)->create([
+                    $result->push((new UserIdealTypeKwdPvt)->create([
                         UserIdealTypeKwdPvt::USER_ID => $authUser->getKey(),
                         UserIdealTypeKwdPvt::KEYWORD_ID => $keyword->getKey()
                     ]));

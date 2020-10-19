@@ -64,7 +64,7 @@ class Collection extends \Illuminate\Database\Eloquent\Collection {
 
     public function sortByIds($ids)
     {
-        $result = inst(static::class);
+        $result = new static;
 
         foreach ( $ids as $id )
         {

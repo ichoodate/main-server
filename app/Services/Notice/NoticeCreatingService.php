@@ -26,7 +26,7 @@ class NoticeCreatingService extends Service {
         return [
             'created' => ['type', 'subject', 'description', function ($type, $subject, $description) {
 
-                return inst(Notice::class)->create([
+                return (new Notice)->create([
                     Notice::TYPE        => $type,
                     Notice::SUBJECT     => $subject,
                     Notice::DESCRIPTION => $description

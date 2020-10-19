@@ -35,11 +35,11 @@ class MatchCreatingService extends Service {
 
             'created' => ['auth_user', 'auth_user_id_field', 'new_matching_user_ids', 'matching_user_id_field', function ($authUser, $authUserIdField, $newMatchingUserIds, $matchingUserIdField) {
 
-                $matches = inst(Match::class)->newCollection();
+                $matches = (new Match)->newCollection();
 
                 foreach ( $newMatchingUserIds as $userId )
                 {
-                    $match = inst(Match::class)->create([
+                    $match = (new Match)->create([
                         $authUserIdField     => $authUser->getKey(),
                         $matchingUserIdField => $userId
                     ]);
@@ -52,7 +52,7 @@ class MatchCreatingService extends Service {
 
             'existed' => ['auth_user', 'auth_user_id_field', 'matching_user_id_field', 'matching_user_ids', function ($authUser, $authUserIdField, $matchingUserIdField, $matchingUserIds) {
 
-                return inst(Match::class)->query()
+                return (new Match)->query()
                     ->qWhere($authUserIdField, $authUser->getKey())
                     ->qWhereIn($matchingUserIdField, $matchingUserIds)
                     ->get();

@@ -25,7 +25,7 @@ class PaymentCreatingService extends Service {
         return [
             'created' => ['auth_user', 'item', 'payment_amount', 'payment_currency', function ($authUser, $item, $paymentAmount, $paymentCurrency) {
 
-                return inst(Payment::class)->create([
+                return (new Payment)->create([
                     Payment::USER_ID
                         => $authUser->getKey(),
                     Payment::ITEM_ID

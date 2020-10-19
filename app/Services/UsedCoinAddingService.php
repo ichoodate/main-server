@@ -38,7 +38,7 @@ class UsedCoinAddingService extends Service {
 
                 $time = new \DateTime('now', new \DateTimeZone($timezone));
 
-                return inst(Balance::class)->query()
+                return (new Balance)->query()
                     ->qWhere(Balance::USER_ID, $authUser->getKey())
                     ->qWhere(Balance::DELETED_AT, '>=', $time->format('Y-m-d H:i:s'))
                     ->qOrderBy(Balance::DELETED_AT, 'asc')
@@ -58,7 +58,7 @@ class UsedCoinAddingService extends Service {
             'used_coins' => ['auth_user', 'result', 'required_coin', 'balances', function ($authUser, $result, $requiredCoin, $balances) {
 
                 $counts    = [];
-                $usedCoins = inst(Coin::class)->newCollection();
+                $usedCoins = (new Coin)->newCollection();
                 $i         = 0;
 
                 while ( $requiredCoin != 0 )
@@ -81,7 +81,7 @@ class UsedCoinAddingService extends Service {
 
                 foreach ( $counts as $i => $count )
                 {
-                    $usedCoins->push(inst(Coin::class)->create([
+                    $usedCoins->push((new Coin)->create([
                         Coin::BALANCE_ID
                             => $balances->get($i)->getKey(),
                         Coin::RELATED_ID

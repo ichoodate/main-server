@@ -20,11 +20,11 @@ class AgeRangeUserIdealTypeKwdPvtCreatingService extends Service {
         return [
             'auth_user' => ['auth_user', function ($authUser) {
 
-                $keywordIds = inst(AgeRange::class)->query()
+                $keywordIds = (new AgeRange)->query()
                     ->qSelect(AgeRange::ID)
                     ->getQuery();
 
-                inst(UserIdealTypeKwdPvt::class)->query()
+                (new UserIdealTypeKwdPvt)->query()
                     ->qWhere(UserIdealTypeKwdPvt::USER_ID, $authUser->getKey())
                     ->qWhereIn(UserIdealTypeKwdPvt::KEYWORD_ID, $keywordIds)
                     ->delete();
@@ -48,7 +48,7 @@ class AgeRangeUserIdealTypeKwdPvtCreatingService extends Service {
 
             'result' => ['auth_user', 'keyword', function ($authUser, $keyword) {
 
-                return inst(UserIdealTypeKwdPvt::class)->create([
+                return (new UserIdealTypeKwdPvt)->create([
                     UserIdealTypeKwdPvt::USER_ID => $authUser->getKey(),
                     UserIdealTypeKwdPvt::KEYWORD_ID => $keyword->getKey(),
                 ]);

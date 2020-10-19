@@ -28,14 +28,14 @@ class PwdResetCreatingService extends Service {
         return [
             'user' => ['email', function ($email) {
 
-                return inst(User::class)->query()
+                return (new User)->query()
                     ->qWhere(User::EMAIL, $email)
                     ->first();
             }],
 
             'created' => ['user', function ($user) {
 
-                return inst(PwdReset::class)->create([
+                return (new PwdReset)->create([
                     PwdReset::TOKEN    => str_random(32),
                     PwdReset::EMAIL    => $user->{User::EMAIL},
                     PwdReset::COMPLETE => false

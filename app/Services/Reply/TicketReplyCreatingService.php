@@ -25,7 +25,7 @@ class TicketReplyCreatingService extends Service {
         return [
             'created' => ['auth_user', 'ticket', 'description', function ($authUser, $ticket, $description) {
 
-                return inst(Reply::class)->create([
+                return (new Reply)->create([
                     Reply::WRITER_ID   => $authUser->getKey(),
                     Reply::DESCRIPTION => $description,
                     Reply::TICKET_ID   => $ticket->getKey()

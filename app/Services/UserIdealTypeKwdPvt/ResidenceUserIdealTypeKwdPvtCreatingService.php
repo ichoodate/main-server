@@ -20,11 +20,11 @@ class ResidenceUserIdealTypeKwdPvtCreatingService extends Service {
         return [
             'auth_user' => ['auth_user', function ($authUser) {
 
-                $keywordIds = inst(Residence::class)->query()
+                $keywordIds = (new Residence)->query()
                     ->qSelect(Residence::ID)
                     ->getQuery();
 
-                inst(UserIdealTypeKwdPvt::class)->query()
+                (new UserIdealTypeKwdPvt)->query()
                     ->qWhere(UserIdealTypeKwdPvt::USER_ID, $authUser->getKey())
                     ->qWhereIn(UserIdealTypeKwdPvt::KEYWORD_ID, $keywordIds)
                     ->delete();
@@ -48,7 +48,7 @@ class ResidenceUserIdealTypeKwdPvtCreatingService extends Service {
 
             'result' => ['auth_user', 'keyword', function ($authUser, $keyword) {
 
-                return inst(UserIdealTypeKwdPvt::class)->create([
+                return (new UserIdealTypeKwdPvt)->create([
                     UserIdealTypeKwdPvt::USER_ID => $authUser->getKey(),
                     UserIdealTypeKwdPvt::KEYWORD_ID => $keyword->getKey()
                 ]);

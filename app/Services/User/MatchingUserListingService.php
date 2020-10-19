@@ -25,12 +25,12 @@ class MatchingUserListingService extends Service {
         return [
             'query.keywords' => ['query', 'keywords', 'matching_gender', 'strict', function ($query, $keywords = '', $matchingGender, $strict) {
 
-                $nested = inst(User::class)->query()
+                $nested = (new User)->query()
                     ->select(User::ID)
                     ->qWhere(User::GENDER, $matchingGender)
                     ->getQuery();
 
-                $sub = inst(UserSelfKwdPvt::class)->query()
+                $sub = (new UserSelfKwdPvt)->query()
                     ->select(UserSelfKwdPvt::USER_ID)
                     ->qWhereIn(UserSelfKwdPvt::USER_ID, $nested)
                     ->qGroupBy(UserSelfKwdPvt::USER_ID);
@@ -69,7 +69,7 @@ class MatchingUserListingService extends Service {
 
                 $keywordIds = preg_split('/\s*,\s*/', $keywordIds);
 
-                return inst(Obj::class)->query()
+                return (new Obj)->query()
                     ->qWhereIn(Obj::ID, $keywordIds)
                     ->qWhereIn(Obj::TYPE, Obj::TYPE_KEYWORD_VALUES)
                     ->get()

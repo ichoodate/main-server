@@ -34,7 +34,7 @@ class TodayCardGroupCreatingService extends Service {
         return [
             'created' => ['auth_user', function ($authUser) {
 
-                return inst(CardGroup::class)->create([
+                return (new CardGroup)->create([
                     CardGroup::USER_ID => $authUser->getKey(),
                     CardGroup::TYPE    => CardGroup::TYPE_DAILY
                 ]);
@@ -44,12 +44,12 @@ class TodayCardGroupCreatingService extends Service {
 
                 $time = new \DateTime('now', new \DateTimeZone('UTC'));
 
-                $query = inst(CardGroup::class)->query()
+                $query = (new CardGroup)->query()
                     ->qSelect(CardGroup::ID)
                     ->qWhere(CardGroup::USER_ID, $authUser->getKey())
                     ->getQuery();
 
-                return inst(CardGroup::class)->query()
+                return (new CardGroup)->query()
                     ->qWhereIn(CardGroup::ID, $query)
                     ->qWhere(CardGroup::TYPE, CardGroup::TYPE_DAILY)
                     ->qWhere(CardGroup::CREATED_AT, '>=', $time->format('Y-m-d H:i:s'))
@@ -58,7 +58,7 @@ class TodayCardGroupCreatingService extends Service {
 
             'user_ideal_type_kwd_pvts' => ['auth_user', function ($authUser) {
 
-                return inst(UserIdealTypeKwdPvt::class)->query()
+                return (new UserIdealTypeKwdPvt)->query()
                     ->qWhere(UserIdealTypeKwdPvt::USER_ID, $authUser->getKey())
                     ->get();
             }],

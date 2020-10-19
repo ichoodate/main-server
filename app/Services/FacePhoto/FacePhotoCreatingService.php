@@ -17,7 +17,7 @@ class FacePhotoCreatingService extends Service {
         return [
             'auth_user' => ['auth_user', function ($authUser) {
 
-                inst(FacePhoto::class)->query()
+                (new FacePhoto)->query()
                     ->qWhere(FacePhoto::USER_ID, $authUser->getKey())
                     ->delete();
             }]
@@ -29,7 +29,7 @@ class FacePhotoCreatingService extends Service {
         return [
             'result' => ['auth_user', 'data', function ($authUser, $data) {
 
-                return inst(FacePhoto::class)->create([
+                return (new FacePhoto)->create([
                     FacePhoto::USER_ID => $authUser->getKey(),
                     FacePhoto::DATA    => $data
                 ]);
