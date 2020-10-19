@@ -39,13 +39,6 @@ abstract class Model extends \Illuminate\Database\Eloquent\Model {
         return new Collection($models);
     }
 
-    public function newEloquentBuilder($query)
-    {
-        $class = str_replace('Models', 'Queries', static::class) . 'Query';
-
-        return new $class($query);
-    }
-
     public function relation($related, array $localKeys, array $otherKeys, $isManyRelation)
     {
         $query = (new $related)->newQuery();

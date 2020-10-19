@@ -31,7 +31,7 @@ class ResidenceTableSeeder extends TableSeeder {
             $state = State::skip($i)->first();
 
             Residence::create([
-                Residence::PARENT_ID => $state->CountryQuery()->residenceQuery()->first()->getKey(),
+                Residence::PARENT_ID => $state->country->residence->getKey(),
                 Residence::RELATED_ID => $state->getKey()
             ]);
         }

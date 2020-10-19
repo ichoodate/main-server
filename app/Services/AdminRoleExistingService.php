@@ -25,7 +25,7 @@ class AdminRoleExistingService extends Service {
         return [
             'admin_role' => ['auth_user', function ($authUser) {
 
-                return $authUser->roleQuery()->qWhere(Role::TYPE, Role::TYPE_ADMIN)->first();
+                return $authUser->role()->qWhere(Role::TYPE, Role::TYPE_ADMIN)->first();
             }]
         ];
     }
