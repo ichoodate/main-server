@@ -76,10 +76,7 @@ class HobbyUserSelfKwdPvtCreatingService extends Service {
                 => ['required'],
 
             'keyword_ids'
-                => ['required'],
-
-            'keyword_ids.*'
-                => ['required', 'integer'],
+                => ['required', 'integers'],
 
             'keywords.*'
                 => ['required', 'not_null']

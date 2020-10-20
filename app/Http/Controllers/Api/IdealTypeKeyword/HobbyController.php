@@ -19,8 +19,6 @@ class HobbyController extends ApiController {
                 => 'authorized user',
             'keyword_ids'
                 => '[keyword_ids]',
-            'keyword_ids.*'
-                => '[keyword_ids.*]'
         ]];
     }
 
