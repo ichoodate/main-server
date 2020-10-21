@@ -10,23 +10,14 @@ class SubscriptionControllerTest extends _TestCase {
 
     public function testIndex()
     {
-        $authUser = $this->factory(User::class)->make();
-        $cursorId = $this->uniqueString();
-        $limit    = $this->uniqueString();
-        $page     = $this->uniqueString();
-        $expands  = $this->uniqueString();
-        $fields   = $this->uniqueString();
-        $groupBy  = $this->uniqueString();
-        $orderBy  = $this->uniqueString();
-
-        $this->setAuthUser($authUser);
-        $this->setInputParameter('cursor_id', $cursorId);
-        $this->setInputParameter('limit', $limit);
-        $this->setInputParameter('page', $page);
-        $this->setInputParameter('expands', $expands);
-        $this->setInputParameter('fields', $fields);
-        $this->setInputParameter('group_by', $groupBy);
-        $this->setInputParameter('order_by', $orderBy);
+        $authUser = $this->setAuthUser();
+        $cursorId = $this->setInputParameter('cursor_id');
+        $limit    = $this->setInputParameter('limit');
+        $page     = $this->setInputParameter('page');
+        $expands  = $this->setInputParameter('expands');
+        $fields   = $this->setInputParameter('fields');
+        $groupBy  = $this->setInputParameter('group_by');
+        $orderBy  = $this->setInputParameter('order_by');
 
         $this->assertReturn([SubscriptionListingService::class, [
             'auth_user'
@@ -67,15 +58,10 @@ class SubscriptionControllerTest extends _TestCase {
 
     public function testShow()
     {
-        $authUser = $this->factory(User::class)->make();
-        $expands  = $this->uniqueString();
-        $fields   = $this->uniqueString();
-        $id       = $this->uniqueString();
-
-        $this->setAuthUser($authUser);
-        $this->setInputParameter('expands', $expands);
-        $this->setInputParameter('fields', $fields);
-        $this->setRouteParameter('id', $id);
+        $authUser = $this->setAuthUser();
+        $expands  = $this->setInputParameter('expands');
+        $fields   = $this->setInputParameter('fields');
+        $id       = $this->setRouteParameter('subscription');
 
         $this->assertReturn([SubscriptionFindingService::class, [
             'auth_user'

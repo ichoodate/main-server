@@ -10,11 +10,8 @@ class HobbyControllerTest extends _TestCase {
 
     public function testUpdate()
     {
-        $authUser  = $this->factory(User::class)->make();
-        $keywordIds = $this->uniqueString();
-
-        $this->setAuthUser($authUser);
-        $this->setInputParameter('keyword_ids', $keywordIds);
+        $authUser   = $this->setAuthUser();
+        $keywordIds = $this->setInputParameter('keyword_ids');
 
         $this->assertReturn([HobbyUserSelfKwdPvtCreatingService::class, [
             'auth_user'

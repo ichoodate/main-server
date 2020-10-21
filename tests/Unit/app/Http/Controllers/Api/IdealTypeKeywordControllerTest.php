@@ -10,13 +10,9 @@ class IdealTypeKeywordControllerTest extends _TestCase {
 
     public function testIndex()
     {
-        $authUser = $this->factory(User::class)->make();
-        $expands  = $this->uniqueString();
-        $fields   = $this->uniqueString();
-
-        $this->setAuthUser($authUser);
-        $this->setInputParameter('expands', $expands);
-        $this->setInputParameter('fields', $fields);
+        $authUser = $this->setAuthUser();
+        $expands  = $this->setInputParameter('expands');
+        $fields   = $this->setInputParameter('fields');
 
         $this->assertReturn([UserIdealTypeKwdPvtListingService::class, [
             'auth_user'

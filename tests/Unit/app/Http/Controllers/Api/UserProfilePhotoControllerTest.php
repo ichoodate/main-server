@@ -9,23 +9,12 @@ class UserProfilePhotoControllerTest extends _TestCase {
 
     public function testIndex()
     {
-        $userId   = $this->uniqueString();
-        $cursorId = $this->uniqueString();
-        $limit    = $this->uniqueString();
-        $page     = $this->uniqueString();
-        $expands  = $this->uniqueString();
-        $fields   = $this->uniqueString();
-        $groupBy  = $this->uniqueString();
-        $orderBy  = $this->uniqueString();
-
-        $this->setRouteParameter('user', $userId);
-        $this->setInputParameter('cursor_id', $cursorId);
-        $this->setInputParameter('limit', $limit);
-        $this->setInputParameter('page', $page);
-        $this->setInputParameter('expands', $expands);
-        $this->setInputParameter('fields', $fields);
-        $this->setInputParameter('group_by', $groupBy);
-        $this->setInputParameter('order_by', $orderBy);
+        $userId   = $this->setRouteParameter('user');
+        $cursorId = $this->setInputParameter('cursor_id');
+        $expands  = $this->setInputParameter('expands');
+        $fields   = $this->setInputParameter('fields');
+        $limit    = $this->setInputParameter('limit');
+        $page     = $this->setInputParameter('page');
 
         $this->assertReturn([ProfilePhotoListingService::class, [
             'user_id'

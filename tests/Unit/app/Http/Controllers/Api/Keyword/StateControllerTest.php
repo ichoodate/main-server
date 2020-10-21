@@ -10,13 +10,9 @@ class StateControllerTest extends _TestCase {
 
     public function testIndex()
     {
-        $countryId = $this->uniqueString();
-        $expands   = $this->uniqueString();
-        $fields    = $this->uniqueString();
-
-        $this->setInputParameter('country_id', $countryId);
-        $this->setInputParameter('expands', $expands);
-        $this->setInputParameter('fields', $fields);
+        $countryId = $this->setInputParameter('country_id');
+        $expands   = $this->setInputParameter('expands');
+        $fields    = $this->setInputParameter('fields');
 
         $this->assertReturn([StateListingService::class, [
             'country_id'
@@ -45,13 +41,9 @@ class StateControllerTest extends _TestCase {
 
     public function testShow()
     {
-        $expands = $this->uniqueString();
-        $fields  = $this->uniqueString();
-        $id      = $this->uniqueString();
-
-        $this->setInputParameter('expands', $expands);
-        $this->setInputParameter('fields', $fields);
-        $this->setRouteParameter('id', $id);
+        $expands = $this->setInputParameter('expands');
+        $fields  = $this->setInputParameter('fields');
+        $id      = $this->setRouteParameter('id');
 
         $this->assertReturn([StateFindingService::class, [
             'expands'

@@ -10,17 +10,11 @@ class AuthSignUpControllerTest extends _TestCase {
 
     public function testStore()
     {
-        $email    = $this->uniqueString();
-        $password = $this->uniqueString();
-        $gender   = $this->uniqueString();
-        $birth    = $this->uniqueString();
-        $name     = $this->uniqueString();
-
-        $this->setInputParameter('email', $email);
-        $this->setInputParameter('password', $password);
-        $this->setInputParameter('gender', $gender);
-        $this->setInputParameter('birth', $birth);
-        $this->setInputParameter('name', $name);
+        $email    = $this->setInputParameter('email');
+        $password = $this->setInputParameter('password');
+        $gender   = $this->setInputParameter('gender');
+        $birth    = $this->setInputParameter('birth');
+        $name     = $this->setInputParameter('name');
 
         $this->assertReturn([AuthSignUpService::class, [
             'email'

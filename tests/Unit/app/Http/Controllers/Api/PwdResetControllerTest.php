@@ -10,11 +10,9 @@ class PwdResetControllerTest extends _TestCase {
 
     public function testUpdate()
     {
-        $id          = $this->uniqueString();
-        $newPassword = $this->uniqueString();
-
-        $this->setRouteParameter('id', $id);
-        $this->setInputParameter('new_password', $newPassword);
+        $id          = $this->setRouteParameter('pwd_reset');
+        $newPassword = $this->setInputParameter('new_password');
+        $token       = $this->setInputParameter('token');
 
         $this->assertReturn([PwdResetUpdatingService::class, [
             'id'
@@ -35,9 +33,7 @@ class PwdResetControllerTest extends _TestCase {
 
     public function testStore()
     {
-        $email = $this->uniqueString();
-
-        $this->setInputParameter('email', $email);
+        $email = $this->setInputParameter('email');
 
         $this->assertReturn([PwdResetCreatingService::class, [
             'email'

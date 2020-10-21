@@ -12,19 +12,13 @@ class NotificationControllerTest extends _TestCase {
 
     public function testIndex()
     {
-        $authUser = $this->factory(User::class)->make();
-        $cursorId = $this->uniqueString();
-        $limit    = $this->uniqueString();
-        $page     = $this->uniqueString();
-        $expands  = $this->uniqueString();
-        $fields   = $this->uniqueString();
-
-        $this->setAuthUser($authUser);
-        $this->setInputParameter('cursor_id', $cursorId);
-        $this->setInputParameter('limit', $limit);
-        $this->setInputParameter('page', $page);
-        $this->setInputParameter('expands', $expands);
-        $this->setInputParameter('fields', $fields);
+        $authUser = $this->setAuthUser();
+        $cursorId = $this->setInputParameter('cursor_id');
+        $expands  = $this->setInputParameter('expands');
+        $fields   = $this->setInputParameter('fields');
+        $limit    = $this->setInputParameter('limit');
+        $orderBy  = $this->setInputParameter('order_by');
+        $page     = $this->setInputParameter('page');
 
         $this->assertReturn([NotificationListingService::class, [
             'auth_user'
@@ -65,15 +59,10 @@ class NotificationControllerTest extends _TestCase {
 
     public function testShow()
     {
-        $authUser = $this->factory(User::class)->make();
-        $expands  = $this->uniqueString();
-        $fields   = $this->uniqueString();
-        $id       = $this->uniqueString();
-
-        $this->setAuthUser($authUser);
-        $this->setInputParameter('expands', $expands);
-        $this->setInputParameter('fields', $fields);
-        $this->setRouteParameter('id', $id);
+        $authUser = $this->setAuthUser();
+        $expands  = $this->setInputParameter('expands');
+        $fields   = $this->setInputParameter('fields');
+        $id       = $this->setRouteParameter('notification');
 
         $this->assertReturn([NotificationFindingService::class, [
             'auth_user'

@@ -2,23 +2,14 @@
 
 namespace Tests\Unit\App\Http\Controllers\Api;
 
-use Closure;
+use App\Database\Models\User;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Route;
 use Tests\Unit\_TestCase as TestCase;
-use App\Database\Model;
 
 class _TestCase extends TestCase {
 
     public function assertReturn($expect)
-    {
-        $class   = static::class();
-        $func    = $this->getTestName();
-        $action  = $this->getAction($func);
-        $actual  = $class::$action();
-
-        $this->assertEquals($expect, $actual);
-    }
-
-    public function getTestName()
     {
         $traces = debug_backtrace();
 
@@ -26,85 +17,60 @@ class _TestCase extends TestCase {
         {
             if ( array_key_exists('class', $trace) && is_a($trace['class'], static::class, true) && starts_with($trace['function'], 'test') )
             {
-                return $trace['function'];
+                $class  = static::class();
+                $action = $trace['function'];
+                $action = str_replace('test', '', $action);
+                $action = lcfirst($action);
+                $actual = $class::$action();
+
+                if ( is_array($expect) )
+                {
+                    ksort($expect);
+                    ksort($actual);
+                }
+
+                $this->assertEquals($expect, $actual);
             }
         }
-
-        throw new \Exception('test function not exists.');
     }
 
-    public function getAction($testFuncName)
+    public function setAuthUser()
     {
-        if ( starts_with($testFuncName, 'testDestroy') )
-        {
-            $action = 'delete';
-        }
-        else if ( starts_with($testFuncName, 'testIndex') )
-        {
-            $action = 'index';
-        }
-        else if ( starts_with($testFuncName, 'testStore') )
-        {
-            $action = 'store';
-        }
-        else if ( starts_with($testFuncName, 'testUpdate') )
-        {
-            $action = 'update';
-        }
-        else if ( starts_with($testFuncName, 'testShow') )
-        {
-            $action = 'show';
-        }
-        else
-        {
-            throw new \Exception;
-        }
+        $user = $this->factory(User::class)->create();
 
-        return $action;
-    }
-
-    public function setAuthUser($user)
-    {
         auth()->setUser($user);
+
+        return $user;
     }
 
-    public function setInputParameter($key, $value)
+    public function setInputParameter($key)
     {
-        request()->offsetSet($key, $value);
+        $value = $this->uniqueString();
+
+        Request::offsetSet($key, $value);
+
+        return $value;
     }
 
-    public function setRouteParameter($key, $value)
+    public function setRouteParameter($key, $value=null)
     {
-        $route  = call_user_func(request()->getRouteResolver());
-        $params = is_null($route) ? [] : get_object_vars($route);
+        if ( empty($value) )
+        {
+            $value = $this->uniqueString();
+        }
 
-        $params[$key] = $value;
-
-        request()->setRouteResolver(function () use ($params) {
-
-            $inst = new \stdClass;
-
-            foreach ( $params as $key => $value )
-            {
-                $inst->{$key} = $value;
-            }
-
-            return $inst;
+        $route = \Mockery::mock('\Illuminate\Routing\Route')->makePartial();
+        $route->bind(request());
+        request()->setRouteResolver(function () use ($route)
+        {
+            return $route;
         });
+        request()->route()->setParameter($key, $value);
+
+        return $value;
     }
 
-    public function when()
-    {
-        $args = func_get_args();
-
-        app('db')->beginTransaction();
-
-        call_user_func($args[0]);
-
-        app('db')->rollback();
-    }
-
-    public function testTestMethodImplement()
+    public function testMethodExist()
     {
         $class   = $this->class();
         $parent  = get_parent_class($class);

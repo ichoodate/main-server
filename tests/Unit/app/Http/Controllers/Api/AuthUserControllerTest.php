@@ -31,15 +31,10 @@ class AuthUserControllerTest extends _TestCase {
 
     public function testUpdate()
     {
-        $authUser = $this->factory(User::class)->make();
-        $email    = $this->uniqueString();
-        $birth    = $this->uniqueString();
-        $name     = $this->uniqueString();
-
-        $this->setAuthUser($authUser);
-        $this->setInputParameter('email', $email);
-        $this->setInputParameter('birth', $birth);
-        $this->setInputParameter('name', $name);
+        $authUser = $this->setAuthUser();
+        $email    = $this->setInputParameter('email');
+        $birth    = $this->setInputParameter('birth');
+        $name     = $this->setInputParameter('name');
 
         $this->assertReturn([AuthUserUpdatingService::class, [
             'auth_user'

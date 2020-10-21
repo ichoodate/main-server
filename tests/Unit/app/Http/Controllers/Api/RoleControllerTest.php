@@ -10,13 +10,9 @@ class RoleControllerTest extends _TestCase {
 
     public function testIndex()
     {
-        $authUser = $this->factory(User::class)->make();
-        $expands  = $this->uniqueString();
-        $fields   = $this->uniqueString();
-
-        $this->setAuthUser($authUser);
-        $this->setInputParameter('expands', $expands);
-        $this->setInputParameter('fields', $fields);
+        $authUser = $this->setAuthUser();
+        $expands  = $this->setInputParameter('expands');
+        $fields   = $this->setInputParameter('fields');
 
         $this->assertReturn([RoleListingService::class, [
             'auth_user'
@@ -45,15 +41,10 @@ class RoleControllerTest extends _TestCase {
 
     public function testShow()
     {
-        $authUser = $this->factory(User::class)->make();
-        $expands  = $this->uniqueString();
-        $fields   = $this->uniqueString();
-        $id       = $this->uniqueString();
-
-        $this->setAuthUser($authUser);
-        $this->setInputParameter('expands', $expands);
-        $this->setInputParameter('fields', $fields);
-        $this->setRouteParameter('id', $id);
+        $authUser = $this->setAuthUser();
+        $expands  = $this->setInputParameter('expands');
+        $fields   = $this->setInputParameter('fields');
+        $id       = $this->setRouteParameter('role');
 
         $this->assertReturn([RoleFindingService::class, [
             'auth_user'

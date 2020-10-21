@@ -13,37 +13,21 @@ class CardControllerTest extends _TestCase {
 
     public function testIndex()
     {
-        $authUser           = $this->factory(User::class)->make();
-        $after              = $this->uniqueString();
-        $authUserStatus     = $this->uniqueString();
-        $before             = $this->uniqueString();
-        $cardType           = $this->uniqueString();
-        $matchStatus        = $this->uniqueString();
-        $matchingUserStatus = $this->uniqueString();
-        $timezone           = $this->uniqueString();
-        $cursorId           = $this->uniqueString();
-        $limit              = $this->uniqueString();
-        $page               = $this->uniqueString();
-        $expands            = $this->uniqueString();
-        $fields             = $this->uniqueString();
-        $groupBy            = $this->uniqueString();
-        $orderBy            = $this->uniqueString();
-
-        $this->setAuthUser($authUser);
-        $this->setInputParameter('after', $after);
-        $this->setInputParameter('auth_user_status', $authUserStatus);
-        $this->setInputParameter('before', $before);
-        $this->setInputParameter('card_type', $cardType);
-        $this->setInputParameter('match_status', $matchStatus);
-        $this->setInputParameter('matching_user_status', $matchingUserStatus);
-        $this->setInputParameter('timezone', $timezone);
-        $this->setInputParameter('cursor_id', $cursorId);
-        $this->setInputParameter('limit', $limit);
-        $this->setInputParameter('page', $page);
-        $this->setInputParameter('expands', $expands);
-        $this->setInputParameter('fields', $fields);
-        $this->setInputParameter('group_by', $groupBy);
-        $this->setInputParameter('order_by', $orderBy);
+        $authUser           = $this->setAuthUser();
+        $after              = $this->setInputParameter('after');
+        $authUserStatus     = $this->setInputParameter('auth_user_status');
+        $before             = $this->setInputParameter('before');
+        $cardType           = $this->setInputParameter('card_type');
+        $cursorId           = $this->setInputParameter('cursor_id');
+        $expands            = $this->setInputParameter('expands');
+        $fields             = $this->setInputParameter('fields');
+        $limit              = $this->setInputParameter('limit');
+        $matchStatus        = $this->setInputParameter('match_status');
+        $matchingUserStatus = $this->setInputParameter('matching_user_status');
+        $groupBy            = $this->setInputParameter('group_by');
+        $orderBy            = $this->setInputParameter('order_by');
+        $page               = $this->setInputParameter('page');
+        $timezone           = $this->setInputParameter('timezone');
 
         $this->assertReturn([CardListingService::class, [
             'after'
@@ -112,15 +96,10 @@ class CardControllerTest extends _TestCase {
 
     public function testShow()
     {
-        $authUser = $this->factory(User::class)->make();
-        $expands  = $this->uniqueString();
-        $fields   = $this->uniqueString();
-        $id       = $this->uniqueString();
-
-        $this->setAuthUser($authUser);
-        $this->setInputParameter('expands', $expands);
-        $this->setInputParameter('fields', $fields);
-        $this->setRouteParameter('id', $id);
+        $authUser = $this->setAuthUser();
+        $expands  = $this->setInputParameter('expands');
+        $fields   = $this->setInputParameter('fields');
+        $id       = $this->setRouteParameter('card');
 
         $this->assertReturn([CardFindingService::class, [
             'auth_user'

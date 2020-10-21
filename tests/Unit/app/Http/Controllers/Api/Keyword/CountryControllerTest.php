@@ -10,11 +10,8 @@ class CountryControllerTest extends _TestCase {
 
     public function testIndex()
     {
-        $expands = $this->uniqueString();
-        $fields  = $this->uniqueString();
-
-        $this->setInputParameter('expands', $expands);
-        $this->setInputParameter('fields', $fields);
+        $expands = $this->setInputParameter('expands');
+        $fields  = $this->setInputParameter('fields');
 
         $this->assertReturn([CountryListingService::class, [
             'expands'
@@ -39,13 +36,9 @@ class CountryControllerTest extends _TestCase {
 
     public function testShow()
     {
-        $expands = $this->uniqueString();
-        $fields  = $this->uniqueString();
-        $id      = $this->uniqueString();
-
-        $this->setInputParameter('expands', $expands);
-        $this->setInputParameter('fields', $fields);
-        $this->setRouteParameter('id', $id);
+        $expands = $this->setInputParameter('expands');
+        $fields  = $this->setInputParameter('fields');
+        $id      = $this->setRouteParameter('id');
 
         $this->assertReturn([CountryFindingService::class, [
             'expands'

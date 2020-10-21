@@ -11,15 +11,10 @@ class CardFlipControllerTest extends _TestCase {
 
     public function testShow()
     {
-        $authUser = $this->factory(User::class)->make();
-        $expands  = $this->uniqueString();
-        $fields   = $this->uniqueString();
-        $id       = $this->uniqueString();
-
-        $this->setAuthUser($authUser);
-        $this->setInputParameter('expands', $expands);
-        $this->setInputParameter('fields', $fields);
-        $this->setRouteParameter('card_flip', $id);
+        $authUser = $this->setAuthUser();
+        $expands  = $this->setInputParameter('expands');
+        $fields   = $this->setInputParameter('fields');
+        $id       = $this->setRouteParameter('card_flip');
 
         $this->assertReturn([CardFlipFindingService::class, [
             'auth_user'
@@ -44,15 +39,10 @@ class CardFlipControllerTest extends _TestCase {
 
     public function testStore()
     {
-        $authUser = $this->factory(User::class)->make();
-        $cardId   = $this->uniqueString();
-        $type     = $this->uniqueString();
-        $timezone = $this->uniqueString();
-
-        $this->setAuthUser($authUser);
-        $this->setInputParameter('card_id', $cardId);
-        $this->setInputParameter('type', $type);
-        $this->setInputParameter('timezone', $timezone);
+        $authUser = $this->setAuthUser();
+        $cardId   = $this->setInputParameter('card_id');
+        $type     = $this->setInputParameter('type');
+        $timezone = $this->setInputParameter('timezone');
 
         $this->assertReturn([FreeCardFlipCreatingService::class, [
             'auth_user'

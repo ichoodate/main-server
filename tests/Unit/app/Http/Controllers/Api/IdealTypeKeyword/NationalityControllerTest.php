@@ -10,11 +10,8 @@ class NationalityControllerTest extends _TestCase {
 
     public function testUpdate()
     {
-        $authUser  = $this->factory(User::class)->make();
-        $keywordId = $this->uniqueString();
-
-        $this->setAuthUser($authUser);
-        $this->setInputParameter('keyword_id', $keywordId);
+        $authUser  = $this->setAuthUser();
+        $keywordId = $this->setInputParameter('keyword_id');
 
         $this->assertReturn([NationalityUserIdealTypeKwdPvtCreatingService::class, [
             'auth_user'

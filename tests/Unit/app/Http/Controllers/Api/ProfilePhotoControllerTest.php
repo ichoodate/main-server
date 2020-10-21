@@ -12,19 +12,12 @@ class ProfilePhotoControllerTest extends _TestCase {
 
     public function testIndex()
     {
-        $authUser = $this->factory(User::class)->make();
-        $cursorId = $this->uniqueString();
-        $limit    = $this->uniqueString();
-        $page     = $this->uniqueString();
-        $expands  = $this->uniqueString();
-        $fields   = $this->uniqueString();
-
-        $this->setAuthUser($authUser);
-        $this->setInputParameter('cursor_id', $cursorId);
-        $this->setInputParameter('limit', $limit);
-        $this->setInputParameter('page', $page);
-        $this->setInputParameter('expands', $expands);
-        $this->setInputParameter('fields', $fields);
+        $authUser = $this->setAuthUser();
+        $cursorId = $this->setInputParameter('cursor_id');
+        $expands  = $this->setInputParameter('expands');
+        $fields   = $this->setInputParameter('fields');
+        $limit    = $this->setInputParameter('limit');
+        $page     = $this->setInputParameter('page');
 
         $this->assertReturn([ProfilePhotoListingService::class, [
             'user'
@@ -69,15 +62,10 @@ class ProfilePhotoControllerTest extends _TestCase {
 
     public function testShow()
     {
-        $authUser = $this->factory(User::class)->make();
-        $expands  = $this->uniqueString();
-        $fields   = $this->uniqueString();
-        $id       = $this->uniqueString();
-
-        $this->setAuthUser($authUser);
-        $this->setInputParameter('expands', $expands);
-        $this->setInputParameter('fields', $fields);
-        $this->setRouteParameter('id', $id);
+        $authUser = $this->setAuthUser();
+        $expands  = $this->setInputParameter('expands');
+        $fields   = $this->setInputParameter('fields');
+        $id       = $this->setRouteParameter('profile_photo');
 
         $this->assertReturn([ProfilePhotoFindingService::class, [
             'auth_user'
@@ -102,11 +90,8 @@ class ProfilePhotoControllerTest extends _TestCase {
 
     public function testStore()
     {
-        $authUser = $this->factory(User::class)->make();
-        $data     = $this->uniqueString();
-
-        $this->setAuthUser($authUser);
-        $this->setInputParameter('data', $data);
+        $authUser = $this->setAuthUser();
+        $data     = $this->setInputParameter('data');
 
         $this->assertReturn([ProfilePhotoCreatingService::class, [
             'auth_user'

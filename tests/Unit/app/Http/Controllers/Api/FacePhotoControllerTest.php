@@ -12,15 +12,10 @@ class FacePhotoControllerTest extends _TestCase {
 
     public function testShow()
     {
-        $authUser = $this->factory(User::class)->make();
-        $expands  = $this->uniqueString();
-        $fields   = $this->uniqueString();
-        $id       = $this->uniqueString();
-
-        $this->setAuthUser($authUser);
-        $this->setInputParameter('expands', $expands);
-        $this->setInputParameter('fields', $fields);
-        $this->setRouteParameter('id', $id);
+        $authUser = $this->setAuthUser();
+        $expands  = $this->setInputParameter('expands');
+        $fields   = $this->setInputParameter('fields');
+        $id       = $this->setRouteParameter('face_photo');
 
         $this->assertReturn([FacePhotoFindingService::class, [
             'auth_user'
@@ -45,11 +40,8 @@ class FacePhotoControllerTest extends _TestCase {
 
     public function testStore()
     {
-        $authUser = $this->factory(User::class)->make();
-        $data     = $this->uniqueString();
-
-        $this->setAuthUser($authUser);
-        $this->setInputParameter('data', $data);
+        $authUser = $this->setAuthUser();
+        $data     = $this->setInputParameter('data');
 
         $this->assertReturn([FacePhotoCreatingService::class, [
             'auth_user'

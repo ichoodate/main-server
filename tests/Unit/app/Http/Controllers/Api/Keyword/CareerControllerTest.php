@@ -10,13 +10,9 @@ class CareerControllerTest extends _TestCase {
 
     public function testIndex()
     {
-        $expands  = $this->uniqueString();
-        $fields   = $this->uniqueString();
-        $parentId = $this->uniqueString();
-
-        $this->setInputParameter('expands', $expands);
-        $this->setInputParameter('fields', $fields);
-        $this->setInputParameter('parent_id', $parentId);
+        $expands  = $this->setInputParameter('expands');
+        $fields   = $this->setInputParameter('fields');
+        $parentId = $this->setInputParameter('parent_id');
 
         $this->assertReturn([CareerListingService::class, [
             'expands'
@@ -45,13 +41,9 @@ class CareerControllerTest extends _TestCase {
 
     public function testShow()
     {
-        $expands = $this->uniqueString();
-        $fields  = $this->uniqueString();
-        $id      = $this->uniqueString();
-
-        $this->setInputParameter('expands', $expands);
-        $this->setInputParameter('fields', $fields);
-        $this->setRouteParameter('id', $id);
+        $expands = $this->setInputParameter('expands');
+        $fields  = $this->setInputParameter('fields');
+        $id      = $this->setRouteParameter('id');
 
         $this->assertReturn([CareerFindingService::class, [
             'expands'

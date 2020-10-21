@@ -11,27 +11,16 @@ class CardGroupControllerTest extends _TestCase {
 
     public function testIndex()
     {
-        $authUser = $this->factory(User::class)->make();
-        $after    = $this->uniqueString();
-        $cursorId = $this->uniqueString();
-        $limit    = $this->uniqueString();
-        $page     = $this->uniqueString();
-        $expands  = $this->uniqueString();
-        $fields   = $this->uniqueString();
-        $groupBy  = $this->uniqueString();
-        $orderBy  = $this->uniqueString();
-        $timezone = $this->uniqueString();
-
-        $this->setAuthUser($authUser);
-        $this->setInputParameter('after', $after);
-        $this->setInputParameter('cursor_id', $cursorId);
-        $this->setInputParameter('limit', $limit);
-        $this->setInputParameter('page', $page);
-        $this->setInputParameter('expands', $expands);
-        $this->setInputParameter('fields', $fields);
-        $this->setInputParameter('group_by', $groupBy);
-        $this->setInputParameter('order_by', $orderBy);
-        $this->setInputParameter('timezone', $timezone);
+        $authUser = $this->setAuthUser();
+        $after    = $this->setInputParameter('after');
+        $cursorId = $this->setInputParameter('cursor_id');
+        $limit    = $this->setInputParameter('limit');
+        $page     = $this->setInputParameter('page');
+        $expands  = $this->setInputParameter('expands');
+        $fields   = $this->setInputParameter('fields');
+        $groupBy  = $this->setInputParameter('group_by');
+        $orderBy  = $this->setInputParameter('order_by');
+        $timezone = $this->setInputParameter('timezone');
 
         $this->assertReturn([CardGroupListingService::class, [
             'after'
@@ -80,15 +69,10 @@ class CardGroupControllerTest extends _TestCase {
 
     public function testShow()
     {
-        $authUser = $this->factory(User::class)->make();
-        $expands  = $this->uniqueString();
-        $fields   = $this->uniqueString();
-        $id       = $this->uniqueString();
-
-        $this->setAuthUser($authUser);
-        $this->setInputParameter('expands', $expands);
-        $this->setInputParameter('fields', $fields);
-        $this->setRouteParameter('card-group', $id);
+        $authUser = $this->setAuthUser();
+        $expands  = $this->setInputParameter('expands');
+        $fields   = $this->setInputParameter('fields');
+        $id       = $this->setRouteParameter('card_group');
 
         $this->assertReturn([CardGroupFindingService::class, [
             'auth_user'

@@ -9,11 +9,8 @@ class AuthSignInControllerTest extends _TestCase {
 
     public function testStore()
     {
-        $email    = $this->uniqueString();
-        $password = $this->uniqueString();
-
-        $this->setInputParameter('email', $email);
-        $this->setInputParameter('password', $password);
+        $email    = $this->setInputParameter('email');
+        $password = $this->setInputParameter('password');
 
         $this->assertReturn([AuthSignInService::class, [
             'email'

@@ -11,21 +11,13 @@ class TicketReplyControllerTest extends _TestCase {
 
     public function testIndex()
     {
-        $authUser = $this->factory(User::class)->make();
-        $ticketId = $this->uniqueString();
-        $cursorId = $this->uniqueString();
-        $expands  = $this->uniqueString();
-        $fields   = $this->uniqueString();
-        $limit    = $this->uniqueString();
-        $page     = $this->uniqueString();
-
-        $this->setAuthUser($authUser);
-        $this->setRouteParameter('ticket', $ticketId);
-        $this->setInputParameter('cursorId', $cursorId);
-        $this->setInputParameter('expands', $expands);
-        $this->setInputParameter('fields', $fields);
-        $this->setInputParameter('limit', $limit);
-        $this->setInputParameter('page', $page);
+        $authUser = $this->setAuthUser();
+        $ticketId = $this->setRouteParameter('ticket');
+        $cursorId = $this->setInputParameter('cursor_id');
+        $expands  = $this->setInputParameter('expands');
+        $fields   = $this->setInputParameter('fields');
+        $limit    = $this->setInputParameter('limit');
+        $page     = $this->setInputParameter('page');
 
         $this->assertReturn([TicketReplyListingService::class, [
             'auth_user'
@@ -70,13 +62,9 @@ class TicketReplyControllerTest extends _TestCase {
 
     public function testStore()
     {
-        $authUser    = $this->factory(User::class)->make();
-        $description = $this->uniqueString();
-        $ticketId    = $this->uniqueString();
-
-        $this->setAuthUser($authUser);
-        $this->setInputParameter('description', $expands);
-        $this->setRouteParameter('ticket', $ticketId);
+        $authUser    = $this->setAuthUser();
+        $description = $this->setInputParameter('description');
+        $ticketId    = $this->setRouteParameter('ticket');
 
         $this->assertReturn([TicketReplyCreatingService::class, [
             'auth_user'
