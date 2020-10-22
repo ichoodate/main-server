@@ -29,7 +29,7 @@ class TicketControllerTest extends _TestCase {
         $this->setInputParameter('group_by', $groupBy);
         $this->setInputParameter('order_by', $orderBy);
 
-        $this->assertReturn([SubscriptionPagingService::class, [
+        $this->assertReturn([TicketPagingService::class, [
             'auth_user'
                 => $authUser,
             'cursor_id'
@@ -78,7 +78,7 @@ class TicketControllerTest extends _TestCase {
         $this->setInputParameter('fields', $fields);
         $this->setRouteParameter('id', $id);
 
-        $this->assertReturn([RoleFindingService::class, [
+        $this->assertReturn([TicketFindingService::class, [
             'auth_user'
                 => $authUser,
             'expands'
