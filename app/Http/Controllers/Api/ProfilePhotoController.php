@@ -12,8 +12,8 @@ class ProfilePhotoController extends ApiController {
     public static function index()
     {
         return [ProfilePhotoPagingService::class, [
-            'auth_user'
-                => auth()->user(),
+            'user_id'
+                => auth()->user() ? auth()->user()->getKey() : new \stdClass,
             'cursor_id'
                 => static::input('cursor_id'),
             'limit'
@@ -29,8 +29,8 @@ class ProfilePhotoController extends ApiController {
             'order_by'
                 => new \stdClass
         ], [
-            'auth_user'
-                => 'authorized user',
+            'user_id'
+                => 'id of authorized user',
             'cursor_id'
                 => '[cursor_id]',
             'limit'
