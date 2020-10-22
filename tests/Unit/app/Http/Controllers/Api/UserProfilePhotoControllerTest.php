@@ -19,17 +19,16 @@ class UserProfilePhotoControllerTest extends _TestCase {
         $fields   = $this->uniqueString();
         $id       = 1234;
 
-        $this->setAuthUser(User::find(1234));
         $this->setInputParameter('cursor_id', $cursorId);
         $this->setInputParameter('limit', $limit);
         $this->setInputParameter('page', $page);
         $this->setInputParameter('expands', $expands);
         $this->setInputParameter('fields', $fields);
-        $this->setRouteParameter('id', $id);
+        $this->setRouteParameter('user', $id);
 
         $this->assertReturn([ProfilePhotoPagingService::class, [
             'auth_user'
-                => User::find(1234),
+                => User::find($id),
             'cursor_id'
                 => $cursorId,
             'limit'
@@ -46,7 +45,7 @@ class UserProfilePhotoControllerTest extends _TestCase {
                 => new \stdClass
         ], [
             'auth_user'
-                => 'user for 1234',
+                => 'user for '.$id,
             'cursor_id'
                 => '[cursor_id]',
             'limit'
