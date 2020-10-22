@@ -8,6 +8,7 @@ use App\Services\Popularity\PopularityPagingService;
 
 class PopularityControllerTest extends _TestCase {
 
+    public function testIndex()
     {
         $authUser = $this->factory(User::class)->make();
         $cursorId = $this->uniqueString();
@@ -72,7 +73,7 @@ class PopularityControllerTest extends _TestCase {
         $this->setInputParameter('fields', $fields);
         $this->setRouteParameter('id', $id);
 
-        $this->assertReturn([NotificationFindingService::class, [
+        $this->assertReturn([PopularityFindingService::class, [
             'auth_user'
                 => $authUser,
             'expands'

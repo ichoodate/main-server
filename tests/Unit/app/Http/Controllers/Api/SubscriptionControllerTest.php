@@ -77,7 +77,7 @@ class SubscriptionControllerTest extends _TestCase {
         $this->setInputParameter('fields', $fields);
         $this->setRouteParameter('id', $id);
 
-        $this->assertReturn([RoleFindingService::class, [
+        $this->assertReturn([SubscriptionFindingService::class, [
             'auth_user'
                 => $authUser,
             'expands'
