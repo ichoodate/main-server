@@ -356,6 +356,27 @@ class Service {
         return $matches[1];
     }
 
+    protected function getPromiseOrderedDependencyList($keys)
+    {
+        $arr  = [];
+        $rtn  = [];
+
+        foreach ( $keys as $key )
+        {
+            $deps = $this->getAllPromiseLists()->get($key, []);
+            $list = $this->getPromiseOrderedDependencyList($deps)
+            $list = array_merge($list, [$key]);
+            $arr  = array_merge($list, $arr)
+        }
+
+        foreach ( $arr as $value )
+        {
+            $rtn[$value] = null;
+        }
+
+        return array_keys($rtn);
+    }
+
     protected function resolve(array $arr = [])
     {
         $resolver = \Closure::bind(array_last($arr), $this);
@@ -534,11 +555,24 @@ class Service {
 
             $this->validated->put($key, true);
 
-            $callbackList = $this->getAllCallbackLists()->get($key, []);
+            $promisedKeys = $this->getAllPromiseLists()->keys()->filter(function ($value) use ($key) {
 
-            foreach ( $callbackList as $callback )
+                return preg_match('/$'.$key.'\\./', $value);
+            });
+            $callbackKeys = $this->getAllCallbackLists()->get($key, [])->keys()->map(function ($value) use ($key) {
+
+                return $key.'.'.$value;
+            });
+            $orderedKeys  = $this->getPromiseOrderedDependencyList($promisedKeys);
+            $restKeys     = array_diff($callbackKeys, $orderedKeys)
+            $callbackKeys = array_merge($orderedKeys, $restKeys);
+
+            foreach ( $callbackKeys as $callbackKey )
             {
-                $deps = array_slice($callback, 0, -1);
+                $key1      = explode('.', $callbackKey)[0];
+                $key2      = explode('.', $callbackKey)[1];
+                $callback  = $this->getAllCallbackLists()->get($key1)[$key2];
+                $deps      = array_slice($callback, 0, -1);
 
                 foreach ( $deps as $dep )
                 {
