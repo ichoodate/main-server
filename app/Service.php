@@ -495,17 +495,14 @@ class Service {
         {
             $rules      = explode(':', $promise);
             $promiseKey = array_shift($rules);
+            $isStrict   = array_shift($segs) == 'strict';
+            $validated  = $this->validate($promiseKey);
 
-            $this->validate($promiseKey);
-
-            foreach ( $rules as $rule )
+            if ( !$validated && $isStrict )
             {
-                if ( isset($this->errors->all()[$promiseKey][$rule]) )
-                {
-                    $this->validated->put($promiseKey, false);
+                $this->validated->put($key, false);
 
-                    return false;
-                }
+                return false;
             }
         }
 
