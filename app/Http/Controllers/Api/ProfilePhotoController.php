@@ -13,7 +13,7 @@ class ProfilePhotoController extends ApiController {
     {
         return [ProfilePhotoPagingService::class, [
             'user_id'
-                => auth()->user() ? auth()->user()->getKey() : new \stdClass,
+                => auth()->user() ? auth()->user()->getKey() : '',
             'cursor_id'
                 => static::input('cursor_id'),
             'limit'
