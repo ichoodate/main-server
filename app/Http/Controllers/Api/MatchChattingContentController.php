@@ -37,6 +37,10 @@ class MatchChattingContentController extends ApiController {
                 => request()->route()->match,
             'cursor_id'
                 => '[cursor_id]',
+            'expands'
+                => '[expands]',
+            'fields'
+                => '[fields]',
             'limit'
                 => '[limit]',
             'page'
