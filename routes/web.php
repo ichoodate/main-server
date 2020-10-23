@@ -70,6 +70,11 @@ Route::prefix('api')->group(function () {
         )->only(['store', 'show']);
 
         Route::resource(
+            'friends',
+            'Api\FriendController'
+        )->only(['store']);
+
+        Route::resource(
             'keyword/age-ranges',
             'Api\Keyword\AgeRangeController'
         )->only(['show']);
