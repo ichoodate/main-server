@@ -86,14 +86,15 @@ class Service {
 
         foreach ( static::getArrCallbackLists() as $key => $resolver )
         {
-            $key = explode('.', $key)[0];
+            $key1 = explode('.', $key)[0];
+            $key2 = explode('.', $key)[1];
 
             if ( ! array_key_exists($key, $arr) )
             {
-                $arr[$key] = [];
+                $arr[$key1] = [];
             }
 
-            $arr[$key][] = $resolver;
+            $arr[$key1][$key2] = $resolver;
         }
 
         return inst(Collection::class, [$arr]);
