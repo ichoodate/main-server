@@ -10,13 +10,13 @@ use App\Services\RandommingService;
 use App\Services\Obj\KeywordObjListingService;
 use Illuminate\Support\Facades\DB;
 
-class MatchingUserRandommingService extends Service {
+class MatchingUserListingService extends Service {
 
     public static function getArrBindNames()
     {
         return [
             'keywords.*'
-                => 'keyword for {{keyword_ids}}.*'
+                => 'keywords.* for {{keyword_ids}}'
         ];
     }
 

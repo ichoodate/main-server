@@ -13,7 +13,7 @@ use Tests\Unit\App\Database\Collections\_Mocker as CollectionMocker;
 use Tests\Unit\App\Database\Models\_Mocker as ModelMocker;
 use Tests\Unit\App\Database\Queries\_Mocker as QueryMocker;
 
-class MatchingUserRandommingServiceTest extends _TestCase {
+class MatchingUserListingServiceTest extends _TestCase {
 
     public function testArrBindNames()
     {

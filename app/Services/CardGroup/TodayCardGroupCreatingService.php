@@ -9,7 +9,7 @@ use App\Database\Models\Match;
 use App\Database\Models\User;
 use App\Service;
 use App\Services\CardGroup\CardGroupCreatingService;
-use App\Services\User\MatchingUserRandommingService;
+use App\Services\User\MatchingUserListingService;
 
 class TodayCardGroupCreatingService extends Service {
 
@@ -70,7 +70,7 @@ class TodayCardGroupCreatingService extends Service {
 
             'users' => ['auth_user', 'user_ideal_type_kwd_pvt_keyword_ids', function ($authUser, $userIdealTypeKwdPvtKeywordIds) {
 
-                return [MatchingUserRandommingService::class, [
+                return [MatchingUserListingService::class, [
                     'auth_user'
                         => $authUser,
                     'keyword_ids'

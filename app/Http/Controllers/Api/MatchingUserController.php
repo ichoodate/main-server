@@ -4,13 +4,13 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\ApiController;
 use App\Services\User\MatchingUserFindingService;
-use App\Services\User\MatchingUserRandommingService;
+use App\Services\User\MatchingUserListingService;
 
 class MatchingUserController extends ApiController {
 
     public static function index()
     {
-        return [MatchingUserRandommingService::class, [
+        return [MatchingUserListingService::class, [
             'auth_user'
                 => auth()->user(),
             'expands'

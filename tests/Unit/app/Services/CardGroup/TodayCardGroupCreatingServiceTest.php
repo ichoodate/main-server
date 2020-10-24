@@ -8,7 +8,7 @@ use App\Database\Models\UserIdealTypeKwdPvt;
 use App\Database\Models\Match;
 use App\Database\Models\User;
 use App\Services\CardGroup\CardGroupCreatingService;
-use App\Services\User\MatchingUserRandommingService;
+use App\Services\User\MatchingUserListingService;
 use Tests\_InstanceMocker as InstanceMocker;
 use Tests\Unit\App\Database\Models\_Mocker as ModelMocker;
 use Tests\Unit\App\Database\Queries\_Mocker as QueryMocker;
@@ -135,7 +135,7 @@ class TodayCardGroupCreatingServiceTest extends _TestCase {
             $keywordIds = [$this->uniqueString(), $this->uniqueString()];
             $localDate  = $this->uniqueString();
             $timezone   = $this->uniqueString();
-            $return     = [MatchingUserRandommingService::class, [
+            $return     = [MatchingUserListingService::class, [
                 'keyword_ids'
                     => $keywordIds[0] . ',' . $keywordIds[1],
                 'limit'
