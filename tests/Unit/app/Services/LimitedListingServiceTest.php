@@ -9,7 +9,7 @@ use Tests\Unit\App\Database\Models\_Mocker as ModelMocker;
 use Tests\Unit\App\Database\Queries\_Mocker as QueryMocker;
 use Tests\Unit\App\Services\_TestCase;
 
-class PagingServiceTest extends _TestCase {
+class LimitedListingServiceTest extends _TestCase {
 
     public function testArrBindNames()
     {
@@ -26,13 +26,7 @@ class PagingServiceTest extends _TestCase {
                 => ['integer'],
 
             'limit'
-                => ['integer', 'max:100'],
-
-            'order_by'
-                => ['string', 'several_in_array:{{available_order_by}}'],
-
-            'page'
-                => ['integer']
+                => ['required', 'integer', 'max:120']
         ]);
     }
 
