@@ -8,7 +8,7 @@ use Tests\Unit\App\Http\Controllers\Api\_TestCase;
 
 class ReligionControllerTest extends _TestCase {
 
-    public function testUpdate()
+    public function testStore()
     {
         $authUser  = $this->setAuthUser();
         $keywordId = $this->setInputParameter('keyword_id');
