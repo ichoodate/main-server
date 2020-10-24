@@ -1,16 +1,15 @@
 <?php
 
-namespace Tests\Unit\App\Services\CardGroup;
+namespace Tests\Unit\App\Services\Subscription;
 
-use App\Database\Models\Card;
-use App\Database\Models\CardGroup;
+use App\Database\Models\Subscription;
 use App\Database\Models\User;
-use App\Services\PagingService;
-use App\Services\CardGroup\CardGroupFindingService;
+use App\Services\ListingService;
+use App\Services\Subscription\SubscriptionFindingService;
 use Tests\Unit\App\Database\Queries\_Mocker as QueryMocker;
 use Tests\Unit\App\Services\_TestCase;
 
-class CardGroupPagingServiceTest extends _TestCase {
+class SubscriptionListingServiceTest extends _TestCase {
 
     public function testArrBindNames()
     {
@@ -28,7 +27,7 @@ class CardGroupPagingServiceTest extends _TestCase {
     public function testArrTraits()
     {
         $this->verifyArrTraits([
-            PagingService::class
+            ListingService::class
         ]);
     }
 
@@ -36,10 +35,10 @@ class CardGroupPagingServiceTest extends _TestCase {
     {
         $this->when(function ($proxy, $serv) {
 
-            $query    = $this->mMock();
-            $authUser = $this->factory(User::class)->make();
+            $query       = $this->mMock();
+            $authUser    = $this->factory(User::class)->make();
 
-            QueryMocker::qWhere($query, CardGroup::USER_ID, $authUser->getKey());
+            QueryMocker::qWhere($query, Subscription::USER_ID, $authUser->getKey());
 
             $proxy->data->put('query', $query);
             $proxy->data->put('auth_user', $authUser);
@@ -54,7 +53,7 @@ class CardGroupPagingServiceTest extends _TestCase {
 
             $authUser = $this->uniqueString();
             $id       = $this->uniqueString();
-            $return   = [CardGroupFindingService::class, [
+            $return   = [SubscriptionFindingService::class, [
                 'auth_user'
                     => $authUser,
                 'id'
@@ -77,7 +76,7 @@ class CardGroupPagingServiceTest extends _TestCase {
     {
         $this->when(function ($proxy, $serv) {
 
-            $this->verifyLoader($serv, 'model_class', CardGroup::class);
+            $this->verifyLoader($serv, 'model_class', Subscription::class);
         });
     }
 

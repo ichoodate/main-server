@@ -4,7 +4,7 @@ namespace Tests\Unit\App\Http\Controllers\Api;
 
 use App\Database\Models\User;
 use App\Services\CardGroup\CardGroupFindingService;
-use App\Services\CardGroup\CardGroupPagingService;
+use App\Services\CardGroup\CardGroupListingService;
 use App\Services\CardGroup\TodayCardGroupCreatingService;
 
 class CardGroupControllerTest extends _TestCase {
@@ -33,7 +33,7 @@ class CardGroupControllerTest extends _TestCase {
         $this->setInputParameter('order_by', $orderBy);
         $this->setInputParameter('timezone', $timezone);
 
-        $this->assertReturn([CardGroupPagingService::class, [
+        $this->assertReturn([CardGroupListingService::class, [
             'after'
                 => $after,
             'auth_user'

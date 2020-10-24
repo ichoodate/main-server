@@ -4,11 +4,11 @@ namespace App\Services\ProfilePhoto;
 
 use App\Database\Models\ProfilePhoto;
 use App\Service;
-use App\Services\PagingService;
+use App\Services\LimitedListingService;
 use App\Services\ProfilePhoto\ProfilePhotoFindingService;
 use App\Services\User\UserFindingService;
 
-class ProfilePhotoPagingService extends Service {
+class ProfilePhotoListingService extends Service {
 
     public static function getArrBindNames()
     {
@@ -73,7 +73,7 @@ class ProfilePhotoPagingService extends Service {
     public static function getArrTraits()
     {
         return [
-            PagingService::class
+            LimitedListingService::class
         ];
     }
 

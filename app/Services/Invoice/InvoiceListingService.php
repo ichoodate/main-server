@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Services\Payment;
+namespace App\Services\Invoice;
 
-use App\Database\Models\Payment;
+use App\Database\Models\Invoice;
 use App\Service;
-use App\Services\PagingService;
-use App\Services\Payment\PaymentFindingService;
+use App\Services\LimitedListingService;
+use App\Services\Invoice\InvoiceFindingService;
 
-class PaymentPagingService extends Service {
+class InvoiceListingService extends Service {
 
     public static function getArrBindNames()
     {
@@ -19,7 +19,7 @@ class PaymentPagingService extends Service {
         return [
             'query.auth_user' => ['query', 'auth_user', function ($query, $authUser) {
 
-                $query->qWhere(Payment::USER_ID, $authUser->getKey());
+                $query->qWhere(Invoice::USER_ID, $authUser->getKey());
             }]
         ];
     }
@@ -29,7 +29,7 @@ class PaymentPagingService extends Service {
         return [
             'cursor' => ['auth_user', 'cursor_id', function ($authUser, $cursorId) {
 
-                return [PaymentFindingService::class, [
+                return [InvoiceFindingService::class, [
                     'auth_user'
                         => $authUser,
                     'id'
@@ -44,7 +44,7 @@ class PaymentPagingService extends Service {
 
             'model_class' => [function () {
 
-                return Payment::class;
+                return Invoice::class;
             }]
         ];
     }
@@ -65,7 +65,7 @@ class PaymentPagingService extends Service {
     public static function getArrTraits()
     {
         return [
-            PagingService::class
+            LimitedListingService::class
         ];
     }
 

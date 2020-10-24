@@ -5,13 +5,13 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\ApiController;
 use App\Services\Ticket\TicketCreatingService;
 use App\Services\Ticket\TicketFindingService;
-use App\Services\Ticket\TicketPagingService;
+use App\Services\Ticket\TicketListingService;
 
 class TicketController extends ApiController {
 
     public static function index()
     {
-        return [TicketPagingService::class, [
+        return [TicketListingService::class, [
             'auth_user'
                 => auth()->user(),
             'cursor_id'

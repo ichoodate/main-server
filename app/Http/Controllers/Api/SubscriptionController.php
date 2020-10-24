@@ -4,13 +4,13 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\ApiController;
 use App\Services\Subscription\SubscriptionFindingService;
-use App\Services\Subscription\SubscriptionPagingService;
+use App\Services\Subscription\SubscriptionListingService;
 
 class SubscriptionController extends ApiController {
 
     public static function index()
     {
-        return [SubscriptionPagingService::class, [
+        return [SubscriptionListingService::class, [
             'auth_user'
                 => auth()->user(),
             'cursor_id'

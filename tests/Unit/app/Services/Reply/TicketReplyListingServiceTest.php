@@ -5,13 +5,13 @@ namespace Tests\Unit\App\Services\Reply;
 use App\Database\Models\Reply;
 use App\Database\Models\Ticket;
 use App\Database\Models\User;
-use App\Services\PagingService;
+use App\Services\ListingService;
 use App\Services\Reply\ReplyFindingService;
 use App\Services\Ticket\TicketFindingService;
 use Tests\Unit\App\Database\Queries\_Mocker as QueryMocker;
 use Tests\Unit\App\Services\_TestCase;
 
-class TicketReplyPagingServiceTest extends _TestCase {
+class TicketReplyListingServiceTest extends _TestCase {
 
     public function testArrBindNames()
     {
@@ -38,7 +38,7 @@ class TicketReplyPagingServiceTest extends _TestCase {
     public function testArrTraits()
     {
         $this->verifyArrTraits([
-            PagingService::class
+            ListingService::class
         ]);
     }
 

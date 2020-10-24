@@ -4,14 +4,14 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\ApiController;
 use App\Services\CardGroup\CardGroupFindingService;
-use App\Services\CardGroup\CardGroupPagingService;
+use App\Services\CardGroup\CardGroupListingService;
 use App\Services\CardGroup\TodayCardGroupCreatingService;
 
 class CardGroupController extends ApiController {
 
     public static function index()
     {
-        return [CardGroupPagingService::class, [
+        return [CardGroupListingService::class, [
             'after'
                 => static::input('after'),
             'auth_user'

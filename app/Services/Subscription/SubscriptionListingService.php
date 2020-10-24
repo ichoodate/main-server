@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Services\Invoice;
+namespace App\Services\Subscription;
 
-use App\Database\Models\Invoice;
+use App\Database\Models\Subscription;
+use App\Database\Models\User;
 use App\Service;
-use App\Services\PagingService;
-use App\Services\Invoice\InvoiceFindingService;
+use App\Services\LimitedListingService;
+use App\Services\Subscription\SubscriptionFindingService;
 
-class InvoicePagingService extends Service {
+class SubscriptionListingService extends Service {
 
     public static function getArrBindNames()
     {
@@ -19,17 +20,17 @@ class InvoicePagingService extends Service {
         return [
             'query.auth_user' => ['query', 'auth_user', function ($query, $authUser) {
 
-                $query->qWhere(Invoice::USER_ID, $authUser->getKey());
+                $query->qWhere(Subscription::USER_ID, $authUser->getKey());
             }]
         ];
     }
 
-     public static function getArrLoaders()
+    public static function getArrLoaders()
     {
         return [
             'cursor' => ['auth_user', 'cursor_id', function ($authUser, $cursorId) {
 
-                return [InvoiceFindingService::class, [
+                return [SubscriptionFindingService::class, [
                     'auth_user'
                         => $authUser,
                     'id'
@@ -44,7 +45,7 @@ class InvoicePagingService extends Service {
 
             'model_class' => [function () {
 
-                return Invoice::class;
+                return Subscription::class;
             }]
         ];
     }
@@ -65,7 +66,7 @@ class InvoicePagingService extends Service {
     public static function getArrTraits()
     {
         return [
-            PagingService::class
+            LimitedListingService::class
         ];
     }
 

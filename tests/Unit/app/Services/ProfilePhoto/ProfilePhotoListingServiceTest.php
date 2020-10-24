@@ -1,15 +1,15 @@
 <?php
 
-namespace Tests\Unit\App\Services\Payment;
+namespace Tests\Unit\App\Services\ProfilePhoto;
 
-use App\Database\Models\Payment;
+use App\Database\Models\ProfilePhoto;
 use App\Database\Models\User;
-use App\Services\PagingService;
-use App\Services\Payment\PaymentFindingService;
+use App\Services\ListingService;
+use App\Services\ProfilePhoto\ProfilePhotoFindingService;
 use Tests\Unit\App\Database\Queries\_Mocker as QueryMocker;
 use Tests\Unit\App\Services\_TestCase;
 
-class PaymentPagingServiceTest extends _TestCase {
+class ProfilePhotoListingServiceTest extends _TestCase {
 
     public function testArrBindNames()
     {
@@ -27,7 +27,7 @@ class PaymentPagingServiceTest extends _TestCase {
     public function testArrTraits()
     {
         $this->verifyArrTraits([
-            PagingService::class
+            ListingService::class
         ]);
     }
 
@@ -38,7 +38,7 @@ class PaymentPagingServiceTest extends _TestCase {
             $query       = $this->mMock();
             $authUser    = $this->factory(User::class)->make();
 
-            QueryMocker::qWhere($query, Payment::USER_ID, $authUser->getKey());
+            QueryMocker::qWhere($query, ProfilePhoto::USER_ID, $authUser->getKey());
 
             $proxy->data->put('query', $query);
             $proxy->data->put('auth_user', $authUser);
@@ -53,7 +53,7 @@ class PaymentPagingServiceTest extends _TestCase {
 
             $authUser = $this->uniqueString();
             $id       = $this->uniqueString();
-            $return   = [PaymentFindingService::class, [
+            $return   = [ProfilePhotoFindingService::class, [
                 'auth_user'
                     => $authUser,
                 'id'
@@ -76,7 +76,7 @@ class PaymentPagingServiceTest extends _TestCase {
     {
         $this->when(function ($proxy, $serv) {
 
-            $this->verifyLoader($serv, 'model_class', Payment::class);
+            $this->verifyLoader($serv, 'model_class', ProfilePhoto::class);
         });
     }
 

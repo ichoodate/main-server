@@ -4,13 +4,13 @@ namespace App\Http\Controllers\Api;
 
 use App\Database\Models\User;
 use App\Http\Controllers\ApiController;
-use App\Services\ProfilePhoto\ProfilePhotoPagingService;
+use App\Services\ProfilePhoto\ProfilePhotoListingService;
 
 class UserProfilePhotoController extends ApiController {
 
     public static function index()
     {
-        return [ProfilePhotoPagingService::class, [
+        return [ProfilePhotoListingService::class, [
             'user_id'
                 => request()->route()->user,
             'cursor_id'

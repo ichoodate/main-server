@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Services\Balance;
+namespace App\Services\Notification;
 
-use App\Database\Models\Balance;
+use App\Database\Models\Notification;
 use App\Service;
-use App\Services\PagingService;
-use App\Services\Balance\BalanceFindingService;
+use App\Services\LimitedListingService;
+use App\Services\Notification\NotificationFindingService;
 
-class BalancePagingService extends Service {
+class NotificationListingService extends Service {
 
     public static function getArrBindNames()
     {
@@ -19,7 +19,7 @@ class BalancePagingService extends Service {
         return [
             'query.auth_user' => ['query', 'auth_user', function ($query, $authUser) {
 
-                $query->qWhere(Balance::USER_ID, $authUser->getKey());
+                $query->qWhere(Notification::USER_ID, $authUser->getKey());
             }]
         ];
     }
@@ -29,7 +29,7 @@ class BalancePagingService extends Service {
         return [
             'cursor' => ['auth_user', 'cursor_id', function ($authUser, $cursorId) {
 
-                return [BalanceFindingService::class, [
+                return [NotificationFindingService::class, [
                     'auth_user'
                         => $authUser,
                     'id'
@@ -44,7 +44,7 @@ class BalancePagingService extends Service {
 
             'model_class' => [function () {
 
-                return Balance::class;
+                return Notification::class;
             }]
         ];
     }
@@ -65,7 +65,7 @@ class BalancePagingService extends Service {
     public static function getArrTraits()
     {
         return [
-            PagingService::class
+            LimitedListingService::class
         ];
     }
 

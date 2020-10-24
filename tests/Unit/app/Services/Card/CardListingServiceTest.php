@@ -9,13 +9,13 @@ use App\Database\Models\Match;
 use App\Database\Models\User;
 use App\Services\Card\CardFindingService;
 use App\Services\Match\MatchFindingService;
-use App\Services\PagingService;
+use App\Services\ListingService;
 use Tests\_InstanceMocker as InstanceMocker;
 use Tests\Unit\App\Database\Models\_Mocker as ModelMocker;
 use Tests\Unit\App\Database\Queries\_Mocker as QueryMocker;
 use Tests\Unit\App\Services\_TestCase;
 
-class CardPagingServiceTest extends _TestCase {
+class CardListingServiceTest extends _TestCase {
 
     public function testArrBindNames()
     {
@@ -45,7 +45,7 @@ class CardPagingServiceTest extends _TestCase {
     public function testArrTraits()
     {
         $this->verifyArrTraits([
-            PagingService::class
+            ListingService::class
         ]);
     }
 

@@ -5,7 +5,7 @@ namespace Tests\Unit\App\Http\Controllers\Api;
 use App\Database\Models\User;
 use App\Database\Models\Notification;
 use App\Services\Notification\NotificationFindingService;
-use App\Services\Notification\NotificationPagingService;
+use App\Services\Notification\NotificationListingService;
 use Tests\Unit\App\Http\Controllers\Api\_TestCase;
 
 class NotificationControllerTest extends _TestCase {
@@ -26,7 +26,7 @@ class NotificationControllerTest extends _TestCase {
         $this->setInputParameter('expands', $expands);
         $this->setInputParameter('fields', $fields);
 
-        $this->assertReturn([NotificationPagingService::class, [
+        $this->assertReturn([NotificationListingService::class, [
             'auth_user'
                 => $authUser,
             'cursor_id'

@@ -4,9 +4,9 @@ namespace App\Services\CardGroup;
 
 use App\Database\Models\CardGroup;
 use App\Service;
-use App\Services\PagingService;
+use App\Services\LimitedListingService;
 
-class CardGroupPagingService extends Service {
+class CardGroupListingService extends Service {
 
     public static function getArrBindNames()
     {
@@ -78,7 +78,7 @@ class CardGroupPagingService extends Service {
     public static function getArrTraits()
     {
         return [
-            PagingService::class
+            LimitedListingService::class
         ];
     }
 

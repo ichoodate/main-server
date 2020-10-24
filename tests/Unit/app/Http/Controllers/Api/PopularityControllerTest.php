@@ -4,7 +4,7 @@ namespace Tests\Unit\App\Http\Controllers\Api;
 
 use App\Database\Models\User;
 use App\Services\Popularity\PopularityFindingService;
-use App\Services\Popularity\PopularityPagingService;
+use App\Services\Popularity\PopularityListingService;
 
 class PopularityControllerTest extends _TestCase {
 
@@ -24,7 +24,7 @@ class PopularityControllerTest extends _TestCase {
         $this->setInputParameter('expands', $expands);
         $this->setInputParameter('fields', $fields);
 
-        $this->assertReturn([PopularityPagingService::class, [
+        $this->assertReturn([PopularityListingService::class, [
             'auth_user'
                 => $authUser,
             'cursor_id'

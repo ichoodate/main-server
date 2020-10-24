@@ -5,10 +5,10 @@ namespace App\Services\ChattingContent;
 use App\Database\Models\ChattingContent;
 use App\Database\Models\Match;
 use App\Service;
-use App\Services\PagingService;
+use App\Services\LimitedListingService;
 use App\Services\Match\MatchFindingService;
 
-class MatchChattingContentPagingService extends Service {
+class ChattingContentListingService extends Service {
 
     public static function getArrBindNames()
     {
@@ -84,7 +84,7 @@ class MatchChattingContentPagingService extends Service {
     public static function getArrTraits()
     {
         return [
-            PagingService::class
+            LimitedListingService::class
         ];
     }
 

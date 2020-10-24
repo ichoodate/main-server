@@ -5,7 +5,7 @@ namespace Tests\Unit\App\Http\Controllers\Api;
 use App\Database\Models\User;
 use App\Services\Ticket\TicketCreatingService;
 use App\Services\Ticket\TicketFindingService;
-use App\Services\Ticket\TicketPagingService;
+use App\Services\Ticket\TicketListingService;
 
 class TicketControllerTest extends _TestCase {
 
@@ -29,7 +29,7 @@ class TicketControllerTest extends _TestCase {
         $this->setInputParameter('group_by', $groupBy);
         $this->setInputParameter('order_by', $orderBy);
 
-        $this->assertReturn([TicketPagingService::class, [
+        $this->assertReturn([TicketListingService::class, [
             'auth_user'
                 => $authUser,
             'cursor_id'

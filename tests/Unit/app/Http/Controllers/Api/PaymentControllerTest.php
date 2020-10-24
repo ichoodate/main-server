@@ -5,7 +5,7 @@ namespace Tests\Unit\App\Http\Controllers\Api;
 use App\Database\Models\Payment;
 use App\Database\Models\User;
 use App\Services\Payment\PaymentFindingService;
-use App\Services\Payment\PaymentPagingService;
+use App\Services\Payment\PaymentListingService;
 
 class PaymentControllerTest extends _TestCase {
 
@@ -25,7 +25,7 @@ class PaymentControllerTest extends _TestCase {
         $this->setInputParameter('expands', $expands);
         $this->setInputParameter('fields', $fields);
 
-        $this->assertReturn([PaymentPagingService::class, [
+        $this->assertReturn([PaymentListingService::class, [
             'auth_user'
                 => $authUser,
             'cursor_id'

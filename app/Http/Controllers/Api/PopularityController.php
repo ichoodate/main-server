@@ -4,13 +4,13 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\ApiController;
 use App\Services\Popularity\PopularityFindingService;
-use App\Services\Popularity\PopularityPagingService;
+use App\Services\Popularity\PopularityListingService;
 
 class PopularityController extends ApiController {
 
     public static function index()
     {
-        return [PopularityPagingService::class, [
+        return [PopularityListingService::class, [
             'auth_user'
                 => auth()->user(),
             'cursor_id'

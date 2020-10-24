@@ -4,7 +4,7 @@ namespace Tests\Unit\App\Http\Controllers\Api;
 
 use App\Database\Models\User;
 use App\Services\Subscription\SubscriptionFindingService;
-use App\Services\Subscription\SubscriptionPagingService;
+use App\Services\Subscription\SubscriptionListingService;
 
 class SubscriptionControllerTest extends _TestCase {
 
@@ -28,7 +28,7 @@ class SubscriptionControllerTest extends _TestCase {
         $this->setInputParameter('group_by', $groupBy);
         $this->setInputParameter('order_by', $orderBy);
 
-        $this->assertReturn([SubscriptionPagingService::class, [
+        $this->assertReturn([SubscriptionListingService::class, [
             'auth_user'
                 => $authUser,
             'cursor_id'

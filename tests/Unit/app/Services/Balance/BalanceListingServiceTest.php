@@ -1,15 +1,15 @@
 <?php
 
-namespace Tests\Unit\App\Services\Subscription;
+namespace Tests\Unit\App\Services\Balance;
 
-use App\Database\Models\Subscription;
+use App\Database\Models\Balance;
 use App\Database\Models\User;
-use App\Services\PagingService;
-use App\Services\Subscription\SubscriptionFindingService;
+use App\Services\ListingService;
+use App\Services\Balance\BalanceFindingService;
 use Tests\Unit\App\Database\Queries\_Mocker as QueryMocker;
 use Tests\Unit\App\Services\_TestCase;
 
-class SubscriptionPagingServiceTest extends _TestCase {
+class BalanceListingServiceTest extends _TestCase {
 
     public function testArrBindNames()
     {
@@ -27,7 +27,7 @@ class SubscriptionPagingServiceTest extends _TestCase {
     public function testArrTraits()
     {
         $this->verifyArrTraits([
-            PagingService::class
+            ListingService::class
         ]);
     }
 
@@ -38,7 +38,7 @@ class SubscriptionPagingServiceTest extends _TestCase {
             $query       = $this->mMock();
             $authUser    = $this->factory(User::class)->make();
 
-            QueryMocker::qWhere($query, Subscription::USER_ID, $authUser->getKey());
+            QueryMocker::qWhere($query, Balance::USER_ID, $authUser->getKey());
 
             $proxy->data->put('query', $query);
             $proxy->data->put('auth_user', $authUser);
@@ -53,7 +53,7 @@ class SubscriptionPagingServiceTest extends _TestCase {
 
             $authUser = $this->uniqueString();
             $id       = $this->uniqueString();
-            $return   = [SubscriptionFindingService::class, [
+            $return   = [BalanceFindingService::class, [
                 'auth_user'
                     => $authUser,
                 'id'
@@ -76,7 +76,7 @@ class SubscriptionPagingServiceTest extends _TestCase {
     {
         $this->when(function ($proxy, $serv) {
 
-            $this->verifyLoader($serv, 'model_class', Subscription::class);
+            $this->verifyLoader($serv, 'model_class', Balance::class);
         });
     }
 

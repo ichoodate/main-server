@@ -5,13 +5,13 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\ApiController;
 use App\Services\ProfilePhoto\ProfilePhotoCreatingService;
 use App\Services\ProfilePhoto\ProfilePhotoFindingService;
-use App\Services\ProfilePhoto\ProfilePhotoPagingService;
+use App\Services\ProfilePhoto\ProfilePhotoListingService;
 
 class ProfilePhotoController extends ApiController {
 
     public static function index()
     {
-        return [ProfilePhotoPagingService::class, [
+        return [ProfilePhotoListingService::class, [
             'user'
                 => auth()->user() ? auth()->user() : '',
             'user_id'

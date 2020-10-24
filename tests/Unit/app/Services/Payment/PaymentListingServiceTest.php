@@ -1,15 +1,15 @@
 <?php
 
-namespace Tests\Unit\App\Services\Balance;
+namespace Tests\Unit\App\Services\Payment;
 
-use App\Database\Models\Balance;
+use App\Database\Models\Payment;
 use App\Database\Models\User;
-use App\Services\PagingService;
-use App\Services\Balance\BalanceFindingService;
+use App\Services\ListingService;
+use App\Services\Payment\PaymentFindingService;
 use Tests\Unit\App\Database\Queries\_Mocker as QueryMocker;
 use Tests\Unit\App\Services\_TestCase;
 
-class BalancePagingServiceTest extends _TestCase {
+class PaymentListingServiceTest extends _TestCase {
 
     public function testArrBindNames()
     {
@@ -27,7 +27,7 @@ class BalancePagingServiceTest extends _TestCase {
     public function testArrTraits()
     {
         $this->verifyArrTraits([
-            PagingService::class
+            ListingService::class
         ]);
     }
 
@@ -38,7 +38,7 @@ class BalancePagingServiceTest extends _TestCase {
             $query       = $this->mMock();
             $authUser    = $this->factory(User::class)->make();
 
-            QueryMocker::qWhere($query, Balance::USER_ID, $authUser->getKey());
+            QueryMocker::qWhere($query, Payment::USER_ID, $authUser->getKey());
 
             $proxy->data->put('query', $query);
             $proxy->data->put('auth_user', $authUser);
@@ -53,7 +53,7 @@ class BalancePagingServiceTest extends _TestCase {
 
             $authUser = $this->uniqueString();
             $id       = $this->uniqueString();
-            $return   = [BalanceFindingService::class, [
+            $return   = [PaymentFindingService::class, [
                 'auth_user'
                     => $authUser,
                 'id'
@@ -76,7 +76,7 @@ class BalancePagingServiceTest extends _TestCase {
     {
         $this->when(function ($proxy, $serv) {
 
-            $this->verifyLoader($serv, 'model_class', Balance::class);
+            $this->verifyLoader($serv, 'model_class', Payment::class);
         });
     }
 

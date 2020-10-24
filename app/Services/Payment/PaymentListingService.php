@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Services\Popularity;
+namespace App\Services\Payment;
 
-use App\Database\Models\Popularity;
+use App\Database\Models\Payment;
 use App\Service;
-use App\Services\PagingService;
-use App\Services\Popularity\PopularityFindingService;
+use App\Services\LimitedListingService;
+use App\Services\Payment\PaymentFindingService;
 
-class PopularityPagingService extends Service {
+class PaymentListingService extends Service {
 
     public static function getArrBindNames()
     {
@@ -19,7 +19,7 @@ class PopularityPagingService extends Service {
         return [
             'query.auth_user' => ['query', 'auth_user', function ($query, $authUser) {
 
-                $query->qWhere(Popularity::RECEIVER_ID, $authUser->getKey());
+                $query->qWhere(Payment::USER_ID, $authUser->getKey());
             }]
         ];
     }
@@ -29,7 +29,7 @@ class PopularityPagingService extends Service {
         return [
             'cursor' => ['auth_user', 'cursor_id', function ($authUser, $cursorId) {
 
-                return [PopularityFindingService::class, [
+                return [PaymentFindingService::class, [
                     'auth_user'
                         => $authUser,
                     'id'
@@ -44,7 +44,7 @@ class PopularityPagingService extends Service {
 
             'model_class' => [function () {
 
-                return Popularity::class;
+                return Payment::class;
             }]
         ];
     }
@@ -65,7 +65,7 @@ class PopularityPagingService extends Service {
     public static function getArrTraits()
     {
         return [
-            PagingService::class
+            LimitedListingService::class
         ];
     }
 

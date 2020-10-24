@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Services\Notice;
+namespace App\Services\Ticket;
 
-use App\Database\Models\Notice;
+use App\Database\Models\Ticket;
 use App\Service;
-use App\Services\PagingService;
+use App\Services\LimitedListingService;
+use App\Services\Ticket\TicketFindingService;
 
-class NoticePagingService extends Service {
+class TicketListingService extends Service {
 
     public static function getArrBindNames()
     {
@@ -16,21 +17,26 @@ class NoticePagingService extends Service {
     public static function getArrCallbackLists()
     {
         return [
-            'query.type' => ['query', 'type', function ($query, $type) {
+            'query.auth_user' => ['query', 'auth_user', function ($query, $authUser) {
 
-                $query->qWhere(Notice::TYPE, $type);
+                $query->qWhere(Ticket::WRITER_ID, $authUser->getKey());
             }]
         ];
     }
+
     public static function getArrLoaders()
     {
         return [
-            'cursor' => ['cursor_id', function ($cursorId) {
+            'cursor' => ['auth_user', 'cursor_id', function ($authUser, $cursorId) {
 
-                return [NoticeFindingService::class, [
+                return [TicketFindingService::class, [
+                    'auth_user'
+                        => $authUser,
                     'id'
                         => $cursorId
                 ], [
+                    'auth_user'
+                        => '{{auth_user}}',
                     'id'
                         => '{{cursor_id}}'
                 ]];
@@ -38,7 +44,7 @@ class NoticePagingService extends Service {
 
             'model_class' => [function () {
 
-                return Notice::class;
+                return Ticket::class;
             }]
         ];
     }
@@ -51,15 +57,15 @@ class NoticePagingService extends Service {
     public static function getArrRuleLists()
     {
         return [
-            'type'
-                => ['in:' . implode(',', Notice::TYPE_VALUES)]
+            'auth_user'
+                => ['required']
         ];
     }
 
     public static function getArrTraits()
     {
         return [
-            PagingService::class
+            LimitedListingService::class
         ];
     }
 

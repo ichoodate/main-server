@@ -3,7 +3,7 @@
 namespace Tests\Unit\App\Http\Controllers\Api;
 
 use App\Database\Models\User;
-use App\Services\ProfilePhoto\ProfilePhotoPagingService;
+use App\Services\ProfilePhoto\ProfilePhotoListingService;
 
 class UserProfilePhotoControllerTest extends _TestCase {
 
@@ -27,7 +27,7 @@ class UserProfilePhotoControllerTest extends _TestCase {
         $this->setInputParameter('group_by', $groupBy);
         $this->setInputParameter('order_by', $orderBy);
 
-        $this->assertReturn([ProfilePhotoPagingService::class, [
+        $this->assertReturn([ProfilePhotoListingService::class, [
             'user_id'
                 => $userId,
             'cursor_id'

@@ -4,7 +4,7 @@ namespace Tests\Unit\App\Http\Controllers\Api;
 
 use App\Database\Models\User;
 use App\Services\Balance\BalanceFindingService;
-use App\Services\Balance\BalancePagingService;
+use App\Services\Balance\BalanceListingService;
 
 class BalanceControllerTest extends _TestCase {
 
@@ -28,7 +28,7 @@ class BalanceControllerTest extends _TestCase {
         $this->setInputParameter('group_by', $groupBy);
         $this->setInputParameter('order_by', $orderBy);
 
-        $this->assertReturn([BalancePagingService::class, [
+        $this->assertReturn([BalanceListingService::class, [
             'auth_user'
                 => $authUser,
             'cursor_id'

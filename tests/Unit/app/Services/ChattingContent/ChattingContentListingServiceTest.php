@@ -4,13 +4,13 @@ namespace Tests\Unit\App\Services\ChattingContent;
 
 use App\Database\Models\Match;
 use App\Database\Models\ChattingContent;
-use App\Services\PagingService;
+use App\Services\ListingService;
 use App\Services\ChattingContent\ChattingContentFindingService;
 use App\Services\Match\MatchFindingService;
 use Tests\Unit\App\Database\Queries\_Mocker as QueryMocker;
 use Tests\Unit\App\Services\_TestCase;
 
-class MatchChattingContentPagingServiceTest extends _TestCase {
+class ChattingContentListingServiceTest extends _TestCase {
 
     public function testArrBindNames()
     {
@@ -31,7 +31,7 @@ class MatchChattingContentPagingServiceTest extends _TestCase {
     public function testArrTraits()
     {
         $this->verifyArrTraits([
-            PagingService::class
+            ListingService::class
         ]);
     }
 

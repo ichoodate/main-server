@@ -4,11 +4,11 @@ namespace App\Services\Reply;
 
 use App\Database\Models\Reply;
 use App\Service;
-use App\Services\PagingService;
+use App\Services\LimitedListingService;
 use App\Services\Ticket\TicketFindingService;
 use App\Services\Reply\ReplyFindingService;
 
-class TicketReplyPagingService extends Service {
+class TicketReplyListingService extends Service {
 
     public static function getArrBindNames()
     {
@@ -90,7 +90,7 @@ class TicketReplyPagingService extends Service {
     public static function getArrTraits()
     {
         return [
-            PagingService::class
+            LimitedListingService::class
         ];
     }
 

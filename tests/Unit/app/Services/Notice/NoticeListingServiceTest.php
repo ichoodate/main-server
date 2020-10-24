@@ -1,15 +1,14 @@
 <?php
 
-namespace Tests\Unit\App\Services\Popularity;
+namespace Tests\Unit\App\Services\Notice;
 
-use App\Database\Models\Popularity;
-use App\Database\Models\User;
-use App\Services\PagingService;
-use App\Services\Popularity\PopularityFindingService;
+use App\Database\Models\Notice;
+use App\Services\ListingService;
+use App\Services\Notice\NoticeFindingService;
 use Tests\Unit\App\Database\Queries\_Mocker as QueryMocker;
 use Tests\Unit\App\Services\_TestCase;
 
-class PopularityPagingServiceTest extends _TestCase {
+class NoticeListingServiceTest extends _TestCase {
 
     public function testArrBindNames()
     {
@@ -19,31 +18,31 @@ class PopularityPagingServiceTest extends _TestCase {
     public function testArrRuleLists()
     {
         $this->verifyArrRuleLists([
-            'auth_user'
-                => ['required']
+            'type'
+                => ['in:' . implode(',', Notice::TYPE_VALUES)]
         ]);
     }
 
     public function testArrTraits()
     {
         $this->verifyArrTraits([
-            PagingService::class
+            ListingService::class
         ]);
     }
 
-    public function testCallbackQueryAuthUser()
+    public function testCallbackQueryType()
     {
         $this->when(function ($proxy, $serv) {
 
-            $query       = $this->mMock();
-            $authUser    = $this->factory(User::class)->make();
+            $query = $this->mMock();
+            $type  = $this->uniqueString();
 
-            QueryMocker::qWhere($query, Popularity::RECEIVER_ID, $authUser->getKey());
+            QueryMocker::qWhere($query, Notice::TYPE, $type);
 
             $proxy->data->put('query', $query);
-            $proxy->data->put('auth_user', $authUser);
+            $proxy->data->put('type', $type);
 
-            $this->verifyCallback($serv, 'query.auth_user');
+            $this->verifyCallback($serv, 'query.type');
         });
     }
 
@@ -53,14 +52,10 @@ class PopularityPagingServiceTest extends _TestCase {
 
             $authUser = $this->uniqueString();
             $id       = $this->uniqueString();
-            $return   = [PopularityFindingService::class, [
-                'auth_user'
-                    => $authUser,
+            $return   = [NoticeFindingService::class, [
                 'id'
                     => $id
             ], [
-                'auth_user'
-                    => '{{auth_user}}',
                 'id'
                     => '{{id}}'
             ]];
@@ -76,7 +71,7 @@ class PopularityPagingServiceTest extends _TestCase {
     {
         $this->when(function ($proxy, $serv) {
 
-            $this->verifyLoader($serv, 'model_class', Popularity::class);
+            $this->verifyLoader($serv, 'model_class', Notice::class);
         });
     }
 

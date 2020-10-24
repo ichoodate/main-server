@@ -4,13 +4,13 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\ApiController;
 use App\Services\Card\CardFindingService;
-use App\Services\Card\CardPagingService;
+use App\Services\Card\CardListingService;
 
 class CardController extends ApiController {
 
     public static function index()
     {
-        return [CardPagingService::class, [
+        return [CardListingService::class, [
             'auth_user'
                 => auth()->user(),
             'auth_user_status'

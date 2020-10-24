@@ -4,13 +4,13 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\ApiController;
 use App\Services\Reply\TicketReplyCreatingService;
-use App\Services\Reply\TicketReplyPagingService;
+use App\Services\Reply\TicketReplyListingService;
 
 class TicketReplyController extends ApiController {
 
     public static function index()
     {
-        return [TicketReplyPagingService::class, [
+        return [TicketReplyListingService::class, [
             'auth_user'
                 => auth()->user(),
             'ticket_id'

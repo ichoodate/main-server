@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Services\Notification;
+namespace App\Services\Popularity;
 
-use App\Database\Models\Notification;
+use App\Database\Models\Popularity;
 use App\Service;
-use App\Services\PagingService;
-use App\Services\Notification\NotificationFindingService;
+use App\Services\LimitedListingService;
+use App\Services\Popularity\PopularityFindingService;
 
-class NotificationPagingService extends Service {
+class PopularityListingService extends Service {
 
     public static function getArrBindNames()
     {
@@ -19,7 +19,7 @@ class NotificationPagingService extends Service {
         return [
             'query.auth_user' => ['query', 'auth_user', function ($query, $authUser) {
 
-                $query->qWhere(Notification::USER_ID, $authUser->getKey());
+                $query->qWhere(Popularity::RECEIVER_ID, $authUser->getKey());
             }]
         ];
     }
@@ -29,7 +29,7 @@ class NotificationPagingService extends Service {
         return [
             'cursor' => ['auth_user', 'cursor_id', function ($authUser, $cursorId) {
 
-                return [NotificationFindingService::class, [
+                return [PopularityFindingService::class, [
                     'auth_user'
                         => $authUser,
                     'id'
@@ -44,7 +44,7 @@ class NotificationPagingService extends Service {
 
             'model_class' => [function () {
 
-                return Notification::class;
+                return Popularity::class;
             }]
         ];
     }
@@ -65,7 +65,7 @@ class NotificationPagingService extends Service {
     public static function getArrTraits()
     {
         return [
-            PagingService::class
+            LimitedListingService::class
         ];
     }
 

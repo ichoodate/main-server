@@ -1,15 +1,15 @@
 <?php
 
-namespace Tests\Unit\App\Services\Notification;
+namespace Tests\Unit\App\Services\Invoice;
 
-use App\Database\Models\Notification;
+use App\Database\Models\Invoice;
 use App\Database\Models\User;
-use App\Services\PagingService;
-use App\Services\Notification\NotificationFindingService;
+use App\Services\ListingService;
+use App\Services\Invoice\InvoiceFindingService;
 use Tests\Unit\App\Database\Queries\_Mocker as QueryMocker;
 use Tests\Unit\App\Services\_TestCase;
 
-class NotificationPagingServiceTest extends _TestCase {
+class InvoiceListingServiceTest extends _TestCase {
 
     public function testArrBindNames()
     {
@@ -27,7 +27,7 @@ class NotificationPagingServiceTest extends _TestCase {
     public function testArrTraits()
     {
         $this->verifyArrTraits([
-            PagingService::class
+            ListingService::class
         ]);
     }
 
@@ -38,7 +38,7 @@ class NotificationPagingServiceTest extends _TestCase {
             $query       = $this->mMock();
             $authUser    = $this->factory(User::class)->make();
 
-            QueryMocker::qWhere($query, Notification::USER_ID, $authUser->getKey());
+            QueryMocker::qWhere($query, Invoice::USER_ID, $authUser->getKey());
 
             $proxy->data->put('query', $query);
             $proxy->data->put('auth_user', $authUser);
@@ -53,7 +53,7 @@ class NotificationPagingServiceTest extends _TestCase {
 
             $authUser = $this->uniqueString();
             $id       = $this->uniqueString();
-            $return   = [NotificationFindingService::class, [
+            $return   = [InvoiceFindingService::class, [
                 'auth_user'
                     => $authUser,
                 'id'
@@ -76,7 +76,7 @@ class NotificationPagingServiceTest extends _TestCase {
     {
         $this->when(function ($proxy, $serv) {
 
-            $this->verifyLoader($serv, 'model_class', Notification::class);
+            $this->verifyLoader($serv, 'model_class', Invoice::class);
         });
     }
 

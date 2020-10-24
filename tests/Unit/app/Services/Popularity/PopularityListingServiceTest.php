@@ -1,15 +1,15 @@
 <?php
 
-namespace Tests\Unit\App\Services\Ticket;
+namespace Tests\Unit\App\Services\Popularity;
 
-use App\Database\Models\Ticket;
+use App\Database\Models\Popularity;
 use App\Database\Models\User;
-use App\Services\PagingService;
-use App\Services\Ticket\TicketFindingService;
+use App\Services\ListingService;
+use App\Services\Popularity\PopularityFindingService;
 use Tests\Unit\App\Database\Queries\_Mocker as QueryMocker;
 use Tests\Unit\App\Services\_TestCase;
 
-class TicketPagingServiceTest extends _TestCase {
+class PopularityListingServiceTest extends _TestCase {
 
     public function testArrBindNames()
     {
@@ -27,7 +27,7 @@ class TicketPagingServiceTest extends _TestCase {
     public function testArrTraits()
     {
         $this->verifyArrTraits([
-            PagingService::class
+            ListingService::class
         ]);
     }
 
@@ -38,7 +38,7 @@ class TicketPagingServiceTest extends _TestCase {
             $query       = $this->mMock();
             $authUser    = $this->factory(User::class)->make();
 
-            QueryMocker::qWhere($query, Ticket::WRITER_ID, $authUser->getKey());
+            QueryMocker::qWhere($query, Popularity::RECEIVER_ID, $authUser->getKey());
 
             $proxy->data->put('query', $query);
             $proxy->data->put('auth_user', $authUser);
@@ -53,7 +53,7 @@ class TicketPagingServiceTest extends _TestCase {
 
             $authUser = $this->uniqueString();
             $id       = $this->uniqueString();
-            $return   = [TicketFindingService::class, [
+            $return   = [PopularityFindingService::class, [
                 'auth_user'
                     => $authUser,
                 'id'
@@ -76,7 +76,7 @@ class TicketPagingServiceTest extends _TestCase {
     {
         $this->when(function ($proxy, $serv) {
 
-            $this->verifyLoader($serv, 'model_class', Ticket::class);
+            $this->verifyLoader($serv, 'model_class', Popularity::class);
         });
     }
 

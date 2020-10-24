@@ -4,7 +4,7 @@ namespace Tests\Unit\App\Http\Controllers\Api;
 
 use App\Database\Models\User;
 use App\Services\Invoice\InvoiceFindingService;
-use App\Services\Invoice\InvoicePagingService;
+use App\Services\Invoice\InvoiceListingService;
 
 class InvoiceControllerTest extends _TestCase {
 
@@ -28,7 +28,7 @@ class InvoiceControllerTest extends _TestCase {
         $this->setInputParameter('group_by', $groupBy);
         $this->setInputParameter('order_by', $orderBy);
 
-        $this->assertReturn([InvoicePagingService::class, [
+        $this->assertReturn([InvoiceListingService::class, [
             'auth_user'
                 => $authUser,
             'cursor_id'

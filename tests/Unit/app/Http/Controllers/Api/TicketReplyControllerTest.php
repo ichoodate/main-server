@@ -4,7 +4,7 @@ namespace Tests\Unit\App\Http\Controllers\Api;
 
 use App\Database\Models\User;
 use App\Services\Reply\TicketReplyCreatingService;
-use App\Services\Reply\TicketReplyPagingService;
+use App\Services\Reply\TicketReplyListingService;
 use Tests\Unit\App\Http\Controllers\Api\_TestCase;
 
 class TicketReplyControllerTest extends _TestCase {
@@ -27,7 +27,7 @@ class TicketReplyControllerTest extends _TestCase {
         $this->setInputParameter('limit', $limit);
         $this->setInputParameter('page', $page);
 
-        $this->assertReturn([TicketReplyPagingService::class, [
+        $this->assertReturn([TicketReplyListingService::class, [
             'auth_user'
                 => $authUser,
             'ticket_id'

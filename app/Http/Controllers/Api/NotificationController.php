@@ -4,13 +4,13 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\ApiController;
 use App\Services\Notification\NotificationFindingService;
-use App\Services\Notification\NotificationPagingService;
+use App\Services\Notification\NotificationListingService;
 
 class NotificationController extends ApiController {
 
     public static function index()
     {
-        return [NotificationPagingService::class, [
+        return [NotificationListingService::class, [
             'auth_user'
                 => auth()->user(),
             'cursor_id'

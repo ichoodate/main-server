@@ -6,7 +6,7 @@ use App\Database\Models\Card;
 use App\Database\Models\Match;
 use App\Database\Models\User;
 use App\Services\Card\CardFindingService;
-use App\Services\Card\CardPagingService;
+use App\Services\Card\CardListingService;
 use Tests\Unit\App\Http\Controllers\Api\_TestCase;
 
 class CardControllerTest extends _TestCase {
@@ -39,7 +39,7 @@ class CardControllerTest extends _TestCase {
         $this->setInputParameter('group_by', $groupBy);
         $this->setInputParameter('order_by', $orderBy);
 
-        $this->assertReturn([CardPagingService::class, [
+        $this->assertReturn([CardListingService::class, [
             'auth_user'
                 => $authUser,
             'auth_user_status'

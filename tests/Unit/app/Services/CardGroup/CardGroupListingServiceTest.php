@@ -1,15 +1,16 @@
 <?php
 
-namespace Tests\Unit\App\Services\Invoice;
+namespace Tests\Unit\App\Services\CardGroup;
 
-use App\Database\Models\Invoice;
+use App\Database\Models\Card;
+use App\Database\Models\CardGroup;
 use App\Database\Models\User;
-use App\Services\PagingService;
-use App\Services\Invoice\InvoiceFindingService;
+use App\Services\ListingService;
+use App\Services\CardGroup\CardGroupFindingService;
 use Tests\Unit\App\Database\Queries\_Mocker as QueryMocker;
 use Tests\Unit\App\Services\_TestCase;
 
-class InvoicePagingServiceTest extends _TestCase {
+class CardGroupListingServiceTest extends _TestCase {
 
     public function testArrBindNames()
     {
@@ -27,7 +28,7 @@ class InvoicePagingServiceTest extends _TestCase {
     public function testArrTraits()
     {
         $this->verifyArrTraits([
-            PagingService::class
+            ListingService::class
         ]);
     }
 
@@ -35,10 +36,10 @@ class InvoicePagingServiceTest extends _TestCase {
     {
         $this->when(function ($proxy, $serv) {
 
-            $query       = $this->mMock();
-            $authUser    = $this->factory(User::class)->make();
+            $query    = $this->mMock();
+            $authUser = $this->factory(User::class)->make();
 
-            QueryMocker::qWhere($query, Invoice::USER_ID, $authUser->getKey());
+            QueryMocker::qWhere($query, CardGroup::USER_ID, $authUser->getKey());
 
             $proxy->data->put('query', $query);
             $proxy->data->put('auth_user', $authUser);
@@ -53,7 +54,7 @@ class InvoicePagingServiceTest extends _TestCase {
 
             $authUser = $this->uniqueString();
             $id       = $this->uniqueString();
-            $return   = [InvoiceFindingService::class, [
+            $return   = [CardGroupFindingService::class, [
                 'auth_user'
                     => $authUser,
                 'id'
@@ -76,7 +77,7 @@ class InvoicePagingServiceTest extends _TestCase {
     {
         $this->when(function ($proxy, $serv) {
 
-            $this->verifyLoader($serv, 'model_class', Invoice::class);
+            $this->verifyLoader($serv, 'model_class', CardGroup::class);
         });
     }
 

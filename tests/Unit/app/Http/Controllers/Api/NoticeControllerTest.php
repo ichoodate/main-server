@@ -4,7 +4,7 @@ namespace Tests\Unit\App\Http\Controllers\Api;
 
 use App\Services\Notice\NoticeCreatingService;
 use App\Services\Notice\NoticeFindingService;
-use App\Services\Notice\NoticePagingService;
+use App\Services\Notice\NoticeListingService;
 use Tests\Unit\App\Http\Controllers\Api\_TestCase;
 
 class NoticeControllerTest extends _TestCase {
@@ -23,7 +23,7 @@ class NoticeControllerTest extends _TestCase {
         $this->setInputParameter('expands', $expands);
         $this->setInputParameter('fields', $fields);
 
-        $this->assertReturn([NoticePagingService::class, [
+        $this->assertReturn([NoticeListingService::class, [
             'cursor_id'
                 => $cursorId,
             'limit'

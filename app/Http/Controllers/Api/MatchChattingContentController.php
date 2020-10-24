@@ -4,14 +4,14 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\ApiController;
 use App\Services\ChattingContent\ChattingContentFindingService;
-use App\Services\ChattingContent\MatchChattingContentPagingService;
+use App\Services\ChattingContent\MatchChattingContentListingService;
 use App\Services\ChattingContent\MatchChattingContentCreatingService;
 
 class MatchChattingContentController extends ApiController {
 
     public static function index()
     {
-        return [MatchChattingContentPagingService::class, [
+        return [MatchChattingContentListingService::class, [
             'auth_user'
                 => auth()->user(),
             'match_id'

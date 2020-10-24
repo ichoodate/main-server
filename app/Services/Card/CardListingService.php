@@ -8,9 +8,9 @@ use App\Database\Models\Friend;
 use App\Database\Models\Match;
 use App\Database\Models\User;
 use App\Service;
-use App\Services\PagingService;
+use App\Services\LimitedListingService;
 
-class CardPagingService extends Service {
+class CardListingService extends Service {
 
     const CARD_TYPE_BOTH    = 'both';
     const CARD_TYPE_CHOOSER = 'chooser';
@@ -273,7 +273,7 @@ class CardPagingService extends Service {
     public static function getArrTraits()
     {
         return [
-            PagingService::class
+            LimitedListingService::class
         ];
     }
 

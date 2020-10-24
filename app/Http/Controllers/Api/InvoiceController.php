@@ -4,13 +4,13 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\ApiController;
 use App\Services\Invoice\InvoiceFindingService;
-use App\Services\Invoice\InvoicePagingService;
+use App\Services\Invoice\InvoiceListingService;
 
 class InvoiceController extends ApiController {
 
     public static function index()
     {
-        return [InvoicePagingService::class, [
+        return [InvoiceListingService::class, [
             'auth_user'
                 => auth()->user(),
             'cursor_id'

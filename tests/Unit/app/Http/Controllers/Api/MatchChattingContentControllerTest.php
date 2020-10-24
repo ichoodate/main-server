@@ -3,7 +3,7 @@
 namespace Tests\Unit\App\Http\Controllers\Api;
 
 use App\Database\Models\User;
-use App\Services\ChattingContent\MatchChattingContentPagingService;
+use App\Services\ChattingContent\MatchChattingContentListingService;
 use Tests\Unit\App\Http\Controllers\Api\_TestCase;
 
 class MatchChattingContentControllerTest extends _TestCase {
@@ -26,7 +26,7 @@ class MatchChattingContentControllerTest extends _TestCase {
         $this->setInputParameter('fields', $fields);
         $this->setRouteParameter('id', $id);
 
-        $this->assertReturn([MatchChattingContentPagingService::class, [
+        $this->assertReturn([MatchChattingContentListingService::class, [
             'auth_user'
                 => $authUser,
             'match_id'
@@ -77,7 +77,7 @@ class MatchChattingContentControllerTest extends _TestCase {
         $this->setInputParameter('message', $message);
         $this->setRouteParameter('id', $id);
 
-        $this->assertReturn([MatchChattingContentPagingService::class, [
+        $this->assertReturn([MatchChattingContentListingService::class, [
             'auth_user'
                 => $authUser,
             'match_id'

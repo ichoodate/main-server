@@ -5,13 +5,13 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\ApiController;
 use App\Services\Notice\NoticeCreatingService;
 use App\Services\Notice\NoticeFindingService;
-use App\Services\Notice\NoticePagingService;
+use App\Services\Notice\NoticeListingService;
 
 class NoticeController extends ApiController {
 
     public static function index()
     {
-        return [NoticePagingService::class, [
+        return [NoticeListingService::class, [
             'cursor_id'
                 => static::input('cursor_id'),
             'limit'

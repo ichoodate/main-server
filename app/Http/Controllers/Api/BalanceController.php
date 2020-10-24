@@ -4,13 +4,13 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\ApiController;
 use App\Services\Balance\BalanceFindingService;
-use App\Services\Balance\BalancePagingService;
+use App\Services\Balance\BalanceListingService;
 
 class BalanceController extends ApiController {
 
     public static function index()
     {
-        return [BalancePagingService::class, [
+        return [BalanceListingService::class, [
             'auth_user'
                 => auth()->user(),
             'cursor_id'

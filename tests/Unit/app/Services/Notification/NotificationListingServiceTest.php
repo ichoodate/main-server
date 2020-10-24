@@ -1,14 +1,15 @@
 <?php
 
-namespace Tests\Unit\App\Services\Notice;
+namespace Tests\Unit\App\Services\Notification;
 
-use App\Database\Models\Notice;
-use App\Services\PagingService;
-use App\Services\Notice\NoticeFindingService;
+use App\Database\Models\Notification;
+use App\Database\Models\User;
+use App\Services\ListingService;
+use App\Services\Notification\NotificationFindingService;
 use Tests\Unit\App\Database\Queries\_Mocker as QueryMocker;
 use Tests\Unit\App\Services\_TestCase;
 
-class NoticePagingServiceTest extends _TestCase {
+class NotificationListingServiceTest extends _TestCase {
 
     public function testArrBindNames()
     {
@@ -18,31 +19,31 @@ class NoticePagingServiceTest extends _TestCase {
     public function testArrRuleLists()
     {
         $this->verifyArrRuleLists([
-            'type'
-                => ['in:' . implode(',', Notice::TYPE_VALUES)]
+            'auth_user'
+                => ['required']
         ]);
     }
 
     public function testArrTraits()
     {
         $this->verifyArrTraits([
-            PagingService::class
+            ListingService::class
         ]);
     }
 
-    public function testCallbackQueryType()
+    public function testCallbackQueryAuthUser()
     {
         $this->when(function ($proxy, $serv) {
 
-            $query = $this->mMock();
-            $type  = $this->uniqueString();
+            $query       = $this->mMock();
+            $authUser    = $this->factory(User::class)->make();
 
-            QueryMocker::qWhere($query, Notice::TYPE, $type);
+            QueryMocker::qWhere($query, Notification::USER_ID, $authUser->getKey());
 
             $proxy->data->put('query', $query);
-            $proxy->data->put('type', $type);
+            $proxy->data->put('auth_user', $authUser);
 
-            $this->verifyCallback($serv, 'query.type');
+            $this->verifyCallback($serv, 'query.auth_user');
         });
     }
 
@@ -52,10 +53,14 @@ class NoticePagingServiceTest extends _TestCase {
 
             $authUser = $this->uniqueString();
             $id       = $this->uniqueString();
-            $return   = [NoticeFindingService::class, [
+            $return   = [NotificationFindingService::class, [
+                'auth_user'
+                    => $authUser,
                 'id'
                     => $id
             ], [
+                'auth_user'
+                    => '{{auth_user}}',
                 'id'
                     => '{{id}}'
             ]];
@@ -71,7 +76,7 @@ class NoticePagingServiceTest extends _TestCase {
     {
         $this->when(function ($proxy, $serv) {
 
-            $this->verifyLoader($serv, 'model_class', Notice::class);
+            $this->verifyLoader($serv, 'model_class', Notification::class);
         });
     }
 

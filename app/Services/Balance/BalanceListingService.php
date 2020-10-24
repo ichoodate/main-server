@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Services\Subscription;
+namespace App\Services\Balance;
 
-use App\Database\Models\Subscription;
-use App\Database\Models\User;
+use App\Database\Models\Balance;
 use App\Service;
-use App\Services\PagingService;
-use App\Services\Subscription\SubscriptionFindingService;
+use App\Services\LimitedListingService;
+use App\Services\Balance\BalanceFindingService;
 
-class SubscriptionPagingService extends Service {
+class BalanceListingService extends Service {
 
     public static function getArrBindNames()
     {
@@ -20,17 +19,17 @@ class SubscriptionPagingService extends Service {
         return [
             'query.auth_user' => ['query', 'auth_user', function ($query, $authUser) {
 
-                $query->qWhere(Subscription::USER_ID, $authUser->getKey());
+                $query->qWhere(Balance::USER_ID, $authUser->getKey());
             }]
         ];
     }
 
-    public static function getArrLoaders()
+     public static function getArrLoaders()
     {
         return [
             'cursor' => ['auth_user', 'cursor_id', function ($authUser, $cursorId) {
 
-                return [SubscriptionFindingService::class, [
+                return [BalanceFindingService::class, [
                     'auth_user'
                         => $authUser,
                     'id'
@@ -45,7 +44,7 @@ class SubscriptionPagingService extends Service {
 
             'model_class' => [function () {
 
-                return Subscription::class;
+                return Balance::class;
             }]
         ];
     }
@@ -66,7 +65,7 @@ class SubscriptionPagingService extends Service {
     public static function getArrTraits()
     {
         return [
-            PagingService::class
+            LimitedListingService::class
         ];
     }
 

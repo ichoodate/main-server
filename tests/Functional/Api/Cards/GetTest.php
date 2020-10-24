@@ -7,7 +7,7 @@ use App\Database\Models\CardFlip;
 use App\Database\Models\Friend;
 use App\Database\Models\Match;
 use App\Database\Models\User;
-use App\Services\Card\CardPagingService;
+use App\Services\Card\CardListingService;
 use Tests\Functional\_TestCase;
 
 class GetTest extends _TestCase {
@@ -99,183 +99,183 @@ class GetTest extends _TestCase {
 
         foreach ( [[ // 0
             1,
-            CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_CARD_FLIP_STEP,
-            CardPagingService::USER_STATUS_CARD_FLIP_STEP,
+            CardListingService::CARD_TYPE_CHOOSER,
+            CardListingService::USER_STATUS_CARD_FLIP_STEP,
+            CardListingService::USER_STATUS_CARD_FLIP_STEP,
             ['1_ch_none_2_sh_none']
         ], [ // 1
             1,
-            CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_CARD_FLIP_STEP,
-            CardPagingService::USER_STATUS_CARD_FLIP,
+            CardListingService::CARD_TYPE_CHOOSER,
+            CardListingService::USER_STATUS_CARD_FLIP_STEP,
+            CardListingService::USER_STATUS_CARD_FLIP,
             ['1_ch_none_2_sh_flip']
         ], [ // 2
             1,
-            CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_CARD_FLIP_STEP,
-            CardPagingService::USER_STATUS_FRIEND_STEP,
+            CardListingService::CARD_TYPE_CHOOSER,
+            CardListingService::USER_STATUS_CARD_FLIP_STEP,
+            CardListingService::USER_STATUS_FRIEND_STEP,
             ['1_ch_none_2_sh_flip']
         ], [ // 3
             1,
-            CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_CARD_FLIP_STEP,
-            CardPagingService::USER_STATUS_FRIEND,
+            CardListingService::CARD_TYPE_CHOOSER,
+            CardListingService::USER_STATUS_CARD_FLIP_STEP,
+            CardListingService::USER_STATUS_FRIEND,
             []
         ], [ // 4
             1,
-            CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_CARD_FLIP_STEP,
-            CardPagingService::USER_STATUS_ALL,
+            CardListingService::CARD_TYPE_CHOOSER,
+            CardListingService::USER_STATUS_CARD_FLIP_STEP,
+            CardListingService::USER_STATUS_ALL,
             ['1_ch_none_2_sh_none', '1_ch_none_2_sh_flip']
         ], [ // 5
             1,
-            CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_CARD_FLIP,
-            CardPagingService::USER_STATUS_CARD_FLIP_STEP,
+            CardListingService::CARD_TYPE_CHOOSER,
+            CardListingService::USER_STATUS_CARD_FLIP,
+            CardListingService::USER_STATUS_CARD_FLIP_STEP,
             ['1_ch_flip_2_sh_none', '1_ch_open_2_sh_none']
         ], [ // 6
             1,
-            CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_CARD_FLIP,
-            CardPagingService::USER_STATUS_CARD_FLIP,
+            CardListingService::CARD_TYPE_CHOOSER,
+            CardListingService::USER_STATUS_CARD_FLIP,
+            CardListingService::USER_STATUS_CARD_FLIP,
             ['1_ch_flip_2_sh_flip']
         ], [ // 7
             1,
-            CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_CARD_FLIP,
-            CardPagingService::USER_STATUS_FRIEND_STEP,
+            CardListingService::CARD_TYPE_CHOOSER,
+            CardListingService::USER_STATUS_CARD_FLIP,
+            CardListingService::USER_STATUS_FRIEND_STEP,
             ['1_ch_flip_2_sh_flip']
         ], [ // 8
             1,
-            CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_CARD_FLIP,
-            CardPagingService::USER_STATUS_FRIEND,
+            CardListingService::CARD_TYPE_CHOOSER,
+            CardListingService::USER_STATUS_CARD_FLIP,
+            CardListingService::USER_STATUS_FRIEND,
             []
         ], [ // 9
             1,
-            CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_CARD_FLIP,
-            CardPagingService::USER_STATUS_ALL,
+            CardListingService::CARD_TYPE_CHOOSER,
+            CardListingService::USER_STATUS_CARD_FLIP,
+            CardListingService::USER_STATUS_ALL,
             ['1_ch_flip_2_sh_none', '1_ch_flip_2_sh_flip']
         ], [ // 10
             1,
-            CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_FRIEND_STEP,
-            CardPagingService::USER_STATUS_CARD_FLIP_STEP,
+            CardListingService::CARD_TYPE_CHOOSER,
+            CardListingService::USER_STATUS_FRIEND_STEP,
+            CardListingService::USER_STATUS_CARD_FLIP_STEP,
             []
         ], [ // 11
             1,
-            CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_FRIEND_STEP,
-            CardPagingService::USER_STATUS_CARD_FLIP,
+            CardListingService::CARD_TYPE_CHOOSER,
+            CardListingService::USER_STATUS_FRIEND_STEP,
+            CardListingService::USER_STATUS_CARD_FLIP,
             []
         ], [ // 12
             1,
-            CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_FRIEND_STEP,
-            CardPagingService::USER_STATUS_FRIEND_STEP,
+            CardListingService::CARD_TYPE_CHOOSER,
+            CardListingService::USER_STATUS_FRIEND_STEP,
+            CardListingService::USER_STATUS_FRIEND_STEP,
             []
         ], [ // 13
             1,
-            CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_FRIEND_STEP,
-            CardPagingService::USER_STATUS_FRIEND,
+            CardListingService::CARD_TYPE_CHOOSER,
+            CardListingService::USER_STATUS_FRIEND_STEP,
+            CardListingService::USER_STATUS_FRIEND,
             []
         ], [ // 14
             1,
-            CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_FRIEND_STEP,
-            CardPagingService::USER_STATUS_ALL,
+            CardListingService::CARD_TYPE_CHOOSER,
+            CardListingService::USER_STATUS_FRIEND_STEP,
+            CardListingService::USER_STATUS_ALL,
             []
         ], [ // 15
             1,
-            CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_FRIEND,
-            CardPagingService::USER_STATUS_CARD_FLIP_STEP,
+            CardListingService::CARD_TYPE_CHOOSER,
+            CardListingService::USER_STATUS_FRIEND,
+            CardListingService::USER_STATUS_CARD_FLIP_STEP,
             ['1_ch_flip_2_sh_none']
         ], [ // 16
             1,
-            CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_FRIEND,
-            CardPagingService::USER_STATUS_CARD_FLIP,
+            CardListingService::CARD_TYPE_CHOOSER,
+            CardListingService::USER_STATUS_FRIEND,
+            CardListingService::USER_STATUS_CARD_FLIP,
             ['1_ch_flip_2_sh_flip']
         ], [ // 17
             1,
-            CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_FRIEND,
-            CardPagingService::USER_STATUS_FRIEND_STEP,
+            CardListingService::CARD_TYPE_CHOOSER,
+            CardListingService::USER_STATUS_FRIEND,
+            CardListingService::USER_STATUS_FRIEND_STEP,
             ['1_ch_flip_2_sh_flip']
         ], [ // 18
             1,
-            CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_FRIEND,
-            CardPagingService::USER_STATUS_FRIEND,
+            CardListingService::CARD_TYPE_CHOOSER,
+            CardListingService::USER_STATUS_FRIEND,
+            CardListingService::USER_STATUS_FRIEND,
             []
         ], [ // 19
             1,
-            CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_FRIEND,
-            CardPagingService::USER_STATUS_ALL,
+            CardListingService::CARD_TYPE_CHOOSER,
+            CardListingService::USER_STATUS_FRIEND,
+            CardListingService::USER_STATUS_ALL,
             ['1_ch_flip_2_sh_none', '1_ch_flip_2_sh_flip']
         ], [ // 20
             1,
-            CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_ALL,
-            CardPagingService::USER_STATUS_CARD_FLIP_STEP,
+            CardListingService::CARD_TYPE_CHOOSER,
+            CardListingService::USER_STATUS_ALL,
+            CardListingService::USER_STATUS_CARD_FLIP_STEP,
             ['1_ch_none_2_sh_none', '1_ch_flip_2_sh_none']
         ], [ // 21
             1,
-            CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_ALL,
-            CardPagingService::USER_STATUS_CARD_FLIP,
+            CardListingService::CARD_TYPE_CHOOSER,
+            CardListingService::USER_STATUS_ALL,
+            CardListingService::USER_STATUS_CARD_FLIP,
             ['1_ch_none_2_sh_flip', '1_ch_flip_2_sh_flip']
         ], [ // 22
             1,
-            CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_ALL,
-            CardPagingService::USER_STATUS_FRIEND_STEP,
+            CardListingService::CARD_TYPE_CHOOSER,
+            CardListingService::USER_STATUS_ALL,
+            CardListingService::USER_STATUS_FRIEND_STEP,
             ['1_ch_none_2_sh_flip', '1_ch_flip_2_sh_flip']
         ], [ // 23
             1,
-            CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_ALL,
-            CardPagingService::USER_STATUS_FRIEND,
+            CardListingService::CARD_TYPE_CHOOSER,
+            CardListingService::USER_STATUS_ALL,
+            CardListingService::USER_STATUS_FRIEND,
             []
         ], [ // 24
             1,
-            CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_ALL,
-            CardPagingService::USER_STATUS_ALL,
+            CardListingService::CARD_TYPE_CHOOSER,
+            CardListingService::USER_STATUS_ALL,
+            CardListingService::USER_STATUS_ALL,
             ['1_ch_none_2_sh_none', '1_ch_flip_2_sh_none', '1_ch_none_2_sh_flip', '1_ch_flip_2_sh_flip']
         ], [ // 25
             1,
-            CardPagingService::CARD_TYPE_SHOWNER,
-            CardPagingService::USER_STATUS_ALL,
-            CardPagingService::USER_STATUS_ALL,
+            CardListingService::CARD_TYPE_SHOWNER,
+            CardListingService::USER_STATUS_ALL,
+            CardListingService::USER_STATUS_ALL,
             ['2_ch_flip_1_sh_flip']
         ], [ // 26
             1,
-            CardPagingService::CARD_TYPE_BOTH,
-            CardPagingService::USER_STATUS_ALL,
-            CardPagingService::USER_STATUS_ALL,
+            CardListingService::CARD_TYPE_BOTH,
+            CardListingService::USER_STATUS_ALL,
+            CardListingService::USER_STATUS_ALL,
             ['1_ch_none_2_sh_none', '1_ch_flip_2_sh_none', '1_ch_none_2_sh_flip', '1_ch_flip_2_sh_flip', '2_ch_flip_1_sh_flip']
         ], [ // 27
             2,
-            CardPagingService::CARD_TYPE_CHOOSER,
-            CardPagingService::USER_STATUS_FRIEND,
-            CardPagingService::USER_STATUS_ALL,
+            CardListingService::CARD_TYPE_CHOOSER,
+            CardListingService::USER_STATUS_FRIEND,
+            CardListingService::USER_STATUS_ALL,
             ['2_ch_flip_3_sh_flip']
         ], [ // 28
             2,
-            CardPagingService::CARD_TYPE_BOTH,
-            CardPagingService::USER_STATUS_ALL,
-            CardPagingService::USER_STATUS_ALL,
+            CardListingService::CARD_TYPE_BOTH,
+            CardListingService::USER_STATUS_ALL,
+            CardListingService::USER_STATUS_ALL,
             ['1_ch_none_2_sh_none', '1_ch_flip_2_sh_none', '1_ch_none_2_sh_flip', '1_ch_flip_2_sh_flip', '2_ch_flip_1_sh_flip', '2_ch_flip_3_sh_flip']
         ], [ // 29
             3,
-            CardPagingService::CARD_TYPE_BOTH,
-            CardPagingService::USER_STATUS_ALL,
-            CardPagingService::USER_STATUS_ALL,
+            CardListingService::CARD_TYPE_BOTH,
+            CardListingService::USER_STATUS_ALL,
+            CardListingService::USER_STATUS_ALL,
             ['2_ch_flip_3_sh_flip']
         ]] as $i => $args )
         {

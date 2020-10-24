@@ -4,13 +4,13 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\ApiController;
 use App\Services\Payment\PaymentFindingService;
-use App\Services\Payment\PaymentPagingService;
+use App\Services\Payment\PaymentListingService;
 
 class PaymentController extends ApiController {
 
     public static function index()
     {
-        return [PaymentPagingService::class, [
+        return [PaymentListingService::class, [
             'auth_user'
                 => auth()->user(),
             'cursor_id'
