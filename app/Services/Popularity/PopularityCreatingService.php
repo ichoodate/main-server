@@ -3,7 +3,7 @@
 namespace App\Services\Popularity;
 
 use App\Database\Models\Popularity;
-use App\Service;
+use Illuminate\Extend\Service;
 use App\Services\User\MatchingUserFindingService;
 use App\Services\CreatingService;
 

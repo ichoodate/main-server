@@ -5,7 +5,7 @@ namespace App\Services\User;
 use App\Database\Models\User;
 use App\Database\Models\UserSelfKwdPvt;
 use App\Database\Models\Obj;
-use App\Service;
+use Illuminate\Extend\Service;
 use App\Services\RandommingService;
 use App\Services\Obj\KeywordObjListingService;
 use Illuminate\Support\Facades\DB;

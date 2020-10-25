@@ -7,7 +7,7 @@ use App\Database\Models\CardGroup;
 use App\Database\Models\UserIdealTypeKwdPvt;
 use App\Database\Models\Match;
 use App\Database\Models\User;
-use App\Service;
+use Illuminate\Extend\Service;
 use App\Services\CardGroup\CardGroupCreatingService;
 use App\Services\User\MatchingUserListingService;
 

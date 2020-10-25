@@ -3,7 +3,7 @@
 namespace App\Services\Keyword\Smoke;
 
 use App\Database\Models\Keyword\Smoke;
-use App\Service;
+use Illuminate\Extend\Service;
 use App\Services\FindingService;
 
 class SmokeFindingService extends Service {

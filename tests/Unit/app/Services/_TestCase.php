@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\App\Services;
 
-use App\Service;
+use Illuminate\Extend\Service;
 use Tests\Unit\_TestCase as TestCase;
 use Illuminate\Support\Collection;
 

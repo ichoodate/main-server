@@ -3,7 +3,7 @@
 namespace App\Services\Role;
 
 use App\Database\Models\Role;
-use App\Service;
+use Illuminate\Extend\Service;
 use App\Services\ListingService;
 
 class RoleListingService extends Service {

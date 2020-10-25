@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Service;
+use Illuminate\Extend\Service;
 
 class FindingService extends Service {
 

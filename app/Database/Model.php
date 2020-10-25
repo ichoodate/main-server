@@ -3,9 +3,10 @@
 namespace App\Database;
 
 use App\Database\Collection;
+use App\Database\Query;
 use App\Database\Models\Obj;
 
-abstract class Model extends \Illuminate\Database\Eloquent\Model {
+abstract class Model extends \Illuminate\Extend\Model {
 
     const CREATED_AT = null;
     const UPDATED_AT = null;
@@ -39,11 +40,9 @@ abstract class Model extends \Illuminate\Database\Eloquent\Model {
         return new Collection($models);
     }
 
-    public function relation($related, array $localKeys, array $otherKeys, $isManyRelation)
+    public function newEloquentBuilder($query)
     {
-        $query = (new $related)->newQuery();
-
-        return new Relation($query, $this, $localKeys, $otherKeys, $isManyRelation);
+        return new Query($query);
     }
 
     public function setAttribute($key, $value)

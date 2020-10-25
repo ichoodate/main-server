@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Service;
+use Illuminate\Extend\Service;
 use App\Services\CursoringService;
 use App\Services\ListingService;
 use App\Services\PagingService;

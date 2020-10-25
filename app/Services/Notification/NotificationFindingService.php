@@ -3,7 +3,7 @@
 namespace App\Services\Notification;
 
 use App\Database\Models\Notification;
-use App\Service;
+use Illuminate\Extend\Service;
 use App\Services\FindingService;
 use App\Services\PermittedUserRequiringService;
 

@@ -4,7 +4,7 @@ namespace App\Services\UserSelfKwdPvt;
 
 use App\Database\Models\UserSelfKwdPvt;
 use App\Database\Models\Keyword\Religion;
-use App\Service;
+use Illuminate\Extend\Service;
 use App\Services\ListingService;
 use App\Services\Keyword\Religion\ReligionFindingService;
 

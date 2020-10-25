@@ -4,7 +4,7 @@ namespace App\Services\Payment;
 
 use App\Database\Models\Item;
 use App\Database\Models\Payment;
-use App\Service;
+use Illuminate\Extend\Service;
 use App\Services\Item\ItemFindingService;
 use App\Services\CreatingService;
 

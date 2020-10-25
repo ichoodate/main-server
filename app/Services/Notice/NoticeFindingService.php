@@ -3,7 +3,7 @@
 namespace App\Services\Notice;
 
 use App\Database\Models\Notice;
-use App\Service;
+use Illuminate\Extend\Service;
 use App\Services\FindingService;
 
 class NoticeFindingService extends Service {

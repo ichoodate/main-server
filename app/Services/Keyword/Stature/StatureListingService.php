@@ -3,7 +3,7 @@
 namespace App\Services\Keyword\Stature;
 
 use App\Database\Models\Keyword\Stature;
-use App\Service;
+use Illuminate\Extend\Service;
 use App\Services\ListingService;
 
 class StatureListingService extends Service {

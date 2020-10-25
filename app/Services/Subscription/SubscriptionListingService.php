@@ -4,7 +4,7 @@ namespace App\Services\Subscription;
 
 use App\Database\Models\Subscription;
 use App\Database\Models\User;
-use App\Service;
+use Illuminate\Extend\Service;
 use App\Services\LimitedListingService;
 use App\Services\Subscription\SubscriptionFindingService;
 

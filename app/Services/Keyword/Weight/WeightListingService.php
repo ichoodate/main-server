@@ -3,7 +3,7 @@
 namespace App\Services\Keyword\Weight;
 
 use App\Database\Models\Keyword\Weight;
-use App\Service;
+use Illuminate\Extend\Service;
 use App\Services\ListingService;
 
 class WeightListingService extends Service {

@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Services\DuplicationCheckingService;
-use App\Service;
+use Illuminate\Extend\Service;
 
 class CreatingService extends Service {
 

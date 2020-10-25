@@ -3,7 +3,7 @@
 namespace App\Services\Keyword\AgeRange;
 
 use App\Database\Models\Keyword\AgeRange;
-use App\Service;
+use Illuminate\Extend\Service;
 use App\Services\FindingService;
 
 class AgeRangeFindingService extends Service {

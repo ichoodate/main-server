@@ -3,7 +3,7 @@
 namespace App\Services\Balance;
 
 use App\Database\Models\Balance;
-use App\Service;
+use Illuminate\Extend\Service;
 use App\Services\LimitedListingService;
 use App\Services\Balance\BalanceFindingService;
 

@@ -2,9 +2,7 @@
 
 namespace App\Database;
 
-use Illuminate\Database\Eloquent\Builder;
-
-class Query extends Builder {
+class Query extends \Illuminate\Extend\Query {
 
     public static $instId = 1;
 

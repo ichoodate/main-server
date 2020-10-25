@@ -3,7 +3,7 @@
 namespace App\Services\UserIdealTypeKwdPvt;
 
 use App\Database\Models\UserIdealTypeKwdPvt;
-use App\Service;
+use Illuminate\Extend\Service;
 use App\Services\ListingService;
 
 class UserIdealTypeKwdPvtListingService extends Service {

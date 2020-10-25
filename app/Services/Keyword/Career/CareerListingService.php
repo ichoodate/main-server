@@ -3,7 +3,7 @@
 namespace App\Services\Keyword\Career;
 
 use App\Database\Models\Keyword\Career;
-use App\Service;
+use Illuminate\Extend\Service;
 use App\Services\ListingService;
 
 class CareerListingService extends Service {

@@ -3,7 +3,7 @@
 namespace App\Services\Keyword\Religion;
 
 use App\Database\Models\Keyword\Religion;
-use App\Service;
+use Illuminate\Extend\Service;
 use App\Services\ListingService;
 
 class ReligionListingService extends Service {

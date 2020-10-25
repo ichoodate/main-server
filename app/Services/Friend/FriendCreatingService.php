@@ -3,7 +3,7 @@
 namespace App\Services\Friend;
 
 use App\Database\Models\Friend;
-use App\Service;
+use Illuminate\Extend\Service;
 use App\Services\CreatingService;
 use App\Services\Match\MatchFindingService;
 

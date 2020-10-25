@@ -6,7 +6,7 @@ use App\Database\Models\Balance;
 use App\Database\Models\Photo;
 use App\Database\Models\Role;
 use App\Database\Models\User;
-use App\Service;
+use Illuminate\Extend\Service;
 use App\Services\CreatingService;
 use App\Services\FacePhoto\FacePhotoCreatingService;
 use App\Services\UserIdealTypeKwdPvt\UserIdealTypeKwdPvtMergingService;

@@ -3,7 +3,7 @@
 namespace Tests\Functional;
 
 use App\Database\Model;
-use App\Service;
+use Illuminate\Extend\Service;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Tests\_TestCase as TestCase;

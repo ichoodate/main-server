@@ -3,7 +3,7 @@
 namespace App\Services\Localizable;
 
 use App\Database\Models\Localizable;
-use App\Service;
+use Illuminate\Extend\Service;
 use App\Services\FindingService;
 
 class LocalizableFindingService extends Service {

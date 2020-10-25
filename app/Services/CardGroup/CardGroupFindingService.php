@@ -4,7 +4,7 @@ namespace App\Services\CardGroup;
 
 use App\Database\Models\CardGroup;
 use App\Services\PermittedUserRequiringService;
-use App\Service;
+use Illuminate\Extend\Service;
 use App\Services\FindingService;
 
 class CardGroupFindingService extends Service {

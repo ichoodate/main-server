@@ -3,7 +3,7 @@
 namespace App\Services\CardFlip;
 
 use App\Database\Models\CardFlip;
-use App\Service;
+use Illuminate\Extend\Service;
 use App\Services\FindingService;
 use App\Services\PermittedUserRequiringService;
 

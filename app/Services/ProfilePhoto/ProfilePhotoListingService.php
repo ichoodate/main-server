@@ -3,7 +3,7 @@
 namespace App\Services\ProfilePhoto;
 
 use App\Database\Models\ProfilePhoto;
-use App\Service;
+use Illuminate\Extend\Service;
 use App\Services\LimitedListingService;
 use App\Services\ProfilePhoto\ProfilePhotoFindingService;
 use App\Services\User\UserFindingService;

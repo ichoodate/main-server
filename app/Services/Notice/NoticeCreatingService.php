@@ -4,7 +4,7 @@ namespace App\Services\Notice;
 
 use App\Database\Models\Photo;
 use App\Database\Models\Notice;
-use App\Service;
+use Illuminate\Extend\Service;
 use App\Services\AdminRoleExistingService;
 use App\Services\CreatingService;
 use App\Services\Photo\PhotosCreatingService;

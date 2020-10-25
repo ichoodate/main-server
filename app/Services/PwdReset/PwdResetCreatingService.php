@@ -4,7 +4,7 @@ namespace App\Services\PwdReset;
 
 use App\Database\Models\PwdReset;
 use App\Database\Models\User;
-use App\Service;
+use Illuminate\Extend\Service;
 use App\Services\CreatingService;
 
 class PwdResetCreatingService extends Service {

@@ -4,7 +4,7 @@ namespace App\Services\Match;
 
 use App\Database\Models\Match;
 use App\Database\Models\User;
-use App\Service;
+use Illuminate\Extend\Service;
 
 class MatchCreatingService extends Service {
 

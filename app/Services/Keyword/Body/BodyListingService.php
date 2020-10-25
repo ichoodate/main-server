@@ -3,7 +3,7 @@
 namespace App\Services\Keyword\Body;
 
 use App\Database\Models\Keyword\Body;
-use App\Service;
+use Illuminate\Extend\Service;
 use App\Services\ListingService;
 
 class BodyListingService extends Service {

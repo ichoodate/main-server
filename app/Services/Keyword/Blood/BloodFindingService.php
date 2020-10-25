@@ -3,7 +3,7 @@
 namespace App\Services\Keyword\Blood;
 
 use App\Database\Models\Keyword\Blood;
-use App\Service;
+use Illuminate\Extend\Service;
 use App\Services\FindingService;
 
 class BloodFindingService extends Service {

@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use App\Database\Model;
 use App\Database\Collection;
-use App\Service;
+use Illuminate\Extend\Service;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Pagination\AbstractPaginator;
 use Illuminate\Support\Facades\DB;

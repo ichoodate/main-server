@@ -3,7 +3,7 @@
 namespace App\Services\Card;
 
 use App\Database\Models\Card;
-use App\Service;
+use Illuminate\Extend\Service;
 use App\Services\FindingService;
 use App\Services\PermittedUserRequiringService;
 

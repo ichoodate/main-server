@@ -2,7 +2,7 @@
 
 namespace App\Services\Auth;
 
-use App\Service;
+use Illuminate\Extend\Service;
 use App\Database\Models\Keyword\BirthYear;
 use App\Database\Models\User;
 use App\Database\Models\UserSelfKwdPvt;

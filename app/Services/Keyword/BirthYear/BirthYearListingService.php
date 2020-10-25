@@ -3,7 +3,7 @@
 namespace App\Services\Keyword\BirthYear;
 
 use App\Database\Models\Keyword\BirthYear;
-use App\Service;
+use Illuminate\Extend\Service;
 use App\Services\ListingService;
 
 class BirthYearListingService extends Service {

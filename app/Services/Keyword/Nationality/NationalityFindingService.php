@@ -3,7 +3,7 @@
 namespace App\Services\Keyword\Nationality;
 
 use App\Database\Models\Keyword\Nationality;
-use App\Service;
+use Illuminate\Extend\Service;
 use App\Services\FindingService;
 
 class NationalityFindingService extends Service {

@@ -3,7 +3,7 @@
 namespace App\Services\Item;
 
 use App\Database\Models\Item;
-use App\Service;
+use Illuminate\Extend\Service;
 use App\Services\FindingService;
 
 class ItemFindingService extends Service {

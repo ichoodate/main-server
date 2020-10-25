@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Database\Models\Balance;
 use App\Database\Models\Coin;
-use App\Service;
+use Illuminate\Extend\Service;
 
 class UsedCoinAddingService extends Service {
 

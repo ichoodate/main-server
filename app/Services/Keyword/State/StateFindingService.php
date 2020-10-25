@@ -3,7 +3,7 @@
 namespace App\Services\Keyword\State;
 
 use App\Database\Models\Keyword\State;
-use App\Service;
+use Illuminate\Extend\Service;
 use App\Services\FindingService;
 
 class StateFindingService extends Service {

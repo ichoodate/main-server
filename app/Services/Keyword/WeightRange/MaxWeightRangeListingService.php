@@ -3,7 +3,7 @@
 namespace App\Services\Keyword\WeightRange;
 
 use App\Database\Models\Keyword\WeightRange;
-use App\Service;
+use Illuminate\Extend\Service;
 use App\Services\ListingService;
 
 class MaxWeightRangeListingService extends Service {

@@ -4,7 +4,7 @@ namespace App\Services\UserIdealTypeKwdPvt;
 
 use App\Database\Models\UserIdealTypeKwdPvt;
 use App\Database\Models\Keyword\Nationality;
-use App\Service;
+use Illuminate\Extend\Service;
 use App\Services\ListingService;
 use App\Services\Keyword\Nationality\NationalityFindingService;
 

@@ -7,7 +7,7 @@ use App\Database\Models\CardFlip;
 use App\Database\Models\Friend;
 use App\Database\Models\Match;
 use App\Database\Models\User;
-use App\Service;
+use Illuminate\Extend\Service;
 use App\Services\LimitedListingService;
 
 class CardListingService extends Service {

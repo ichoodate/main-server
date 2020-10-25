@@ -3,7 +3,7 @@
 namespace App\Services\Invoice;
 
 use App\Database\Models\Invoice;
-use App\Service;
+use Illuminate\Extend\Service;
 use App\Services\LimitedListingService;
 use App\Services\Invoice\InvoiceFindingService;
 

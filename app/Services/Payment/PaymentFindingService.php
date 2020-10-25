@@ -3,7 +3,7 @@
 namespace App\Services\Payment;
 
 use App\Database\Models\Payment;
-use App\Service;
+use Illuminate\Extend\Service;
 use App\Services\FindingService;
 use App\Services\PermittedUserRequiringService;
 

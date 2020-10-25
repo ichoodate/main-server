@@ -3,7 +3,7 @@
 namespace App\Services\Subscription;
 
 use App\Database\Models\Subscription;
-use App\Service;
+use Illuminate\Extend\Service;
 use App\Services\FindingService;
 use App\Services\PermittedUserRequiringService;
 

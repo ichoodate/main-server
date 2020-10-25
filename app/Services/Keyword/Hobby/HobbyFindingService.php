@@ -3,7 +3,7 @@
 namespace App\Services\Keyword\Hobby;
 
 use App\Database\Models\Keyword\Hobby;
-use App\Service;
+use Illuminate\Extend\Service;
 use App\Services\FindingService;
 
 class HobbyFindingService extends Service {

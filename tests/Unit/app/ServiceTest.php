@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\App;
 
-use App\Service;
+use Illuminate\Extend\Service;
 use Tests\Unit\_TestCase as TestCase;
 
 class ServiceTest extends TestCase {

@@ -3,7 +3,7 @@
 namespace App\Services\FacePhoto;
 
 use App\Database\Models\FacePhoto;
-use App\Service;
+use Illuminate\Extend\Service;
 use App\Services\FindingService;
 use App\Services\PermittedUserRequiringService;
 

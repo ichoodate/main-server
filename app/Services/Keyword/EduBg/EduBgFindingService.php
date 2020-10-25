@@ -3,7 +3,7 @@
 namespace App\Services\Keyword\EduBg;
 
 use App\Database\Models\Keyword\EduBg;
-use App\Service;
+use Illuminate\Extend\Service;
 use App\Services\FindingService;
 
 class EduBgFindingService extends Service {

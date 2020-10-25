@@ -4,7 +4,7 @@ namespace App\Services\Reply;
 
 use App\Database\Models\Ticket;
 use App\Database\Models\Reply;
-use App\Service;
+use Illuminate\Extend\Service;
 use App\Services\CreatingService;
 use App\Services\Ticket\TicketFindingService;
 

@@ -4,7 +4,7 @@ namespace App\Services\ChattingContent;
 
 use App\Database\Models\ChattingContent;
 use App\Database\Models\Match;
-use App\Service;
+use Illuminate\Extend\Service;
 use App\Services\LimitedListingService;
 use App\Services\Match\MatchFindingService;
 

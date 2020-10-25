@@ -3,7 +3,7 @@
 namespace App\Services\Keyword\Residence;
 
 use App\Database\Models\Keyword\Residence;
-use App\Service;
+use Illuminate\Extend\Service;
 use App\Services\FindingService;
 
 class ResidenceFindingService extends Service {

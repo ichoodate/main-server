@@ -3,7 +3,7 @@
 namespace App\Services\Keyword\Drink;
 
 use App\Database\Models\Keyword\Drink;
-use App\Service;
+use Illuminate\Extend\Service;
 use App\Services\ListingService;
 
 class DrinkListingService extends Service {

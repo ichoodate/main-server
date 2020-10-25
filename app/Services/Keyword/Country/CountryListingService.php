@@ -3,7 +3,7 @@
 namespace App\Services\Keyword\Country;
 
 use App\Database\Models\Keyword\Country;
-use App\Service;
+use Illuminate\Extend\Service;
 use App\Services\ListingService;
 use App\Services\Keyword\CountryFindingService;
 

@@ -3,7 +3,7 @@
 namespace App\Services\Friend;
 
 use App\Database\Models\Friend;
-use App\Service;
+use Illuminate\Extend\Service;
 use App\Services\FindingService;
 use App\Services\PermittedUserRequiringService;
 

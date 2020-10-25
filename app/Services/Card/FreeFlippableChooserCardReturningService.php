@@ -4,7 +4,7 @@ namespace App\Services\Card;
 
 use App\Database\Models\Card;
 use App\Database\Models\CardFlip;
-use App\Service;
+use Illuminate\Extend\Service;
 use App\Services\Card\FreeFlippableCardReturningService;
 
 class FreeFlippableChooserCardReturningService extends Service {

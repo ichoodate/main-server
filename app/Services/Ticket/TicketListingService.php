@@ -3,7 +3,7 @@
 namespace App\Services\Ticket;
 
 use App\Database\Models\Ticket;
-use App\Service;
+use Illuminate\Extend\Service;
 use App\Services\LimitedListingService;
 use App\Services\Ticket\TicketFindingService;
 

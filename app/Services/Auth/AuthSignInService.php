@@ -3,7 +3,7 @@
 namespace App\Services\Auth;
 
 use App\Database\Models\User;
-use App\Service;
+use Illuminate\Extend\Service;
 
 class AuthSignInService extends Service {
 

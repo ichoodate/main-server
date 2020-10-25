@@ -2,7 +2,7 @@
 
 namespace App\Services\Card;
 
-use App\Service;
+use Illuminate\Extend\Service;
 
 class FreeFlippableCardReturningService extends Service {
 
