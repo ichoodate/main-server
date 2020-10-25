@@ -9,41 +9,6 @@ use Tests\Unit\App\Http\Controllers\Api\_TestCase;
 
 class WeightRangeControllerTest extends _TestCase {
 
-    public function testIndex()
-    {
-        $min     = $this->uniqueString();
-        $expands = $this->uniqueString();
-        $fields  = $this->uniqueString();
-
-        $this->setInputParameter('min', $min);
-        $this->setInputParameter('expands', $expands);
-        $this->setInputParameter('fields', $fields);
-
-        $this->assertReturn([WeightRangeListingService::class, [
-            'min'
-                => $min,
-            'expands'
-                => $expands,
-            'fields'
-                => $fields,
-            'group_by'
-                => '',
-            'order_by'
-                => ''
-        ], [
-            'min'
-                => '[min]',
-            'expands'
-                => '[expands]',
-            'fields'
-                => '[fields]',
-            'group_by'
-                => '[group_by]',
-            'order_by'
-                => '[order_by]'
-        ]]);
-    }
-
     public function testShow()
     {
         $expands = $this->uniqueString();

@@ -6,7 +6,7 @@ use App\Database\Models\Keyword\AgeRange;
 use App\Service;
 use App\Services\ListingService;
 
-class AgeRangeListingService extends Service {
+class MinAgeRangeListingService extends Service {
 
     public static function getArrBindNames()
     {
@@ -19,13 +19,6 @@ class AgeRangeListingService extends Service {
             'query.max' => ['query', 'max', function ($query, $max) {
 
                 $query->qWhere('max', $max);
-                $query->qOrderBy('max', 'asc');
-            }],
-
-            'query.min' => ['query', 'min', function ($query, $min) {
-
-                $query->qWhere('min', $min);
-                $query->qOrderBy('min', 'asc');
             }]
         ];
     }
@@ -48,7 +41,7 @@ class AgeRangeListingService extends Service {
     public static function getArrRuleLists()
     {
         return [
-            'min'
+            'max'
                 => ['required', 'integer']
         ];
     }

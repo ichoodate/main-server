@@ -72,7 +72,7 @@ Route::prefix('api')->group(function () {
         Route::resource(
             'keyword/age-ranges',
             'Api\Keyword\AgeRangeController'
-        )->only(['index', 'show']);
+        )->only(['show']);
 
         Route::resource(
             'keyword/birth-years',
@@ -120,6 +120,36 @@ Route::prefix('api')->group(function () {
         )->only(['index', 'show']);
 
         Route::resource(
+            'keyword/min-age-ranges',
+            'Api\Keyword\MinAgeRangeController'
+        )->only(['index']);
+
+        Route::resource(
+            'keyword/min-stature-ranges',
+            'Api\Keyword\MinStatureRangeController'
+        )->only(['index']);
+
+        Route::resource(
+            'keyword/min-weight-ranges',
+            'Api\Keyword\MinWeightRangeController'
+        )->only(['index']);
+
+        Route::resource(
+            'keyword/max-age-ranges',
+            'Api\Keyword\MaxAgeRangeController'
+        )->only(['index']);
+
+        Route::resource(
+            'keyword/max-stature-ranges',
+            'Api\Keyword\MaxStatureRangeController'
+        )->only(['index']);
+
+        Route::resource(
+            'keyword/max-weight-ranges',
+            'Api\Keyword\MaxWeightRangeController'
+        )->only(['index']);
+
+        Route::resource(
             'keyword/nationalities',
             'Api\Keyword\NationalityController'
         )->only(['show']);
@@ -152,7 +182,7 @@ Route::prefix('api')->group(function () {
         Route::resource(
             'keyword/stature-ranges',
             'Api\Keyword\StatureRangeController'
-        )->only(['index', 'show']);
+        )->only(['show']);
 
         Route::resource(
             'keyword/weights',
@@ -162,7 +192,7 @@ Route::prefix('api')->group(function () {
         Route::resource(
             'keyword/weight-ranges',
             'Api\Keyword\WeightRangeController'
-        )->only(['index', 'show']);
+        )->only(['show']);
 
         Route::resource(
             'ideal-type-keyword/age-ranges',

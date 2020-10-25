@@ -8,35 +8,6 @@ use App\Services\Keyword\StatureRange\StatureRangeListingService;
 
 class StatureRangeController extends ApiController {
 
-    public static function index()
-    {
-        return [StatureRangeListingService::class, [
-            'max'
-                => static::input('max'),
-            'min'
-                => static::input('min'),
-            'expands'
-                => static::input('expands'),
-            'fields'
-                => static::input('fields'),
-            'group_by'
-                => '',
-            'order_by'
-                => ''
-        ], [
-            'min'
-                => '[min]',
-            'expands'
-                => '[expands]',
-            'fields'
-                => '[fields]',
-            'group_by'
-                => '[group_by]',
-            'order_by'
-                => '[order_by]'
-        ]];
-    }
-
     public static function show()
     {
         return [StatureRangeFindingService::class, [
