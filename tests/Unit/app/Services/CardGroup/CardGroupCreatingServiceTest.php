@@ -6,7 +6,6 @@ use App\Database\Models\Card;
 use App\Database\Models\CardGroup;
 use App\Database\Models\Match;
 use App\Database\Models\User;
-use App\Services\CreatingService;
 use App\Services\Match\MatchCreatingService;
 use Tests\_InstanceMocker as InstanceMocker;
 use Tests\Unit\App\Database\Models\_Mocker as ModelMocker;
@@ -31,9 +30,7 @@ class CardGroupCreatingServiceTest extends _TestCase {
 
     public function testArrTraits()
     {
-        $this->verifyArrTraits([
-            CreatingService::class
-        ]);
+        $this->verifyArrTraits([]);
     }
 
     public function testLoaderCards()

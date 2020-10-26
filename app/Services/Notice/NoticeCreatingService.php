@@ -6,7 +6,6 @@ use App\Database\Models\Photo;
 use App\Database\Models\Notice;
 use Illuminate\Extend\Service;
 use App\Services\AdminRoleExistingService;
-use App\Services\CreatingService;
 use App\Services\Photo\PhotosCreatingService;
 
 class NoticeCreatingService extends Service {
@@ -61,7 +60,6 @@ class NoticeCreatingService extends Service {
     {
         return [
             AdminRoleExistingService::class,
-            CreatingService::class
         ];
     }
 

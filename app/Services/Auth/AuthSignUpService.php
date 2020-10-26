@@ -7,7 +7,6 @@ use App\Database\Models\Photo;
 use App\Database\Models\Role;
 use App\Database\Models\User;
 use Illuminate\Extend\Service;
-use App\Services\CreatingService;
 use App\Services\FacePhoto\FacePhotoCreatingService;
 use App\Services\UserIdealTypeKwdPvt\UserIdealTypeKwdPvtMergingService;
 use App\Services\ProfilePhoto\ProfilePhotoCreatingService;
@@ -110,9 +109,7 @@ class AuthSignUpService extends Service {
 
     public static function getArrTraits()
     {
-        return [
-            CreatingService::class
-        ];
+        return [];
     }
 
 }

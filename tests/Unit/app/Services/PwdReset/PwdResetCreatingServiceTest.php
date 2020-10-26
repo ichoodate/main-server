@@ -4,7 +4,6 @@ namespace Tests\Unit\App\Services\PwdReset;
 
 use App\Database\Models\PwdReset;
 use App\Database\Models\User;
-use App\Services\CreatingService;
 use Tests\_InstanceMocker as InstanceMocker;
 use Tests\Unit\App\Database\Models\_Mocker as ModelMocker;
 use Tests\Unit\App\Database\Queries\_Mocker as QueryMocker;
@@ -33,9 +32,7 @@ class PwdResetCreatingServiceTest extends _TestCase {
 
     public function testArrTraits()
     {
-        $this->verifyArrTraits([
-            CreatingService::class
-        ]);
+        $this->verifyArrTraits([]);
     }
 
     public function testLoaderUser()

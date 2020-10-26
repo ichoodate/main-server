@@ -5,7 +5,6 @@ namespace Tests\Unit\App\Services\Reply;
 use App\Database\Models\Ticket;
 use App\Database\Models\Reply;
 use App\Database\Models\User;
-use App\Services\CreatingService;
 use App\Services\Ticket\TicketFindingService;
 use Tests\Unit\App\Database\Models\_Mocker as ModelMocker;
 use Tests\Unit\App\Services\_TestCase;
@@ -33,9 +32,7 @@ class TicketReplyCreatingServiceTest extends _TestCase {
 
     public function testArrTraits()
     {
-        $this->verifyArrTraits([
-            CreatingService::class
-        ]);
+        $this->verifyArrTraits([]);
     }
 
     public function testLoaderCreated()

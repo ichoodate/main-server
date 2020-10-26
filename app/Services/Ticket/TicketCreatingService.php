@@ -4,7 +4,6 @@ namespace App\Services\Ticket;
 
 use App\Database\Models\Ticket;
 use Illuminate\Extend\Service;
-use App\Services\CreatingService;
 
 class TicketCreatingService extends Service {
 
@@ -53,9 +52,7 @@ class TicketCreatingService extends Service {
 
     public static function getArrTraits()
     {
-        return [
-            CreatingService::class
-        ];
+        return [];
     }
 
 }

@@ -4,7 +4,6 @@ namespace Tests\Unit\App\Services\Notice;
 
 use App\Database\Models\Notice;
 use App\Services\AdminRoleExistingService;
-use App\Services\CreatingService;
 use Tests\Unit\App\Database\Models\_Mocker as ModelMocker;
 use Tests\Unit\App\Services\_TestCase;
 
@@ -36,7 +35,6 @@ class NoticeCreatingServiceTest extends _TestCase {
     {
         $this->verifyArrTraits([
             AdminRoleExistingService::class,
-            CreatingService::class
         ]);
     }
 

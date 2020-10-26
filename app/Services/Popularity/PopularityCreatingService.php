@@ -5,7 +5,6 @@ namespace App\Services\Popularity;
 use App\Database\Models\Popularity;
 use Illuminate\Extend\Service;
 use App\Services\User\MatchingUserFindingService;
-use App\Services\CreatingService;
 
 class PopularityCreatingService extends Service {
 
@@ -77,9 +76,7 @@ class PopularityCreatingService extends Service {
 
     public static function getArrTraits()
     {
-        return [
-            CreatingService::class
-        ];
+        return [];
     }
 
 }

@@ -5,7 +5,6 @@ namespace App\Services\PwdReset;
 use App\Database\Models\PwdReset;
 use App\Database\Models\User;
 use Illuminate\Extend\Service;
-use App\Services\CreatingService;
 
 class PwdResetCreatingService extends Service {
 
@@ -62,9 +61,7 @@ class PwdResetCreatingService extends Service {
 
     public static function getArrTraits()
     {
-        return [
-            CreatingService::class
-        ];
+        return [];
     }
 
 }

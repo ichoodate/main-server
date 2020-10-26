@@ -6,7 +6,6 @@ use App\Database\Models\Item;
 use App\Database\Models\Payment;
 use Illuminate\Extend\Service;
 use App\Services\Item\ItemFindingService;
-use App\Services\CreatingService;
 
 class PaymentCreatingService extends Service {
 
@@ -82,9 +81,7 @@ class PaymentCreatingService extends Service {
 
     public static function getArrTraits()
     {
-        return [
-            CreatingService::class
-        ];
+        return [];
     }
 
 }

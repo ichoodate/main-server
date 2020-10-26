@@ -5,7 +5,6 @@ namespace App\Services\ChattingContent;
 use App\Database\Models\Friend;
 use App\Database\Models\ChattingContent;
 use Illuminate\Extend\Service;
-use App\Services\CreatingService;
 use App\Services\Match\MatchFindingService;
 
 class ChattingContentCreatingService extends Service {
@@ -115,9 +114,7 @@ class ChattingContentCreatingService extends Service {
 
     public static function getArrTraits()
     {
-        return [
-            CreatingService::class
-        ];
+        return [];
     }
 
 }

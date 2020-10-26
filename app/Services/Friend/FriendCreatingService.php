@@ -4,7 +4,6 @@ namespace App\Services\Friend;
 
 use App\Database\Models\Friend;
 use Illuminate\Extend\Service;
-use App\Services\CreatingService;
 use App\Services\Match\MatchFindingService;
 
 class FriendCreatingService extends Service {
@@ -71,9 +70,7 @@ class FriendCreatingService extends Service {
 
     public static function getArrTraits()
     {
-        return [
-            CreatingService::class
-        ];
+        return [];
     }
 
 }

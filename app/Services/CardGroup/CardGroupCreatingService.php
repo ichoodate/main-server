@@ -5,7 +5,6 @@ namespace App\Services\CardGroup;
 use App\Database\Models\Card;
 use App\Database\Models\CardGroup;
 use Illuminate\Extend\Service;
-use App\Services\CreatingService;
 use App\Services\Match\MatchCreatingService;
 
 class CardGroupCreatingService extends Service {
@@ -79,9 +78,7 @@ class CardGroupCreatingService extends Service {
 
     public static function getArrTraits()
     {
-        return [
-            CreatingService::class
-        ];
+        return [];
     }
 
 }

@@ -6,7 +6,6 @@ use App\Database\Models\Friend;
 use App\Database\Models\ChattingContent;
 use App\Database\Models\Match;
 use App\Database\Models\User;
-use App\Services\CreatingService;
 use App\Services\Match\MatchFindingService;
 use Tests\Unit\App\Database\Models\_Mocker as ModelMocker;
 use Tests\Unit\App\Database\Queries\_Mocker as QueryMocker;
@@ -47,9 +46,7 @@ class ChattingContentCreatingServiceTest extends _TestCase {
 
     public function testArrTraits()
     {
-        $this->verifyArrTraits([
-            CreatingService::class
-        ]);
+        $this->verifyArrTraits([]);
     }
 
     public function testLoaderCreated()

@@ -4,7 +4,6 @@ namespace App\Services\ProfilePhoto;
 
 use App\Database\Models\ProfilePhoto;
 use Illuminate\Extend\Service;
-use App\Services\CreatingService;
 
 class ProfilePhotoCreatingService extends Service {
 
@@ -56,9 +55,7 @@ class ProfilePhotoCreatingService extends Service {
 
     public static function getArrTraits()
     {
-        return [
-            CreatingService::class
-        ];
+        return [];
     }
 
 }

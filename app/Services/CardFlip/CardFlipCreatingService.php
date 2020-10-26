@@ -5,7 +5,6 @@ namespace App\Services\CardFlip;
 use App\Database\Models\Card;
 use App\Database\Models\CardFlip;
 use Illuminate\Extend\Service;
-use App\Services\CreatingService;
 use App\Services\UsedCoinAddingService;
 use App\Services\Card\CardFindingService;
 use App\Services\Card\FreeFlippableChooserCardReturningService;
@@ -132,9 +131,7 @@ class CardFlipCreatingService extends Service {
 
     public static function getArrTraits()
     {
-        return [
-            CreatingService::class
-        ];
+        return [];
     }
 
 }

@@ -5,7 +5,6 @@ namespace Tests\Unit\App\Services\Payment;
 use App\Database\Models\Item;
 use App\Database\Models\Payment;
 use App\Database\Models\User;
-use App\Services\CreatingService;
 use App\Services\Item\ItemFindingService;
 use Tests\_InstanceMocker as InstanceMocker;
 use Tests\Unit\App\Database\Models\_Mocker as ModelMocker;
@@ -37,9 +36,7 @@ class PaymentCreatingServiceTest extends _TestCase {
 
     public function testArrTraits()
     {
-        $this->verifyArrTraits([
-            CreatingService::class
-        ]);
+        $this->verifyArrTraits([]);
     }
 
     public function testLoaderCreated()

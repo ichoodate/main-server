@@ -5,7 +5,6 @@ namespace App\Services\Reply;
 use App\Database\Models\Ticket;
 use App\Database\Models\Reply;
 use Illuminate\Extend\Service;
-use App\Services\CreatingService;
 use App\Services\Ticket\TicketFindingService;
 
 class TicketReplyCreatingService extends Service {
@@ -70,9 +69,7 @@ class TicketReplyCreatingService extends Service {
 
     public static function getArrTraits()
     {
-        return [
-            CreatingService::class
-        ];
+        return [];
     }
 
 }

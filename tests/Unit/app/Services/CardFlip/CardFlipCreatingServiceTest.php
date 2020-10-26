@@ -6,7 +6,6 @@ use App\Database\Models\CardFlip;
 use App\Database\Models\Card;
 use App\Database\Models\User;
 use Illuminate\Extend\Service;
-use App\Services\CreatingService;
 use App\Services\UsedCoinAddingService;
 use App\Services\Card\CardFindingService;
 use App\Services\RequiredCoin\CardFlipRequiredCoinReturningService;
@@ -44,7 +43,6 @@ class CardFlipCreatingServiceTest extends _TestCase {
     public function testArrTraits()
     {
         $this->verifyArrTraits([
-            CreatingService::class,
             UsedCoinAddingService::class,
         ]);
     }

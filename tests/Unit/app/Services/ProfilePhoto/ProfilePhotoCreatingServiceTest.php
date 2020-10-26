@@ -4,7 +4,6 @@ namespace Tests\Unit\App\Services\ProfilePhoto;
 
 use App\Database\Models\ProfilePhoto;
 use App\Database\Models\User;
-use App\Services\CreatingService;
 use Tests\_InstanceMocker as InstanceMocker;
 use Tests\Unit\App\Database\Models\_Mocker as ModelMocker;
 use Tests\Unit\App\Services\_TestCase;
@@ -29,9 +28,7 @@ class ProfilePhotoCreatingServiceTest extends _TestCase {
 
     public function testArrTraits()
     {
-        $this->verifyArrTraits([
-            CreatingService::class
-        ]);
+        $this->verifyArrTraits([]);
     }
 
     public function testLoaderCreated()

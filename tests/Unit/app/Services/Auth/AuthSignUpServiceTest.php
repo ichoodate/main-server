@@ -6,7 +6,6 @@ use App\Database\Models\Photo;
 use App\Database\Models\Role;
 use App\Database\Models\User;
 use App\Database\Models\Balance;
-use App\Services\CreatingService;
 use App\Services\FacePhoto\FacePhotoCreatingService;
 use App\Services\UserIdealTypeKwdPvt\UserIdealTypeKwdPvtMergingService;
 use App\Services\ProfilePhoto\ProfilePhotoCreatingService;
@@ -52,9 +51,7 @@ class AuthSignUpServiceTest extends _TestCase {
 
     public function testArrTraits()
     {
-        $this->verifyArrTraits([
-            CreatingService::class
-        ]);
+        $this->verifyArrTraits([]);
     }
 
     public function testCallbackCreated()
