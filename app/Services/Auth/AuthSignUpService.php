@@ -8,9 +8,7 @@ use App\Database\Models\Role;
 use App\Database\Models\User;
 use Illuminate\Extend\Service;
 use App\Services\FacePhoto\FacePhotoCreatingService;
-use App\Services\UserIdealTypeKwdPvt\UserIdealTypeKwdPvtMergingService;
 use App\Services\ProfilePhoto\ProfilePhotoCreatingService;
-use App\Services\UserSelfKwdPvt\UserSelfKwdPvtMergingService;
 
 class AuthSignUpService extends Service {
 
