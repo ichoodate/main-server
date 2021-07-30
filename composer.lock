@@ -4,8 +4,40 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "94d4bf9ac7f4a933030e46a346ee2917",
+    "content-hash": "dca39c1cf877285d5c49820efe13040f",
     "packages": [
+        {
+            "name": "dbwhddn10/illuminate-extend",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dbwhddn10/illuminate-extend.git",
+                "reference": "bfa7d4c104375c20f19d217a2ba23370812ae840"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dbwhddn10/illuminate-extend/zipball/bfa7d4c104375c20f19d217a2ba23370812ae840",
+                "reference": "bfa7d4c104375c20f19d217a2ba23370812ae840",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://repo.packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "dbwhddn10",
+                    "email": "dbwhddn10@gmail.com"
+                }
+            ],
+            "time": "2020-10-20T08:09:39+00:00"
+        },
         {
             "name": "dnoegel/php-xdg-base-dir",
             "version": "0.1",
@@ -411,6 +443,7 @@
                     "email": "jakub.onderka@gmail.com"
                 }
             ],
+            "abandoned": "php-parallel-lint/php-console-color",
             "time": "2018-09-29T17:23:10+00:00"
         },
         {
@@ -457,6 +490,7 @@
                 }
             ],
             "description": "Highlight PHP code in terminal",
+            "abandoned": "php-parallel-lint/php-console-highlighter",
             "time": "2018-09-29T18:48:56+00:00"
         },
         {
@@ -4401,11 +4435,14 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "dbwhddn10/illuminate-extend": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^7.1.3"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "1.1.0"
 }

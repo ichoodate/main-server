@@ -14,9 +14,9 @@
 Route::prefix('api')->group(function () {
 
     Route::middleware([
-        'App\Http\Middleware\ParameterCasting',
-        'App\Http\Middleware\Api',
-        'App\Http\Middleware\CrossOriginAll'
+        'Illuminate\Extend\Http\ServiceRunMiddleware',
+        'Illuminate\Extend\Http\ServiceParameterSettingMiddleware',
+        'Illuminate\Extend\Http\RequestInputTransformMiddleware',
     ])->group(function () {
 
         Route::resource(
