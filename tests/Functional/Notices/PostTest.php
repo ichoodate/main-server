@@ -7,8 +7,12 @@ use App\Database\Models\Role;
 use App\Database\Models\User;
 use Tests\Functional\_TestCase;
 
-class PostTest extends _TestCase {
-
+/**
+ * @internal
+ * @coversNothing
+ */
+class PostTest extends _TestCase
+{
     protected $uri = 'api/notices';
 
     public function test()
@@ -17,18 +21,16 @@ class PostTest extends _TestCase {
         $this->factory(Role::class)->create(['user_id' => 1, 'type' => Role::TYPE_ADMIN]);
 
         $this->when(function () {
-
             $this->setAuthUser(User::find(1));
             $this->setInputParameter('subject', $subject = $this->uniqueString());
             $this->setInputParameter('description', $description = $this->uniqueString());
             $this->setInputParameter('type', Notice::TYPE_EVENT);
 
             $this->assertResultWithPersisting(new Notice([
-                'type'        => Notice::TYPE_EVENT,
-                'subject'     => $subject,
-                'description' => $description
+                'type' => Notice::TYPE_EVENT,
+                'subject' => $subject,
+                'description' => $description,
             ]));
         });
     }
-
 }

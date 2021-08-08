@@ -9,8 +9,12 @@ use App\Database\Models\Match;
 use App\Database\Models\User;
 use Tests\Functional\_TestCase;
 
-class PostTest extends _TestCase {
-
+/**
+ * @internal
+ * @coversNothing
+ */
+class PostTest extends _TestCase
+{
     protected $uri = 'api/card-flips';
 
     public function test()
@@ -22,16 +26,15 @@ class PostTest extends _TestCase {
         $this->factory(Balance::class)->create(['id' => 201, 'type' => Balance::TYPE_BASIC, 'count' => 10000, 'user_id' => 1, 'deleted_at' => '9999-12-31 23:59:59']);
 
         $this->when(function () {
-
             $this->setAuthUser(User::find(1));
             $this->setInputParameter('timezone', 'Asia/Seoul');
             $this->setInputParameter('type', CardFlip::TYPE_CARD_FLIP);
             $this->setRouteParameter('id', 11);
 
             $this->assertResultWithPersisting(new CardFlip([
-                'user_id'    => 1,
+                'user_id' => 1,
                 'related_id' => 11,
-                'type'       => CardFlip::TYPE_CARD_FLIP
+                'type' => CardFlip::TYPE_CARD_FLIP,
             ]));
             $this->assertNotEquals(10000, Balance::find(201)->{Balance::COUNT});
         });
@@ -39,42 +42,40 @@ class PostTest extends _TestCase {
         $this->factory(CardFlip::class)->create(['id' => 1001, 'user_id' => 1, 'related_id' => 11, 'type' => CardFlip::TYPE_CARD_FLIP]);
 
         $this->when(function () {
-
             $this->setAuthUser(User::find(1));
             $this->setInputParameter('timezone', 'Asia/Seoul');
             $this->setInputParameter('type', CardFlip::TYPE_CARD_OPEN);
             $this->setRouteParameter('id', 11);
 
             $this->assertResultWithPersisting(new CardFlip([
-                'user_id'    => 1,
+                'user_id' => 1,
                 'related_id' => 11,
-                'type'       => CardFlip::TYPE_CARD_OPEN
+                'type' => CardFlip::TYPE_CARD_OPEN,
             ]));
             $this->assertPersistence(new CardFlip([
-                'user_id'    => 1,
+                'user_id' => 1,
                 'related_id' => 101,
-                'type'       => CardFlip::TYPE_MATCH_OPEN
+                'type' => CardFlip::TYPE_MATCH_OPEN,
             ]));
         });
 
         $this->factory(CardFlip::class)->create(['id' => 1002, 'user_id' => 1, 'related_id' => 101, 'type' => CardFlip::TYPE_MATCH_OPEN]);
 
         $this->when(function () {
-
             $this->setAuthUser(User::find(1));
             $this->setInputParameter('timezone', 'Asia/Seoul');
             $this->setInputParameter('type', CardFlip::TYPE_CARD_PROPOSE);
             $this->setRouteParameter('id', 11);
 
             $this->assertResultWithPersisting(new CardFlip([
-                'user_id'    => 1,
+                'user_id' => 1,
                 'related_id' => 11,
-                'type'       => CardFlip::TYPE_CARD_PROPOSE
+                'type' => CardFlip::TYPE_CARD_PROPOSE,
             ]));
             $this->assertPersistence(new CardFlip([
-                'user_id'    => 1,
+                'user_id' => 1,
                 'related_id' => 101,
-                'type'       => CardFlip::TYPE_MATCH_PROPOSE
+                'type' => CardFlip::TYPE_MATCH_PROPOSE,
             ]));
         });
     }
@@ -82,7 +83,6 @@ class PostTest extends _TestCase {
     public function testErrorInRuleType()
     {
         $this->when(function () {
-
             $this->setInputParameter('type', 'aaaa');
 
             $this->assertError('[type] is invalid.');
@@ -96,7 +96,6 @@ class PostTest extends _TestCase {
         $this->factory(Card::class)->create(['id' => 11, 'match_id' => 101, 'chooser_id' => 1, 'showner_id' => 2]);
 
         $this->when(function () {
-
             $this->setAuthUser(User::find(1));
             $this->setInputParameter('timezone', 'Asia/Seoul');
             $this->setInputParameter('type', CardFlip::TYPE_CARD_OPEN);
@@ -113,7 +112,6 @@ class PostTest extends _TestCase {
         $this->factory(Card::class)->create(['id' => 11, 'match_id' => 101, 'chooser_id' => 1, 'showner_id' => 2]);
 
         $this->when(function () {
-
             $this->setAuthUser(User::find(1));
             $this->setInputParameter('timezone', 'Asia/Seoul');
             $this->setInputParameter('type', CardFlip::TYPE_CARD_PROPOSE);
@@ -131,7 +129,6 @@ class PostTest extends _TestCase {
         $this->factory(CardFlip::class)->create(['id' => 1001, 'user_id' => 1, 'related_id' => 11, 'type' => CardFlip::TYPE_CARD_FLIP]);
 
         $this->when(function () {
-
             $this->setAuthUser(User::find(1));
             $this->setInputParameter('timezone', 'Asia/Seoul');
             $this->setInputParameter('type', CardFlip::TYPE_CARD_FLIP);
@@ -149,7 +146,6 @@ class PostTest extends _TestCase {
         $this->factory(CardFlip::class)->create(['id' => 1001, 'user_id' => 1, 'related_id' => 101, 'type' => CardFlip::TYPE_MATCH_OPEN]);
 
         $this->when(function () {
-
             $this->setAuthUser(User::find(1));
             $this->setInputParameter('timezone', 'Asia/Seoul');
             $this->setInputParameter('type', CardFlip::TYPE_CARD_OPEN);
@@ -167,7 +163,6 @@ class PostTest extends _TestCase {
         $this->factory(CardFlip::class)->create(['id' => 1001, 'user_id' => 1, 'related_id' => 101, 'type' => CardFlip::TYPE_MATCH_PROPOSE]);
 
         $this->when(function () {
-
             $this->setAuthUser(User::find(1));
             $this->setInputParameter('timezone', 'Asia/Seoul');
             $this->setInputParameter('type', CardFlip::TYPE_CARD_PROPOSE);
@@ -180,7 +175,6 @@ class PostTest extends _TestCase {
     public function testErrorRequiredRuleAuthUser()
     {
         $this->when(function () {
-
             $this->assertError('authorized user is required.');
         });
     }
@@ -188,7 +182,6 @@ class PostTest extends _TestCase {
     public function testErrorRequiredRuleTimezone()
     {
         $this->when(function () {
-
             $this->assertError('[timezone] is required.');
         });
     }
@@ -196,7 +189,6 @@ class PostTest extends _TestCase {
     public function testErrorRequiredRuleType()
     {
         $this->when(function () {
-
             $this->assertError('[type] is required.');
         });
     }
@@ -204,11 +196,9 @@ class PostTest extends _TestCase {
     public function testErrorTimezoneRuleTimezone()
     {
         $this->when(function () {
-
             $this->setInputParameter('timezone', 'abcd');
 
             $this->assertError('[timezone] must be a valid zone.');
         });
     }
-
 }

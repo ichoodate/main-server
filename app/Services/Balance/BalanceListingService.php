@@ -3,12 +3,11 @@
 namespace App\Services\Balance;
 
 use App\Database\Models\Balance;
-use Illuminate\Extend\Service;
 use App\Services\LimitedListingService;
-use App\Services\Balance\BalanceFindingService;
+use Illuminate\Extend\Service;
 
-class BalanceListingService extends Service {
-
+class BalanceListingService extends Service
+{
     public static function getArrBindNames()
     {
         return [];
@@ -18,37 +17,29 @@ class BalanceListingService extends Service {
     {
         return [
             'query.auth_user' => function ($authUser, $query) {
-
                 $query->qWhere(Balance::USER_ID, $authUser->getKey());
             },
         ];
     }
 
-     public static function getArrLoaders()
+    public static function getArrLoaders()
     {
         return [
             'available_expands' => function () {
-
                 return ['user'];
             },
 
             'cursor' => function ($authUser, $cursorId) {
-
                 return [BalanceFindingService::class, [
-                    'auth_user'
-                        => $authUser,
-                    'id'
-                        => $cursorId
+                    'auth_user' => $authUser,
+                    'id' => $cursorId,
                 ], [
-                    'auth_user'
-                        => '{{auth_user}}',
-                    'id'
-                        => '{{cursor_id}}'
+                    'auth_user' => '{{auth_user}}',
+                    'id' => '{{cursor_id}}',
                 ]];
             },
 
             'model_class' => function () {
-
                 return Balance::class;
             },
         ];
@@ -62,8 +53,7 @@ class BalanceListingService extends Service {
     public static function getArrRuleLists()
     {
         return [
-            'auth_user'
-                => ['required']
+            'auth_user' => ['required'],
         ];
     }
 
@@ -73,5 +63,4 @@ class BalanceListingService extends Service {
             LimitedListingService::class,
         ];
     }
-
 }

@@ -2,13 +2,13 @@
 
 namespace App\Services\Auth;
 
-use Illuminate\Extend\Service;
 use App\Database\Models\Keyword\BirthYear;
 use App\Database\Models\User;
 use App\Database\Models\UserSelfKwdPvt;
+use Illuminate\Extend\Service;
 
-class AuthUserUpdatingService extends Service {
-
+class AuthUserUpdatingService extends Service
+{
     public static function getArrBindNames()
     {
         return [];
@@ -18,23 +18,25 @@ class AuthUserUpdatingService extends Service {
     {
         return [
             'auth_user.birth' => function ($authUser, $birth) {
-
-                $keywordIds = (new BirthYear)->query()
+                $keywordIds = (new BirthYear())->query()
                     ->qSelect(BirthYear::ID)
-                    ->getQuery();
+                    ->getQuery()
+                ;
 
-                (new UserSelfKwdPvt)->query()
+                (new UserSelfKwdPvt())->query()
                     ->qWhere(UserSelfKwdPvt::USER_ID, $authUser->getKey())
                     ->qWhereIn(UserSelfKwdPvt::KEYWORD_ID, $keywordIds)
-                    ->delete();
+                    ->delete()
+                ;
 
-                $keyword = (new BirthYear)->query()
+                $keyword = (new BirthYear())->query()
                     ->qWhere(BirthYear::TYPE, substr($birth, 0, 4))
-                    ->first();
+                    ->first()
+                ;
 
-                (new UserSelfKwdPvt)->create([
+                (new UserSelfKwdPvt())->create([
                     UserSelfKwdPvt::USER_ID => $authUser->getKey(),
-                    UserSelfKwdPvt::KEYWORD_ID => $keyword->getKey()
+                    UserSelfKwdPvt::KEYWORD_ID => $keyword->getKey(),
                 ]);
 
                 $authUser->{User::BIRTH} = $birth;
@@ -42,12 +44,11 @@ class AuthUserUpdatingService extends Service {
             },
 
             'auth_user.email' => function ($authUser, $email) {
-
                 $authUser->{User::EMAIL} = $email;
                 $authUser->{User::EMAIL_VERIFIED} = false;
                 $authUser->save();
 
-                // (new EmailVerfication)->create([
+            // (new EmailVerfication)->create([
                 //     EmailVerfication::EMAIL => $email,
                 //     EmailVerfication::CODE => str_random(6)
                 // ]);
@@ -56,7 +57,6 @@ class AuthUserUpdatingService extends Service {
             },
 
             'auth_user.name' => function ($authUser, $name) {
-
                 $authUser->{User::NAME} = $name;
                 $authUser->save();
             },
@@ -67,7 +67,6 @@ class AuthUserUpdatingService extends Service {
     {
         return [
             'result' => function ($authUser) {
-
                 return $authUser;
             },
         ];
@@ -81,17 +80,13 @@ class AuthUserUpdatingService extends Service {
     public static function getArrRuleLists()
     {
         return [
-            'auth_user'
-                => ['required'],
+            'auth_user' => ['required'],
 
-            'birth'
-                => ['string', 'date_format:Y-m-d'],
+            'birth' => ['string', 'date_format:Y-m-d'],
 
-            'email'
-                => ['string', 'email'],
+            'email' => ['string', 'email'],
 
-            'name'
-                => ['string']
+            'name' => ['string'],
         ];
     }
 
@@ -99,5 +94,4 @@ class AuthUserUpdatingService extends Service {
     {
         return [];
     }
-
 }

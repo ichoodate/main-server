@@ -3,16 +3,15 @@
 namespace App\Services\Keyword\EduBg;
 
 use App\Database\Models\Keyword\EduBg;
-use Illuminate\Extend\Service;
 use App\Services\FindingService;
+use Illuminate\Extend\Service;
 
-class EduBgFindingService extends Service {
-
+class EduBgFindingService extends Service
+{
     public static function getArrBindNames()
     {
         return [
-            'model'
-                => 'education_background keyword for {{id}}',
+            'model' => 'education_background keyword for {{id}}',
         ];
     }
 
@@ -25,7 +24,6 @@ class EduBgFindingService extends Service {
     {
         return [
             'model_class' => function () {
-
                 return EduBg::class;
             },
         ];
@@ -47,5 +45,4 @@ class EduBgFindingService extends Service {
             FindingService::class,
         ];
     }
-
 }

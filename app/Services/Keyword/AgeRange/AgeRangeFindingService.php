@@ -3,16 +3,15 @@
 namespace App\Services\Keyword\AgeRange;
 
 use App\Database\Models\Keyword\AgeRange;
-use Illuminate\Extend\Service;
 use App\Services\FindingService;
+use Illuminate\Extend\Service;
 
-class AgeRangeFindingService extends Service {
-
+class AgeRangeFindingService extends Service
+{
     public static function getArrBindNames()
     {
         return [
-            'model'
-                => 'age_range keyword for {{id}}',
+            'model' => 'age_range keyword for {{id}}',
         ];
     }
 
@@ -25,7 +24,6 @@ class AgeRangeFindingService extends Service {
     {
         return [
             'model_class' => function () {
-
                 return AgeRange::class;
             },
         ];
@@ -47,5 +45,4 @@ class AgeRangeFindingService extends Service {
             FindingService::class,
         ];
     }
-
 }

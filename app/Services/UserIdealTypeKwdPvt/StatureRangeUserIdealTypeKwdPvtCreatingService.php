@@ -2,14 +2,13 @@
 
 namespace App\Services\UserIdealTypeKwdPvt;
 
-use App\Database\Models\UserIdealTypeKwdPvt;
 use App\Database\Models\Keyword\StatureRange;
-use Illuminate\Extend\Service;
-use App\Services\ListingService;
+use App\Database\Models\UserIdealTypeKwdPvt;
 use App\Services\Keyword\StatureRange\StatureRangeFindingService;
+use Illuminate\Extend\Service;
 
-class StatureRangeUserIdealTypeKwdPvtCreatingService extends Service {
-
+class StatureRangeUserIdealTypeKwdPvtCreatingService extends Service
+{
     public static function getArrBindNames()
     {
         return [];
@@ -19,15 +18,16 @@ class StatureRangeUserIdealTypeKwdPvtCreatingService extends Service {
     {
         return [
             'auth_user' => function ($authUser) {
-
-                $keywordIds = (new StatureRange)->query()
+                $keywordIds = (new StatureRange())->query()
                     ->qSelect(StatureRange::ID)
-                    ->getQuery();
+                    ->getQuery()
+                ;
 
-                (new UserIdealTypeKwdPvt)->query()
+                (new UserIdealTypeKwdPvt())->query()
                     ->qWhere(UserIdealTypeKwdPvt::USER_ID, $authUser->getKey())
                     ->qWhereIn(UserIdealTypeKwdPvt::KEYWORD_ID, $keywordIds)
-                    ->delete();
+                    ->delete()
+                ;
             },
         ];
     }
@@ -36,21 +36,17 @@ class StatureRangeUserIdealTypeKwdPvtCreatingService extends Service {
     {
         return [
             'keyword' => function ($keywordId) {
-
                 return [StatureRangeFindingService::class, [
-                    'id'
-                        => $keywordId
+                    'id' => $keywordId,
                 ], [
-                    'id'
-                        => '{{keyword_id}}'
+                    'id' => '{{keyword_id}}',
                 ]];
             },
 
             'result' => function ($authUser, $keyword) {
-
-                return (new UserIdealTypeKwdPvt)->create([
+                return (new UserIdealTypeKwdPvt())->create([
                     UserIdealTypeKwdPvt::USER_ID => $authUser->getKey(),
-                    UserIdealTypeKwdPvt::KEYWORD_ID => $keyword->getKey()
+                    UserIdealTypeKwdPvt::KEYWORD_ID => $keyword->getKey(),
                 ]);
             },
         ];
@@ -64,11 +60,9 @@ class StatureRangeUserIdealTypeKwdPvtCreatingService extends Service {
     public static function getArrRuleLists()
     {
         return [
-            'auth_user'
-                => ['required'],
+            'auth_user' => ['required'],
 
-            'keyword_id'
-                => ['required']
+            'keyword_id' => ['required'],
         ];
     }
 
@@ -76,5 +70,4 @@ class StatureRangeUserIdealTypeKwdPvtCreatingService extends Service {
     {
         return [];
     }
-
 }

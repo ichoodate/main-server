@@ -2,12 +2,17 @@
 
 namespace App\Database\Models\Keyword;
 
-use App\Database\Models\Keyword\Nationality;
-use App\Database\Models\Keyword\Residence;
-use App\Database\Models\Keyword\State;
 use App\Database\Model;
 
-class Country extends Model {
+class Country extends Model
+{
+    public const ID = 'id';
+    public const ISO = 'iso'; // iso_3166_1_alpha2
+    public const NAME = 'name';
+    public const E164 = 'e164';
+    public const CCTLD = 'cctld';
+    public const CURRENCY = 'currency';
+    public const LANGUAGE = 'language';
 
     protected $table = 'keyword_countries';
     protected $fillable = [
@@ -17,16 +22,8 @@ class Country extends Model {
         self::E164,
         self::CCTLD,
         self::CURRENCY,
-        self::LANGUAGE
+        self::LANGUAGE,
     ];
-
-    const ID        = 'id';
-    const ISO       = 'iso'; // iso_3166_1_alpha2
-    const NAME      = 'name';
-    const E164      = 'e164';
-    const CCTLD     = 'cctld';
-    const CURRENCY  = 'currency';
-    const LANGUAGE  = 'language';
 
     public function nationality()
     {
@@ -42,5 +39,4 @@ class Country extends Model {
     {
         return $this->hasMany(State::class, 'country_id', 'id');
     }
-
 }

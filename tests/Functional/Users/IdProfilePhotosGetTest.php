@@ -2,12 +2,16 @@
 
 namespace Tests\Functional\Users;
 
-use App\Database\Models\User;
 use App\Database\Models\ProfilePhoto;
+use App\Database\Models\User;
 use Tests\Functional\_TestCase;
 
-class IdProfilePhotosGetTest extends _TestCase {
-
+/**
+ * @internal
+ * @coversNothing
+ */
+class IdProfilePhotosGetTest extends _TestCase
+{
     protected $uri = 'api/users/{id}/profile-photos';
 
     public function test()
@@ -23,21 +27,18 @@ class IdProfilePhotosGetTest extends _TestCase {
         $this->factory(ProfilePhoto::class)->create(['id' => 16, 'user_id' => 3]);
 
         $this->when(function () {
-
             $this->setRouteParameter('id', 1);
 
             $this->assertResultWithListing([11, 12]);
         });
 
         $this->when(function () {
-
             $this->setRouteParameter('id', 2);
 
             $this->assertResultWithListing([13, 14]);
         });
 
         $this->when(function () {
-
             $this->setRouteParameter('id', 3);
 
             $this->assertResultWithListing([15, 16]);
@@ -58,5 +59,4 @@ class IdProfilePhotosGetTest extends _TestCase {
 
         $this->success();
     }
-
 }

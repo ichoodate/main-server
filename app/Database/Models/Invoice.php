@@ -4,12 +4,16 @@ namespace App\Database\Models;
 
 use App\Database\Model;
 
-class Invoice extends Model {
+class Invoice extends Model
+{
+    public const ID = 'id';
+    public const USER_ID = 'user_id';
+    public const CREATED_AT = 'created_at';
 
     protected $table = 'invoices';
     protected $casts = [
         self::ID => 'integer',
-        self::USER_ID => 'integer'
+        self::USER_ID => 'integer',
     ];
     protected $fillable = [
         self::ID,
@@ -17,13 +21,8 @@ class Invoice extends Model {
         self::CREATED_AT,
     ];
 
-    const ID         = 'id';
-    const USER_ID    = 'user_id';
-    const CREATED_AT = 'created_at';
-
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
-
 }

@@ -4,13 +4,12 @@ namespace App\Services;
 
 use Illuminate\Extend\Service;
 
-class PermittedUserRequiringService extends Service {
-
+class PermittedUserRequiringService extends Service
+{
     public static function getArrBindNames()
     {
         return [
-            'permitted_user'
-                => '{{auth_user}} who is related user of {{model}}',
+            'permitted_user' => '{{auth_user}} who is related user of {{model}}',
         ];
     }
 
@@ -23,8 +22,7 @@ class PermittedUserRequiringService extends Service {
     {
         return [
             'permitted_user' => function ($authUser, $model) {
-
-                throw new \Exception;
+                throw new \Exception();
             },
         ];
     }
@@ -37,11 +35,9 @@ class PermittedUserRequiringService extends Service {
     public static function getArrRuleLists()
     {
         return [
-            'auth_user'
-                => ['required'],
+            'auth_user' => ['required'],
 
-            'permitted_user'
-                => ['required']
+            'permitted_user' => ['required'],
         ];
     }
 
@@ -49,5 +45,4 @@ class PermittedUserRequiringService extends Service {
     {
         return [];
     }
-
 }

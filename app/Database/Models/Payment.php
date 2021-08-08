@@ -3,16 +3,21 @@
 namespace App\Database\Models;
 
 use App\Database\Model;
-use App\Database\Models\User;
-use App\Database\Models\Item;
 
-class Payment extends Model {
+class Payment extends Model
+{
+    public const ID = 'id';
+    public const USER_ID = 'user_id';
+    public const ITEM_ID = 'item_id';
+    public const AMOUNT = 'amount';
+    public const CURRENCY = 'currency';
+    public const CREATED_AT = 'created_at';
 
     protected $table = 'payments';
     protected $casts = [
         self::ID => 'integer',
         self::USER_ID => 'integer',
-        self::ITEM_ID => 'integer'
+        self::ITEM_ID => 'integer',
     ];
     protected $fillable = [
         self::ID,
@@ -20,15 +25,8 @@ class Payment extends Model {
         self::ITEM_ID,
         self::AMOUNT,
         self::CURRENCY,
-        self::CREATED_AT
+        self::CREATED_AT,
     ];
-
-    const ID         = 'id';
-    const USER_ID    = 'user_id';
-    const ITEM_ID    = 'item_id';
-    const AMOUNT     = 'amount';
-    const CURRENCY   = 'currency';
-    const CREATED_AT = 'created_at';
 
     public function item()
     {
@@ -39,5 +37,4 @@ class Payment extends Model {
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
-
 }

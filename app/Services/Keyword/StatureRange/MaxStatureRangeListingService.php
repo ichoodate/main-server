@@ -3,11 +3,11 @@
 namespace App\Services\Keyword\StatureRange;
 
 use App\Database\Models\Keyword\StatureRange;
-use Illuminate\Extend\Service;
 use App\Services\ListingService;
+use Illuminate\Extend\Service;
 
-class MaxStatureRangeListingService extends Service {
-
+class MaxStatureRangeListingService extends Service
+{
     public static function getArrBindNames()
     {
         return [];
@@ -17,7 +17,6 @@ class MaxStatureRangeListingService extends Service {
     {
         return [
             'query.min' => function ($min, $query) {
-
                 $query->qWhere('min', $min);
             },
         ];
@@ -27,7 +26,6 @@ class MaxStatureRangeListingService extends Service {
     {
         return [
             'model_class' => function () {
-
                 return StatureRange::class;
             },
         ];
@@ -41,8 +39,7 @@ class MaxStatureRangeListingService extends Service {
     public static function getArrRuleLists()
     {
         return [
-            'min'
-                => ['required', 'integer']
+            'min' => ['required', 'integer'],
         ];
     }
 
@@ -52,5 +49,4 @@ class MaxStatureRangeListingService extends Service {
             ListingService::class,
         ];
     }
-
 }

@@ -3,18 +3,17 @@
 namespace App\Services\Ticket;
 
 use App\Database\Models\Ticket;
-use Illuminate\Extend\Service;
 use App\Services\AdminRoleExistingService;
 use App\Services\FindingService;
 use App\Services\PermittedUserRequiringService;
+use Illuminate\Extend\Service;
 
-class TicketFindingService extends Service {
-
+class TicketFindingService extends Service
+{
     public static function getArrBindNames()
     {
         return [
-            'model'
-                => 'ticket for {{id}}',
+            'model' => 'ticket for {{id}}',
         ];
     }
 
@@ -27,19 +26,15 @@ class TicketFindingService extends Service {
     {
         return [
             'available_expands' => function () {
-
                 return ['replies', 'writer'];
             },
 
             'model_class' => function () {
-
                 return Ticket::class;
             },
 
             'permitted_user' => function ($adminRole, $authUser, $model) {
-
-                if ( ! empty($adminRole) || $authUser->getKey() == $model->{Ticket::WRITER_ID} )
-                {
+                if (!empty($adminRole) || $authUser->getKey() == $model->{Ticket::WRITER_ID}) {
                     return $authUser;
                 }
             },
@@ -64,5 +59,4 @@ class TicketFindingService extends Service {
             PermittedUserRequiringService::class,
         ];
     }
-
 }

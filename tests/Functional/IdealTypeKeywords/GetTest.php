@@ -6,8 +6,12 @@ use App\Database\Models\User;
 use App\Database\Models\UserIdealTypeKwdPvt;
 use Tests\Functional\_TestCase;
 
-class GetTest extends _TestCase {
-
+/**
+ * @internal
+ * @coversNothing
+ */
+class GetTest extends _TestCase
+{
     protected $uri = 'api/ideal-type-keywords';
 
     public function test()
@@ -20,14 +24,12 @@ class GetTest extends _TestCase {
         $this->factory(UserIdealTypeKwdPvt::class)->create(['id' => 14, 'user_id' => 1]);
 
         $this->when(function () {
-
             $this->setAuthUser(User::find(1));
 
             $this->assertResultWithListing([11, 14]);
         });
 
         $this->when(function () {
-
             $this->setAuthUser(User::find(2));
 
             $this->assertResultWithListing([12, 13]);
@@ -37,9 +39,7 @@ class GetTest extends _TestCase {
     public function testErrorRequiredRuleAuthUser()
     {
         $this->when(function () {
-
             $this->assertError('authorized user is required.');
         });
     }
-
 }

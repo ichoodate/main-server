@@ -3,16 +3,15 @@
 namespace App\Services\Keyword\Body;
 
 use App\Database\Models\Keyword\Body;
-use Illuminate\Extend\Service;
 use App\Services\FindingService;
+use Illuminate\Extend\Service;
 
-class BodyFindingService extends Service {
-
+class BodyFindingService extends Service
+{
     public static function getArrBindNames()
     {
         return [
-            'model'
-                => 'body keyword for {{id}}',
+            'model' => 'body keyword for {{id}}',
         ];
     }
 
@@ -25,7 +24,6 @@ class BodyFindingService extends Service {
     {
         return [
             'model_class' => function () {
-
                 return Body::class;
             },
         ];
@@ -47,5 +45,4 @@ class BodyFindingService extends Service {
             FindingService::class,
         ];
     }
-
 }

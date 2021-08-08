@@ -3,17 +3,16 @@
 namespace App\Services\Popularity;
 
 use App\Database\Models\Popularity;
-use Illuminate\Extend\Service;
 use App\Services\FindingService;
 use App\Services\PermittedUserRequiringService;
+use Illuminate\Extend\Service;
 
-class PopularityFindingService extends Service {
-
+class PopularityFindingService extends Service
+{
     public static function getArrBindNames()
     {
         return [
-            'model'
-                => 'popularity for {{id}}',
+            'model' => 'popularity for {{id}}',
         ];
     }
 
@@ -26,21 +25,17 @@ class PopularityFindingService extends Service {
     {
         return [
             'available_expands' => function () {
-
                 return ['receiver', 'sender'];
             },
 
             'model_class' => function () {
-
                 return Popularity::class;
             },
 
             'permitted_user' => function ($authUser, $model) {
-
-                if ( in_array($authUser->getKey(), [
-                    $model->{Popularity::SENDER_ID}, $model->{Popularity::RECEIVER_ID}
-                ]) )
-                {
+                if (in_array($authUser->getKey(), [
+                    $model->{Popularity::SENDER_ID}, $model->{Popularity::RECEIVER_ID},
+                ])) {
                     return $authUser;
                 }
             },
@@ -64,5 +59,4 @@ class PopularityFindingService extends Service {
             PermittedUserRequiringService::class,
         ];
     }
-
 }

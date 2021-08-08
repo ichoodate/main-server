@@ -3,16 +3,15 @@
 namespace App\Services\Keyword\BirthYear;
 
 use App\Database\Models\Keyword\BirthYear;
-use Illuminate\Extend\Service;
 use App\Services\FindingService;
+use Illuminate\Extend\Service;
 
-class BirthYearFindingService extends Service {
-
+class BirthYearFindingService extends Service
+{
     public static function getArrBindNames()
     {
         return [
-            'model'
-                => 'birth_year keyword for {{id}}',
+            'model' => 'birth_year keyword for {{id}}',
         ];
     }
 
@@ -25,7 +24,6 @@ class BirthYearFindingService extends Service {
     {
         return [
             'model_class' => function () {
-
                 return BirthYear::class;
             },
         ];
@@ -47,5 +45,4 @@ class BirthYearFindingService extends Service {
             FindingService::class,
         ];
     }
-
 }

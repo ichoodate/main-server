@@ -3,23 +3,21 @@
 namespace App\Database\Models\Keyword;
 
 use App\Database\Model;
-use App\Database\Models\Keyword\Country;
-use App\Database\Models\Keyword\Residence;
 
-class State extends Model {
+class State extends Model
+{
+    public const ID = 'id';
+    public const COUNTRY_ID = 'country_id';
+    public const NAME = 'name';
+
+    public const ENTITIES = [
+        self::ID,
+        self::COUNTRY_ID,
+        self::NAME,
+    ];
 
     protected $table = 'keyword_states';
     protected $fillable = [
-        self::ID,
-        self::COUNTRY_ID,
-        self::NAME
-    ];
-
-    const ID         = 'id';
-    const COUNTRY_ID = 'country_id';
-    const NAME       = 'name';
-
-    const ENTITIES = [
         self::ID,
         self::COUNTRY_ID,
         self::NAME,
@@ -34,5 +32,4 @@ class State extends Model {
     {
         return $this->hasOne(Residence::class, 'related_id', 'id');
     }
-
 }

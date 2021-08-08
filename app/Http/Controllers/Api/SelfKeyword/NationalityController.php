@@ -5,21 +5,16 @@ namespace App\Http\Controllers\Api\SelfKeyword;
 use App\Http\Controllers\ApiController;
 use App\Services\UserSelfKwdPvt\NationalityUserSelfKwdPvtCreatingService;
 
-class NationalityController extends ApiController {
-
+class NationalityController extends ApiController
+{
     public static function store()
     {
         return [NationalityUserSelfKwdPvtCreatingService::class, [
-            'auth_user'
-                => auth()->user(),
-            'keyword_id'
-                => static::input('keyword_id')
+            'auth_user' => auth()->user(),
+            'keyword_id' => static::input('keyword_id'),
         ], [
-            'auth_user'
-                => 'authorized user',
-            'keyword_id'
-                => '[keyword_id]'
+            'auth_user' => 'authorized user',
+            'keyword_id' => '[keyword_id]',
         ]];
     }
-
 }

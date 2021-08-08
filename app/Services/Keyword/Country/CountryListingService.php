@@ -3,12 +3,11 @@
 namespace App\Services\Keyword\Country;
 
 use App\Database\Models\Keyword\Country;
-use Illuminate\Extend\Service;
 use App\Services\ListingService;
-use App\Services\Keyword\CountryFindingService;
+use Illuminate\Extend\Service;
 
-class CountryListingService extends Service {
-
+class CountryListingService extends Service
+{
     public static function getArrBindNames()
     {
         return [];
@@ -18,12 +17,10 @@ class CountryListingService extends Service {
     {
         return [
             'query' => function ($query) {
-
                 $query->qOrderBy('name', 'asc');
             },
 
             'query.name' => function ($name, $query) {
-
                 $query->qWhere('name', $name);
             },
         ];
@@ -33,12 +30,10 @@ class CountryListingService extends Service {
     {
         return [
             'available_expands' => function () {
-
                 return ['state', 'residence', 'nationality'];
             },
 
             'model_class' => function () {
-
                 return Country::class;
             },
         ];
@@ -52,8 +47,7 @@ class CountryListingService extends Service {
     public static function getArrRuleLists()
     {
         return [
-            'name'
-                => ['string']
+            'name' => ['string'],
         ];
     }
 
@@ -63,5 +57,4 @@ class CountryListingService extends Service {
             ListingService::class,
         ];
     }
-
 }

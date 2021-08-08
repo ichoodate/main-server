@@ -4,13 +4,12 @@ namespace App\Services;
 
 use Illuminate\Extend\Service;
 
-class FindingService extends Service {
-
+class FindingService extends Service
+{
     public static function getArrBindNames()
     {
         return [
-            'available_expands'
-                => 'options for {{expands}}',
+            'available_expands' => 'options for {{expands}}',
         ];
     }
 
@@ -18,7 +17,6 @@ class FindingService extends Service {
     {
         return [
             'result' => function ($expands, $result) {
-
                 $expands = preg_split('/\s*,\s*/', $expands);
                 $collection = $result->newCollection();
                 $collection->push($result);
@@ -31,22 +29,18 @@ class FindingService extends Service {
     {
         return [
             'available_expands' => function () {
-
                 return [];
             },
 
             'model' => function ($id, $modelClass) {
-
                 return inst($modelClass)->find($id);
             },
 
             'model_class' => function () {
-
-                throw new \Exception;
+                throw new \Exception();
             },
 
             'result' => function ($model) {
-
                 return $model;
             },
         ];
@@ -60,14 +54,11 @@ class FindingService extends Service {
     public static function getArrRuleLists()
     {
         return [
-            'expands'
-                => ['several_in:{{available_expands}}'],
+            'expands' => ['several_in:{{available_expands}}'],
 
-            'id'
-                => ['required', 'integer'],
+            'id' => ['required', 'integer'],
 
-            'model'
-                => ['not_null']
+            'model' => ['not_null'],
         ];
     }
 
@@ -75,5 +66,4 @@ class FindingService extends Service {
     {
         return [];
     }
-
 }

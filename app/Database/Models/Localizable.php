@@ -3,28 +3,15 @@
 namespace App\Database\Models;
 
 use App\Database\Model;
-use App\Database\Models\Obj;
 
-class Localizable extends Model {
+class Localizable extends Model
+{
+    public const ID = 'id';
+    public const KEYWORD_ID = 'keyword_id';
+    public const LANGUAGE = 'language';
+    public const TEXT = 'text';
 
-    protected $table = 'localizables';
-    protected $casts = [
-        self::ID => 'integer',
-        self::KEYWORD_ID => 'integer'
-    ];
-    protected $fillable = [
-        self::ID,
-        self::KEYWORD_ID,
-        self::LANGUAGE,
-        self::TEXT
-    ];
-
-    const ID         = 'id';
-    const KEYWORD_ID = 'keyword_id';
-    const LANGUAGE   = 'language';
-    const TEXT       = 'text';
-
-    const LANGUAGE_VALUES = [
+    public const LANGUAGE_VALUES = [
         'de-DE',
         'el-GR',
         'en-US',
@@ -36,12 +23,23 @@ class Localizable extends Model {
         'ko-KR',
         'vi-VN',
         'zh-CN',
-        'zh-TW'
+        'zh-TW',
+    ];
+
+    protected $table = 'localizables';
+    protected $casts = [
+        self::ID => 'integer',
+        self::KEYWORD_ID => 'integer',
+    ];
+    protected $fillable = [
+        self::ID,
+        self::KEYWORD_ID,
+        self::LANGUAGE,
+        self::TEXT,
     ];
 
     public function keyword()
     {
         return $this->belongsTo(Obj::class, 'keyword_id', 'id');
     }
-
 }

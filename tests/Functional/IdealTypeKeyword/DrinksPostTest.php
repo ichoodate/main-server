@@ -2,13 +2,17 @@
 
 namespace Tests\Functional\IdealTypeKeyword;
 
+use App\Database\Models\Keyword\Drink;
 use App\Database\Models\User;
 use App\Database\Models\UserIdealTypeKwdPvt;
-use App\Database\Models\Keyword\Drink;
 use Tests\Functional\_TestCase;
 
-class DrinksPostTest extends _TestCase {
-
+/**
+ * @internal
+ * @coversNothing
+ */
+class DrinksPostTest extends _TestCase
+{
     protected $uri = 'api/ideal-type-keyword/drinks';
 
     public function test()
@@ -23,25 +27,26 @@ class DrinksPostTest extends _TestCase {
         $this->factory(UserIdealTypeKwdPvt::class)->create(['id' => 104, 'user_id' => 2, 'keyword_id' => 12]);
 
         $this->when(function () {
-
             $this->setAuthUser(User::find(1));
             $this->setInputParameter('keyword_id', 13);
 
             $this->assertResultWithPersisting(new UserIdealTypeKwdPvt([
-                UserIdealTypeKwdPvt::USER_ID
-                    => 1,
-                UserIdealTypeKwdPvt::KEYWORD_ID
-                    => 13
+                UserIdealTypeKwdPvt::USER_ID => 1,
+                UserIdealTypeKwdPvt::KEYWORD_ID => 13,
             ]));
-            $this->assertEquals(0, UserIdealTypeKwdPvt::query()
-                ->where(UserIdealTypeKwdPvt::USER_ID, 1)
-                ->whereIn(UserIdealTypeKwdPvt::KEYWORD_ID, [11, 12])
-                ->count()
+            $this->assertEquals(
+                0,
+                UserIdealTypeKwdPvt::query()
+                    ->where(UserIdealTypeKwdPvt::USER_ID, 1)
+                    ->whereIn(UserIdealTypeKwdPvt::KEYWORD_ID, [11, 12])
+                    ->count()
             );
-            $this->assertEquals(1, UserIdealTypeKwdPvt::query()
-                ->where(UserIdealTypeKwdPvt::USER_ID, 2)
-                ->where(UserIdealTypeKwdPvt::KEYWORD_ID, 12)
-                ->count()
+            $this->assertEquals(
+                1,
+                UserIdealTypeKwdPvt::query()
+                    ->where(UserIdealTypeKwdPvt::USER_ID, 2)
+                    ->where(UserIdealTypeKwdPvt::KEYWORD_ID, 12)
+                    ->count()
             );
         });
     }
@@ -49,7 +54,6 @@ class DrinksPostTest extends _TestCase {
     public function testErrorIntegerRuleKeywordId()
     {
         $this->when(function () {
-
             $this->setInputParameter('keyword_id', 'abcd');
 
             $this->assertError('[keyword_id] must be an integer.');
@@ -59,7 +63,6 @@ class DrinksPostTest extends _TestCase {
     public function testErrorRequiredRuleAuthUser()
     {
         $this->when(function () {
-
             $this->assertError('authorized user is required.');
         });
     }
@@ -67,7 +70,6 @@ class DrinksPostTest extends _TestCase {
     public function testErrorRequiredRuleKeywordId()
     {
         $this->when(function () {
-
             $this->assertError('[keyword_id] is required.');
         });
     }
@@ -78,11 +80,9 @@ class DrinksPostTest extends _TestCase {
         $this->factory(Drink::class)->create(['id' => 12]);
 
         $this->when(function () {
-
             $this->setInputParameter('keyword_id', 13);
 
             $this->assertError('drink keyword for [keyword_id] must exist.');
         });
     }
-
 }

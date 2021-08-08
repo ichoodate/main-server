@@ -5,8 +5,12 @@ namespace Tests\Functional\Keyword\MinAgeRanges;
 use App\Database\Models\Keyword\AgeRange;
 use Tests\Functional\_TestCase;
 
-class GetTest extends _TestCase {
-
+/**
+ * @internal
+ * @coversNothing
+ */
+class GetTest extends _TestCase
+{
     protected $uri = 'api/keyword/min-age-ranges';
 
     public function test()
@@ -16,18 +20,15 @@ class GetTest extends _TestCase {
         $this->factory(AgeRange::class)->create(['id' => 13, 'max' => 22]);
 
         $this->when(function () {
-
             $this->setInputParameter('max', 21);
 
             $this->assertResultWithListing([11]);
         });
 
         $this->when(function () {
-
             $this->setInputParameter('max', 22);
 
             $this->assertResultWithFinding([12, 13]);
         });
     }
-
 }

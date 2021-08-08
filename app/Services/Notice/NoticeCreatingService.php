@@ -2,14 +2,12 @@
 
 namespace App\Services\Notice;
 
-use App\Database\Models\Photo;
 use App\Database\Models\Notice;
-use Illuminate\Extend\Service;
 use App\Services\AdminRoleExistingService;
-use App\Services\Photo\PhotosCreatingService;
+use Illuminate\Extend\Service;
 
-class NoticeCreatingService extends Service {
-
+class NoticeCreatingService extends Service
+{
     public static function getArrBindNames()
     {
         return [];
@@ -24,11 +22,10 @@ class NoticeCreatingService extends Service {
     {
         return [
             'created' => function ($description, $subject, $type) {
-
-                return (new Notice)->create([
-                    Notice::TYPE        => $type,
-                    Notice::SUBJECT     => $subject,
-                    Notice::DESCRIPTION => $description
+                return (new Notice())->create([
+                    Notice::TYPE => $type,
+                    Notice::SUBJECT => $subject,
+                    Notice::DESCRIPTION => $description,
                 ]);
             },
         ];
@@ -42,17 +39,13 @@ class NoticeCreatingService extends Service {
     public static function getArrRuleLists()
     {
         return [
-            'admin_role'
-                => ['required'],
+            'admin_role' => ['required'],
 
-            'description'
-                => ['required', 'string'],
+            'description' => ['required', 'string'],
 
-            'subject'
-                => ['required', 'string'],
+            'subject' => ['required', 'string'],
 
-            'type'
-                => ['required', 'in:' . implode(',', Notice::TYPE_VALUES)],
+            'type' => ['required', 'in:'.implode(',', Notice::TYPE_VALUES)],
         ];
     }
 
@@ -62,5 +55,4 @@ class NoticeCreatingService extends Service {
             AdminRoleExistingService::class,
         ];
     }
-
 }

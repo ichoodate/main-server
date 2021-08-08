@@ -3,16 +3,15 @@
 namespace App\Services\Keyword\Blood;
 
 use App\Database\Models\Keyword\Blood;
-use Illuminate\Extend\Service;
 use App\Services\FindingService;
+use Illuminate\Extend\Service;
 
-class BloodFindingService extends Service {
-
+class BloodFindingService extends Service
+{
     public static function getArrBindNames()
     {
         return [
-            'model'
-                => 'blood keyword for {{id}}',
+            'model' => 'blood keyword for {{id}}',
         ];
     }
 
@@ -25,7 +24,6 @@ class BloodFindingService extends Service {
     {
         return [
             'model_class' => function () {
-
                 return Blood::class;
             },
         ];
@@ -47,5 +45,4 @@ class BloodFindingService extends Service {
             FindingService::class,
         ];
     }
-
 }

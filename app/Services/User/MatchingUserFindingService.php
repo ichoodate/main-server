@@ -4,18 +4,15 @@ namespace App\Services\User;
 
 use App\Database\Models\User;
 use Illuminate\Extend\Service;
-use App\Services\User\UserFindingService;
 
-class MatchingUserFindingService extends Service {
-
+class MatchingUserFindingService extends Service
+{
     public static function getArrBindNames()
     {
         return [
-            'auth_user_gender'
-                => 'gender of {{auth_user}}',
+            'auth_user_gender' => 'gender of {{auth_user}}',
 
-            'model_gender'
-                => 'gender of {{model}}',
+            'model_gender' => 'gender of {{model}}',
         ];
     }
 
@@ -28,12 +25,10 @@ class MatchingUserFindingService extends Service {
     {
         return [
             'auth_user_gender' => function ($authUser) {
-
                 return $authUser->{User::GENDER};
             },
 
             'model_gender' => function ($model) {
-
                 return $model->{User::GENDER};
             },
         ];
@@ -47,11 +42,9 @@ class MatchingUserFindingService extends Service {
     public static function getArrRuleLists()
     {
         return [
-            'auth_user'
-                => ['required'],
+            'auth_user' => ['required'],
 
-            'auth_user_gender'
-                => ['different:{{model_gender}}']
+            'auth_user_gender' => ['different:{{model_gender}}'],
         ];
     }
 
@@ -61,5 +54,4 @@ class MatchingUserFindingService extends Service {
             UserFindingService::class,
         ];
     }
-
 }

@@ -3,11 +3,11 @@
 namespace App\Services\Keyword\Career;
 
 use App\Database\Models\Keyword\Career;
-use Illuminate\Extend\Service;
 use App\Services\ListingService;
+use Illuminate\Extend\Service;
 
-class CareerListingService extends Service {
-
+class CareerListingService extends Service
+{
     public static function getArrBindNames()
     {
         return [];
@@ -17,7 +17,6 @@ class CareerListingService extends Service {
     {
         return [
             'query.parent_id' => function ($parentId, $query) {
-
                 $query->qWhere('parent_id', $parentId);
             },
         ];
@@ -27,7 +26,6 @@ class CareerListingService extends Service {
     {
         return [
             'model_class' => function () {
-
                 return Career::class;
             },
         ];
@@ -41,8 +39,7 @@ class CareerListingService extends Service {
     public static function getArrRuleLists()
     {
         return [
-            'parent_id'
-                => ['present', 'integer', 'nullable']
+            'parent_id' => ['present', 'integer', 'nullable'],
         ];
     }
 
@@ -52,5 +49,4 @@ class CareerListingService extends Service {
             ListingService::class,
         ];
     }
-
 }

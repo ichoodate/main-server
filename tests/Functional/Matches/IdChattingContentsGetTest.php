@@ -7,8 +7,12 @@ use App\Database\Models\Match;
 use App\Database\Models\User;
 use Tests\Functional\_TestCase;
 
-class IdChattingContentsGetTest extends _TestCase {
-
+/**
+ * @internal
+ * @coversNothing
+ */
+class IdChattingContentsGetTest extends _TestCase
+{
     protected $uri = 'api/matches/{id}/chatting-contents';
 
     public function test()
@@ -24,7 +28,6 @@ class IdChattingContentsGetTest extends _TestCase {
         $this->factory(ChattingContent::class)->create(['id' => 103, 'writer_id' => 3, 'match_id' => 12]);
 
         $this->when(function () {
-
             $this->setAuthUser(User::find(1));
             $this->setRouteParameter('id', 11);
 
@@ -32,7 +35,6 @@ class IdChattingContentsGetTest extends _TestCase {
         });
 
         $this->when(function () {
-
             $this->setAuthUser(User::find(2));
             $this->setRouteParameter('id', 11);
 
@@ -40,7 +42,6 @@ class IdChattingContentsGetTest extends _TestCase {
         });
 
         $this->when(function () {
-
             $this->setAuthUser(User::find(4));
             $this->setRouteParameter('id', 12);
 
@@ -51,7 +52,6 @@ class IdChattingContentsGetTest extends _TestCase {
     public function testIntegerRuleMatchId()
     {
         $this->when(function () {
-
             $this->setRouteParameter('id', 'abcd');
 
             $this->assertError('abcd must be an integer.');
@@ -63,7 +63,6 @@ class IdChattingContentsGetTest extends _TestCase {
         $this->factory(User::class)->create(['id' => 1]);
 
         $this->when(function () {
-
             $this->setAuthUser(User::find(1));
             $this->setRouteParameter('id', 1234);
 
@@ -74,7 +73,6 @@ class IdChattingContentsGetTest extends _TestCase {
     public function testRequiredRuleAuthUser()
     {
         $this->when(function () {
-
             $this->assertError('authorized user is required.');
         });
     }
@@ -85,12 +83,10 @@ class IdChattingContentsGetTest extends _TestCase {
         $this->factory(Match::class)->create(['id' => 11, 'man_id' => 1, 'woman_id' => 2]);
 
         $this->when(function () {
-
             $this->setAuthUser(User::find(3));
             $this->setRouteParameter('id', 11);
 
             $this->assertError('authorized user who is related user of match for 11 is required.');
         });
     }
-
 }

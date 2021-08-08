@@ -3,20 +3,29 @@
 namespace App\Database\Models;
 
 use App\Database\Model;
-use App\Database\Models\CardFlip;
-use App\Database\Models\CardGroup;
-use App\Database\Models\Match;
-use App\Database\Models\User;
 
-class Card extends Model {
+class Card extends Model
+{
+    public const ID = 'id';
+    public const CREATED_AT = 'created_at';
+    public const CHOOSER = 'chooser';
+    public const CHOOSER_ID = 'chooser_id';
+    public const FLIPS = 'flips';
+    public const GROUP = 'group';
+    public const GROUP_ID = 'group_id';
+    public const MATCH = 'match';
+    public const MATCH_ID = 'match_id';
+    public const SHOWNER = 'showner';
+    public const SHOWNER_ID = 'showner_id';
+    public const UPDATED_AT = 'updated_at';
 
-    protected $table   = 'cards';
+    protected $table = 'cards';
     protected $casts = [
         self::ID => 'integer',
         self::CHOOSER_ID => 'integer',
         self::SHOWNER_ID => 'integer',
         self::MATCH_ID => 'integer',
-        self::GROUP_ID => 'integer'
+        self::GROUP_ID => 'integer',
     ];
     protected $fillable = [
         self::ID,
@@ -25,21 +34,8 @@ class Card extends Model {
         self::MATCH_ID,
         self::GROUP_ID,
         self::UPDATED_AT,
-        self::CREATED_AT
+        self::CREATED_AT,
     ];
-
-    const ID         = 'id';
-    const CREATED_AT = 'created_at';
-    const CHOOSER    = 'chooser';
-    const CHOOSER_ID = 'chooser_id';
-    const FLIPS      = 'flips';
-    const GROUP      = 'group';
-    const GROUP_ID   = 'group_id';
-    const MATCH      = 'match';
-    const MATCH_ID   = 'match_id';
-    const SHOWNER    = 'showner';
-    const SHOWNER_ID = 'showner_id';
-    const UPDATED_AT = 'updated_at';
 
     public function flips()
     {
@@ -65,5 +61,4 @@ class Card extends Model {
     {
         return $this->belongsTo(User::class, 'showner_id', 'id');
     }
-
 }

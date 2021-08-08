@@ -3,11 +3,11 @@
 namespace App\Services\Keyword\Residence;
 
 use App\Database\Models\Keyword\Residence;
-use Illuminate\Extend\Service;
 use App\Services\ListingService;
+use Illuminate\Extend\Service;
 
-class ResidenceListingService extends Service {
-
+class ResidenceListingService extends Service
+{
     public static function getArrBindNames()
     {
         return [];
@@ -17,7 +17,6 @@ class ResidenceListingService extends Service {
     {
         return [
             'query.parent_id' => function ($parentId, $query) {
-
                 $query->qWhere('parent_id', $parentId);
             },
         ];
@@ -27,12 +26,10 @@ class ResidenceListingService extends Service {
     {
         return [
             'available_expands' => function () {
-
                 return ['related', 'related.concrete'];
             },
 
             'model_class' => function () {
-
                 return Residence::class;
             },
         ];
@@ -54,5 +51,4 @@ class ResidenceListingService extends Service {
             ListingService::class,
         ];
     }
-
 }

@@ -3,16 +3,15 @@
 namespace App\Services\Keyword\Smoke;
 
 use App\Database\Models\Keyword\Smoke;
-use Illuminate\Extend\Service;
 use App\Services\FindingService;
+use Illuminate\Extend\Service;
 
-class SmokeFindingService extends Service {
-
+class SmokeFindingService extends Service
+{
     public static function getArrBindNames()
     {
         return [
-            'model'
-                => 'smoke keyword for {{id}}',
+            'model' => 'smoke keyword for {{id}}',
         ];
     }
 
@@ -25,7 +24,6 @@ class SmokeFindingService extends Service {
     {
         return [
             'model_class' => function () {
-
                 return Smoke::class;
             },
         ];
@@ -47,5 +45,4 @@ class SmokeFindingService extends Service {
             FindingService::class,
         ];
     }
-
 }

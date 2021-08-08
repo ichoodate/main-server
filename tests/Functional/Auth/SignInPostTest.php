@@ -5,8 +5,12 @@ namespace Tests\Functional\Auth;
 use App\Database\Models\User;
 use Tests\Functional\_TestCase;
 
-class SignInPostTest extends _TestCase {
-
+/**
+ * @internal
+ * @coversNothing
+ */
+class SignInPostTest extends _TestCase
+{
     protected $uri = 'api/auth/sign-in';
 
     public function test()
@@ -14,21 +18,20 @@ class SignInPostTest extends _TestCase {
         $this->factory(User::class)->create([
             'id' => 1,
             'email' => $this->faker->email,
-            'password' => bcrypt('abcdef')
+            'password' => bcrypt('abcdef'),
         ]);
         $this->factory(User::class)->create([
             'id' => 2,
             'email' => 'abc123@example.com',
-            'password' => bcrypt('bcdefg')
+            'password' => bcrypt('bcdefg'),
         ]);
         $this->factory(User::class)->create([
             'id' => 3,
             'email' => $this->faker->email,
-            'password' => bcrypt('cdefgh')
+            'password' => bcrypt('cdefgh'),
         ]);
 
         $this->when(function () {
-
             $this->setInputParameter('email', 'abc123@example.com');
             $this->setInputParameter('password', 'bcdefg');
 
@@ -40,7 +43,6 @@ class SignInPostTest extends _TestCase {
     public function testErrorEmailRuleEmail()
     {
         $this->when(function () {
-
             $this->setInputParameter('email', 'abcd');
 
             $this->assertError('[email] must be a valid email address.');
@@ -50,7 +52,6 @@ class SignInPostTest extends _TestCase {
     public function testErrorRequiredRuleEmail()
     {
         $this->when(function () {
-
             $this->assertError('[email] is required.');
         });
     }
@@ -58,9 +59,7 @@ class SignInPostTest extends _TestCase {
     public function testErrorRequiredRulePassword()
     {
         $this->when(function () {
-
             $this->assertError('[password] is required.');
         });
     }
-
 }

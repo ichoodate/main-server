@@ -3,16 +3,15 @@
 namespace App\Services\Keyword\Career;
 
 use App\Database\Models\Keyword\Career;
-use Illuminate\Extend\Service;
 use App\Services\FindingService;
+use Illuminate\Extend\Service;
 
-class CareerFindingService extends Service {
-
+class CareerFindingService extends Service
+{
     public static function getArrBindNames()
     {
         return [
-            'model'
-                => 'career keyword for {{id}}',
+            'model' => 'career keyword for {{id}}',
         ];
     }
 
@@ -25,7 +24,6 @@ class CareerFindingService extends Service {
     {
         return [
             'model_class' => function () {
-
                 return Career::class;
             },
         ];
@@ -47,5 +45,4 @@ class CareerFindingService extends Service {
             FindingService::class,
         ];
     }
-
 }

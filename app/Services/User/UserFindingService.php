@@ -3,16 +3,15 @@
 namespace App\Services\User;
 
 use App\Database\Models\User;
-use Illuminate\Extend\Service;
 use App\Services\FindingService;
+use Illuminate\Extend\Service;
 
-class UserFindingService extends Service {
-
+class UserFindingService extends Service
+{
     public static function getArrBindNames()
     {
         return [
-            'model'
-                => 'user for {{id}}',
+            'model' => 'user for {{id}}',
         ];
     }
 
@@ -25,12 +24,10 @@ class UserFindingService extends Service {
     {
         return [
             'available_expands' => function () {
-
                 return ['facePhoto', 'friend', 'match', 'match.cards.flips', 'popularity'];
             },
 
             'model_class' => function () {
-
                 return User::class;
             },
         ];
@@ -52,5 +49,4 @@ class UserFindingService extends Service {
             FindingService::class,
         ];
     }
-
 }

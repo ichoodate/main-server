@@ -3,9 +3,6 @@
 namespace App\Services;
 
 use Illuminate\Extend\Service;
-use App\Services\CursoringService;
-use App\Services\ListingService;
-use App\Services\PagingService;
 
 class LimitedListingService extends Service
 {
@@ -18,7 +15,6 @@ class LimitedListingService extends Service
     {
         return [
             'query.limit' => function ($limit, $query) {
-
                 $query->take($limit);
             },
         ];
@@ -28,44 +24,30 @@ class LimitedListingService extends Service
     {
         return [
             'cursor' => function ($cursorId, $modelClass) {
-
-                throw new \Exception;
+                throw new \Exception();
             },
 
             'limit' => function () {
-
                 return 120;
             },
 
-            'result' => function ($cursor='', $limit, $orderByList='', $page='', $query) {
-
-                if ( $page !== '' )
-                {
+            'result' => function ($cursor = '', $limit, $orderByList = '', $page = '', $query) {
+                if ('' !== $page) {
                     return [PagingService::class, [
-                        'limit'
-                            => $limit,
-                        'page'
-                            => $page,
-                        'query'
-                            => $query,
+                        'limit' => $limit,
+                        'page' => $page,
+                        'query' => $query,
                     ], [
-                        'page'
-                            => '{{page}}',
+                        'page' => '{{page}}',
                     ]];
                 }
-                else
-                {
-                    return [CursoringService::class, [
-                        'cursor'
-                            => $cursor,
-                        'limit'
-                            => $limit,
-                        'order_by_list'
-                            => $orderByList,
-                        'query'
-                            => $query,
-                    ]];
-                }
+
+                return [CursoringService::class, [
+                    'cursor' => $cursor,
+                    'limit' => $limit,
+                    'order_by_list' => $orderByList,
+                    'query' => $query,
+                ]];
             },
         ];
     }
@@ -78,11 +60,9 @@ class LimitedListingService extends Service
     public static function getArrRuleLists()
     {
         return [
-            'cursor_id'
-                => ['integer'],
+            'cursor_id' => ['integer'],
 
-            'limit'
-                => ['required', 'integer', 'max:120']
+            'limit' => ['required', 'integer', 'max:120'],
         ];
     }
 

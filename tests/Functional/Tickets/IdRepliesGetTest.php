@@ -2,12 +2,16 @@
 
 namespace Tests\Functional\Tickets;
 
-use App\Database\Models\User;
 use App\Database\Models\Ticket;
+use App\Database\Models\User;
 use Tests\Functional\_TestCase;
 
-class IdRepliesGetTest extends _TestCase {
-
+/**
+ * @internal
+ * @coversNothing
+ */
+class IdRepliesGetTest extends _TestCase
+{
     protected $uri = 'api/tickets/{id}/replies';
 
     public function test()
@@ -30,7 +34,6 @@ class IdRepliesGetTest extends _TestCase {
         $this->factory(Reply::class)->create(['id' => 106, 'ticket_id' => 13]);
 
         $this->when(function () {
-
             $this->setAuthUser(User::find(1));
             $this->setInputParameter('ticket_id', 11);
 
@@ -38,7 +41,6 @@ class IdRepliesGetTest extends _TestCase {
         });
 
         $this->when(function () {
-
             $this->setAuthUser(User::find(1));
             $this->setInputParameter('ticket_id', 12);
 
@@ -46,7 +48,6 @@ class IdRepliesGetTest extends _TestCase {
         });
 
         $this->when(function () {
-
             $this->setAuthUser(User::find(2));
             $this->setInputParameter('ticket_id', 12);
 
@@ -54,7 +55,6 @@ class IdRepliesGetTest extends _TestCase {
         });
 
         $this->when(function () {
-
             $this->setAuthUser(User::find(3));
             $this->setInputParameter('ticket_id', 13);
 
@@ -65,7 +65,6 @@ class IdRepliesGetTest extends _TestCase {
     public function testErrorRequiredRuleAuthUser()
     {
         $this->when(function () {
-
             $this->assertError('authorized user is required.');
         });
     }
@@ -73,7 +72,6 @@ class IdRepliesGetTest extends _TestCase {
     public function testErrorRequiredRuleTicketId()
     {
         $this->when(function () {
-
             $this->assertError('[ticket_id] is required.');
         });
     }
@@ -84,12 +82,10 @@ class IdRepliesGetTest extends _TestCase {
         $this->factory(Ticket::class)->create(['id' => 11, 'writer_id' => 2]);
 
         $this->when(function () {
-
             $this->setAuthUser(User::find(1));
             $this->setInputParameter('ticket_id', 11);
 
             $this->assertError('authorized user who is related user of ticket for [ticket_id] is required.');
         });
     }
-
 }

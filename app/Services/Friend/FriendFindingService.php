@@ -3,17 +3,16 @@
 namespace App\Services\Friend;
 
 use App\Database\Models\Friend;
-use Illuminate\Extend\Service;
 use App\Services\FindingService;
 use App\Services\PermittedUserRequiringService;
+use Illuminate\Extend\Service;
 
-class FriendFindingService extends Service {
-
+class FriendFindingService extends Service
+{
     public static function getArrBindNames()
     {
         return [
-            'model'
-                => 'friend for {{id}}',
+            'model' => 'friend for {{id}}',
         ];
     }
 
@@ -26,19 +25,15 @@ class FriendFindingService extends Service {
     {
         return [
             'available_expands' => function () {
-
                 return ['match', 'receiver', 'sender'];
             },
 
             'model_class' => function () {
-
                 return Friend::class;
             },
 
             'permitted_user' => function ($authUser, $model) {
-
-                if ( in_array($authUser->getKey(), [$model->{Friend::USER_ID}]) )
-                {
+                if (in_array($authUser->getKey(), [$model->{Friend::USER_ID}])) {
                     return $authUser;
                 }
             },
@@ -62,5 +57,4 @@ class FriendFindingService extends Service {
             PermittedUserRequiringService::class,
         ];
     }
-
 }

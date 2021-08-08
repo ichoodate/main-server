@@ -3,10 +3,9 @@
 namespace App\Services\CardFlip;
 
 use Illuminate\Extend\Service;
-use App\Services\CardFlip\CardFlipCreatingService;
 
-class NonFreeCardFlipCreatingService extends Service {
-
+class NonFreeCardFlipCreatingService extends Service
+{
     public static function getArrBindNames()
     {
         return [];
@@ -30,8 +29,7 @@ class NonFreeCardFlipCreatingService extends Service {
     public static function getArrRuleLists()
     {
         return [
-            'free_flippable_card'
-                => ['null'],
+            'free_flippable_card' => ['null'],
         ];
     }
 
@@ -41,5 +39,4 @@ class NonFreeCardFlipCreatingService extends Service {
             CardFlipCreatingService::class,
         ];
     }
-
 }

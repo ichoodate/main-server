@@ -3,11 +3,11 @@
 namespace App\Services\Role;
 
 use App\Database\Models\Role;
-use Illuminate\Extend\Service;
 use App\Services\ListingService;
+use Illuminate\Extend\Service;
 
-class RoleListingService extends Service {
-
+class RoleListingService extends Service
+{
     public static function getArrBindNames()
     {
         return [];
@@ -17,7 +17,6 @@ class RoleListingService extends Service {
     {
         return [
             'query.auth_user' => function ($authUser, $query) {
-
                 $query->qWhere(Role::USER_ID, $authUser->getKey());
             },
         ];
@@ -27,12 +26,10 @@ class RoleListingService extends Service {
     {
         return [
             'available_expands' => function () {
-
                 return ['user'];
             },
 
             'model_class' => function () {
-
                 return Role::class;
             },
         ];
@@ -46,8 +43,7 @@ class RoleListingService extends Service {
     public static function getArrRuleLists()
     {
         return [
-            'auth_user'
-                => ['required']
+            'auth_user' => ['required'],
         ];
     }
 
@@ -57,5 +53,4 @@ class RoleListingService extends Service {
             ListingService::class,
         ];
     }
-
 }

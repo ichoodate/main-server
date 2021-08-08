@@ -3,11 +3,11 @@
 namespace App\Services\Keyword\WeightRange;
 
 use App\Database\Models\Keyword\WeightRange;
-use Illuminate\Extend\Service;
 use App\Services\ListingService;
+use Illuminate\Extend\Service;
 
-class MinWeightRangeListingService extends Service {
-
+class MinWeightRangeListingService extends Service
+{
     public static function getArrBindNames()
     {
         return [];
@@ -17,7 +17,6 @@ class MinWeightRangeListingService extends Service {
     {
         return [
             'query.max' => function ($max, $query) {
-
                 $query->qWhere('max', $max);
             },
         ];
@@ -27,7 +26,6 @@ class MinWeightRangeListingService extends Service {
     {
         return [
             'model_class' => function () {
-
                 return WeightRange::class;
             },
         ];
@@ -41,8 +39,7 @@ class MinWeightRangeListingService extends Service {
     public static function getArrRuleLists()
     {
         return [
-            'max'
-                => ['required', 'integer']
+            'max' => ['required', 'integer'],
         ];
     }
 
@@ -52,5 +49,4 @@ class MinWeightRangeListingService extends Service {
             ListingService::class,
         ];
     }
-
 }

@@ -2,27 +2,24 @@
 
 namespace App\Database;
 
-use App\Database\Collection;
-use App\Database\Query;
 use App\Database\Models\Obj;
 
-abstract class Model extends \Illuminate\Extend\Model {
-
-    const CREATED_AT = null;
-    const UPDATED_AT = null;
+abstract class Model extends \Illuminate\Extend\Model
+{
+    public const CREATED_AT = null;
+    public const UPDATED_AT = null;
+    public $incrementing = false;
 
     // this property related to freshTimestamp method
     // public $timestamps = false;
     protected $guarded = [];
     protected $dateFormat = 'Y-m-d H:i:s';
-    public $incrementing = false;
 
     public static function create(array $attributes = [])
     {
-        if ( static::class != Obj::class && ! array_key_exists(static::ID, $attributes) )
-        {
+        if (Obj::class != static::class && !array_key_exists(static::ID, $attributes)) {
             $obj = inst(Obj::class, [[
-                Obj::MODEL_CLASS => static::class
+                Obj::MODEL_CLASS => static::class,
             ]]);
             $obj->save();
 
@@ -47,12 +44,9 @@ abstract class Model extends \Illuminate\Extend\Model {
 
     public function setAttribute($key, $value)
     {
-        if ( $this->hasSetMutator($key) || in_array($key, $this->getFillable()) )
-        {
+        if ($this->hasSetMutator($key) || in_array($key, $this->getFillable())) {
             parent::setAttribute($key, $value);
-        }
-        else
-        {
+        } else {
             $this->setRelation($key, $value);
         }
 

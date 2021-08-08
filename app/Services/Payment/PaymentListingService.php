@@ -3,12 +3,11 @@
 namespace App\Services\Payment;
 
 use App\Database\Models\Payment;
-use Illuminate\Extend\Service;
 use App\Services\LimitedListingService;
-use App\Services\Payment\PaymentFindingService;
+use Illuminate\Extend\Service;
 
-class PaymentListingService extends Service {
-
+class PaymentListingService extends Service
+{
     public static function getArrBindNames()
     {
         return [];
@@ -18,37 +17,29 @@ class PaymentListingService extends Service {
     {
         return [
             'query.auth_user' => function ($authUser, $query) {
-
                 $query->qWhere(Payment::USER_ID, $authUser->getKey());
             },
         ];
     }
 
-     public static function getArrLoaders()
+    public static function getArrLoaders()
     {
         return [
             'available_expands' => function () {
-
                 return ['item', 'user'];
             },
 
             'cursor' => function ($authUser, $cursorId) {
-
                 return [PaymentFindingService::class, [
-                    'auth_user'
-                        => $authUser,
-                    'id'
-                        => $cursorId
+                    'auth_user' => $authUser,
+                    'id' => $cursorId,
                 ], [
-                    'auth_user'
-                        => '{{auth_user}}',
-                    'id'
-                        => '{{cursor_id}}'
+                    'auth_user' => '{{auth_user}}',
+                    'id' => '{{cursor_id}}',
                 ]];
             },
 
             'model_class' => function () {
-
                 return Payment::class;
             },
         ];
@@ -62,8 +53,7 @@ class PaymentListingService extends Service {
     public static function getArrRuleLists()
     {
         return [
-            'auth_user'
-                => ['required']
+            'auth_user' => ['required'],
         ];
     }
 
@@ -73,5 +63,4 @@ class PaymentListingService extends Service {
             LimitedListingService::class,
         ];
     }
-
 }

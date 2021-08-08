@@ -3,31 +3,47 @@
 namespace App\Database\Models;
 
 use App\Database\Model;
-use App\Database\Models\FacePhoto;
-use App\Database\Models\Friend;
-use App\Database\Models\Match;
-use App\Database\Models\Popularity;
-use App\Database\Models\User;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\MustVerifyEmail;
 use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
-use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
 
 class User extends Model implements AuthenticatableContract, AuthorizableContract, CanResetPasswordContract
 {
-    use Authenticatable, Authorizable, CanResetPassword, MustVerifyEmail, Notifiable;
+    use Authenticatable;
+    use Authorizable;
+    use CanResetPassword;
+    use MustVerifyEmail;
+    use Notifiable;
+
+    public const ID = 'id';
+    public const EMAIL = 'email';
+    public const PASSWORD = 'password';
+    public const BIRTH = 'birth';
+    public const GENDER = 'gender';
+    public const NAME = 'name';
+    public const EMAIL_VERIFIED = 'email_verified';
+    public const CREATED_AT = 'created_at';
+
+    public const GENDER_MAN = 'man';
+    public const GENDER_WOMAN = 'woman';
+
+    public const GENDER_VALUES = [
+        self::GENDER_MAN,
+        self::GENDER_WOMAN,
+    ];
 
     protected $table = 'users';
     protected $hidden = [
-        self::PASSWORD
+        self::PASSWORD,
     ];
     protected $casts = [
-        self::ID => 'integer'
+        self::ID => 'integer',
     ];
     protected $fillable = [
         self::ID,
@@ -37,24 +53,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         self::PASSWORD,
         self::NAME,
         self::EMAIL_VERIFIED,
-        self::CREATED_AT
-    ];
-
-    const ID             = 'id';
-    const EMAIL          = 'email';
-    const PASSWORD       = 'password';
-    const BIRTH          = 'birth';
-    const GENDER         = 'gender';
-    const NAME           = 'name';
-    const EMAIL_VERIFIED = 'email_verified';
-    const CREATED_AT     = 'created_at';
-
-    const GENDER_MAN   = 'man';
-    const GENDER_WOMAN = 'woman';
-
-    const GENDER_VALUES = [
-        self::GENDER_MAN,
-        self::GENDER_WOMAN
+        self::CREATED_AT,
     ];
 
     public function facePhoto()
@@ -69,7 +68,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 
     public function match()
     {
-        return $this->{User::GENDER} == User::GENDER_MAN ? $this->relation(Match::class, ['id', ':auth_user_id:'], ['man_id', 'woman_id'], false) : $this->relation(Match::class, ['id', ':auth_user_id:'], ['woman_id', 'man_id'], false);
+        return User::GENDER_MAN == $this->{User::GENDER} ? $this->relation(Match::class, ['id', ':auth_user_id:'], ['man_id', 'woman_id'], false) : $this->relation(Match::class, ['id', ':auth_user_id:'], ['woman_id', 'man_id'], false);
     }
 
     public function popularity()
@@ -81,5 +80,4 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     {
         $this->attributes['password'] = Hash::make($value);
     }
-
 }

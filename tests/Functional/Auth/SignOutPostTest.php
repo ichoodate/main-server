@@ -5,8 +5,12 @@ namespace Tests\Functional\Auth;
 use App\Database\Models\User;
 use Tests\Functional\_TestCase;
 
-class SignOutPostTest extends _TestCase {
-
+/**
+ * @internal
+ * @coversNothing
+ */
+class SignOutPostTest extends _TestCase
+{
     protected $uri = 'api/auth/sign-out';
 
     public function test()
@@ -16,7 +20,6 @@ class SignOutPostTest extends _TestCase {
         $this->factory(User::class)->create(['id' => 3]);
 
         $this->when(function () {
-
             $this->setAuthUser(User::find(2));
             $this->assertEquals(auth()->user(), User::find(2));
 
@@ -24,5 +27,4 @@ class SignOutPostTest extends _TestCase {
             $this->assertEquals(auth()->user(), null);
         });
     }
-
 }

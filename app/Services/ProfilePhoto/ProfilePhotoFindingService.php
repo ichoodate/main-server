@@ -3,16 +3,15 @@
 namespace App\Services\ProfilePhoto;
 
 use App\Database\Models\ProfilePhoto;
-use Illuminate\Extend\Service;
 use App\Services\FindingService;
+use Illuminate\Extend\Service;
 
-class ProfilePhotoFindingService extends Service {
-
+class ProfilePhotoFindingService extends Service
+{
     public static function getArrBindNames()
     {
         return [
-            'model'
-                => 'profile_photo for {{id}}',
+            'model' => 'profile_photo for {{id}}',
         ];
     }
 
@@ -25,12 +24,10 @@ class ProfilePhotoFindingService extends Service {
     {
         return [
             'available_expands' => function () {
-
                 return ['user'];
             },
 
             'model_class' => function () {
-
                 return ProfilePhoto::class;
             },
         ];
@@ -52,5 +49,4 @@ class ProfilePhotoFindingService extends Service {
             FindingService::class,
         ];
     }
-
 }

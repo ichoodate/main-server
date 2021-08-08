@@ -3,11 +3,11 @@
 namespace App\Services\Keyword\Religion;
 
 use App\Database\Models\Keyword\Religion;
-use Illuminate\Extend\Service;
 use App\Services\ListingService;
+use Illuminate\Extend\Service;
 
-class ReligionListingService extends Service {
-
+class ReligionListingService extends Service
+{
     public static function getArrBindNames()
     {
         return [];
@@ -22,7 +22,6 @@ class ReligionListingService extends Service {
     {
         return [
             'model_class' => function () {
-
                 return Religion::class;
             },
         ];
@@ -44,5 +43,4 @@ class ReligionListingService extends Service {
             ListingService::class,
         ];
     }
-
 }

@@ -3,15 +3,20 @@
 namespace App\Database\Models;
 
 use App\Database\Model;
-use App\Database\Models\Reply;
-use App\Database\Models\User;
 
-class Ticket extends Model {
+class Ticket extends Model
+{
+    public const ID = 'id';
+    public const WRITER_ID = 'writer_id';
+    public const SUBJECT = 'subject';
+    public const DESCRIPTION = 'description';
+    public const CREATED_AT = 'created_at';
+    public const UPDATED_AT = 'updated_at';
 
     protected $table = 'tickets';
     protected $casts = [
         self::ID => 'integer',
-        self::WRITER_ID => 'integer'
+        self::WRITER_ID => 'integer',
     ];
     protected $fillable = [
         self::ID,
@@ -19,15 +24,8 @@ class Ticket extends Model {
         self::SUBJECT,
         self::DESCRIPTION,
         self::CREATED_AT,
-        self::UPDATED_AT
+        self::UPDATED_AT,
     ];
-
-    const ID          = 'id';
-    const WRITER_ID   = 'writer_id';
-    const SUBJECT     = 'subject';
-    const DESCRIPTION = 'description';
-    const CREATED_AT  = 'created_at';
-    const UPDATED_AT  = 'updated_at';
 
     public function replies()
     {
@@ -38,5 +36,4 @@ class Ticket extends Model {
     {
         return $this->belongsTo(User::class, 'writer_id', 'id');
     }
-
 }

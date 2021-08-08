@@ -2,30 +2,28 @@
 
 namespace App\Database;
 
-class Query extends \Illuminate\Extend\Query {
-
+class Query extends \Illuminate\Extend\Query
+{
     public static $instId = 1;
 
     public function alias($alias = null)
     {
         $query = $this->getQuery();
 
-        if ( is_null($alias) )
-        {
-            $alias = $query->from . '_' . static::$instId++;
+        if (is_null($alias)) {
+            $alias = $query->from.'_'.static::$instId++;
         }
 
-        $query->from = app('db')->raw($query->from . ' as ' . $alias);
+        $query->from = app('db')->raw($query->from.' as '.$alias);
     }
 
     public function findMany($ids, $columns = ['*'])
     {
-        $result  = parent::findMany($ids, $columns);
-        $idKey   = $this->getModel()->getKeyName();
+        $result = parent::findMany($ids, $columns);
+        $idKey = $this->getModel()->getKeyName();
         $collect = $this->getModel()->newCollection();
 
-        foreach ( $ids as $id )
-        {
+        foreach ($ids as $id) {
             $model = $result->where($idKey, $id)->first();
 
             $collect->push($model);
@@ -50,14 +48,12 @@ class Query extends \Illuminate\Extend\Query {
     {
         $first = array_first($columns);
 
-        if ( is_array($first) )
-        {
+        if (is_array($first)) {
             $columns = $first;
         }
 
-        foreach ( $columns as $i => $column )
-        {
-            $columns[$i] = $this->getTable() . '.'. $column;
+        foreach ($columns as $i => $column) {
+            $columns[$i] = $this->getTable().'.'.$column;
         }
 
         return call_user_func_array([$this, 'groupBy'], [$columns]);
@@ -67,7 +63,7 @@ class Query extends \Illuminate\Extend\Query {
     {
         $args = func_get_args();
 
-        $args[0] = $this->getTable() . '.' . $column;
+        $args[0] = $this->getTable().'.'.$column;
 
         return call_user_func_array([$this, 'orWhere'], $args);
     }
@@ -76,7 +72,7 @@ class Query extends \Illuminate\Extend\Query {
     {
         $args = func_get_args();
 
-        $args[0] = $this->getTable() . '.' . $column;
+        $args[0] = $this->getTable().'.'.$column;
 
         return call_user_func_array([$this, 'orWhereIn'], $args);
     }
@@ -85,7 +81,7 @@ class Query extends \Illuminate\Extend\Query {
     {
         $args = func_get_args();
 
-        $args[0] = $this->getTable() . '.' . $column;
+        $args[0] = $this->getTable().'.'.$column;
 
         return call_user_func_array([$this, 'where'], $args);
     }
@@ -94,7 +90,7 @@ class Query extends \Illuminate\Extend\Query {
     {
         $args = func_get_args();
 
-        $args[0] = $this->getTable() . '.' . $column;
+        $args[0] = $this->getTable().'.'.$column;
 
         return call_user_func_array([$this, 'whereBetween'], $args);
     }
@@ -103,7 +99,7 @@ class Query extends \Illuminate\Extend\Query {
     {
         $args = func_get_args();
 
-        $args[0] = $this->getTable() . '.' . $column;
+        $args[0] = $this->getTable().'.'.$column;
 
         return call_user_func_array([$this, 'whereIn'], $args);
     }
@@ -112,7 +108,7 @@ class Query extends \Illuminate\Extend\Query {
     {
         $args = func_get_args();
 
-        $args[0] = $this->getTable() . '.' . $column;
+        $args[0] = $this->getTable().'.'.$column;
 
         return call_user_func_array([$this, 'whereNotIn'], $args);
     }
@@ -121,7 +117,7 @@ class Query extends \Illuminate\Extend\Query {
     {
         $args = func_get_args();
 
-        $args[0] = $this->getTable() . '.' . $column;
+        $args[0] = $this->getTable().'.'.$column;
 
         return call_user_func_array([$this, 'whereNull'], $args);
     }
@@ -130,7 +126,7 @@ class Query extends \Illuminate\Extend\Query {
     {
         $args = func_get_args();
 
-        $args[0] = $this->getTable() . '.' . $column;
+        $args[0] = $this->getTable().'.'.$column;
 
         return call_user_func_array([$this, 'whereNotNull'], $args);
     }
@@ -139,7 +135,7 @@ class Query extends \Illuminate\Extend\Query {
     {
         $args = func_get_args();
 
-        $args[0] = $this->getTable() . '.' . $column;
+        $args[0] = $this->getTable().'.'.$column;
 
         return call_user_func_array([$this, 'whereSub'], $args);
     }
@@ -148,9 +144,8 @@ class Query extends \Illuminate\Extend\Query {
     {
         $columns = is_array($columns) ? $columns : [$columns];
 
-        foreach ( $columns as $i => $column )
-        {
-            $columns[$i] = $this->getTable() . '.' . $column;
+        foreach ($columns as $i => $column) {
+            $columns[$i] = $this->getTable().'.'.$column;
         }
 
         return call_user_func_array([$this, 'selectRaw'], [implode(',', $columns)]);
@@ -158,7 +153,7 @@ class Query extends \Illuminate\Extend\Query {
 
     public function qOrderBy($column, $direction)
     {
-        $column = $this->getTable() . '.' . $column . ' ' . $direction;
+        $column = $this->getTable().'.'.$column.' '.$direction;
 
         return call_user_func_array([$this, 'orderByRaw'], [$column]);
     }
@@ -172,8 +167,7 @@ class Query extends \Illuminate\Extend\Query {
 
     public function where($column, $operator = null, $value = null, $boolean = 'and')
     {
-        if ( $column instanceof \Closure )
-        {
+        if ($column instanceof \Closure) {
             $query = $this->model->newQueryWithoutScopes();
 
             $query->from($this->getTable());
@@ -181,9 +175,7 @@ class Query extends \Illuminate\Extend\Query {
             call_user_func($column, $query);
 
             $this->query->addNestedWhereQuery($query->getQuery(), $boolean);
-        }
-        else
-        {
+        } else {
             call_user_func_array([$this->query, 'where'], func_get_args());
         }
 
@@ -191,9 +183,8 @@ class Query extends \Illuminate\Extend\Query {
     }
 
     /**
-     * overriding laravel/framework
+     * overriding laravel/framework.
      *
-     * @param  array  $values
      * @return int
      */
     public function update(array $values)
@@ -202,5 +193,4 @@ class Query extends \Illuminate\Extend\Query {
 
         return $this->toBase()->update($values);
     }
-
 }

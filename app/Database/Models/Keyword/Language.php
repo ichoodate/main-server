@@ -4,31 +4,25 @@ namespace App\Database\Models\Keyword;
 
 use App\Database\Model;
 
-class Language extends Model {
+class Language extends Model
+{
+    public const ID = 'id';
+    public const TYPE = 'type';
 
-    protected $table = 'keyword_languages';
-    protected $fillable = [
-        self::ID,
-        self::TYPE
-    ];
+    public const TYPE_DE_DE = 'de-DE';
+    public const TYPE_EL_GR = 'el-GR';
+    public const TYPE_EN_US = 'en-US';
+    public const TYPE_ES_ES = 'es-ES';
+    public const TYPE_FR_FR = 'fr-FR';
+    public const TYPE_IT_IT = 'it-IT';
+    public const TYPE_JA_JP = 'ja-JP';
+    public const TYPE_RU_RU = 'ru-RU';
+    public const TYPE_KO_KR = 'ko-KR';
+    public const TYPE_VI_VN = 'vi-VN';
+    public const TYPE_ZH_CN = 'zh-CN';
+    public const TYPE_ZH_TW = 'zh-TW';
 
-    const ID   = 'id';
-    const TYPE = 'type';
-
-    const TYPE_DE_DE = 'de-DE';
-    const TYPE_EL_GR = 'el-GR';
-    const TYPE_EN_US = 'en-US';
-    const TYPE_ES_ES = 'es-ES';
-    const TYPE_FR_FR = 'fr-FR';
-    const TYPE_IT_IT = 'it-IT';
-    const TYPE_JA_JP = 'ja-JP';
-    const TYPE_RU_RU = 'ru-RU';
-    const TYPE_KO_KR = 'ko-KR';
-    const TYPE_VI_VN = 'vi-VN';
-    const TYPE_ZH_CN = 'zh-CN';
-    const TYPE_ZH_TW = 'zh-TW';
-
-    const TYPE_VALUES = [
+    public const TYPE_VALUES = [
         self::TYPE_DE_DE,
         self::TYPE_EL_GR,
         self::TYPE_EN_US,
@@ -40,6 +34,12 @@ class Language extends Model {
         self::TYPE_KO_KR,
         self::TYPE_VI_VN,
         self::TYPE_ZH_CN,
-        self::TYPE_ZH_TW
+        self::TYPE_ZH_TW,
+    ];
+
+    protected $table = 'keyword_languages';
+    protected $fillable = [
+        self::ID,
+        self::TYPE,
     ];
 }

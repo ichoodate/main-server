@@ -2,12 +2,16 @@
 
 namespace Tests\Functional\FacePhotos;
 
-use App\Database\Models\User;
 use App\Database\Models\FacePhoto;
+use App\Database\Models\User;
 use Tests\Functional\_TestCase;
 
-class GetTest extends _TestCase {
-
+/**
+ * @internal
+ * @coversNothing
+ */
+class GetTest extends _TestCase
+{
     protected $uri = 'api/face-photos';
 
     public function test()
@@ -20,14 +24,12 @@ class GetTest extends _TestCase {
         $this->factory(FacePhoto::class)->create(['id' => 14, 'user_id' => 2]);
 
         $this->when(function () {
-
             $this->setAuthUser(User::find(1));
 
             $this->assertResultWithListing([11, 12]);
         });
 
         $this->when(function () {
-
             $this->setAuthUser(User::find(2));
 
             $this->assertResultWithListing([13, 14]);
@@ -37,9 +39,7 @@ class GetTest extends _TestCase {
     public function testErrorRequiredRuleAuthUser()
     {
         $this->when(function () {
-
             $this->assertError('authorized user is required.');
         });
     }
-
 }

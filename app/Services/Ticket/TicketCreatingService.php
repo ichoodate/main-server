@@ -5,8 +5,8 @@ namespace App\Services\Ticket;
 use App\Database\Models\Ticket;
 use Illuminate\Extend\Service;
 
-class TicketCreatingService extends Service {
-
+class TicketCreatingService extends Service
+{
     public static function getArrBindNames()
     {
         return [];
@@ -21,11 +21,10 @@ class TicketCreatingService extends Service {
     {
         return [
             'created' => function ($authUser, $description, $subject) {
-
-                return (new Ticket)->create([
-                    Ticket::WRITER_ID   => $authUser->getKey(),
-                    Ticket::SUBJECT     => $subject,
-                    Ticket::DESCRIPTION => $description
+                return (new Ticket())->create([
+                    Ticket::WRITER_ID => $authUser->getKey(),
+                    Ticket::SUBJECT => $subject,
+                    Ticket::DESCRIPTION => $description,
                 ]);
             },
         ];
@@ -39,14 +38,11 @@ class TicketCreatingService extends Service {
     public static function getArrRuleLists()
     {
         return [
-            'auth_user'
-                => ['required'],
+            'auth_user' => ['required'],
 
-            'description'
-                => ['required', 'string'],
+            'description' => ['required', 'string'],
 
-            'subject'
-                => ['required', 'string']
+            'subject' => ['required', 'string'],
         ];
     }
 
@@ -54,5 +50,4 @@ class TicketCreatingService extends Service {
     {
         return [];
     }
-
 }

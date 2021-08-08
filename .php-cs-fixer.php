@@ -6,6 +6,9 @@ use PhpCsFixer\Finder;
 return (new Config())
     ->setRules([
         '@PhpCsFixer' => true,
+        'ordered_imports' => [
+            'sort_algorithm' => 'alpha',
+        ],
     ])
     ->setFinder(
         Finder::create()

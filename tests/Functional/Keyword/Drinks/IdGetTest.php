@@ -5,8 +5,12 @@ namespace Tests\Functional\Keyword\Drinks;
 use App\Database\Models\Keyword\Drink;
 use Tests\Functional\_TestCase;
 
-class IdGetTest extends _TestCase {
-
+/**
+ * @internal
+ * @coversNothing
+ */
+class IdGetTest extends _TestCase
+{
     protected $uri = 'api/keyword/drinks/{id}';
 
     public function test()
@@ -15,14 +19,12 @@ class IdGetTest extends _TestCase {
         $this->factory(Drink::class)->create(['id' => 12]);
 
         $this->when(function () {
-
             $this->setRouteParameter('id', 11);
 
             $this->assertResultWithFinding(11);
         });
 
         $this->when(function () {
-
             $this->setRouteParameter('id', 12);
 
             $this->assertResultWithFinding(12);
@@ -32,11 +34,9 @@ class IdGetTest extends _TestCase {
     public function testErrorIntegerRuleId()
     {
         $this->when(function () {
-
             $this->setRouteParameter('id', 'abcd');
 
             $this->assertError('abcd must be an integer.');
         });
     }
-
 }

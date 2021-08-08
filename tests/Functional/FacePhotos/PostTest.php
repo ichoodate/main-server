@@ -2,12 +2,16 @@
 
 namespace Tests\Functional\FacePhotos;
 
-use App\Database\Models\User;
 use App\Database\Models\FacePhoto;
+use App\Database\Models\User;
 use Tests\Functional\_TestCase;
 
-class PostTest extends _TestCase {
-
+/**
+ * @internal
+ * @coversNothing
+ */
+class PostTest extends _TestCase
+{
     protected $uri = 'api/face-photos';
 
     public function test()
@@ -17,13 +21,12 @@ class PostTest extends _TestCase {
         $this->factory(FacePhoto::class)->create(['id' => 11, 'user_id' => 1]);
 
         $this->when(function () {
-
             $this->setAuthUser(User::find(1));
             $this->setInputParameter('upload', 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPj/HwADBwIAMCbHYQAAAABJRU5ErkJggg==');
 
             $this->assertResultWithPersisting(new FacePhoto([
                 'user_id' => 1,
-                'data' => 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPj/HwADBwIAMCbHYQAAAABJRU5ErkJggg=='
+                'data' => 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPj/HwADBwIAMCbHYQAAAABJRU5ErkJggg==',
             ]));
         });
     }
@@ -33,7 +36,6 @@ class PostTest extends _TestCase {
         $this->factory(User::class)->create(['id' => 1]);
 
         $this->when(function () {
-
             $this->setAuthUser(User::find(1));
             $this->setInputParameter('upload', 'asiudfh9w=8uihf');
 
@@ -44,7 +46,6 @@ class PostTest extends _TestCase {
     public function testErrorRequiredRuleAuthUser()
     {
         $this->when(function () {
-
             $this->assertError('authorized user is required.');
         });
     }
@@ -52,9 +53,7 @@ class PostTest extends _TestCase {
     public function testErrorRequiredRuleUpload()
     {
         $this->when(function () {
-
             $this->assertError('[upload] is required.');
         });
     }
-
 }

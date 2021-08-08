@@ -3,11 +3,11 @@
 namespace App\Services\Keyword\Hobby;
 
 use App\Database\Models\Keyword\Hobby;
-use Illuminate\Extend\Service;
 use App\Services\ListingService;
+use Illuminate\Extend\Service;
 
-class HobbyListingService extends Service {
-
+class HobbyListingService extends Service
+{
     public static function getArrBindNames()
     {
         return [];
@@ -22,7 +22,6 @@ class HobbyListingService extends Service {
     {
         return [
             'model_class' => function () {
-
                 return Hobby::class;
             },
         ];
@@ -44,5 +43,4 @@ class HobbyListingService extends Service {
             ListingService::class,
         ];
     }
-
 }

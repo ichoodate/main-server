@@ -3,11 +3,11 @@
 namespace App\Services\CardGroup;
 
 use App\Database\Models\CardGroup;
-use Illuminate\Extend\Service;
 use App\Services\LimitedListingService;
+use Illuminate\Extend\Service;
 
-class CardGroupListingService extends Service {
-
+class CardGroupListingService extends Service
+{
     public static function getArrBindNames()
     {
         return [];
@@ -17,12 +17,10 @@ class CardGroupListingService extends Service {
     {
         return [
             'query.auth_user' => function ($authUser, $query) {
-
                 $query->qWhere(CardGroup::USER_ID, $authUser->getKey());
             },
 
             'query.timezone' => function ($after, $query, $timezone) {
-
                 $time = new \DateTime($after, new \DateTimeZone($timezone));
                 $time->setTimezone(new \DateTimeZone('UTC'));
 
@@ -35,27 +33,20 @@ class CardGroupListingService extends Service {
     {
         return [
             'available_expands' => function () {
-
                 return ['cards.flips', 'cards.chooser.facePhoto', 'cards.chooser.popularity', 'cards.showner.facePhoto', 'cards.showner.popularity', 'user'];
             },
 
             'cursor' => function ($authUser, $cursorId) {
-
                 return [CardGroupFindingService::class, [
-                    'auth_user'
-                        => $authUser,
-                    'id'
-                        => $cursorId
+                    'auth_user' => $authUser,
+                    'id' => $cursorId,
                 ], [
-                    'auth_user'
-                        => '{{auth_user}}',
-                    'id'
-                        => '{{cursor_id}}'
+                    'auth_user' => '{{auth_user}}',
+                    'id' => '{{cursor_id}}',
                 ]];
             },
 
             'model_class' => function () {
-
                 return CardGroup::class;
             },
         ];
@@ -69,14 +60,11 @@ class CardGroupListingService extends Service {
     public static function getArrRuleLists()
     {
         return [
-            'after'
-                => ['required', 'date_format:Y-m-d H:i:s'],
+            'after' => ['required', 'date_format:Y-m-d H:i:s'],
 
-            'auth_user'
-                => ['required'],
+            'auth_user' => ['required'],
 
-            'timezone'
-                => ['required', 'timezone']
+            'timezone' => ['required', 'timezone'],
         ];
     }
 
@@ -86,5 +74,4 @@ class CardGroupListingService extends Service {
             LimitedListingService::class,
         ];
     }
-
 }

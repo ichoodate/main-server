@@ -3,16 +3,15 @@
 namespace App\Services\Keyword\Country;
 
 use App\Database\Models\Keyword\Country;
-use Illuminate\Extend\Service;
 use App\Services\FindingService;
+use Illuminate\Extend\Service;
 
-class CountryFindingService extends Service {
-
+class CountryFindingService extends Service
+{
     public static function getArrBindNames()
     {
         return [
-            'model'
-                => 'country keyword for {{id}}',
+            'model' => 'country keyword for {{id}}',
         ];
     }
 
@@ -25,12 +24,10 @@ class CountryFindingService extends Service {
     {
         return [
             'available_expands' => function () {
-
                 return ['state', 'residence', 'nationality'];
             },
 
             'model_class' => function () {
-
                 return Country::class;
             },
         ];
@@ -52,5 +49,4 @@ class CountryFindingService extends Service {
             FindingService::class,
         ];
     }
-
 }

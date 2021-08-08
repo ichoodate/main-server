@@ -2,45 +2,48 @@
 
 namespace Tests\Functional\PwdResets;
 
-use App\Database\Models\User;
 use App\Database\Models\PwdReset;
+use App\Database\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Tests\Functional\_TestCase;
 
-class PutTest extends _TestCase {
-
+/**
+ * @internal
+ * @coversNothing
+ */
+class PutTest extends _TestCase
+{
     protected $uri = 'api/pwd-resets/{id}';
 
     public function test()
     {
         $this->factory(User::class)->create([
-            User::ID    => 1,
-            User::EMAIL => 'abcd@gmail.com'
+            User::ID => 1,
+            User::EMAIL => 'abcd@gmail.com',
         ]);
         $this->factory(PwdReset::class)->create([
-            PwdReset::ID       => 11,
-            PwdReset::TOKEN    => 'de99a620c50f2990e87144735cd357e7',
-            PwdReset::EMAIL    => 'abcd@gmail.com',
-            PwdReset::COMPLETE => false
+            PwdReset::ID => 11,
+            PwdReset::TOKEN => 'de99a620c50f2990e87144735cd357e7',
+            PwdReset::EMAIL => 'abcd@gmail.com',
+            PwdReset::COMPLETE => false,
         ]);
 
         $this->when(function () {
-
             $this->setRouteParameter('id', 11);
             $this->setInputParameter('token', 'de99a620c50f2990e87144735cd357e7');
             $this->setInputParameter('new_password', 'abcdef');
 
             $this->assertResultWithPersisting(new PwdReset([
-                PwdReset::ID       => 11,
-                PwdReset::TOKEN    => 'de99a620c50f2990e87144735cd357e7',
-                PwdReset::EMAIL    => 'abcd@gmail.com',
-                PwdReset::COMPLETE => true
+                PwdReset::ID => 11,
+                PwdReset::TOKEN => 'de99a620c50f2990e87144735cd357e7',
+                PwdReset::EMAIL => 'abcd@gmail.com',
+                PwdReset::COMPLETE => true,
             ]));
 
             $this->assertTrue(Hash::check('abcdef', User::find(1)->password));
             $this->assertTrue(auth()->attempt([
-                User::EMAIL    => 'abcd@gmail.com',
-                User::PASSWORD => 'abcdef'
+                User::EMAIL => 'abcd@gmail.com',
+                User::PASSWORD => 'abcdef',
             ]));
         });
     }
@@ -48,7 +51,6 @@ class PutTest extends _TestCase {
     public function testErrorIntegerRuleId()
     {
         $this->when(function () {
-
             $this->setRouteParameter('id', 'abcd');
 
             $this->assertError('abcd must be an integer.');
@@ -58,13 +60,12 @@ class PutTest extends _TestCase {
     public function testErrorNotNullRuleResult()
     {
         $this->factory(PwdReset::class)->create([
-            PwdReset::ID    => 11,
+            PwdReset::ID => 11,
             PwdReset::TOKEN => 'de99a620c50f2990e87144735cd357e7',
-            PwdReset::EMAIL => 'abcd@gmail.com'
+            PwdReset::EMAIL => 'abcd@gmail.com',
         ]);
 
         $this->when(function () {
-
             $this->setRouteParameter('id', 12);
 
             $this->assertError('password reset for 12 must exist.');
@@ -74,7 +75,6 @@ class PutTest extends _TestCase {
     public function testErrorRequiredRuleNewPassword()
     {
         $this->when(function () {
-
             $this->assertError('[new_password] is required.');
         });
     }
@@ -82,7 +82,6 @@ class PutTest extends _TestCase {
     public function testErrorRequiredRuleToken()
     {
         $this->when(function () {
-
             $this->assertError('[token] is required.');
         });
     }
@@ -90,13 +89,12 @@ class PutTest extends _TestCase {
     public function testErrorSameRuleResultToken()
     {
         $this->factory(PwdReset::class)->create([
-            PwdReset::ID    => 11,
+            PwdReset::ID => 11,
             PwdReset::TOKEN => 'de99a620c50f2990e87144735cd357e7',
-            PwdReset::EMAIL => 'abcd@gmail.com'
+            PwdReset::EMAIL => 'abcd@gmail.com',
         ]);
 
         $this->when(function () {
-
             $this->setRouteParameter('id', 11);
             $this->setInputParameter('token', 'e99a654735cd320c508714f2990ed7e7');
 
@@ -107,8 +105,7 @@ class PutTest extends _TestCase {
     public function testErrorStringRuleNewPassword()
     {
         $this->when(function () {
-
-            $this->setInputParameter('new_password', [1,2,3,4]);
+            $this->setInputParameter('new_password', [1, 2, 3, 4]);
 
             $this->assertError('[new_password] must be a string.');
         });
@@ -117,8 +114,7 @@ class PutTest extends _TestCase {
     public function testErrorStringRuleToken()
     {
         $this->when(function () {
-
-            $this->setInputParameter('token', [1,2,3,4]);
+            $this->setInputParameter('token', [1, 2, 3, 4]);
 
             $this->assertError('[token] must be a string.');
         });
@@ -127,19 +123,17 @@ class PutTest extends _TestCase {
     public function testErrorFalseRuleResultComplete()
     {
         $this->factory(PwdReset::class)->create([
-            PwdReset::ID       => 11,
-            PwdReset::TOKEN    => 'de99a620c50f2990e87144735cd357e7',
-            PwdReset::EMAIL    => 'abcd@gmail.com',
-            PwdReset::COMPLETE => true
+            PwdReset::ID => 11,
+            PwdReset::TOKEN => 'de99a620c50f2990e87144735cd357e7',
+            PwdReset::EMAIL => 'abcd@gmail.com',
+            PwdReset::COMPLETE => true,
         ]);
 
         $this->when(function () {
-
             $this->setRouteParameter('id', 11);
             $this->setInputParameter('token', 'de99a620c50f2990e87144735cd357e7');
 
             $this->assertError('completion of password reset for 11 must be false.');
         });
     }
-
 }

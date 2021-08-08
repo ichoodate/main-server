@@ -3,18 +3,16 @@
 namespace App\Services\Reply;
 
 use App\Database\Models\Reply;
-use App\Database\Models\Ticket;
-use Illuminate\Extend\Service;
 use App\Services\FindingService;
 use App\Services\Ticket\TicketFindingService;
+use Illuminate\Extend\Service;
 
-class ReplyFindingService extends Service {
-
+class ReplyFindingService extends Service
+{
     public static function getArrBindNames()
     {
         return [
-            'model'
-                => 'reply for {{id}}',
+            'model' => 'reply for {{id}}',
         ];
     }
 
@@ -27,22 +25,16 @@ class ReplyFindingService extends Service {
     {
         return [
             'model_class' => function () {
-
                 return Reply::class;
             },
 
             'ticket' => function ($authUser, $model) {
-
                 return [TicketFindingService::class, [
-                    'auth_user'
-                        => $authUser,
-                    'id'
-                        => $model->{Reply::TICKET_ID}
+                    'auth_user' => $authUser,
+                    'id' => $model->{Reply::TICKET_ID},
                 ], [
-                    'auth_user'
-                        => '{{auth_user}}',
-                    'id'
-                        => 'ticket_id of {{model}}'
+                    'auth_user' => '{{auth_user}}',
+                    'id' => 'ticket_id of {{model}}',
                 ]];
             },
         ];
@@ -51,16 +43,14 @@ class ReplyFindingService extends Service {
     public static function getArrPromiseLists()
     {
         return [
-            'result'
-                => ['ticket'],
+            'result' => ['ticket'],
         ];
     }
 
     public static function getArrRuleLists()
     {
         return [
-            'auth_user'
-                => ['required']
+            'auth_user' => ['required'],
         ];
     }
 
@@ -70,5 +60,4 @@ class ReplyFindingService extends Service {
             FindingService::class,
         ];
     }
-
 }

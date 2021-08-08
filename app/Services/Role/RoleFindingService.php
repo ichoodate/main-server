@@ -3,17 +3,16 @@
 namespace App\Services\Role;
 
 use App\Database\Models\Role;
-use Illuminate\Extend\Service;
 use App\Services\FindingService;
 use App\Services\PermittedUserRequiringService;
+use Illuminate\Extend\Service;
 
-class RoleFindingService extends Service {
-
+class RoleFindingService extends Service
+{
     public static function getArrBindNames()
     {
         return [
-            'model'
-                => 'role for {{id}}',
+            'model' => 'role for {{id}}',
         ];
     }
 
@@ -26,19 +25,15 @@ class RoleFindingService extends Service {
     {
         return [
             'available_expands' => function () {
-
                 return ['user'];
             },
 
             'model_class' => function () {
-
                 return Role::class;
             },
 
             'permitted_user' => function ($authUser, $model) {
-
-                if ( $model->{Role::USER_ID} == $authUser->getkey() )
-                {
+                if ($model->{Role::USER_ID} == $authUser->getkey()) {
                     return $authUser;
                 }
             },
@@ -62,5 +57,4 @@ class RoleFindingService extends Service {
             PermittedUserRequiringService::class,
         ];
     }
-
 }

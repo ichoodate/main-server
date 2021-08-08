@@ -4,10 +4,9 @@ namespace App\Services\Card;
 
 use App\Database\Models\Card;
 use Illuminate\Extend\Service;
-use App\Services\Card\FreeFlippableCardReturningService;
 
-class FreeFlippableShownerCardReturningService extends Service {
-
+class FreeFlippableShownerCardReturningService extends Service
+{
     public static function getArrBindNames()
     {
         return [];
@@ -22,12 +21,10 @@ class FreeFlippableShownerCardReturningService extends Service {
     {
         return [
             'evaluated_time' => function ($card) {
-
                 return $card->{Card::UPDATED_AT};
             },
 
             'is_free' => function ($isFreeTime) {
-
                 return $isFreeTime;
             },
         ];
@@ -49,5 +46,4 @@ class FreeFlippableShownerCardReturningService extends Service {
             FreeFlippableCardReturningService::class,
         ];
     }
-
 }

@@ -3,13 +3,29 @@
 namespace App\Database\Models;
 
 use App\Database\Model;
-use App\Database\Models\Photo;
 
-class Notice extends Model {
+class Notice extends Model
+{
+    public const ID = 'id';
+    public const TYPE = 'type';
+    public const SUBJECT = 'subject';
+    public const DESCRIPTION = 'description';
+    public const CREATED_AT = 'created_at';
+    public const UPDATED_AT = 'updated_at';
+
+    public const TYPE_NOTICE = 'notice';
+    public const TYPE_EVENT = 'event';
+    public const TYPE_FAQ = 'faq';
+
+    public const TYPE_VALUES = [
+        self::TYPE_NOTICE,
+        self::TYPE_EVENT,
+        self::TYPE_FAQ,
+    ];
 
     protected $table = 'notices';
     protected $casts = [
-        self::ID => 'integer'
+        self::ID => 'integer',
     ];
     protected $fillable = [
         self::ID,
@@ -17,25 +33,6 @@ class Notice extends Model {
         self::SUBJECT,
         self::DESCRIPTION,
         self::CREATED_AT,
-        self::UPDATED_AT
+        self::UPDATED_AT,
     ];
-
-    const ID          = 'id';
-    const TYPE        = 'type';
-    const SUBJECT     = 'subject';
-    const DESCRIPTION = 'description';
-    const CREATED_AT  = 'created_at';
-    const UPDATED_AT  = 'updated_at';
-
-
-    const TYPE_NOTICE  = 'notice';
-    const TYPE_EVENT   = 'event';
-    const TYPE_FAQ     = 'faq';
-
-    const TYPE_VALUES = [
-        self::TYPE_NOTICE,
-        self::TYPE_EVENT,
-        self::TYPE_FAQ
-    ];
-
 }

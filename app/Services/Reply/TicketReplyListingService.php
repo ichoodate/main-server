@@ -3,18 +3,16 @@
 namespace App\Services\Reply;
 
 use App\Database\Models\Reply;
-use Illuminate\Extend\Service;
 use App\Services\LimitedListingService;
 use App\Services\Ticket\TicketFindingService;
-use App\Services\Reply\ReplyFindingService;
+use Illuminate\Extend\Service;
 
-class TicketReplyListingService extends Service {
-
+class TicketReplyListingService extends Service
+{
     public static function getArrBindNames()
     {
         return [
-            'ticket'
-                => 'ticket for {{ticket_id}}',
+            'ticket' => 'ticket for {{ticket_id}}',
         ];
     }
 
@@ -22,7 +20,6 @@ class TicketReplyListingService extends Service {
     {
         return [
             'query.ticket' => function ($query, $ticket) {
-
                 $query->qWhere(Reply::TICKET_ID, $ticket->getKey());
             },
         ];
@@ -32,42 +29,30 @@ class TicketReplyListingService extends Service {
     {
         return [
             'available_expands' => function () {
-
                 return ['ticket', 'writer'];
             },
 
             'cursor' => function ($authUser, $cursorId) {
-
                 return [ReplyFindingService::class, [
-                    'auth_user'
-                        => $authUser,
-                    'id'
-                        => $cursorId
+                    'auth_user' => $authUser,
+                    'id' => $cursorId,
                 ], [
-                    'auth_user'
-                        => '{{auth_user}}',
-                    'id'
-                        => '{{cursor_id}}'
+                    'auth_user' => '{{auth_user}}',
+                    'id' => '{{cursor_id}}',
                 ]];
             },
 
             'model_class' => function () {
-
                 return Reply::class;
             },
 
             'ticket' => function ($authUser, $ticketId) {
-
                 return [TicketFindingService::class, [
-                    'auth_user'
-                        => $authUser,
-                    'id'
-                        => $ticketId
+                    'auth_user' => $authUser,
+                    'id' => $ticketId,
                 ], [
-                    'auth_user'
-                        => '{{auth_user}}',
-                    'id'
-                        => '{{ticket_id}}'
+                    'auth_user' => '{{auth_user}}',
+                    'id' => '{{ticket_id}}',
                 ]];
             },
         ];
@@ -81,14 +66,11 @@ class TicketReplyListingService extends Service {
     public static function getArrRuleLists()
     {
         return [
-            'auth_user'
-                => ['required'],
+            'auth_user' => ['required'],
 
-            'ticket'
-                => ['not_null'],
+            'ticket' => ['not_null'],
 
-            'ticket_id'
-                => ['required', 'integer']
+            'ticket_id' => ['required', 'integer'],
         ];
     }
 
@@ -98,5 +80,4 @@ class TicketReplyListingService extends Service {
             LimitedListingService::class,
         ];
     }
-
 }

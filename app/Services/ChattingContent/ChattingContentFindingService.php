@@ -3,18 +3,16 @@
 namespace App\Services\ChattingContent;
 
 use App\Database\Models\ChattingContent;
-use App\Database\Models\Match;
-use Illuminate\Extend\Service;
 use App\Services\FindingService;
 use App\Services\Match\MatchFindingService;
+use Illuminate\Extend\Service;
 
-class ChattingContentFindingService extends Service {
-
+class ChattingContentFindingService extends Service
+{
     public static function getArrBindNames()
     {
         return [
-            'model'
-                => 'chatting_content for {{id}}',
+            'model' => 'chatting_content for {{id}}',
         ];
     }
 
@@ -27,27 +25,20 @@ class ChattingContentFindingService extends Service {
     {
         return [
             'available_expands' => function () {
-
                 return ['match', 'writer'];
             },
 
             'match' => function ($authUser, $model) {
-
                 return [MatchFindingService::class, [
-                    'auth_user'
-                        => $authUser,
-                    'id'
-                        => $model->{ChattingContent::MATCH_ID}
+                    'auth_user' => $authUser,
+                    'id' => $model->{ChattingContent::MATCH_ID},
                 ], [
-                    'auth_user'
-                        => '{{auth_user}}',
-                    'id'
-                        => 'match_id of {{model}}'
+                    'auth_user' => '{{auth_user}}',
+                    'id' => 'match_id of {{model}}',
                 ]];
             },
 
             'model_class' => function () {
-
                 return ChattingContent::class;
             },
         ];
@@ -61,8 +52,7 @@ class ChattingContentFindingService extends Service {
     public static function getArrRuleLists()
     {
         return [
-            'auth_user'
-                => ['required']
+            'auth_user' => ['required'],
         ];
     }
 
@@ -72,5 +62,4 @@ class ChattingContentFindingService extends Service {
             FindingService::class,
         ];
     }
-
 }

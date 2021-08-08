@@ -3,11 +3,11 @@
 namespace App\Services\Keyword\AgeRange;
 
 use App\Database\Models\Keyword\AgeRange;
-use Illuminate\Extend\Service;
 use App\Services\ListingService;
+use Illuminate\Extend\Service;
 
-class MinAgeRangeListingService extends Service {
-
+class MinAgeRangeListingService extends Service
+{
     public static function getArrBindNames()
     {
         return [];
@@ -17,7 +17,6 @@ class MinAgeRangeListingService extends Service {
     {
         return [
             'query.max' => function ($max, $query) {
-
                 $query->qWhere('max', $max);
             },
         ];
@@ -27,7 +26,6 @@ class MinAgeRangeListingService extends Service {
     {
         return [
             'model_class' => function () {
-
                 return AgeRange::class;
             },
         ];
@@ -41,8 +39,7 @@ class MinAgeRangeListingService extends Service {
     public static function getArrRuleLists()
     {
         return [
-            'max'
-                => ['required', 'integer']
+            'max' => ['required', 'integer'],
         ];
     }
 
@@ -52,5 +49,4 @@ class MinAgeRangeListingService extends Service {
             ListingService::class,
         ];
     }
-
 }

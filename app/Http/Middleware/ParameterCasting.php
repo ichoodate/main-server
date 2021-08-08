@@ -2,8 +2,8 @@
 
 namespace App\Http\Middleware;
 
-class ParameterCasting {
-
+class ParameterCasting
+{
     public function handle($request, $next)
     {
         $request->query->replace($this->castAll($request->query->all()));
@@ -16,14 +16,10 @@ class ParameterCasting {
 
     public function castAll(array $params)
     {
-        foreach ( $params as $key => $value )
-        {
-            if ( is_array($value) )
-            {
+        foreach ($params as $key => $value) {
+            if (is_array($value)) {
                 $params[$key] = $this->castAll($value);
-            }
-            else
-            {
+            } else {
                 $params[$key] = $this->cast($value);
             }
         }
@@ -33,24 +29,16 @@ class ParameterCasting {
 
     public function cast($value)
     {
-        if ( $value === 'null' )
-        {
+        if ('null' === $value) {
             $value = null;
-        }
-        else if ( $value === 'true' )
-        {
+        } elseif ('true' === $value) {
             $value = true;
-        }
-        else if ( $value === 'false' )
-        {
+        } elseif ('false' === $value) {
             $value = false;
-        }
-        else if ( is_string($value) && preg_match('/^\d+$/', $value) )
-        {
-            $value = (integer)$value;
+        } elseif (is_string($value) && preg_match('/^\d+$/', $value)) {
+            $value = (int) $value;
         }
 
         return $value;
     }
-
 }

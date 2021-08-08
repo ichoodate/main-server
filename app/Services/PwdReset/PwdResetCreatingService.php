@@ -6,13 +6,12 @@ use App\Database\Models\PwdReset;
 use App\Database\Models\User;
 use Illuminate\Extend\Service;
 
-class PwdResetCreatingService extends Service {
-
+class PwdResetCreatingService extends Service
+{
     public static function getArrBindNames()
     {
         return [
-            'user'
-                => 'user for {{email}}',
+            'user' => 'user for {{email}}',
         ];
     }
 
@@ -25,19 +24,18 @@ class PwdResetCreatingService extends Service {
     {
         return [
             'created' => function ($user) {
-
-                return (new PwdReset)->create([
-                    PwdReset::TOKEN    => str_random(32),
-                    PwdReset::EMAIL    => $user->{User::EMAIL},
-                    PwdReset::COMPLETE => false
+                return (new PwdReset())->create([
+                    PwdReset::TOKEN => str_random(32),
+                    PwdReset::EMAIL => $user->{User::EMAIL},
+                    PwdReset::COMPLETE => false,
                 ]);
             },
 
             'user' => function ($email) {
-
-                return (new User)->query()
+                return (new User())->query()
                     ->qWhere(User::EMAIL, $email)
-                    ->first();
+                    ->first()
+                ;
             },
         ];
     }
@@ -50,11 +48,9 @@ class PwdResetCreatingService extends Service {
     public static function getArrRuleLists()
     {
         return [
-            'email'
-                => ['required', 'email'],
+            'email' => ['required', 'email'],
 
-            'user'
-                => ['not_null']
+            'user' => ['not_null'],
         ];
     }
 
@@ -62,5 +58,4 @@ class PwdResetCreatingService extends Service {
     {
         return [];
     }
-
 }

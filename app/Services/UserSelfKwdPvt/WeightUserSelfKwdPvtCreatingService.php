@@ -2,14 +2,13 @@
 
 namespace App\Services\UserSelfKwdPvt;
 
-use App\Database\Models\UserSelfKwdPvt;
 use App\Database\Models\Keyword\Weight;
-use Illuminate\Extend\Service;
-use App\Services\ListingService;
+use App\Database\Models\UserSelfKwdPvt;
 use App\Services\Keyword\Weight\WeightFindingService;
+use Illuminate\Extend\Service;
 
-class WeightUserSelfKwdPvtCreatingService extends Service {
-
+class WeightUserSelfKwdPvtCreatingService extends Service
+{
     public static function getArrBindNames()
     {
         return [];
@@ -19,15 +18,16 @@ class WeightUserSelfKwdPvtCreatingService extends Service {
     {
         return [
             'auth_user' => function ($authUser) {
-
-                $keywordIds = (new Weight)->query()
+                $keywordIds = (new Weight())->query()
                     ->qSelect(Weight::ID)
-                    ->getQuery();
+                    ->getQuery()
+                ;
 
-                (new UserSelfKwdPvt)->query()
+                (new UserSelfKwdPvt())->query()
                     ->qWhere(UserSelfKwdPvt::USER_ID, $authUser->getKey())
                     ->qWhereIn(UserSelfKwdPvt::KEYWORD_ID, $keywordIds)
-                    ->delete();
+                    ->delete()
+                ;
             },
         ];
     }
@@ -36,21 +36,17 @@ class WeightUserSelfKwdPvtCreatingService extends Service {
     {
         return [
             'keyword' => function ($keywordId) {
-
                 return [WeightFindingService::class, [
-                    'id'
-                        => $keywordId
+                    'id' => $keywordId,
                 ], [
-                    'id'
-                        => '{{keyword_id}}'
+                    'id' => '{{keyword_id}}',
                 ]];
             },
 
             'result' => function ($authUser, $keyword) {
-
-                return (new UserSelfKwdPvt)->create([
+                return (new UserSelfKwdPvt())->create([
                     UserSelfKwdPvt::USER_ID => $authUser->getKey(),
-                    UserSelfKwdPvt::KEYWORD_ID => $keyword->getKey()
+                    UserSelfKwdPvt::KEYWORD_ID => $keyword->getKey(),
                 ]);
             },
         ];
@@ -64,11 +60,9 @@ class WeightUserSelfKwdPvtCreatingService extends Service {
     public static function getArrRuleLists()
     {
         return [
-            'auth_user'
-                => ['required'],
+            'auth_user' => ['required'],
 
-            'keyword_id'
-                => ['required']
+            'keyword_id' => ['required'],
         ];
     }
 
@@ -76,5 +70,4 @@ class WeightUserSelfKwdPvtCreatingService extends Service {
     {
         return [];
     }
-
 }

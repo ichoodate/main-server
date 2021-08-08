@@ -3,17 +3,16 @@
 namespace App\Services\CardGroup;
 
 use App\Database\Models\CardGroup;
+use App\Services\FindingService;
 use App\Services\PermittedUserRequiringService;
 use Illuminate\Extend\Service;
-use App\Services\FindingService;
 
-class CardGroupFindingService extends Service {
-
+class CardGroupFindingService extends Service
+{
     public static function getArrBindNames()
     {
         return [
-            'model'
-                => 'card_group for {{id}}',
+            'model' => 'card_group for {{id}}',
         ];
     }
 
@@ -26,19 +25,15 @@ class CardGroupFindingService extends Service {
     {
         return [
             'available_expands' => function () {
-
                 return ['cards.flips', 'cards.chooser.facePhoto', 'cards.chooser.popularity', 'cards.showner.facePhoto', 'cards.showner.popularity', 'user'];
             },
 
             'model_class' => function () {
-
                 return CardGroup::class;
             },
 
             'permitted_user' => function ($authUser, $model) {
-
-                if ( in_array($authUser->getKey(), [$model->{CardGroup::USER_ID}]) )
-                {
+                if (in_array($authUser->getKey(), [$model->{CardGroup::USER_ID}])) {
                     return $authUser;
                 }
             },
@@ -62,5 +57,4 @@ class CardGroupFindingService extends Service {
             PermittedUserRequiringService::class,
         ];
     }
-
 }

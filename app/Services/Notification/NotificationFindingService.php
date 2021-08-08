@@ -3,17 +3,16 @@
 namespace App\Services\Notification;
 
 use App\Database\Models\Notification;
-use Illuminate\Extend\Service;
 use App\Services\FindingService;
 use App\Services\PermittedUserRequiringService;
+use Illuminate\Extend\Service;
 
-class NotificationFindingService extends Service {
-
+class NotificationFindingService extends Service
+{
     public static function getArrBindNames()
     {
         return [
-            'model'
-                => 'notification for {{id}}',
+            'model' => 'notification for {{id}}',
         ];
     }
 
@@ -26,19 +25,15 @@ class NotificationFindingService extends Service {
     {
         return [
             'available_expands' => function () {
-
                 return ['related', 'user'];
             },
 
             'model_class' => function () {
-
                 return Notification::class;
             },
 
             'permitted_user' => function ($authUser, $model) {
-
-                if ( $model->{Notification::USER_ID} == $authUser->getkey() )
-                {
+                if ($model->{Notification::USER_ID} == $authUser->getkey()) {
                     return $authUser;
                 }
             },
@@ -62,5 +57,4 @@ class NotificationFindingService extends Service {
             PermittedUserRequiringService::class,
         ];
     }
-
 }

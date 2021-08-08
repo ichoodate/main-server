@@ -3,16 +3,15 @@
 namespace App\Services\Keyword\Residence;
 
 use App\Database\Models\Keyword\Residence;
-use Illuminate\Extend\Service;
 use App\Services\FindingService;
+use Illuminate\Extend\Service;
 
-class ResidenceFindingService extends Service {
-
+class ResidenceFindingService extends Service
+{
     public static function getArrBindNames()
     {
         return [
-            'model'
-                => 'residence keyword for {{id}}',
+            'model' => 'residence keyword for {{id}}',
         ];
     }
 
@@ -25,7 +24,6 @@ class ResidenceFindingService extends Service {
     {
         return [
             'model_class' => function () {
-
                 return Residence::class;
             },
         ];
@@ -47,5 +45,4 @@ class ResidenceFindingService extends Service {
             FindingService::class,
         ];
     }
-
 }

@@ -3,12 +3,11 @@
 namespace App\Services\Notification;
 
 use App\Database\Models\Notification;
-use Illuminate\Extend\Service;
 use App\Services\LimitedListingService;
-use App\Services\Notification\NotificationFindingService;
+use Illuminate\Extend\Service;
 
-class NotificationListingService extends Service {
-
+class NotificationListingService extends Service
+{
     public static function getArrBindNames()
     {
         return [];
@@ -18,37 +17,29 @@ class NotificationListingService extends Service {
     {
         return [
             'query.auth_user' => function ($authUser, $query) {
-
                 $query->qWhere(Notification::USER_ID, $authUser->getKey());
             },
         ];
     }
 
-     public static function getArrLoaders()
+    public static function getArrLoaders()
     {
         return [
             'available_expands' => function () {
-
                 return ['related', 'user'];
             },
 
             'cursor' => function ($authUser, $cursorId) {
-
                 return [NotificationFindingService::class, [
-                    'auth_user'
-                        => $authUser,
-                    'id'
-                        => $cursorId
+                    'auth_user' => $authUser,
+                    'id' => $cursorId,
                 ], [
-                    'auth_user'
-                        => '{{auth_user}}',
-                    'id'
-                        => '{{cursor_id}}'
+                    'auth_user' => '{{auth_user}}',
+                    'id' => '{{cursor_id}}',
                 ]];
             },
 
             'model_class' => function () {
-
                 return Notification::class;
             },
         ];
@@ -62,8 +53,7 @@ class NotificationListingService extends Service {
     public static function getArrRuleLists()
     {
         return [
-            'auth_user'
-                => ['required']
+            'auth_user' => ['required'],
         ];
     }
 
@@ -73,5 +63,4 @@ class NotificationListingService extends Service {
             LimitedListingService::class,
         ];
     }
-
 }

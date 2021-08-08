@@ -3,16 +3,15 @@
 namespace App\Services\Keyword\StatureRange;
 
 use App\Database\Models\Keyword\StatureRange;
-use Illuminate\Extend\Service;
 use App\Services\FindingService;
+use Illuminate\Extend\Service;
 
-class StatureRangeFindingService extends Service {
-
+class StatureRangeFindingService extends Service
+{
     public static function getArrBindNames()
     {
         return [
-            'model'
-                => 'stature_range keyword for {{id}}',
+            'model' => 'stature_range keyword for {{id}}',
         ];
     }
 
@@ -25,7 +24,6 @@ class StatureRangeFindingService extends Service {
     {
         return [
             'model_class' => function () {
-
                 return StatureRange::class;
             },
         ];
@@ -47,5 +45,4 @@ class StatureRangeFindingService extends Service {
             FindingService::class,
         ];
     }
-
 }

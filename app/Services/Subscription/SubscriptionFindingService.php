@@ -3,17 +3,16 @@
 namespace App\Services\Subscription;
 
 use App\Database\Models\Subscription;
-use Illuminate\Extend\Service;
 use App\Services\FindingService;
 use App\Services\PermittedUserRequiringService;
+use Illuminate\Extend\Service;
 
-class SubscriptionFindingService extends Service {
-
+class SubscriptionFindingService extends Service
+{
     public static function getArrBindNames()
     {
         return [
-            'model'
-                => 'subscription for {{id}}',
+            'model' => 'subscription for {{id}}',
         ];
     }
 
@@ -26,19 +25,15 @@ class SubscriptionFindingService extends Service {
     {
         return [
             'available_expands' => function () {
-
                 return ['payment', 'user'];
             },
 
             'model_class' => function () {
-
                 return Subscription::class;
             },
 
             'permitted_user' => function ($authUser, $model) {
-
-                if ( in_array($authUser->getKey(), [$model->{Subscription::USER_ID}]) )
-                {
+                if (in_array($authUser->getKey(), [$model->{Subscription::USER_ID}])) {
                     return $authUser;
                 }
             },
@@ -62,5 +57,4 @@ class SubscriptionFindingService extends Service {
             PermittedUserRequiringService::class,
         ];
     }
-
 }

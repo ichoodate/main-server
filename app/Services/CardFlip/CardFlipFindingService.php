@@ -3,17 +3,16 @@
 namespace App\Services\CardFlip;
 
 use App\Database\Models\CardFlip;
-use Illuminate\Extend\Service;
 use App\Services\FindingService;
 use App\Services\PermittedUserRequiringService;
+use Illuminate\Extend\Service;
 
-class CardFlipFindingService extends Service {
-
+class CardFlipFindingService extends Service
+{
     public static function getArrBindNames()
     {
         return [
-            'model'
-                => 'card_flip for {{id}}',
+            'model' => 'card_flip for {{id}}',
         ];
     }
 
@@ -26,19 +25,15 @@ class CardFlipFindingService extends Service {
     {
         return [
             'available_expands' => function () {
-
                 return ['user', 'card.concrete'];
             },
 
             'model_class' => function () {
-
                 return CardFlip::class;
             },
 
             'permitted_user' => function ($authUser, $model) {
-
-                if ( $authUser->getkey() == $model->{CardFlip::USER_ID} )
-                {
+                if ($authUser->getkey() == $model->{CardFlip::USER_ID}) {
                     return $authUser;
                 }
             },
@@ -62,5 +57,4 @@ class CardFlipFindingService extends Service {
             PermittedUserRequiringService::class,
         ];
     }
-
 }

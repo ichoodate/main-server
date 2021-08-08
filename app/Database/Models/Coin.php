@@ -3,11 +3,15 @@
 namespace App\Database\Models;
 
 use App\Database\Model;
-use App\Database\Models\Balance;
-use App\Database\Models\Obj;
-use App\Database\Models\User;
 
-class Coin extends Model {
+class Coin extends Model
+{
+    public const ID = 'id';
+    public const USER_ID = 'user_id';
+    public const BALANCE_ID = 'balance_id';
+    public const RELATED_ID = 'related_id';
+    public const COUNT = 'count';
+    public const CREATED_AT = 'created_at';
 
     protected $table = 'coins';
     protected $casts = [
@@ -15,7 +19,7 @@ class Coin extends Model {
         self::USER_ID => 'integer',
         self::BALANCE_ID => 'integer',
         self::RELATED_ID => 'integer',
-        self::COUNT => 'integer'
+        self::COUNT => 'integer',
     ];
     protected $fillable = [
         self::ID,
@@ -23,15 +27,8 @@ class Coin extends Model {
         self::BALANCE_ID,
         self::RELATED_ID,
         self::COUNT,
-        self::CREATED_AT
+        self::CREATED_AT,
     ];
-
-    const ID         = 'id';
-    const USER_ID    = 'user_id';
-    const BALANCE_ID = 'balance_id';
-    const RELATED_ID = 'related_id';
-    const COUNT      = 'count';
-    const CREATED_AT = 'created_at';
 
     public function balance()
     {
@@ -47,5 +44,4 @@ class Coin extends Model {
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
-
 }

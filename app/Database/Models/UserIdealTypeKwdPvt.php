@@ -3,26 +3,24 @@
 namespace App\Database\Models;
 
 use App\Database\Model;
-use App\Database\Models\Obj;
-use App\Database\Models\User;
 
-class UserIdealTypeKwdPvt extends Model {
+class UserIdealTypeKwdPvt extends Model
+{
+    public const ID = 'id';
+    public const USER_ID = 'user_id';
+    public const KEYWORD_ID = 'keyword_id';
 
     protected $table = 'user_ideal_type_kwd_pvts';
     protected $casts = [
         self::ID => 'integer',
         self::USER_ID => 'integer',
-        self::KEYWORD_ID => 'integer'
+        self::KEYWORD_ID => 'integer',
     ];
     protected $fillable = [
         self::ID,
         self::USER_ID,
         self::KEYWORD_ID,
     ];
-
-    const ID         = 'id';
-    const USER_ID    = 'user_id';
-    const KEYWORD_ID = 'keyword_id';
 
     public function keyword()
     {
@@ -33,5 +31,4 @@ class UserIdealTypeKwdPvt extends Model {
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
-
 }

@@ -3,13 +3,12 @@
 namespace App\Services\ProfilePhoto;
 
 use App\Database\Models\ProfilePhoto;
-use Illuminate\Extend\Service;
 use App\Services\LimitedListingService;
-use App\Services\ProfilePhoto\ProfilePhotoFindingService;
 use App\Services\User\UserFindingService;
+use Illuminate\Extend\Service;
 
-class ProfilePhotoListingService extends Service {
-
+class ProfilePhotoListingService extends Service
+{
     public static function getArrBindNames()
     {
         return [];
@@ -19,7 +18,6 @@ class ProfilePhotoListingService extends Service {
     {
         return [
             'query.user' => function ($query, $user) {
-
                 $query->qWhere(ProfilePhoto::USER_ID, $user->getKey());
             },
         ];
@@ -29,34 +27,26 @@ class ProfilePhotoListingService extends Service {
     {
         return [
             'available_expands' => function () {
-
                 return ['user'];
             },
 
             'cursor' => function ($cursorId) {
-
                 return [ProfilePhotoFindingService::class, [
-                    'id'
-                        => $cursorId
+                    'id' => $cursorId,
                 ], [
-                    'id'
-                        => '{{cursor_id}}'
+                    'id' => '{{cursor_id}}',
                 ]];
             },
 
             'model_class' => function () {
-
                 return ProfilePhoto::class;
             },
 
             'user' => function ($userId) {
-
                 return [UserFindingService::class, [
-                    'id'
-                        => $userId
+                    'id' => $userId,
                 ], [
-                    'id'
-                        => '{{user_id}}'
+                    'id' => '{{user_id}}',
                 ]];
             },
         ];
@@ -70,8 +60,7 @@ class ProfilePhotoListingService extends Service {
     public static function getArrRuleLists()
     {
         return [
-            'user_id'
-                => ['required', 'integer']
+            'user_id' => ['required', 'integer'],
         ];
     }
 
@@ -81,5 +70,4 @@ class ProfilePhotoListingService extends Service {
             LimitedListingService::class,
         ];
     }
-
 }

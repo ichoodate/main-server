@@ -4,26 +4,26 @@ namespace App\Database\Models\Keyword;
 
 use App\Database\Model;
 
-class Blood extends Model {
+class Blood extends Model
+{
+    public const ID = 'id';
+    public const TYPE = 'type';
+
+    public const TYPE_A = 'A';
+    public const TYPE_B = 'B';
+    public const TYPE_O = 'O';
+    public const TYPE_AB = 'AB';
+
+    public const TYPE_VALUES = [
+        self::TYPE_A,
+        self::TYPE_B,
+        self::TYPE_O,
+        self::TYPE_AB,
+    ];
 
     protected $table = 'keyword_bloods';
     protected $fillable = [
         self::ID,
-        self::TYPE
-    ];
-
-    const ID   = 'id';
-    const TYPE = 'type';
-
-    const TYPE_A  = 'A';
-    const TYPE_B  = 'B';
-    const TYPE_O  = 'O';
-    const TYPE_AB = 'AB';
-
-    const TYPE_VALUES = [
-        self::TYPE_A,
-        self::TYPE_B,
-        self::TYPE_O,
-        self::TYPE_AB
+        self::TYPE,
     ];
 }

@@ -3,11 +3,11 @@
 namespace App\Services\Keyword\Language;
 
 use App\Database\Models\Keyword\Language;
-use Illuminate\Extend\Service;
 use App\Services\ListingService;
+use Illuminate\Extend\Service;
 
-class LanguageListingService extends Service {
-
+class LanguageListingService extends Service
+{
     public static function getArrBindNames()
     {
         return [];
@@ -22,7 +22,6 @@ class LanguageListingService extends Service {
     {
         return [
             'model_class' => function () {
-
                 return Language::class;
             },
         ];
@@ -44,5 +43,4 @@ class LanguageListingService extends Service {
             ListingService::class,
         ];
     }
-
 }

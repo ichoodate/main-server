@@ -3,11 +3,11 @@
 namespace App\Services\Keyword\Stature;
 
 use App\Database\Models\Keyword\Stature;
-use Illuminate\Extend\Service;
 use App\Services\ListingService;
+use Illuminate\Extend\Service;
 
-class StatureListingService extends Service {
-
+class StatureListingService extends Service
+{
     public static function getArrBindNames()
     {
         return [];
@@ -22,7 +22,6 @@ class StatureListingService extends Service {
     {
         return [
             'model_class' => function () {
-
                 return Stature::class;
             },
         ];
@@ -44,5 +43,4 @@ class StatureListingService extends Service {
             ListingService::class,
         ];
     }
-
 }

@@ -5,13 +5,12 @@ namespace App\Services;
 use App\Database\Models\Role;
 use Illuminate\Extend\Service;
 
-class AdminRoleExistingService extends Service {
-
+class AdminRoleExistingService extends Service
+{
     public static function getArrBindNames()
     {
         return [
-            'admin_role'
-                => 'admin role for {{auth_user}}',
+            'admin_role' => 'admin role for {{auth_user}}',
         ];
     }
 
@@ -24,7 +23,6 @@ class AdminRoleExistingService extends Service {
     {
         return [
             'admin_role' => function ($authUser) {
-
                 return $authUser->role()->qWhere(Role::TYPE, Role::TYPE_ADMIN)->first();
             },
         ];
@@ -38,8 +36,7 @@ class AdminRoleExistingService extends Service {
     public static function getArrRuleLists()
     {
         return [
-            'auth_user'
-                => ['required']
+            'auth_user' => ['required'],
         ];
     }
 
@@ -47,5 +44,4 @@ class AdminRoleExistingService extends Service {
     {
         return [];
     }
-
 }

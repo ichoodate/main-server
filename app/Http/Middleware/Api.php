@@ -2,26 +2,25 @@
 
 namespace App\Http\Middleware;
 
-use App\Database\Model;
 use App\Database\Collection;
-use Illuminate\Extend\Service;
+use App\Database\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Extend\Service;
 use Illuminate\Pagination\AbstractPaginator;
 use Illuminate\Support\Facades\DB;
 
-class Api {
-
+class Api
+{
     public function handle($request, $next)
     {
         DB::beginTransaction();
 
         $response = $next($request);
-        $arr      = $response->getOriginalContent();
+        $arr = $response->getOriginalContent();
 
-        if ( !Service::isCanServicify($arr) )
-        {
+        if (!Service::isCanServicify($arr)) {
             $response->setContent([
-                'result' => $arr
+                'result' => $arr,
             ]);
 
             DB::commit();
@@ -35,30 +34,24 @@ class Api {
         $errors = $service->totalErrors();
         $result = $service->data()->get('result');
 
-        if ( $result instanceof AbstractPaginator )
-        {
+        if ($result instanceof AbstractPaginator) {
             $data = $result->getCollection();
             $data = $this->restify($data);
 
             $result->setCollection(collect($data));
-        }
-        else
-        {
+        } else {
             $result = $this->restify($result);
         }
 
-        if ( $errors->isEmpty() )
-        {
+        if ($errors->isEmpty()) {
             $response->setData([
-                'result' => $result
+                'result' => $result,
             ]);
 
             DB::commit();
-        }
-        else
-        {
+        } else {
             $response->setData([
-                'errors' => $errors
+                'errors' => $errors,
             ]);
 
             DB::rollback();
@@ -69,25 +62,22 @@ class Api {
 
     public static function restify($result)
     {
-        if ( ! is_a($result, Model::class) && ! is_a($result, Collection::class) )
-        {
+        if (!is_a($result, Model::class) && !is_a($result, Collection::class)) {
             return $result;
         }
 
         $isModel = $result instanceof Model ? true : false;
-        $return  = [];
-        $items   = $isModel ? [$result] : $result->all();
+        $return = [];
+        $items = $isModel ? [$result] : $result->all();
 
-        foreach ( $items as $i => $item )
-        {
+        foreach ($items as $i => $item) {
             $type = array_flip(Relation::morphMap())[get_class($item)];
             $value = [];
             $value['_type'] = $type;
             $value['_attributes'] = $item->getAttributes();
             $value['_relations'] = [];
 
-            foreach ( $item->getRelations() as $key => $relation )
-            {
+            foreach ($item->getRelations() as $key => $relation) {
                 $value['_relations'][$key] = static::restify($relation);
             }
 
@@ -96,5 +86,4 @@ class Api {
 
         return $isModel ? $return[0] : $return;
     }
-
 }

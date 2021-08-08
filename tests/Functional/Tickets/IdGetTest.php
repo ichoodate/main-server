@@ -2,12 +2,16 @@
 
 namespace Tests\Functional\Tickets;
 
-use App\Database\Models\User;
 use App\Database\Models\Ticket;
+use App\Database\Models\User;
 use Tests\Functional\_TestCase;
 
-class IdGetTest extends _TestCase {
-
+/**
+ * @internal
+ * @coversNothing
+ */
+class IdGetTest extends _TestCase
+{
     protected $uri = 'api/tickets/{id}';
 
     public function test()
@@ -18,7 +22,6 @@ class IdGetTest extends _TestCase {
         $this->factory(Ticket::class)->create(['id' => 12, 'writer_id' => 2]);
 
         $this->when(function () {
-
             $this->setAuthUser(User::find(1));
             $this->setRouteParameter('id', 11);
 
@@ -26,7 +29,6 @@ class IdGetTest extends _TestCase {
         });
 
         $this->when(function () {
-
             $this->setAuthUser(User::find(2));
             $this->setRouteParameter('id', 12);
 
@@ -37,7 +39,6 @@ class IdGetTest extends _TestCase {
     public function testErrorIntegerRuleId()
     {
         $this->when(function () {
-
             $this->setRouteParameter('id', 'abcd');
 
             $this->assertError('abcd must be an integer.');
@@ -50,7 +51,6 @@ class IdGetTest extends _TestCase {
         $this->factory(Ticket::class)->create(['id' => 12]);
 
         $this->when(function () {
-
             $this->setRouteParameter('id', 13);
 
             $this->assertError('ticket for 13 must exist.');
@@ -60,7 +60,6 @@ class IdGetTest extends _TestCase {
     public function testErrorRequiredRuleAuthUser()
     {
         $this->when(function () {
-
             $this->assertError('authorized user is required.');
         });
     }
@@ -71,12 +70,10 @@ class IdGetTest extends _TestCase {
         $this->factory(Ticket::class)->create(['id' => 11, 'writer_id' => 2]);
 
         $this->when(function () {
-
             $this->setAuthUser(User::find(1));
             $this->setRouteParameter('id', 11);
 
             $this->assertError('authorized user who is related user of ticket for 11 is required.');
         });
     }
-
 }

@@ -19,43 +19,33 @@ class CursoringService extends Service
     public static function getArrLoaders()
     {
         return [
-            'result' => function ($cursor, $limit='', $orderByList, $query) {
-
+            'result' => function ($cursor, $limit = '', $orderByList, $query) {
                 $wheres = [];
                 $result = [];
 
-                foreach ( $orderByList as $column => $direction )
-                {
-                    if ( $direction == 'asc' )
-                    {
+                foreach ($orderByList as $column => $direction) {
+                    if ('asc' == $direction) {
                         $wheres[] = [$column, '>', $cursor->{$column}];
-                    }
-                    else
-                    {
+                    } else {
                         $wheres[] = [$column, '<', $cursor->{$column}];
                     }
                 }
 
-                while ( $limit != 0 && count($wheres) != 0 )
-                {
+                while (0 != $limit && 0 != count($wheres)) {
                     $newQuery = clone $query;
 
-                    foreach ( $wheres as $i => $where )
-                    {
-                        if ( $where == end($wheres) )
-                        {
+                    foreach ($wheres as $i => $where) {
+                        if ($where == end($wheres)) {
                             $newQuery->where($where[0], $where[1], $where[2]);
-                        }
-                        else
-                        {
+                        } else {
                             $newQuery->where($where[0], '=', $where[2]);
                         }
                     }
 
                     array_pop($wheres);
 
-                    $list   = $newQuery->get();
-                    $limit  = $limit - count($list);
+                    $list = $newQuery->get();
+                    $limit = $limit - count($list);
                     $result = array_merge($result, $list->all());
                 }
 

@@ -3,16 +3,15 @@
 namespace App\Services\Keyword\Weight;
 
 use App\Database\Models\Keyword\Weight;
-use Illuminate\Extend\Service;
 use App\Services\FindingService;
+use Illuminate\Extend\Service;
 
-class WeightFindingService extends Service {
-
+class WeightFindingService extends Service
+{
     public static function getArrBindNames()
     {
         return [
-            'model'
-                => 'weight keyword for {{id}}',
+            'model' => 'weight keyword for {{id}}',
         ];
     }
 
@@ -25,7 +24,6 @@ class WeightFindingService extends Service {
     {
         return [
             'model_class' => function () {
-
                 return Weight::class;
             },
         ];
@@ -47,5 +45,4 @@ class WeightFindingService extends Service {
             FindingService::class,
         ];
     }
-
 }

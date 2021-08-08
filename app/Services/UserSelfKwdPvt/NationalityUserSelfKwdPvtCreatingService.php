@@ -2,14 +2,13 @@
 
 namespace App\Services\UserSelfKwdPvt;
 
-use App\Database\Models\UserSelfKwdPvt;
 use App\Database\Models\Keyword\Nationality;
-use Illuminate\Extend\Service;
-use App\Services\ListingService;
+use App\Database\Models\UserSelfKwdPvt;
 use App\Services\Keyword\Nationality\NationalityFindingService;
+use Illuminate\Extend\Service;
 
-class NationalityUserSelfKwdPvtCreatingService extends Service {
-
+class NationalityUserSelfKwdPvtCreatingService extends Service
+{
     public static function getArrBindNames()
     {
         return [];
@@ -19,15 +18,16 @@ class NationalityUserSelfKwdPvtCreatingService extends Service {
     {
         return [
             'auth_user' => function ($authUser) {
-
-                $keywordIds = (new Nationality)->query()
+                $keywordIds = (new Nationality())->query()
                     ->qSelect(Nationality::ID)
-                    ->getQuery();
+                    ->getQuery()
+                ;
 
-                (new UserSelfKwdPvt)->query()
+                (new UserSelfKwdPvt())->query()
                     ->qWhere(UserSelfKwdPvt::USER_ID, $authUser->getKey())
                     ->qWhereIn(UserSelfKwdPvt::KEYWORD_ID, $keywordIds)
-                    ->delete();
+                    ->delete()
+                ;
             },
         ];
     }
@@ -36,21 +36,17 @@ class NationalityUserSelfKwdPvtCreatingService extends Service {
     {
         return [
             'keyword' => function ($keywordId) {
-
                 return [NationalityFindingService::class, [
-                    'id'
-                        => $keywordId
+                    'id' => $keywordId,
                 ], [
-                    'id'
-                        => '{{keyword_id}}'
+                    'id' => '{{keyword_id}}',
                 ]];
             },
 
             'result' => function ($authUser, $keyword) {
-
-                return (new UserSelfKwdPvt)->create([
+                return (new UserSelfKwdPvt())->create([
                     UserSelfKwdPvt::USER_ID => $authUser->getKey(),
-                    UserSelfKwdPvt::KEYWORD_ID => $keyword->getKey()
+                    UserSelfKwdPvt::KEYWORD_ID => $keyword->getKey(),
                 ]);
             },
         ];
@@ -64,11 +60,9 @@ class NationalityUserSelfKwdPvtCreatingService extends Service {
     public static function getArrRuleLists()
     {
         return [
-            'auth_user'
-                => ['required'],
+            'auth_user' => ['required'],
 
-            'keyword_id'
-                => ['required']
+            'keyword_id' => ['required'],
         ];
     }
 
@@ -76,5 +70,4 @@ class NationalityUserSelfKwdPvtCreatingService extends Service {
     {
         return [];
     }
-
 }

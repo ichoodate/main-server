@@ -2,12 +2,10 @@
 
 namespace App\Validation;
 
-use Illuminate\Support\Collection;
 use Illuminate\Validation\Validator as BaseValidator;
-use Closure;
 
-class Validator extends BaseValidator {
-
+class Validator extends BaseValidator
+{
     public function __construct($translator, array $data, array $rules, array $messages = [], array $customAttributes = [])
     {
         parent::__construct(
@@ -18,10 +16,10 @@ class Validator extends BaseValidator {
             $customAttributes
         );
 
-        $this->sizeRules  = array_merge($this->sizeRules, [
-            'Less', 'More'
+        $this->sizeRules = array_merge($this->sizeRules, [
+            'Less', 'More',
         ]);
-        $this->implicitRules  = array_merge($this->implicitRules, [
+        $this->implicitRules = array_merge($this->implicitRules, [
             // ... add some implicit custom rules
         ]);
         $this->dependentRules = array_merge($this->dependentRules, [
@@ -31,40 +29,16 @@ class Validator extends BaseValidator {
 
     public function getDisplayableAttribute($attribute)
     {
-        $pAttr        = $this->getPrimaryAttribute($attribute);
+        $pAttr = $this->getPrimaryAttribute($attribute);
         $asteriskKeys = $this->getExplicitKeys($attribute);
-        $cAttr        = $this->getCustomAttribute($pAttr);
-        $matches      = [];
+        $cAttr = $this->getCustomAttribute($pAttr);
+        $matches = [];
 
-        if ( $asteriskKeys != [] )
-        {
+        if ([] != $asteriskKeys) {
             $cAttr = str_replace('*', $asteriskKeys[0], $cAttr);
         }
 
         return $cAttr;
-    }
-
-    protected function getCustomAttribute($key)
-    {
-        if ( array_key_exists($key, $this->customAttributes) )
-        {
-            return $this->customAttributes[$key];
-        }
-
-        return $key;
-    }
-
-    protected function getSize($attribute, $value)
-    {
-        if (is_numeric($value) ) {
-            return $value;
-        } elseif (is_array($value)) {
-            return count($value);
-        } elseif ($value instanceof File) {
-            return $value->getSize() / 1024;
-        }
-
-        return mb_strlen($value);
     }
 
     public function addError($attribute, $rule, $parameters)
@@ -72,26 +46,13 @@ class Validator extends BaseValidator {
         return parent::addError($attribute, $rule, $parameters);
     }
 
-    protected function replaceLess($message, $attribute, $rule, $parameters)
-    {
-        return str_replace(':less', $parameters[0], $message);
-    }
-
-    protected function replaceMore($message, $attribute, $rule, $parameters)
-    {
-        return str_replace(':more', $parameters[0], $message);
-    }
-
     public function validateBase64($attribute, $value, $parameters, $validator)
     {
-        if ( base64_encode(base64_decode($value, true)) === $value )
-        {
+        if (base64_encode(base64_decode($value, true)) === $value) {
             return true;
         }
-        else
-        {
-            return false;
-        }
+
+        return false;
     }
 
     public function validateDate($attribute, $value)
@@ -101,12 +62,10 @@ class Validator extends BaseValidator {
 
     public function validateDatetime($attribute, $value, $parameters, $validator)
     {
-        if ( empty($value) )
-        {
+        if (empty($value)) {
             return true;
         }
-        else if ( preg_match('/^(19|20)(\\d{2})-(0[1-9]|1[0-2])-(0[1-9]|[1-2]\\d|3[0-1])\\s([0-1]\\d|2[0-3]):([0-5]\\d):([0-5]\\d)$/', $value) )
-        {
+        if (preg_match('/^(19|20)(\\d{2})-(0[1-9]|1[0-2])-(0[1-9]|[1-2]\\d|3[0-1])\\s([0-1]\\d|2[0-3]):([0-5]\\d):([0-5]\\d)$/', $value)) {
             $datetime = new \DateTime($value);
 
             return checkdate($datetime->format('m'), $datetime->format('d'), $datetime->format('Y'));
@@ -117,7 +76,7 @@ class Validator extends BaseValidator {
 
     public function validateFalse($attribute, $value, $parameters, $validator)
     {
-        return $value === false || $value === 'false' || $value === 0 || $value === '0';
+        return false === $value || 'false' === $value || 0 === $value || '0' === $value;
     }
 
     public function validateGdImage($attribute, $value, $parameters, $validator)
@@ -131,8 +90,7 @@ class Validator extends BaseValidator {
 
         $parameters[0] = $this->getValue($parameters[0]);
 
-        if ( $parameters[0] != $parameters[1] )
-        {
+        if ($parameters[0] != $parameters[1]) {
             return true;
         }
 
@@ -143,18 +101,15 @@ class Validator extends BaseValidator {
 
     public function validateIntegers($attribute, $value)
     {
-        if ( ! $this->validateString($attribute, $value) && ! $this->validateInteger($attribute, $value) )
-        {
+        if (!$this->validateString($attribute, $value) && !$this->validateInteger($attribute, $value)) {
             return false;
         }
 
         $integers = preg_split('/\s*,\s*/', $value);
-        $result   = true;
+        $result = true;
 
-        foreach ( $integers as $integer )
-        {
-            if ( ! $this->validateInteger($attribute, $integer) )
-            {
+        foreach ($integers as $integer) {
+            if (!$this->validateInteger($attribute, $integer)) {
                 $result = false;
             }
         }
@@ -168,8 +123,7 @@ class Validator extends BaseValidator {
 
         $parameters[0] = $this->getValue($parameters[0]);
 
-        if ( $parameters[0] == $parameters[1] )
-        {
+        if ($parameters[0] == $parameters[1]) {
             return true;
         }
 
@@ -182,7 +136,7 @@ class Validator extends BaseValidator {
     {
         $this->requireParameterCount(1, $parameters, 'less');
 
-        if ($value instanceof UploadedFile && ! $value->isValid()) {
+        if ($value instanceof UploadedFile && !$value->isValid()) {
             return false;
         }
 
@@ -198,7 +152,7 @@ class Validator extends BaseValidator {
 
     public function validateNotNull($attribute, $value)
     {
-        return ! $this->validateNull($attribute, $value);
+        return !$this->validateNull($attribute, $value);
     }
 
     public function validateNotNullIf($attribute, $value, $parameters)
@@ -207,8 +161,7 @@ class Validator extends BaseValidator {
 
         $ifValue = $this->getValue($parameters[0]);
 
-        if ( $ifValue != $parameters[1] )
-        {
+        if ($ifValue != $parameters[1]) {
             return true;
         }
 
@@ -221,8 +174,7 @@ class Validator extends BaseValidator {
 
         $ifValue = $this->getValue($parameters[0]);
 
-        if ( $ifValue == $parameters[1] )
-        {
+        if ($ifValue == $parameters[1]) {
             return true;
         }
 
@@ -231,8 +183,7 @@ class Validator extends BaseValidator {
 
     public function validateNull($attribute, $value)
     {
-        if ( is_null($value) )
-        {
+        if (is_null($value)) {
             return true;
         }
 
@@ -245,8 +196,7 @@ class Validator extends BaseValidator {
 
         $ifValue = $this->getValue($parameters[0]);
 
-        if ( $ifValue != $parameters[1] )
-        {
+        if ($ifValue != $parameters[1]) {
             return true;
         }
 
@@ -259,8 +209,7 @@ class Validator extends BaseValidator {
 
         $ifValue = $this->getValue($parameters[0]);
 
-        if ( $ifValue == $parameters[1] )
-        {
+        if ($ifValue == $parameters[1]) {
             return true;
         }
 
@@ -273,8 +222,7 @@ class Validator extends BaseValidator {
 
         $limit = $parameters[0];
 
-        if ( array_key_exists($limit, $this->data) )
-        {
+        if (array_key_exists($limit, $this->data)) {
             $limit = $this->getValue($limit);
         }
 
@@ -287,8 +235,7 @@ class Validator extends BaseValidator {
 
         $limit = $parameters[0];
 
-        if ( array_key_exists($limit, $this->data) )
-        {
+        if (array_key_exists($limit, $this->data)) {
             $limit = $this->getValue($limit);
         }
 
@@ -300,13 +247,11 @@ class Validator extends BaseValidator {
         $this->requireParameterCount(1, $parameters, 'several_in');
 
         $options = $this->getValue($parameters[0]);
-        $result  = true;
-        $value   = preg_split('/\s*,\s*/', $value);
+        $result = true;
+        $value = preg_split('/\s*,\s*/', $value);
 
-        foreach ( $value as $option )
-        {
-            if ( !in_array($option, $options) )
-            {
+        foreach ($value as $option) {
+            if (!in_array($option, $options)) {
                 $result = false;
             }
         }
@@ -316,7 +261,40 @@ class Validator extends BaseValidator {
 
     public function validateTrue($attribute, $value, $parameters, $validator)
     {
-        return $value === true || $value === 'true' || $value === 1 || $value === '1';
+        return true === $value || 'true' === $value || 1 === $value || '1' === $value;
     }
 
+    protected function getCustomAttribute($key)
+    {
+        if (array_key_exists($key, $this->customAttributes)) {
+            return $this->customAttributes[$key];
+        }
+
+        return $key;
+    }
+
+    protected function getSize($attribute, $value)
+    {
+        if (is_numeric($value)) {
+            return $value;
+        }
+        if (is_array($value)) {
+            return count($value);
+        }
+        if ($value instanceof File) {
+            return $value->getSize() / 1024;
+        }
+
+        return mb_strlen($value);
+    }
+
+    protected function replaceLess($message, $attribute, $rule, $parameters)
+    {
+        return str_replace(':less', $parameters[0], $message);
+    }
+
+    protected function replaceMore($message, $attribute, $rule, $parameters)
+    {
+        return str_replace(':more', $parameters[0], $message);
+    }
 }

@@ -3,12 +3,11 @@
 namespace App\Services\CardGroup;
 
 use App\Database\Models\Card;
-use App\Database\Models\CardGroup;
-use Illuminate\Extend\Service;
 use App\Services\Match\MatchCreatingService;
+use Illuminate\Extend\Service;
 
-class CardGroupCreatingService extends Service {
-
+class CardGroupCreatingService extends Service
+{
     public static function getArrBindNames()
     {
         return [];
@@ -23,16 +22,14 @@ class CardGroupCreatingService extends Service {
     {
         return [
             'cards' => function ($authUser, $created, $matches, $users) {
+                $cards = (new Card())->newCollection();
 
-                $cards = (new Card)->newCollection();
-
-                foreach ( $matches as $i => $match )
-                {
-                    $card = (new Card)->create([
-                        Card::GROUP_ID   => $created->getKey(),
-                        Card::MATCH_ID   => $matches[$i]->getKey(),
+                foreach ($matches as $i => $match) {
+                    $card = (new Card())->create([
+                        Card::GROUP_ID => $created->getKey(),
+                        Card::MATCH_ID => $matches[$i]->getKey(),
                         Card::CHOOSER_ID => $authUser->getKey(),
-                        Card::SHOWNER_ID => $users[$i]->getKey()
+                        Card::SHOWNER_ID => $users[$i]->getKey(),
                     ]);
 
                     $cards->push($card);
@@ -42,23 +39,18 @@ class CardGroupCreatingService extends Service {
             },
 
             'created' => function () {
-
-                throw new \Exception;
+                throw new \Exception();
             },
 
             'matches' => function ($authUser, $users) {
-
                 return [MatchCreatingService::class, [
-                    'auth_user'
-                        => $authUser,
-                    'matching_users'
-                        => $users,
+                    'auth_user' => $authUser,
+                    'matching_users' => $users,
                 ]];
             },
 
             'users' => function () {
-
-                throw new \Exception;
+                throw new \Exception();
             },
         ];
     }
@@ -71,8 +63,7 @@ class CardGroupCreatingService extends Service {
     public static function getArrRuleLists()
     {
         return [
-            'auth_user'
-                => ['required']
+            'auth_user' => ['required'],
         ];
     }
 
@@ -80,5 +71,4 @@ class CardGroupCreatingService extends Service {
     {
         return [];
     }
-
 }

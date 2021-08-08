@@ -3,11 +3,11 @@
 namespace App\Services;
 
 use Illuminate\Extend\Service;
-use Illuminate\Pagination\Paginator;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
 
-class PagingService extends Service {
-
+class PagingService extends Service
+{
     public static function getArrBindNames()
     {
         return [];
@@ -17,7 +17,6 @@ class PagingService extends Service {
     {
         return [
             'query.skip' => function ($query, $skip) {
-
                 $query->skip($skip);
             },
         ];
@@ -27,7 +26,6 @@ class PagingService extends Service {
     {
         return [
             'result' => function ($limit, $page, $query) {
-
                 return app()->makeWith(LengthAwarePaginator::class, [
                     'items' => $query->get(),
                     'total' => $query->count(),
@@ -36,13 +34,12 @@ class PagingService extends Service {
                     'options' => [
                         'path' => Paginator::resolveCurrentPath(),
                         'pageName' => 'page',
-                    ]
+                    ],
                 ]);
             },
 
             'skip' => function ($limit, $page) {
-
-                return ( $page - 1 ) * $limit;
+                return ($page - 1) * $limit;
             },
         ];
     }
@@ -55,8 +52,7 @@ class PagingService extends Service {
     public static function getArrRuleLists()
     {
         return [
-            'page'
-                => ['required', 'integer']
+            'page' => ['required', 'integer'],
         ];
     }
 
@@ -64,5 +60,4 @@ class PagingService extends Service {
     {
         return [];
     }
-
 }

@@ -3,11 +3,11 @@
 namespace App\Services\UserSelfKwdPvt;
 
 use App\Database\Models\UserSelfKwdPvt;
-use Illuminate\Extend\Service;
 use App\Services\ListingService;
+use Illuminate\Extend\Service;
 
-class UserSelfKwdPvtListingService extends Service {
-
+class UserSelfKwdPvtListingService extends Service
+{
     public static function getArrBindNames()
     {
         return [];
@@ -17,7 +17,6 @@ class UserSelfKwdPvtListingService extends Service {
     {
         return [
             'query.auth_user' => function ($authUser, $query) {
-
                 $query->qWhere(UserSelfKwdPvt::USER_ID, $authUser->getKey());
             },
         ];
@@ -27,12 +26,10 @@ class UserSelfKwdPvtListingService extends Service {
     {
         return [
             'available_expands' => function () {
-
                 return ['keyword.concrete', 'user'];
             },
 
             'model_class' => function () {
-
                 return UserSelfKwdPvt::class;
             },
         ];
@@ -46,8 +43,7 @@ class UserSelfKwdPvtListingService extends Service {
     public static function getArrRuleLists()
     {
         return [
-            'auth_user'
-                => ['required']
+            'auth_user' => ['required'],
         ];
     }
 
@@ -57,5 +53,4 @@ class UserSelfKwdPvtListingService extends Service {
             ListingService::class,
         ];
     }
-
 }

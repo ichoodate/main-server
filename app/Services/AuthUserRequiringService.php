@@ -4,8 +4,8 @@ namespace App\Services;
 
 use Illuminate\Extend\Service;
 
-class AuthUserRequiringService extends Service {
-
+class AuthUserRequiringService extends Service
+{
     public static function getArrBindNames()
     {
         return [];
@@ -29,8 +29,7 @@ class AuthUserRequiringService extends Service {
     public static function getArrRuleLists()
     {
         return [
-            'auth_user'
-                => ['required']
+            'auth_user' => ['required'],
         ];
     }
 
@@ -38,5 +37,4 @@ class AuthUserRequiringService extends Service {
     {
         return [];
     }
-
 }

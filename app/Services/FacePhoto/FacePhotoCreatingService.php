@@ -5,8 +5,8 @@ namespace App\Services\FacePhoto;
 use App\Database\Models\FacePhoto;
 use Illuminate\Extend\Service;
 
-class FacePhotoCreatingService extends Service {
-
+class FacePhotoCreatingService extends Service
+{
     public static function getArrBindNames()
     {
         return [];
@@ -16,10 +16,10 @@ class FacePhotoCreatingService extends Service {
     {
         return [
             'auth_user' => function ($authUser) {
-
-                (new FacePhoto)->query()
+                (new FacePhoto())->query()
                     ->qWhere(FacePhoto::USER_ID, $authUser->getKey())
-                    ->delete();
+                    ->delete()
+                ;
             },
         ];
     }
@@ -28,10 +28,9 @@ class FacePhotoCreatingService extends Service {
     {
         return [
             'result' => function ($authUser, $data) {
-
-                return (new FacePhoto)->create([
+                return (new FacePhoto())->create([
                     FacePhoto::USER_ID => $authUser->getKey(),
-                    FacePhoto::DATA    => $data
+                    FacePhoto::DATA => $data,
                 ]);
             },
         ];
@@ -40,19 +39,16 @@ class FacePhotoCreatingService extends Service {
     public static function getArrPromiseLists()
     {
         return [
-            'result'
-                => ['auth_user'],
+            'result' => ['auth_user'],
         ];
     }
 
     public static function getArrRuleLists()
     {
         return [
-            'auth_user'
-                => ['required'],
+            'auth_user' => ['required'],
 
-            'data'
-                => ['required', 'regex:/data:image\/([a-zA-Z]*);base64,([^\"]*)/']
+            'data' => ['required', 'regex:/data:image\/([a-zA-Z]*);base64,([^\"]*)/'],
         ];
     }
 
@@ -60,5 +56,4 @@ class FacePhotoCreatingService extends Service {
     {
         return [];
     }
-
 }

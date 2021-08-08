@@ -3,16 +3,15 @@
 namespace App\Services\Notice;
 
 use App\Database\Models\Notice;
-use Illuminate\Extend\Service;
 use App\Services\FindingService;
+use Illuminate\Extend\Service;
 
-class NoticeFindingService extends Service {
-
+class NoticeFindingService extends Service
+{
     public static function getArrBindNames()
     {
         return [
-            'model'
-                => 'notice for {{id}}',
+            'model' => 'notice for {{id}}',
         ];
     }
 
@@ -25,7 +24,6 @@ class NoticeFindingService extends Service {
     {
         return [
             'model_class' => function () {
-
                 return Notice::class;
             },
         ];
@@ -47,5 +45,4 @@ class NoticeFindingService extends Service {
             FindingService::class,
         ];
     }
-
 }

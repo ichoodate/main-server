@@ -3,16 +3,15 @@
 namespace App\Services\Localizable;
 
 use App\Database\Models\Localizable;
-use Illuminate\Extend\Service;
 use App\Services\FindingService;
+use Illuminate\Extend\Service;
 
-class LocalizableFindingService extends Service {
-
+class LocalizableFindingService extends Service
+{
     public static function getArrBindNames()
     {
         return [
-            'model'
-                => 'localizable for {{id}}',
+            'model' => 'localizable for {{id}}',
         ];
     }
 
@@ -25,7 +24,6 @@ class LocalizableFindingService extends Service {
     {
         return [
             'model_class' => function () {
-
                 return Localizable::class;
             },
         ];
@@ -47,5 +45,4 @@ class LocalizableFindingService extends Service {
             FindingService::class,
         ];
     }
-
 }

@@ -3,16 +3,15 @@
 namespace App\Services\Keyword\Language;
 
 use App\Database\Models\Keyword\Language;
-use Illuminate\Extend\Service;
 use App\Services\FindingService;
+use Illuminate\Extend\Service;
 
-class LanguageFindingService extends Service {
-
+class LanguageFindingService extends Service
+{
     public static function getArrBindNames()
     {
         return [
-            'model'
-                => 'language keyword for {{id}}',
+            'model' => 'language keyword for {{id}}',
         ];
     }
 
@@ -25,7 +24,6 @@ class LanguageFindingService extends Service {
     {
         return [
             'model_class' => function () {
-
                 return Language::class;
             },
         ];
@@ -47,5 +45,4 @@ class LanguageFindingService extends Service {
             FindingService::class,
         ];
     }
-
 }

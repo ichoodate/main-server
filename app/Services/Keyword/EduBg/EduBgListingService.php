@@ -3,11 +3,11 @@
 namespace App\Services\Keyword\EduBg;
 
 use App\Database\Models\Keyword\EduBg;
-use Illuminate\Extend\Service;
 use App\Services\ListingService;
+use Illuminate\Extend\Service;
 
-class EduBgListingService extends Service {
-
+class EduBgListingService extends Service
+{
     public static function getArrBindNames()
     {
         return [];
@@ -22,7 +22,6 @@ class EduBgListingService extends Service {
     {
         return [
             'model_class' => function () {
-
                 return EduBg::class;
             },
         ];
@@ -44,5 +43,4 @@ class EduBgListingService extends Service {
             ListingService::class,
         ];
     }
-
 }

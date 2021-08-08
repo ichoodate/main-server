@@ -3,16 +3,15 @@
 namespace App\Services\Item;
 
 use App\Database\Models\Item;
-use Illuminate\Extend\Service;
 use App\Services\FindingService;
+use Illuminate\Extend\Service;
 
-class ItemFindingService extends Service {
-
+class ItemFindingService extends Service
+{
     public static function getArrBindNames()
     {
         return [
-            'model'
-                => 'item for {{id}}',
+            'model' => 'item for {{id}}',
         ];
     }
 
@@ -25,7 +24,6 @@ class ItemFindingService extends Service {
     {
         return [
             'model_class' => function () {
-
                 return Item::class;
             },
         ];
@@ -47,5 +45,4 @@ class ItemFindingService extends Service {
             FindingService::class,
         ];
     }
-
 }

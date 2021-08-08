@@ -3,17 +3,16 @@
 namespace App\Services\Invoice;
 
 use App\Database\Models\Invoice;
-use Illuminate\Extend\Service;
 use App\Services\FindingService;
 use App\Services\PermittedUserRequiringService;
+use Illuminate\Extend\Service;
 
-class InvoiceFindingService extends Service {
-
+class InvoiceFindingService extends Service
+{
     public static function getArrBindNames()
     {
         return [
-            'model'
-                => 'invoice for {{id}}',
+            'model' => 'invoice for {{id}}',
         ];
     }
 
@@ -26,19 +25,15 @@ class InvoiceFindingService extends Service {
     {
         return [
             'available_expands' => function () {
-
                 return ['user'];
             },
 
             'model_class' => function () {
-
                 return Invoice::class;
             },
 
             'permitted_user' => function ($authUser, $model) {
-
-                if ( in_array($authUser->getKey(), [$model->{Invoice::USER_ID}]) )
-                {
+                if (in_array($authUser->getKey(), [$model->{Invoice::USER_ID}])) {
                     return $authUser;
                 }
             },
@@ -62,5 +57,4 @@ class InvoiceFindingService extends Service {
             PermittedUserRequiringService::class,
         ];
     }
-
 }

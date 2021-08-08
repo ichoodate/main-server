@@ -6,19 +6,22 @@ use App\Database\Models\Balance;
 use App\Database\Models\User;
 use Tests\Functional\_TestCase;
 
-class SignUpPostTest extends _TestCase {
-
+/**
+ * @internal
+ * @coversNothing
+ */
+class SignUpPostTest extends _TestCase
+{
     protected $uri = 'api/auth/sign-up';
 
     public function test()
     {
         $this->when(function () {
-
-            $birth    = $this->faker->date;
-            $gender   = $this->faker->randomElement(User::GENDER_VALUES);
+            $birth = $this->faker->date;
+            $gender = $this->faker->randomElement(User::GENDER_VALUES);
             $password = $this->faker->word;
-            $email    = $this->faker->email;
-            $name     = $this->faker->name;
+            $email = $this->faker->email;
+            $name = $this->faker->name;
 
             $this->setInputParameter('birth', $birth);
             $this->setInputParameter('gender', $gender);
@@ -27,27 +30,19 @@ class SignUpPostTest extends _TestCase {
             $this->setInputParameter('name', $name);
 
             $this->assertResultWithPersisting(new User([
-                User::BIRTH
-                    => $birth,
-                User::GENDER
-                    => $gender,
+                User::BIRTH => $birth,
+                User::GENDER => $gender,
                 // User::PASSWORD
                 //     => $password,
-                User::NAME
-                    => $name,
-                User::EMAIL
-                    => $email
+                User::NAME => $name,
+                User::EMAIL => $email,
             ]));
 
             $this->assertPersistence(new Balance([
-                Balance::USER_ID
-                    => 1,
-                Balance::TYPE
-                    => Balance::TYPE_BASIC,
-                Balance::COUNT
-                    => 0,
-                Balance::DELETED_AT
-                    => '9999-12-31 23:59:59'
+                Balance::USER_ID => 1,
+                Balance::TYPE => Balance::TYPE_BASIC,
+                Balance::COUNT => 0,
+                Balance::DELETED_AT => '9999-12-31 23:59:59',
             ]));
         });
     }
@@ -55,7 +50,6 @@ class SignUpPostTest extends _TestCase {
     public function testErrorEmailRuleEmail()
     {
         $this->when(function () {
-
             $this->setInputParameter('email', 'abcd');
 
             $this->assertError('[email] must be a valid email address.');
@@ -65,7 +59,6 @@ class SignUpPostTest extends _TestCase {
     public function testErrorInRuleGender()
     {
         $this->when(function () {
-
             $this->setInputParameter('gender', 'abcd');
 
             $this->assertError('[gender] is invalid.');
@@ -75,7 +68,6 @@ class SignUpPostTest extends _TestCase {
     public function testErrorMinRulePassword()
     {
         $this->when(function () {
-
             $this->setInputParameter('password', 'abcd');
 
             $this->assertError('[password] must be at least 6 characters.');
@@ -85,16 +77,14 @@ class SignUpPostTest extends _TestCase {
     public function testErrorNotNullRuleSameEmailUser()
     {
         $this->factory(User::class)->create([
-            User::EMAIL
-                => 'abcd@gmail.com'
+            User::EMAIL => 'abcd@gmail.com',
         ]);
 
         $this->when(function () {
-
-            $gender   = User::GENDER_MAN;
+            $gender = User::GENDER_MAN;
             $password = 'some password';
-            $email    = 'abcd@gmail.com';
-            $name     = 'john smith';
+            $email = 'abcd@gmail.com';
+            $name = 'john smith';
 
             $this->setInputParameter('gender', $gender);
             $this->setInputParameter('password', $password);
@@ -108,7 +98,6 @@ class SignUpPostTest extends _TestCase {
     public function testErrorRequiredRuleEmail()
     {
         $this->when(function () {
-
             $this->assertError('[email] is required.');
         });
     }
@@ -116,7 +105,6 @@ class SignUpPostTest extends _TestCase {
     public function testErrorRequiredRuleGender()
     {
         $this->when(function () {
-
             $this->assertError('[gender] is required.');
         });
     }
@@ -124,7 +112,6 @@ class SignUpPostTest extends _TestCase {
     public function testErrorRequiredRuleName()
     {
         $this->when(function () {
-
             $this->assertError('[name] is required.');
         });
     }
@@ -132,7 +119,6 @@ class SignUpPostTest extends _TestCase {
     public function testErrorRequiredRulePassword()
     {
         $this->when(function () {
-
             $this->assertError('[password] is required.');
         });
     }
@@ -140,7 +126,6 @@ class SignUpPostTest extends _TestCase {
     public function testErrorStringRuleEmail()
     {
         $this->when(function () {
-
             $this->setInputParameter('email', ['abcd']);
 
             $this->assertError('[email] must be a string.');
@@ -150,7 +135,6 @@ class SignUpPostTest extends _TestCase {
     public function testErrorStringRuleGender()
     {
         $this->when(function () {
-
             $this->setInputParameter('gender', ['abcd']);
 
             $this->assertError('[gender] must be a string.');
@@ -160,7 +144,6 @@ class SignUpPostTest extends _TestCase {
     public function testErrorStringRuleName()
     {
         $this->when(function () {
-
             $this->setInputParameter('name', ['abcd']);
 
             $this->assertError('[name] must be a string.');
@@ -170,11 +153,9 @@ class SignUpPostTest extends _TestCase {
     public function testErrorStringRulePassword()
     {
         $this->when(function () {
-
             $this->setInputParameter('password', ['abcd']);
 
             $this->assertError('[password] must be a string.');
         });
     }
-
 }

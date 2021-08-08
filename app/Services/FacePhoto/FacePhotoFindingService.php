@@ -3,17 +3,16 @@
 namespace App\Services\FacePhoto;
 
 use App\Database\Models\FacePhoto;
-use Illuminate\Extend\Service;
 use App\Services\FindingService;
 use App\Services\PermittedUserRequiringService;
+use Illuminate\Extend\Service;
 
-class FacePhotoFindingService extends Service {
-
+class FacePhotoFindingService extends Service
+{
     public static function getArrBindNames()
     {
         return [
-            'model'
-                => 'face_photo for {{id}}',
+            'model' => 'face_photo for {{id}}',
         ];
     }
 
@@ -26,19 +25,15 @@ class FacePhotoFindingService extends Service {
     {
         return [
             'available_expands' => function () {
-
                 return ['user'];
             },
 
             'model_class' => function () {
-
                 return FacePhoto::class;
             },
 
             'permitted_user' => function ($authUser, $model) {
-
-                if ( in_array($authUser->getKey(), [$model->{FacePhoto::USER_ID}]) )
-                {
+                if (in_array($authUser->getKey(), [$model->{FacePhoto::USER_ID}])) {
                     return $authUser;
                 }
             },
@@ -62,5 +57,4 @@ class FacePhotoFindingService extends Service {
             PermittedUserRequiringService::class,
         ];
     }
-
 }

@@ -2,19 +2,16 @@
 
 namespace App\Services\UserSelfKwdPvt;
 
-use App\Database\Models\UserSelfKwdPvt;
 use App\Database\Models\Keyword\Hobby;
+use App\Database\Models\UserSelfKwdPvt;
 use Illuminate\Extend\Service;
-use App\Services\ListingService;
-use App\Services\Keyword\Hobby\HobbyFindingService;
 
-class HobbyUserSelfKwdPvtCreatingService extends Service {
-
+class HobbyUserSelfKwdPvtCreatingService extends Service
+{
     public static function getArrBindNames()
     {
         return [
-            'keywords.*'
-                => 'keyword.* of {{keyword_ids}}',
+            'keywords.*' => 'keyword.* of {{keyword_ids}}',
         ];
     }
 
@@ -22,15 +19,16 @@ class HobbyUserSelfKwdPvtCreatingService extends Service {
     {
         return [
             'auth_user' => function ($authUser) {
-
-                $keywordIds = (new Hobby)->query()
+                $keywordIds = (new Hobby())->query()
                     ->qSelect(Hobby::ID)
-                    ->getQuery();
+                    ->getQuery()
+                ;
 
-                (new UserSelfKwdPvt)->query()
+                (new UserSelfKwdPvt())->query()
                     ->qWhere(UserSelfKwdPvt::USER_ID, $authUser->getKey())
                     ->qWhereIn(UserSelfKwdPvt::KEYWORD_ID, $keywordIds)
-                    ->delete();
+                    ->delete()
+                ;
             },
         ];
     }
@@ -39,23 +37,21 @@ class HobbyUserSelfKwdPvtCreatingService extends Service {
     {
         return [
             'keywords' => function ($keywordIds) {
-
                 $keywordIds = preg_split('/\s*,\s*/', $keywordIds);
 
                 return Hobby::query()
                     ->findMany($keywordIds)
-                    ->sortByIds($keywordIds);
+                    ->sortByIds($keywordIds)
+                ;
             },
 
             'result' => function ($authUser, $keywords) {
+                $result = (new UserSelfKwdPvt())->newCollection();
 
-                $result = (new UserSelfKwdPvt)->newCollection();
-
-                foreach ( $keywords as $keyword )
-                {
-                    $result->push((new UserSelfKwdPvt)->create([
+                foreach ($keywords as $keyword) {
+                    $result->push((new UserSelfKwdPvt())->create([
                         UserSelfKwdPvt::USER_ID => $authUser->getKey(),
-                        UserSelfKwdPvt::KEYWORD_ID => $keyword->getKey()
+                        UserSelfKwdPvt::KEYWORD_ID => $keyword->getKey(),
                     ]));
                 }
 
@@ -72,14 +68,11 @@ class HobbyUserSelfKwdPvtCreatingService extends Service {
     public static function getArrRuleLists()
     {
         return [
-            'auth_user'
-                => ['required'],
+            'auth_user' => ['required'],
 
-            'keyword_ids'
-                => ['required', 'integers'],
+            'keyword_ids' => ['required', 'integers'],
 
-            'keywords.*'
-                => ['required', 'not_null']
+            'keywords.*' => ['required', 'not_null'],
         ];
     }
 
@@ -87,5 +80,4 @@ class HobbyUserSelfKwdPvtCreatingService extends Service {
     {
         return [];
     }
-
 }

@@ -3,11 +3,11 @@
 namespace App\Services\Notice;
 
 use App\Database\Models\Notice;
-use Illuminate\Extend\Service;
 use App\Services\LimitedListingService;
+use Illuminate\Extend\Service;
 
-class NoticeListingService extends Service {
-
+class NoticeListingService extends Service
+{
     public static function getArrBindNames()
     {
         return [];
@@ -17,27 +17,23 @@ class NoticeListingService extends Service {
     {
         return [
             'query.type' => function ($query, $type) {
-
                 $query->qWhere(Notice::TYPE, $type);
             },
         ];
     }
+
     public static function getArrLoaders()
     {
         return [
             'cursor' => function ($cursorId) {
-
                 return [NoticeFindingService::class, [
-                    'id'
-                        => $cursorId
+                    'id' => $cursorId,
                 ], [
-                    'id'
-                        => '{{cursor_id}}'
+                    'id' => '{{cursor_id}}',
                 ]];
             },
 
             'model_class' => function () {
-
                 return Notice::class;
             },
         ];
@@ -51,8 +47,7 @@ class NoticeListingService extends Service {
     public static function getArrRuleLists()
     {
         return [
-            'type'
-                => ['in:' . implode(',', Notice::TYPE_VALUES)]
+            'type' => ['in:'.implode(',', Notice::TYPE_VALUES)],
         ];
     }
 
@@ -62,5 +57,4 @@ class NoticeListingService extends Service {
             LimitedListingService::class,
         ];
     }
-
 }

@@ -5,8 +5,12 @@ namespace Tests\Functional\Keyword\Languages;
 use App\Database\Models\Keyword\Language;
 use Tests\Functional\_TestCase;
 
-class GetTest extends _TestCase {
-
+/**
+ * @internal
+ * @coversNothing
+ */
+class GetTest extends _TestCase
+{
     protected $uri = 'api/keyword/languages';
 
     public function test()
@@ -15,9 +19,7 @@ class GetTest extends _TestCase {
         $this->factory(Language::class)->create(['id' => 12]);
 
         $this->when(function () {
-
             $this->assertResultWithListing([11, 12]);
         });
     }
-
 }

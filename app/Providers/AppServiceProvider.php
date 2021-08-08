@@ -9,151 +9,103 @@ class AppServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap any application services.
-     *
-     * @return void
      */
     public function boot()
     {
         date_default_timezone_set('UTC');
         Relation::morphMap([
-            'balance'
-                => 'App\Database\Models\Balance',
+            'balance' => 'App\Database\Models\Balance',
 
-            'card'
-                => 'App\Database\Models\Card',
+            'card' => 'App\Database\Models\Card',
 
-            'card_flip'
-                => 'App\Database\Models\CardFlip',
+            'card_flip' => 'App\Database\Models\CardFlip',
 
-            'card_group'
-                => 'App\Database\Models\CardGroup',
+            'card_group' => 'App\Database\Models\CardGroup',
 
-            'chatting_content'
-                => 'App\Database\Models\ChattingContent',
+            'chatting_content' => 'App\Database\Models\ChattingContent',
 
-            'coin'
-                => 'App\Database\Models\Coin',
+            'coin' => 'App\Database\Models\Coin',
 
-            'face_photo'
-                => 'App\Database\Models\FacePhoto',
+            'face_photo' => 'App\Database\Models\FacePhoto',
 
-            'friend'
-                => 'App\Database\Models\Friend',
+            'friend' => 'App\Database\Models\Friend',
 
-            'invoice'
-                => 'App\Database\Models\Invoice',
+            'invoice' => 'App\Database\Models\Invoice',
 
-            'keyword/age_range'
-                => 'App\Database\Models\Keyword\AgeRange',
+            'keyword/age_range' => 'App\Database\Models\Keyword\AgeRange',
 
-            'keyword/birth_year'
-                => 'App\Database\Models\Keyword\BirthYear',
+            'keyword/birth_year' => 'App\Database\Models\Keyword\BirthYear',
 
-            'keyword/blood'
-                => 'App\Database\Models\Keyword\Blood',
+            'keyword/blood' => 'App\Database\Models\Keyword\Blood',
 
-            'keyword/body'
-                => 'App\Database\Models\Keyword\Body',
+            'keyword/body' => 'App\Database\Models\Keyword\Body',
 
-            'keyword/career'
-                => 'App\Database\Models\Keyword\Career',
+            'keyword/career' => 'App\Database\Models\Keyword\Career',
 
-            'keyword/country'
-                => 'App\Database\Models\Keyword\Country',
+            'keyword/country' => 'App\Database\Models\Keyword\Country',
 
-            'keyword/drink'
-                => 'App\Database\Models\Keyword\Drink',
+            'keyword/drink' => 'App\Database\Models\Keyword\Drink',
 
-            'keyword/edu_bg'
-                => 'App\Database\Models\Keyword\EduBg',
+            'keyword/edu_bg' => 'App\Database\Models\Keyword\EduBg',
 
-            'keyword/hobby'
-                => 'App\Database\Models\Keyword\Hobby',
+            'keyword/hobby' => 'App\Database\Models\Keyword\Hobby',
 
-            'keyword/language'
-                => 'App\Database\Models\Keyword\Language',
+            'keyword/language' => 'App\Database\Models\Keyword\Language',
 
-            'keyword/nationality'
-                => 'App\Database\Models\Keyword\Nationality',
+            'keyword/nationality' => 'App\Database\Models\Keyword\Nationality',
 
-            'keyword/religion'
-                => 'App\Database\Models\Keyword\Religion',
+            'keyword/religion' => 'App\Database\Models\Keyword\Religion',
 
-            'keyword/smoke'
-                => 'App\Database\Models\Keyword\Smoke',
+            'keyword/smoke' => 'App\Database\Models\Keyword\Smoke',
 
-            'keyword/residence'
-                => 'App\Database\Models\Keyword\Residence',
+            'keyword/residence' => 'App\Database\Models\Keyword\Residence',
 
-            'keyword/state'
-                => 'App\Database\Models\Keyword\State',
+            'keyword/state' => 'App\Database\Models\Keyword\State',
 
-            'keyword/stature'
-                => 'App\Database\Models\Keyword\Stature',
+            'keyword/stature' => 'App\Database\Models\Keyword\Stature',
 
-            'keyword/stature_range'
-                => 'App\Database\Models\Keyword\StatureRange',
+            'keyword/stature_range' => 'App\Database\Models\Keyword\StatureRange',
 
-            'keyword/weight'
-                => 'App\Database\Models\Keyword\Weight',
+            'keyword/weight' => 'App\Database\Models\Keyword\Weight',
 
-            'keyword/weight_range'
-                => 'App\Database\Models\Keyword\WeightRange',
+            'keyword/weight_range' => 'App\Database\Models\Keyword\WeightRange',
 
-            'match'
-                => 'App\Database\Models\Match',
+            'match' => 'App\Database\Models\Match',
 
-            'notice'
-                => 'App\Database\Models\Notice',
+            'notice' => 'App\Database\Models\Notice',
 
-            'notification'
-                => 'App\Database\Models\Notification',
+            'notification' => 'App\Database\Models\Notification',
 
-            'obj'
-                => 'App\Database\Models\Obj',
+            'obj' => 'App\Database\Models\Obj',
 
-            'payment'
-                => 'App\Database\Models\Payment',
+            'payment' => 'App\Database\Models\Payment',
 
-            'popularity'
-                => 'App\Database\Models\Popularity',
+            'popularity' => 'App\Database\Models\Popularity',
 
-            'profile_photo'
-                => 'App\Database\Models\ProfilePhoto',
+            'profile_photo' => 'App\Database\Models\ProfilePhoto',
 
-            'email_verification'
-                => 'App\Database\Models\EmailVerification',
+            'email_verification' => 'App\Database\Models\EmailVerification',
 
-            'reply'
-                => 'App\Database\Models\Reply',
+            'reply' => 'App\Database\Models\Reply',
 
-            'role'
-                => 'App\Database\Models\Role',
+            'role' => 'App\Database\Models\Role',
 
-            'subscription'
-                => 'App\Database\Models\Subscription',
+            'subscription' => 'App\Database\Models\Subscription',
 
-            'ticket'
-                => 'App\Database\Models\Ticket',
+            'ticket' => 'App\Database\Models\Ticket',
 
-            'user'
-                => 'App\Database\Models\User',
+            'user' => 'App\Database\Models\User',
 
-            'user_ideal_type_kwd_pvt'
-                => 'App\Database\Models\UserIdealTypeKwdPvt',
+            'user_ideal_type_kwd_pvt' => 'App\Database\Models\UserIdealTypeKwdPvt',
 
-            'user_self_kwd_pvt'
-                => 'App\Database\Models\UserSelfKwdPvt'
+            'user_self_kwd_pvt' => 'App\Database\Models\UserSelfKwdPvt',
         ]);
     }
 
     /**
      * Register any application services.
-     *
-     * @return void
      */
     public function register()
     {
-        //
     }
 }

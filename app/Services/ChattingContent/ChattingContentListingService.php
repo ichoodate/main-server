@@ -3,13 +3,12 @@
 namespace App\Services\ChattingContent;
 
 use App\Database\Models\ChattingContent;
-use App\Database\Models\Match;
-use Illuminate\Extend\Service;
 use App\Services\LimitedListingService;
 use App\Services\Match\MatchFindingService;
+use Illuminate\Extend\Service;
 
-class ChattingContentListingService extends Service {
-
+class ChattingContentListingService extends Service
+{
     public static function getArrBindNames()
     {
         return [];
@@ -19,7 +18,6 @@ class ChattingContentListingService extends Service {
     {
         return [
             'query.match' => function ($match, $query) {
-
                 $query->qWhere(ChattingContent::MATCH_ID, $match->getKey());
             },
         ];
@@ -29,42 +27,30 @@ class ChattingContentListingService extends Service {
     {
         return [
             'available_expands' => function () {
-
                 return ['match', 'writer'];
             },
 
             'cursor' => function ($authUser, $cursorId) {
-
                 return [ChattingContentFindingService::class, [
-                    'auth_user'
-                        => $authUser,
-                    'id'
-                        => $cursorId
+                    'auth_user' => $authUser,
+                    'id' => $cursorId,
                 ], [
-                    'auth_user'
-                        => '{{auth_user}}',
-                    'id'
-                        => '{{cursor_id}}'
+                    'auth_user' => '{{auth_user}}',
+                    'id' => '{{cursor_id}}',
                 ]];
             },
 
             'match' => function ($authUser, $matchId) {
-
                 return [MatchFindingService::class, [
-                    'auth_user'
-                        => $authUser,
-                    'id'
-                        => $matchId
+                    'auth_user' => $authUser,
+                    'id' => $matchId,
                 ], [
-                    'auth_user'
-                        => '{{auth_user}}',
-                    'id'
-                        => '{{match_id}}'
+                    'auth_user' => '{{auth_user}}',
+                    'id' => '{{match_id}}',
                 ]];
             },
 
             'model_class' => function () {
-
                 return ChattingContent::class;
             },
         ];
@@ -78,11 +64,9 @@ class ChattingContentListingService extends Service {
     public static function getArrRuleLists()
     {
         return [
-            'auth_user'
-                => ['required'],
+            'auth_user' => ['required'],
 
-            'match_id'
-                => ['required', 'integer']
+            'match_id' => ['required', 'integer'],
         ];
     }
 
@@ -92,5 +76,4 @@ class ChattingContentListingService extends Service {
             LimitedListingService::class,
         ];
     }
-
 }

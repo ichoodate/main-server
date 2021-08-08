@@ -3,16 +3,15 @@
 namespace App\Services\Keyword\Drink;
 
 use App\Database\Models\Keyword\Drink;
-use Illuminate\Extend\Service;
 use App\Services\FindingService;
+use Illuminate\Extend\Service;
 
-class DrinkFindingService extends Service {
-
+class DrinkFindingService extends Service
+{
     public static function getArrBindNames()
     {
         return [
-            'model'
-                => 'drink keyword for {{id}}',
+            'model' => 'drink keyword for {{id}}',
         ];
     }
 
@@ -25,7 +24,6 @@ class DrinkFindingService extends Service {
     {
         return [
             'model_class' => function () {
-
                 return Drink::class;
             },
         ];
@@ -47,5 +45,4 @@ class DrinkFindingService extends Service {
             FindingService::class,
         ];
     }
-
 }

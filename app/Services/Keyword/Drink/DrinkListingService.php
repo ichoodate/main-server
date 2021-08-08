@@ -3,11 +3,11 @@
 namespace App\Services\Keyword\Drink;
 
 use App\Database\Models\Keyword\Drink;
-use Illuminate\Extend\Service;
 use App\Services\ListingService;
+use Illuminate\Extend\Service;
 
-class DrinkListingService extends Service {
-
+class DrinkListingService extends Service
+{
     public static function getArrBindNames()
     {
         return [];
@@ -22,7 +22,6 @@ class DrinkListingService extends Service {
     {
         return [
             'model_class' => function () {
-
                 return Drink::class;
             },
         ];
@@ -44,5 +43,4 @@ class DrinkListingService extends Service {
             ListingService::class,
         ];
     }
-
 }

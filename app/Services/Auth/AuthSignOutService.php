@@ -2,11 +2,10 @@
 
 namespace App\Services\Auth;
 
-use App\Database\Models\User;
 use Illuminate\Extend\Service;
 
-class AuthSignOutService extends Service {
-
+class AuthSignOutService extends Service
+{
     public static function getArrBindNames()
     {
         return [];
@@ -16,7 +15,6 @@ class AuthSignOutService extends Service {
     {
         return [
             'result' => function () {
-
                 auth()->logout();
             },
         ];
@@ -26,7 +24,6 @@ class AuthSignOutService extends Service {
     {
         return [
             'result' => function () {
-
                 return true;
             },
         ];
@@ -46,5 +43,4 @@ class AuthSignOutService extends Service {
     {
         return [];
     }
-
 }

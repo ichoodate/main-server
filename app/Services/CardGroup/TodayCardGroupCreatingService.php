@@ -2,25 +2,19 @@
 
 namespace App\Services\CardGroup;
 
-use App\Database\Models\Card;
 use App\Database\Models\CardGroup;
 use App\Database\Models\UserIdealTypeKwdPvt;
-use App\Database\Models\Match;
-use App\Database\Models\User;
-use Illuminate\Extend\Service;
-use App\Services\CardGroup\CardGroupCreatingService;
 use App\Services\User\MatchingUserListingService;
+use Illuminate\Extend\Service;
 
-class TodayCardGroupCreatingService extends Service {
-
+class TodayCardGroupCreatingService extends Service
+{
     public static function getArrBindNames()
     {
         return [
-            'today_card_group'
-                => 'card group created within date',
+            'today_card_group' => 'card group created within date',
 
-            'user_ideal_type_kwd_pvt_keyword_ids'
-                => 'ideal type keyword ids of {{auth_user}}',
+            'user_ideal_type_kwd_pvt_keyword_ids' => 'ideal type keyword ids of {{auth_user}}',
         ];
     }
 
@@ -33,70 +27,60 @@ class TodayCardGroupCreatingService extends Service {
     {
         return [
             'created' => function ($authUser) {
-
-                return (new CardGroup)->create([
+                return (new CardGroup())->create([
                     CardGroup::USER_ID => $authUser->getKey(),
-                    CardGroup::TYPE    => CardGroup::TYPE_DAILY
+                    CardGroup::TYPE => CardGroup::TYPE_DAILY,
                 ]);
             },
 
             'today_card_group' => function ($authUser) {
-
                 $time = new \DateTime('now', new \DateTimeZone('UTC'));
 
-                $query = (new CardGroup)->query()
+                $query = (new CardGroup())->query()
                     ->qSelect(CardGroup::ID)
                     ->qWhere(CardGroup::USER_ID, $authUser->getKey())
-                    ->getQuery();
+                    ->getQuery()
+                ;
 
-                return (new CardGroup)->query()
+                return (new CardGroup())->query()
                     ->qWhereIn(CardGroup::ID, $query)
                     ->qWhere(CardGroup::TYPE, CardGroup::TYPE_DAILY)
                     ->qWhere(CardGroup::CREATED_AT, '>=', $time->format('Y-m-d H:i:s'))
-                    ->first();
+                    ->first()
+                ;
             },
 
             'user_ideal_type_kwd_pvt_keyword_ids' => function ($userIdealTypeKwdPvts) {
-
                 return $userIdealTypeKwdPvts->pluck(UserIdealTypeKwdPvt::KEYWORD_ID)->all();
             },
 
             'user_ideal_type_kwd_pvts' => function ($authUser) {
-
-                return (new UserIdealTypeKwdPvt)->query()
+                return (new UserIdealTypeKwdPvt())->query()
                     ->qWhere(UserIdealTypeKwdPvt::USER_ID, $authUser->getKey())
-                    ->get();
+                    ->get()
+                ;
             },
 
             'users' => function ($authUser, $userIdealTypeKwdPvtKeywordIds) {
-
                 return [MatchingUserListingService::class, [
-                    'auth_user'
-                        => $authUser,
-                    'keyword_ids'
-                        => implode(',', $userIdealTypeKwdPvtKeywordIds),
-                    'limit'
-                        => 4,
-                    'strict'
-                        => false
+                    'auth_user' => $authUser,
+                    'keyword_ids' => implode(',', $userIdealTypeKwdPvtKeywordIds),
+                    'limit' => 4,
+                    'strict' => false,
                 ], [
-                    'auth_user'
-                        => '{{auth_user}}',
-                    'keyword_ids'
-                        => '{{user_ideal_type_kwd_pvt_keyword_ids}}',
+                    'auth_user' => '{{auth_user}}',
+                    'keyword_ids' => '{{user_ideal_type_kwd_pvt_keyword_ids}}',
                 ], [
                     'limit',
-                    'strict'
+                    'strict',
                 ]];
             },
 
             'users_count' => function ($users) {
-
                 $count = $users->count();
 
-                if ( $count < 4 )
-                {
-                    throw new \Exception;
+                if ($count < 4) {
+                    throw new \Exception();
                 }
 
                 return $count;
@@ -112,11 +96,9 @@ class TodayCardGroupCreatingService extends Service {
     public static function getArrRuleLists()
     {
         return [
-            'auth_user'
-                => ['required'],
+            'auth_user' => ['required'],
 
-            'today_card_group'
-                => ['null']
+            'today_card_group' => ['null'],
         ];
     }
 
@@ -126,6 +108,4 @@ class TodayCardGroupCreatingService extends Service {
             CardGroupCreatingService::class,
         ];
     }
-
 }
-

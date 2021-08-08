@@ -3,13 +3,12 @@
 namespace App\Services\Keyword\State;
 
 use App\Database\Models\Keyword\State;
-use Illuminate\Extend\Service;
-use App\Services\ListingService;
 use App\Services\Keyword\Country\CountryFindingService;
-use App\Services\Keyword\State\StateFindingService;
+use App\Services\ListingService;
+use Illuminate\Extend\Service;
 
-class StateListingService extends Service {
-
+class StateListingService extends Service
+{
     public static function getArrBindNames()
     {
         return [];
@@ -19,7 +18,6 @@ class StateListingService extends Service {
     {
         return [
             'query.country' => function ($country, $query) {
-
             },
         ];
     }
@@ -28,34 +26,26 @@ class StateListingService extends Service {
     {
         return [
             'available_expands' => function () {
-
                 return ['country', 'residence'];
             },
 
             'country' => function ($countryId) {
-
                 return [CountryFindingService::class, [
-                    'id'
-                        => $countryId
+                    'id' => $countryId,
                 ], [
-                    'id'
-                        => '{{country_id}}'
+                    'id' => '{{country_id}}',
                 ]];
             },
 
             'cursor' => function ($cursorId) {
-
                 return [StateFindingService::class, [
-                    'id'
-                        => $cursorId
+                    'id' => $cursorId,
                 ], [
-                    'id'
-                        => '{{cursor_id}}'
+                    'id' => '{{cursor_id}}',
                 ]];
             },
 
             'model_class' => function () {
-
                 return State::class;
             },
         ];
@@ -69,8 +59,7 @@ class StateListingService extends Service {
     public static function getArrRuleLists()
     {
         return [
-            'country_id'
-                => ['required', 'integer']
+            'country_id' => ['required', 'integer'],
         ];
     }
 
@@ -80,5 +69,4 @@ class StateListingService extends Service {
             ListingService::class,
         ];
     }
-
 }

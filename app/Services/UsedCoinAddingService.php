@@ -6,13 +6,12 @@ use App\Database\Models\Balance;
 use App\Database\Models\Coin;
 use Illuminate\Extend\Service;
 
-class UsedCoinAddingService extends Service {
-
+class UsedCoinAddingService extends Service
+{
     public static function getArrBindNames()
     {
         return [
-            'remain_coin'
-                => 'coin total count own by {{auth_user}}',
+            'remain_coin' => 'coin total count own by {{auth_user}}',
         ];
     }
 
@@ -20,9 +19,7 @@ class UsedCoinAddingService extends Service {
     {
         return [
             'used_coins' => function ($balances, $usedCoins) {
-
-                foreach ( $usedCoins as $i => $usedCoin )
-                {
+                foreach ($usedCoins as $i => $usedCoin) {
                     $balance = $balances->get($i);
                     $balance->{Balance::COUNT} += $usedCoin->{Coin::COUNT};
                     $balance->save();
@@ -35,61 +32,49 @@ class UsedCoinAddingService extends Service {
     {
         return [
             'balances' => function ($authUser, $timezone) {
-
                 $time = new \DateTime('now', new \DateTimeZone($timezone));
 
-                return (new Balance)->query()
+                return (new Balance())->query()
                     ->qWhere(Balance::USER_ID, $authUser->getKey())
                     ->qWhere(Balance::DELETED_AT, '>=', $time->format('Y-m-d H:i:s'))
                     ->qOrderBy(Balance::DELETED_AT, 'asc')
-                    ->get();
+                    ->get()
+                ;
             },
 
             'remain_coin' => function ($balances) {
-
                 return $balances->sum(Balance::COUNT);
             },
 
             'required_coin' => function () {
-
-                throw new \Exception;
+                throw new \Exception();
             },
 
             'used_coins' => function ($authUser, $balances, $requiredCoin, $result) {
+                $counts = [];
+                $usedCoins = (new Coin())->newCollection();
+                $i = 0;
 
-                $counts    = [];
-                $usedCoins = (new Coin)->newCollection();
-                $i         = 0;
-
-                while ( $requiredCoin != 0 )
-                {
+                while (0 != $requiredCoin) {
                     $balance = $balances->get($i);
 
-                    if ( $balance->{Balance::COUNT} >= $requiredCoin )
-                    {
+                    if ($balance->{Balance::COUNT} >= $requiredCoin) {
                         $counts[] = $requiredCoin;
                         $requiredCoin = 0;
-                    }
-                    else
-                    {
+                    } else {
                         $counts[] = $balance->{Balance::COUNT};
-                        $requiredCoin-= $balance->{Balance::COUNT};
+                        $requiredCoin -= $balance->{Balance::COUNT};
                     }
 
-                    $i++;
+                    ++$i;
                 }
 
-                foreach ( $counts as $i => $count )
-                {
-                    $usedCoins->push((new Coin)->create([
-                        Coin::BALANCE_ID
-                            => $balances->get($i)->getKey(),
-                        Coin::RELATED_ID
-                            => $result->getKey(),
-                        Coin::COUNT
-                            => -1 * $count,
-                        Coin::USER_ID
-                            => $authUser->getKey()
+                foreach ($counts as $i => $count) {
+                    $usedCoins->push((new Coin())->create([
+                        Coin::BALANCE_ID => $balances->get($i)->getKey(),
+                        Coin::RELATED_ID => $result->getKey(),
+                        Coin::COUNT => -1 * $count,
+                        Coin::USER_ID => $authUser->getKey(),
                     ]));
                 }
 
@@ -106,11 +91,9 @@ class UsedCoinAddingService extends Service {
     public static function getArrRuleLists()
     {
         return [
-            'auth_user'
-                => ['required'],
+            'auth_user' => ['required'],
 
-            'remain_coin'
-                => ['integer', 'min:{{required_coin}}']
+            'remain_coin' => ['integer', 'min:{{required_coin}}'],
         ];
     }
 
@@ -118,5 +101,4 @@ class UsedCoinAddingService extends Service {
     {
         return [];
     }
-
 }

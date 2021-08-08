@@ -2,13 +2,17 @@
 
 namespace Tests\Functional\SelfKeyword;
 
+use App\Database\Models\Keyword\Nationality;
 use App\Database\Models\User;
 use App\Database\Models\UserSelfKwdPvt;
-use App\Database\Models\Keyword\Nationality;
 use Tests\Functional\_TestCase;
 
-class NationalitiesPostTest extends _TestCase {
-
+/**
+ * @internal
+ * @coversNothing
+ */
+class NationalitiesPostTest extends _TestCase
+{
     protected $uri = 'api/self-keyword/nationalities';
 
     public function test()
@@ -23,25 +27,26 @@ class NationalitiesPostTest extends _TestCase {
         $this->factory(UserSelfKwdPvt::class)->create(['id' => 104, 'user_id' => 2, 'keyword_id' => 12]);
 
         $this->when(function () {
-
             $this->setAuthUser(User::find(1));
             $this->setInputParameter('keyword_id', 13);
 
             $this->assertResultWithPersisting(new UserSelfKwdPvt([
-                UserSelfKwdPvt::USER_ID
-                    => 1,
-                UserSelfKwdPvt::KEYWORD_ID
-                    => 13
+                UserSelfKwdPvt::USER_ID => 1,
+                UserSelfKwdPvt::KEYWORD_ID => 13,
             ]));
-            $this->assertEquals(0, UserSelfKwdPvt::query()
-                ->where(UserSelfKwdPvt::USER_ID, 1)
-                ->whereIn(UserSelfKwdPvt::KEYWORD_ID, [11, 12])
-                ->count()
+            $this->assertEquals(
+                0,
+                UserSelfKwdPvt::query()
+                    ->where(UserSelfKwdPvt::USER_ID, 1)
+                    ->whereIn(UserSelfKwdPvt::KEYWORD_ID, [11, 12])
+                    ->count()
             );
-            $this->assertEquals(1, UserSelfKwdPvt::query()
-                ->where(UserSelfKwdPvt::USER_ID, 2)
-                ->where(UserSelfKwdPvt::KEYWORD_ID, 12)
-                ->count()
+            $this->assertEquals(
+                1,
+                UserSelfKwdPvt::query()
+                    ->where(UserSelfKwdPvt::USER_ID, 2)
+                    ->where(UserSelfKwdPvt::KEYWORD_ID, 12)
+                    ->count()
             );
         });
     }
@@ -49,7 +54,6 @@ class NationalitiesPostTest extends _TestCase {
     public function testErrorIntegerRuleKeywordId()
     {
         $this->when(function () {
-
             $this->setInputParameter('keyword_id', 'abcd');
 
             $this->assertError('[keyword_id] must be an integer.');
@@ -59,7 +63,6 @@ class NationalitiesPostTest extends _TestCase {
     public function testErrorRequiredRuleAuthUser()
     {
         $this->when(function () {
-
             $this->assertError('authorized user is required.');
         });
     }
@@ -67,7 +70,6 @@ class NationalitiesPostTest extends _TestCase {
     public function testErrorRequiredRuleKeywordId()
     {
         $this->when(function () {
-
             $this->assertError('[keyword_id] is required.');
         });
     }
@@ -78,11 +80,9 @@ class NationalitiesPostTest extends _TestCase {
         $this->factory(Nationality::class)->create(['id' => 12]);
 
         $this->when(function () {
-
             $this->setInputParameter('keyword_id', 13);
 
             $this->assertError('nationality keyword for [keyword_id] must exist.');
         });
     }
-
 }

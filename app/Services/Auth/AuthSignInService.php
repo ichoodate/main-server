@@ -5,13 +5,12 @@ namespace App\Services\Auth;
 use App\Database\Models\User;
 use Illuminate\Extend\Service;
 
-class AuthSignInService extends Service {
-
+class AuthSignInService extends Service
+{
     public static function getArrBindNames()
     {
         return [
-            'result'
-                => 'user for {{email}} and {{password}}',
+            'result' => 'user for {{email}} and {{password}}',
         ];
     }
 
@@ -24,20 +23,18 @@ class AuthSignInService extends Service {
     {
         return [
             'is_signed_in' => function ($email, $password) {
-
                 return auth()->attempt([
                     User::EMAIL => $email,
-                    User::PASSWORD => $password
+                    User::PASSWORD => $password,
                 ]);
             },
 
             'result' => function ($email, $isSignedIn) {
-
-                if ( $isSignedIn )
-                {
+                if ($isSignedIn) {
                     return User::query()
                         ->qWhere(User::EMAIL, $email)
-                        ->first();
+                        ->first()
+                    ;
                 }
             },
         ];
@@ -51,14 +48,11 @@ class AuthSignInService extends Service {
     public static function getArrRuleLists()
     {
         return [
-            'email'
-                => ['required', 'email'],
+            'email' => ['required', 'email'],
 
-            'password'
-                => ['required', 'string'],
+            'password' => ['required', 'string'],
 
-            'result'
-                => ['not_null']
+            'result' => ['not_null'],
         ];
     }
 
@@ -66,5 +60,4 @@ class AuthSignInService extends Service {
     {
         return [];
     }
-
 }

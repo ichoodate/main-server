@@ -3,17 +3,16 @@
 namespace App\Services\Payment;
 
 use App\Database\Models\Payment;
-use Illuminate\Extend\Service;
 use App\Services\FindingService;
 use App\Services\PermittedUserRequiringService;
+use Illuminate\Extend\Service;
 
-class PaymentFindingService extends Service {
-
+class PaymentFindingService extends Service
+{
     public static function getArrBindNames()
     {
         return [
-            'model'
-                => 'payment for {{id}}',
+            'model' => 'payment for {{id}}',
         ];
     }
 
@@ -26,19 +25,15 @@ class PaymentFindingService extends Service {
     {
         return [
             'available_expands' => function () {
-
                 return ['item', 'user'];
             },
 
             'model_class' => function () {
-
                 return Payment::class;
             },
 
             'permitted_user' => function ($authUser, $model) {
-
-                if ( $model->{Payment::USER_ID} == $authUser->getkey() )
-                {
+                if ($model->{Payment::USER_ID} == $authUser->getkey()) {
                     return $authUser;
                 }
             },
@@ -62,5 +57,4 @@ class PaymentFindingService extends Service {
             PermittedUserRequiringService::class,
         ];
     }
-
 }

@@ -3,17 +3,16 @@
 namespace App\Services\Match;
 
 use App\Database\Models\Match;
-use Illuminate\Extend\Service;
 use App\Services\FindingService;
 use App\Services\PermittedUserRequiringService;
+use Illuminate\Extend\Service;
 
-class MatchFindingService extends Service {
-
+class MatchFindingService extends Service
+{
     public static function getArrBindNames()
     {
         return [
-            'model'
-                => 'match for {{id}}',
+            'model' => 'match for {{id}}',
         ];
     }
 
@@ -26,19 +25,15 @@ class MatchFindingService extends Service {
     {
         return [
             'available_expands' => function () {
-
                 return ['cards', 'friends', 'man', 'woman'];
             },
 
             'model_class' => function () {
-
                 return Match::class;
             },
 
             'permitted_user' => function ($authUser, $model) {
-
-                if ( in_array($authUser->getKey(), [$model->{Match::MAN_ID}, $model->{Match::WOMAN_ID}]) )
-                {
+                if (in_array($authUser->getKey(), [$model->{Match::MAN_ID}, $model->{Match::WOMAN_ID}])) {
                     return $authUser;
                 }
             },
@@ -62,5 +57,4 @@ class MatchFindingService extends Service {
             PermittedUserRequiringService::class,
         ];
     }
-
 }

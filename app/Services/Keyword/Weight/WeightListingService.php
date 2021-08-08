@@ -3,11 +3,11 @@
 namespace App\Services\Keyword\Weight;
 
 use App\Database\Models\Keyword\Weight;
-use Illuminate\Extend\Service;
 use App\Services\ListingService;
+use Illuminate\Extend\Service;
 
-class WeightListingService extends Service {
-
+class WeightListingService extends Service
+{
     public static function getArrBindNames()
     {
         return [];
@@ -22,7 +22,6 @@ class WeightListingService extends Service {
     {
         return [
             'model_class' => function () {
-
                 return Weight::class;
             },
         ];
@@ -44,5 +43,4 @@ class WeightListingService extends Service {
             ListingService::class,
         ];
     }
-
 }

@@ -3,16 +3,15 @@
 namespace App\Services\Keyword\WeightRange;
 
 use App\Database\Models\Keyword\WeightRange;
-use Illuminate\Extend\Service;
 use App\Services\FindingService;
+use Illuminate\Extend\Service;
 
-class WeightRangeFindingService extends Service {
-
+class WeightRangeFindingService extends Service
+{
     public static function getArrBindNames()
     {
         return [
-            'model'
-                => 'weight_range keyword for {{id}}',
+            'model' => 'weight_range keyword for {{id}}',
         ];
     }
 
@@ -25,7 +24,6 @@ class WeightRangeFindingService extends Service {
     {
         return [
             'model_class' => function () {
-
                 return WeightRange::class;
             },
         ];
@@ -47,5 +45,4 @@ class WeightRangeFindingService extends Service {
             FindingService::class,
         ];
     }
-
 }

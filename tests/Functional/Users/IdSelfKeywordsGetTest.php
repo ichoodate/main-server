@@ -6,8 +6,12 @@ use App\Database\Models\User;
 use App\Database\Models\UserSelfKwdPvt;
 use Tests\Functional\_TestCase;
 
-class IdSelfKeywordsGetTest extends _TestCase {
-
+/**
+ * @internal
+ * @coversNothing
+ */
+class IdSelfKeywordsGetTest extends _TestCase
+{
     protected $uri = 'api/users/{id}/self-keywords';
 
     public function test()
@@ -20,18 +24,15 @@ class IdSelfKeywordsGetTest extends _TestCase {
         $this->factory(UserSelfKwdPvt::class)->create(['id' => 14, 'user_id' => 1]);
 
         $this->when(function () {
-
             $this->setRouteParameter('id', 1);
 
             $this->assertResultWithListing([11, 14]);
         });
 
         $this->when(function () {
-
             $this->setRouteParameter('id', 2);
 
             $this->assertResultWithListing([12, 13]);
         });
     }
-
 }
