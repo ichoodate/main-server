@@ -139,10 +139,10 @@ class ListingService extends Service {
     {
         return [
             'expands'
-                => ['string', 'several_in_array:{{available_expands}}'],
+                => ['string', 'several_in:{{available_expands}}'],
 
             'fields'
-                => ['string', 'several_in_array:{{available_fields}}'],
+                => ['string', 'several_in:{{available_fields}}'],
 
             'order_by'
                 => ['string', 'in_array:{{available_order_by}}.*']

@@ -295,9 +295,9 @@ class Validator extends BaseValidator {
         return $this->getSize($attribute, $value) >= $limit;
     }
 
-    public function validateSeveralInArray($attribute, $value, $parameters, $validator)
+    public function validateSeveralIn($attribute, $value, $parameters, $validator)
     {
-        $this->requireParameterCount(1, $parameters, 'several_in_array');
+        $this->requireParameterCount(1, $parameters, 'several_in');
 
         $options = $this->getValue($parameters[0]);
         $result  = true;

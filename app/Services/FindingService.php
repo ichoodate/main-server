@@ -61,7 +61,7 @@ class FindingService extends Service {
     {
         return [
             'expands'
-                => ['several_in_array:{{available_expands}}'],
+                => ['several_in:{{available_expands}}'],
 
             'id'
                 => ['required', 'integer'],
