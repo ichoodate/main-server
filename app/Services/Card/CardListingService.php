@@ -44,9 +44,9 @@ class CardListingService extends Service {
     public static function getArrCallbackLists()
     {
         return [
-            'query.auth_user' => ['query', 'query_builder_1', 'auth_user_query', 'matching_user_query', 'match_status', 'auth_user_status', 'matching_user_status', function ($query, $queryBuilder1, $authUserQuery, $matchingUserQuery, $matchStatus = null, $authUserStatus = null, $matchingUserStatus = null) {
+            'query.auth_user' => ['query', 'query_builder_1', 'auth_user_query', 'matching_user_query', 'match_status', 'auth_user_status', 'matching_user_status', function ($query, $queryBuilder1, $authUserQuery, $matchingUserQuery, $matchStatus = '', $authUserStatus = '', $matchingUserStatus = '') {
 
-                if ( $matchStatus != null )
+                if ( $matchStatus != '' )
                 {
                     $userQuery = (new User)->query()
                         ->qSelect(User::ID)
@@ -56,15 +56,15 @@ class CardListingService extends Service {
 
                     $queryBuilder1->call(null, $query, $userQuery, $matchStatus);
                 }
-                else if ( $authUserStatus != null && $matchingUserStatus == null )
+                else if ( $authUserStatus && !$matchingUserStatus )
                 {
                     $queryBuilder1->call(null, $query, $authUserQuery, $authUserStatus);
                 }
-                else if ( $authUserStatus == null && $matchingUserStatus != null )
+                else if ( !$authUserStatus && $matchingUserStatus )
                 {
                     $queryBuilder1->call(null, $query, $matchingUserQuery, $matchingUserStatus);
                 }
-                else // if ( $authUserStatus != null && $matchingUserStatus != null )
+                else // if ( $authUserStatus && $matchingUserStatus )
                 {
                     $queryBuilder1->call(null, $query, $authUserQuery, $authUserStatus);
                     $queryBuilder1->call(null, $query, $matchingUserQuery, $matchingUserStatus);
