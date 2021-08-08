@@ -4,8 +4,8 @@ namespace App\Services\Card;
 
 use Illuminate\Extend\Service;
 
-class FreeFlippableCardReturningService extends Service {
-
+class FreeFlippableCardReturnService extends Service
+{
     public static function getArrBindNames()
     {
         return [];
@@ -20,30 +20,26 @@ class FreeFlippableCardReturningService extends Service {
     {
         return [
             'card' => [function () {
-
-                throw new \Exception;
+                throw new \Exception();
             }],
 
             'is_free_time' => ['limited_min_time', 'evaluated_time', function ($limitedMinTime, $evaluatedTime) {
-
                 return strtotime($limitedMinTime) <= strtotime($evaluatedTime);
             }],
 
             'limited_min_time' => [function () {
-
-                return (new \DateTime)
+                return (new \DateTime())
                     ->modify('-1 day')
                     ->modify('+1 second')
-                    ->format('Y-m-d H:i:s');
+                    ->format('Y-m-d H:i:s')
+                ;
             }],
 
             'result' => ['card', 'is_free', function ($card, $isFree) {
-
-                if ( $isFree )
-                {
+                if ($isFree) {
                     return $card;
                 }
-            }]
+            }],
         ];
     }
 
@@ -55,8 +51,7 @@ class FreeFlippableCardReturningService extends Service {
     public static function getArrRuleLists()
     {
         return [
-            'auth_user'
-                => ['required'],
+            'auth_user' => ['required'],
         ];
     }
 
@@ -64,5 +59,4 @@ class FreeFlippableCardReturningService extends Service {
     {
         return [];
     }
-
 }
