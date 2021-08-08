@@ -54,20 +54,20 @@ class CardListingService extends Service {
                         ->qOrWhereIn(User::ID, $authUserQuery)
                         ->getQuery();
 
-                    $queryBuilder1->call($this, $query, $userQuery, $matchStatus);
+                    $queryBuilder1->call(null, $query, $userQuery, $matchStatus);
                 }
                 else if ( $authUserStatus != null && $matchingUserStatus == null )
                 {
-                    $queryBuilder1->call($this, $query, $authUserQuery, $authUserStatus);
+                    $queryBuilder1->call(null, $query, $authUserQuery, $authUserStatus);
                 }
                 else if ( $authUserStatus == null && $matchingUserStatus != null )
                 {
-                    $queryBuilder1->call($this, $query, $matchingUserQuery, $matchingUserStatus);
+                    $queryBuilder1->call(null, $query, $matchingUserQuery, $matchingUserStatus);
                 }
                 else // if ( $authUserStatus != null && $matchingUserStatus != null )
                 {
-                    $queryBuilder1->call($this, $query, $authUserQuery, $authUserStatus);
-                    $queryBuilder1->call($this, $query, $matchingUserQuery, $matchingUserStatus);
+                    $queryBuilder1->call(null, $query, $authUserQuery, $authUserStatus);
+                    $queryBuilder1->call(null, $query, $matchingUserQuery, $matchingUserStatus);
                 }
             }],
 
@@ -209,20 +209,20 @@ class CardListingService extends Service {
 
                     if ( in_array($userStatus, [self::USER_STATUS_CARD_FLIP, self::USER_STATUS_FRIEND]) )
                     {
-                        $subQuery = $queryBuilder2->call($this, $userQuery, $userStatus);
+                        $subQuery = $queryBuilder2->call(null, $userQuery, $userStatus);
 
                         $cardQuery->qWhereIn(Card::ID, $subQuery);
                     }
                     else if ( $userStatus == self::USER_STATUS_CARD_FLIP_STEP )
                     {
-                        $subQuery = $queryBuilder2->call($this, $userQuery, self::USER_STATUS_CARD_FLIP);
+                        $subQuery = $queryBuilder2->call(null, $userQuery, self::USER_STATUS_CARD_FLIP);
 
                         $cardQuery->qWhereNotIn(Card::ID, $subQuery);
                     }
                     else if ( $userStatus == self::USER_STATUS_FRIEND_STEP )
                     {
-                        $inSubQuery    = $queryBuilder2->call($this, $userQuery, self::USER_STATUS_CARD_FLIP);
-                        $notInSubQuery = $queryBuilder2->call($this, $userQuery, self::USER_STATUS_FRIEND);
+                        $inSubQuery    = $queryBuilder2->call(null, $userQuery, self::USER_STATUS_CARD_FLIP);
+                        $notInSubQuery = $queryBuilder2->call(null, $userQuery, self::USER_STATUS_FRIEND);
 
                         $cardQuery->qWhereIn(Card::ID, $inSubQuery);
                         $cardQuery->qWhereNotIn(Card::ID, $notInSubQuery);
