@@ -19,24 +19,24 @@ class AuthSignUpService extends Service {
                 => 'created user',
 
             'same_email_user'
-                => 'same email user for {{email}}'
+                => 'same email user for {{email}}',
         ];
     }
 
     public static function getArrCallbackLists()
     {
         return [
-            'created' => ['created', function ($created) {
+            'created' => function ($created) {
 
                 auth()->setUser($created);
-            }]
+            },
         ];
     }
 
     public static function getArrLoaders()
     {
         return [
-            'balance' => ['result', function ($result) {
+            'balance' => function ($result) {
 
                 return (new Balance)->create([
                     Balance::USER_ID => $result->getKey(),
@@ -44,9 +44,9 @@ class AuthSignUpService extends Service {
                     Balance::COUNT => 0,
                     Balance::DELETED_AT => '9999-12-31 23:59:59'
                 ]);
-            }],
+            },
 
-            'created' => ['birth', 'email', 'password', 'gender', 'name', function ($birth, $email, $password, $gender, $name) {
+            'created' => function ($birth, $email, $gender, $name, $password) {
 
                 return (new User)->create([
                     User::BIRTH
@@ -62,15 +62,15 @@ class AuthSignUpService extends Service {
                     User::PASSWORD
                         => $password
                 ]);
-            }],
+            },
 
-            'same_email_user' => ['email', function ($email) {
+            'same_email_user' => function ($email) {
 
                 return (new User)->query()
                     ->lockForUpdate()
                     ->qWhere(User::EMAIL, $email)
                     ->first();
-            }]
+            },
         ];
     }
 
@@ -78,7 +78,7 @@ class AuthSignUpService extends Service {
     {
         return [
             'created'
-                => ['same_email_user']
+                => ['same_email_user'],
         ];
     }
 

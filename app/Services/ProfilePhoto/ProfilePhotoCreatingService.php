@@ -20,7 +20,7 @@ class ProfilePhotoCreatingService extends Service {
     public static function getArrLoaders()
     {
         return [
-            'created' => ['data', 'auth_user', function ($data, $authUser) {
+            'created' => function ($authUser, $data) {
 
                 $collection = (new ProfilePhoto)->newCollection();
 
@@ -33,7 +33,7 @@ class ProfilePhotoCreatingService extends Service {
                 }
 
                 return $collection;
-            }]
+            },
         ];
     }
 

@@ -13,7 +13,7 @@ class FriendFindingService extends Service {
     {
         return [
             'model'
-                => 'friend for {{id}}'
+                => 'friend for {{id}}',
         ];
     }
 
@@ -25,23 +25,23 @@ class FriendFindingService extends Service {
     public static function getArrLoaders()
     {
         return [
-            'available_expands' => [function () {
+            'available_expands' => function () {
 
                 return ['match', 'receiver', 'sender'];
-            }],
+            },
 
-            'model_class' => [function () {
+            'model_class' => function () {
 
                 return Friend::class;
-            }],
+            },
 
-            'permitted_user' => ['auth_user', 'model', function ($authUser, $model) {
+            'permitted_user' => function ($authUser, $model) {
 
                 if ( in_array($authUser->getKey(), [$model->{Friend::USER_ID}]) )
                 {
                     return $authUser;
                 }
-            }]
+            },
         ];
     }
 
@@ -59,7 +59,7 @@ class FriendFindingService extends Service {
     {
         return [
             FindingService::class,
-            PermittedUserRequiringService::class
+            PermittedUserRequiringService::class,
         ];
     }
 

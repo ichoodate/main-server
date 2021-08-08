@@ -17,7 +17,7 @@ class AuthUserUpdatingService extends Service {
     public static function getArrCallbackLists()
     {
         return [
-            'auth_user.birth' => ['auth_user', 'birth', function ($authUser, $birth) {
+            'auth_user.birth' => function ($authUser, $birth) {
 
                 $keywordIds = (new BirthYear)->query()
                     ->qSelect(BirthYear::ID)
@@ -39,15 +39,9 @@ class AuthUserUpdatingService extends Service {
 
                 $authUser->{User::BIRTH} = $birth;
                 $authUser->save();
-            }],
+            },
 
-            'auth_user.name' => ['auth_user', 'name', function ($authUser, $name) {
-
-                $authUser->{User::NAME} = $name;
-                $authUser->save();
-            }],
-
-            'auth_user.email' => ['auth_user', 'email', function ($authUser, $email) {
+            'auth_user.email' => function ($authUser, $email) {
 
                 $authUser->{User::EMAIL} = $email;
                 $authUser->{User::EMAIL_VERIFIED} = false;
@@ -59,17 +53,23 @@ class AuthUserUpdatingService extends Service {
                 // ]);
 
                 // TODO: send email with code
-            }]
+            },
+
+            'auth_user.name' => function ($authUser, $name) {
+
+                $authUser->{User::NAME} = $name;
+                $authUser->save();
+            },
         ];
     }
 
     public static function getArrLoaders()
     {
         return [
-            'result' => ['auth_user', function ($authUser) {
+            'result' => function ($authUser) {
 
                 return $authUser;
-            }]
+            },
         ];
     }
 

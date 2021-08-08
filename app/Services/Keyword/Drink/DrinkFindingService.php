@@ -12,7 +12,7 @@ class DrinkFindingService extends Service {
     {
         return [
             'model'
-                => 'drink keyword for {{id}}'
+                => 'drink keyword for {{id}}',
         ];
     }
 
@@ -24,10 +24,10 @@ class DrinkFindingService extends Service {
     public static function getArrLoaders()
     {
         return [
-            'model_class' => [function () {
+            'model_class' => function () {
 
                 return Drink::class;
-            }]
+            },
         ];
     }
 
@@ -44,7 +44,7 @@ class DrinkFindingService extends Service {
     public static function getArrTraits()
     {
         return [
-            FindingService::class
+            FindingService::class,
         ];
     }
 

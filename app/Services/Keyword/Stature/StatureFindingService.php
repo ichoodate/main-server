@@ -12,7 +12,7 @@ class StatureFindingService extends Service {
     {
         return [
             'model'
-                => 'stature keyword for {{id}}'
+                => 'stature keyword for {{id}}',
         ];
     }
 
@@ -24,10 +24,10 @@ class StatureFindingService extends Service {
     public static function getArrLoaders()
     {
         return [
-            'model_class' => [function () {
+            'model_class' => function () {
 
                 return Stature::class;
-            }]
+            },
         ];
     }
 
@@ -44,7 +44,7 @@ class StatureFindingService extends Service {
     public static function getArrTraits()
     {
         return [
-            FindingService::class
+            FindingService::class,
         ];
     }
 

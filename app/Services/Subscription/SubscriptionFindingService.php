@@ -13,7 +13,7 @@ class SubscriptionFindingService extends Service {
     {
         return [
             'model'
-                => 'subscription for {{id}}'
+                => 'subscription for {{id}}',
         ];
     }
 
@@ -25,23 +25,23 @@ class SubscriptionFindingService extends Service {
     public static function getArrLoaders()
     {
         return [
-            'available_expands' => [function () {
+            'available_expands' => function () {
 
                 return ['payment', 'user'];
-            }],
+            },
 
-            'model_class' => [function () {
+            'model_class' => function () {
 
                 return Subscription::class;
-            }],
+            },
 
-            'permitted_user' => ['auth_user', 'model', function ($authUser, $model) {
+            'permitted_user' => function ($authUser, $model) {
 
                 if ( in_array($authUser->getKey(), [$model->{Subscription::USER_ID}]) )
                 {
                     return $authUser;
                 }
-            }]
+            },
         ];
     }
 
@@ -59,7 +59,7 @@ class SubscriptionFindingService extends Service {
     {
         return [
             FindingService::class,
-            PermittedUserRequiringService::class
+            PermittedUserRequiringService::class,
         ];
     }
 

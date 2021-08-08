@@ -16,20 +16,20 @@ class CareerListingService extends Service {
     public static function getArrCallbackLists()
     {
         return [
-            'query.parent_id' => ['query', 'parent_id', function ($query, $parentId) {
+            'query.parent_id' => function ($parentId, $query) {
 
                 $query->qWhere('parent_id', $parentId);
-            }]
+            },
         ];
     }
 
     public static function getArrLoaders()
     {
         return [
-            'model_class' => [function () {
+            'model_class' => function () {
 
                 return Career::class;
-            }]
+            },
         ];
     }
 
@@ -49,7 +49,7 @@ class CareerListingService extends Service {
     public static function getArrTraits()
     {
         return [
-            ListingService::class
+            ListingService::class,
         ];
     }
 

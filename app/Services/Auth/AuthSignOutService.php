@@ -15,20 +15,20 @@ class AuthSignOutService extends Service {
     public static function getArrCallbackLists()
     {
         return [
-            'result' => [function () {
+            'result' => function () {
 
                 auth()->logout();
-            }]
+            },
         ];
     }
 
     public static function getArrLoaders()
     {
         return [
-            'result' => [function () {
+            'result' => function () {
 
                 return true;
-            }]
+            },
         ];
     }
 

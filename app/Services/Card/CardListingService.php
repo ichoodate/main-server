@@ -44,7 +44,15 @@ class CardListingService extends Service {
     public static function getArrCallbackLists()
     {
         return [
-            'query.auth_user' => ['query', 'query_builder_1', 'auth_user_query', 'matching_user_query', 'match_status', 'auth_user_status', 'matching_user_status', function ($query, $queryBuilder1, $authUserQuery, $matchingUserQuery, $matchStatus = '', $authUserStatus = '', $matchingUserStatus = '') {
+            'query.after' => function ($after, $query, $timezone) {
+
+                $time = new \DateTime($after, new \DateTimeZone($timezone));
+                $time->setTimezone(new \DateTimeZone('UTC'));
+
+                $query->qWhere(Card::UPDATED_AT, '>=', $time->format('Y-m-d H:i:s'));
+            },
+
+            'query.auth_user' => function ($authUserQuery, $authUserStatus='', $matchStatus='', $matchingUserQuery, $matchingUserStatus='', $query, $queryBuilder1) {
 
                 if ( $matchStatus != '' )
                 {
@@ -69,30 +77,22 @@ class CardListingService extends Service {
                     $queryBuilder1->call(null, $query, $authUserQuery, $authUserStatus);
                     $queryBuilder1->call(null, $query, $matchingUserQuery, $matchingUserStatus);
                 }
-            }],
+            },
 
-            'query.after' => ['query', 'after', 'timezone', function ($query, $after, $timezone) {
-
-                $time = new \DateTime($after, new \DateTimeZone($timezone));
-                $time->setTimezone(new \DateTimeZone('UTC'));
-
-                $query->qWhere(Card::UPDATED_AT, '>=', $time->format('Y-m-d H:i:s'));
-            }],
-
-            'query.before' => ['query', 'before', 'timezone', function ($query, $before, $timezone) {
+            'query.before' => function ($before, $query, $timezone) {
 
                 $time = new \DateTime($before, new \DateTimeZone($timezone));
                 $time->setTimezone(new \DateTimeZone('UTC'));
 
                 $query->qWhere(Card::UPDATED_AT, '<=', $time->format('Y-m-d H:i:s'));
-            }],
+            },
         ];
     }
 
     public static function getArrLoaders()
     {
         return [
-            'auth_user_id_field' => ['auth_user', function ($authUser) {
+            'auth_user_id_field' => function ($authUser) {
 
                 if ( $authUser->{User::GENDER} == User::GENDER_MAN )
                 {
@@ -102,27 +102,27 @@ class CardListingService extends Service {
                 {
                     return Match::WOMAN_ID;
                 }
-            }],
+            },
 
-            'auth_user_query' => ['auth_user', function ($authUser) {
+            'auth_user_query' => function ($authUser) {
 
                 return (new User)->query()
                     ->qSelect(User::ID)
                     ->qWhere(User::ID, $authUser->getKey())
                     ->getQuery();
-            }],
+            },
 
-            'available_expands' => [function () {
+            'available_expands' => function () {
 
                 return ['flips', 'chooser', 'chooser.facePhoto', 'chooser.popularity', 'group', 'match', 'match.following', 'showner', 'showner.facePhoto', 'showner.popularity'];
-            }],
+            },
 
-            'card_type' => [function () {
+            'card_type' => function () {
 
                 return self::CARD_TYPE_BOTH;
-            }],
+            },
 
-            'cursor' => ['auth_user', 'cursor_id', function ($authUser, $cursorId) {
+            'cursor' => function ($authUser, $cursorId) {
 
                 return [CardFindingService::class, [
                     'auth_user'
@@ -135,9 +135,9 @@ class CardListingService extends Service {
                     'id'
                         => '{{cursor_id}}'
                 ]];
-            }],
+            },
 
-            'matching_user_query' => ['auth_user', 'card_type', function ($authUser, $cardType) {
+            'matching_user_query' => function ($authUser, $cardType) {
 
                 if ( $cardType == self::CARD_TYPE_CHOOSER )
                 {
@@ -172,14 +172,14 @@ class CardListingService extends Service {
                 }
 
                 return $userQuery;
-            }],
+            },
 
-            'model_class' => [function () {
+            'model_class' => function () {
 
                 return Card::class;
-            }],
+            },
 
-            'query' => ['auth_user', 'card_type', 'auth_user_id_field', function ($authUser, $cardType, $authUserIdField) {
+            'query' => function ($authUser, $authUserIdField, $cardType) {
 
                 $return = (new Card)->query();
 
@@ -201,9 +201,9 @@ class CardListingService extends Service {
                 }
 
                 return $return;
-            }],
+            },
 
-            'query_builder_1' => ['query_builder_2', function ($queryBuilder2){
+            'query_builder_1' => function ($queryBuilder2) {
 
                 return function ($cardQuery, $userQuery, $userStatus) use ($queryBuilder2) {
 
@@ -233,9 +233,9 @@ class CardListingService extends Service {
 
                     return $cardQuery->getQuery();
                 };
-            }],
+            },
 
-            'query_builder_2' => [function () {
+            'query_builder_2' => function () {
 
                 return function ($userQuery, $userStatus) {
 
@@ -262,7 +262,7 @@ class CardListingService extends Service {
                             ->getQuery();
                     }
                 };
-            }]
+            },
         ];
     }
 
@@ -303,7 +303,7 @@ class CardListingService extends Service {
     public static function getArrTraits()
     {
         return [
-            LimitedListingService::class
+            LimitedListingService::class,
         ];
     }
 

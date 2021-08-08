@@ -17,27 +17,27 @@ class LimitedListingService extends Service
     public static function getArrCallbackLists()
     {
         return [
-            'query.limit' => ['query', 'limit', function ($query, $limit) {
+            'query.limit' => function ($limit, $query) {
 
                 $query->take($limit);
-            }]
+            },
         ];
     }
 
     public static function getArrLoaders()
     {
         return [
-            'cursor' => ['model_class', 'cursor_id', function ($modelClass, $cursorId) {
+            'cursor' => function ($cursorId, $modelClass) {
 
                 throw new \Exception;
-            }],
+            },
 
-            'limit' => [function () {
+            'limit' => function () {
 
                 return 120;
-            }],
+            },
 
-            'result' => ['cursor', 'limit', 'order_by_list', 'page', 'query', function ($cursor='', $limit, $orderByList='', $page='', $query) {
+            'result' => function ($cursor='', $limit, $orderByList='', $page='', $query) {
 
                 if ( $page !== '' )
                 {
@@ -66,7 +66,7 @@ class LimitedListingService extends Service
                             => $query,
                     ]];
                 }
-            }]
+            },
         ];
     }
 
@@ -89,7 +89,7 @@ class LimitedListingService extends Service
     public static function getArrTraits()
     {
         return [
-            ListingService::class
+            ListingService::class,
         ];
     }
 }

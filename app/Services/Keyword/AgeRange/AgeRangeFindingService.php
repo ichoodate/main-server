@@ -12,7 +12,7 @@ class AgeRangeFindingService extends Service {
     {
         return [
             'model'
-                => 'age_range keyword for {{id}}'
+                => 'age_range keyword for {{id}}',
         ];
     }
 
@@ -24,10 +24,10 @@ class AgeRangeFindingService extends Service {
     public static function getArrLoaders()
     {
         return [
-            'model_class' => [function () {
+            'model_class' => function () {
 
                 return AgeRange::class;
-            }]
+            },
         ];
     }
 
@@ -44,7 +44,7 @@ class AgeRangeFindingService extends Service {
     public static function getArrTraits()
     {
         return [
-            FindingService::class
+            FindingService::class,
         ];
     }
 

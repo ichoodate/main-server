@@ -12,14 +12,14 @@ class ChattingContentCreatingService extends Service {
     public static function getArrBindNames()
     {
         return [
+            'auth_user_friend'
+                => 'matching_user in friend list of {{auth_user}}',
+
             'match'
                 => 'match of {{match_id}}',
 
             'matching_user_friend'
                 => '{{auth_user}} in friend list of matching-user for {{match_id}}',
-
-            'auth_user_friend'
-                => 'matching_user in friend list of {{auth_user}}'
         ];
     }
 
@@ -31,15 +31,15 @@ class ChattingContentCreatingService extends Service {
     public static function getArrLoaders()
     {
         return [
-            'auth_user_friend' => ['auth_user', 'matching_user_id', function ($authUser, $matchingUserId) {
+            'auth_user_friend' => function ($authUser, $matchingUserId) {
 
                 return Friend::query()
                     ->where(Friend::SENDER_ID, $authUser->getKey())
                     ->where(Friend::RECEIVER_ID, $matchingUserId)
                     ->first();
-            }],
+            },
 
-            'created' => ['auth_user', 'match', 'message', function ($authUser, $match, $message) {
+            'created' => function ($authUser, $match, $message) {
 
                 return (new ChattingContent)->create([
                     ChattingContent::WRITER_ID
@@ -49,9 +49,9 @@ class ChattingContentCreatingService extends Service {
                     ChattingContent::MATCH_ID
                         => $match->getKey()
                 ]);
-            }],
+            },
 
-            'match' => ['auth_user', 'match_id', function ($authUser, $matchId) {
+            'match' => function ($authUser, $matchId) {
 
                 return [MatchFindingService::class, [
                     'auth_user'
@@ -64,20 +64,20 @@ class ChattingContentCreatingService extends Service {
                     'id'
                         => '{{match_id}}'
                 ]];
-            }],
+            },
 
-            'matching_user_friend' => ['auth_user', 'matching_user_id', function ($authUser, $matchingUserId) {
+            'matching_user_friend' => function ($authUser, $matchingUserId) {
 
                 return Friend::query()
                     ->where(Friend::SENDER_ID, $matchingUserId)
                     ->where(Friend::RECEIVER_ID, $authUser->getKey())
                     ->first();
-            }],
+            },
 
-            'matching_user_id' => ['auth_user', 'match', function ($authUser, $match) {
+            'matching_user_id' => function ($authUser, $match) {
 
                 return $match->{Match::MAN_ID} == $authUser->getKey() ? $match->{Match::WOMAN_ID} : $match->{Match::MAN_ID};
-            }]
+            },
         ];
     }
 
@@ -85,7 +85,7 @@ class ChattingContentCreatingService extends Service {
     {
         return [
             'created'
-                => ['auth_user_friend', 'matching_user_friend']
+                => ['auth_user_friend', 'matching_user_friend'],
         ];
     }
 

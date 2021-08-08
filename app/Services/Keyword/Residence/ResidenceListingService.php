@@ -16,25 +16,25 @@ class ResidenceListingService extends Service {
     public static function getArrCallbackLists()
     {
         return [
-            'query.parent_id' => ['query', 'parent_id', function ($query, $parentId) {
+            'query.parent_id' => function ($parentId, $query) {
 
                 $query->qWhere('parent_id', $parentId);
-            }]
+            },
         ];
     }
 
     public static function getArrLoaders()
     {
         return [
-            'available_expands' => [function () {
+            'available_expands' => function () {
 
                 return ['related', 'related.concrete'];
-            }],
+            },
 
-            'model_class' => [function () {
+            'model_class' => function () {
 
                 return Residence::class;
-            }]
+            },
         ];
     }
 
@@ -51,7 +51,7 @@ class ResidenceListingService extends Service {
     public static function getArrTraits()
     {
         return [
-            ListingService::class
+            ListingService::class,
         ];
     }
 

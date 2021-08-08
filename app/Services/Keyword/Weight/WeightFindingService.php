@@ -12,7 +12,7 @@ class WeightFindingService extends Service {
     {
         return [
             'model'
-                => 'weight keyword for {{id}}'
+                => 'weight keyword for {{id}}',
         ];
     }
 
@@ -24,10 +24,10 @@ class WeightFindingService extends Service {
     public static function getArrLoaders()
     {
         return [
-            'model_class' => [function () {
+            'model_class' => function () {
 
                 return Weight::class;
-            }]
+            },
         ];
     }
 
@@ -44,7 +44,7 @@ class WeightFindingService extends Service {
     public static function getArrTraits()
     {
         return [
-            FindingService::class
+            FindingService::class,
         ];
     }
 

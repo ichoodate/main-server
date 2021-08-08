@@ -12,7 +12,7 @@ class WeightRangeFindingService extends Service {
     {
         return [
             'model'
-                => 'weight_range keyword for {{id}}'
+                => 'weight_range keyword for {{id}}',
         ];
     }
 
@@ -24,10 +24,10 @@ class WeightRangeFindingService extends Service {
     public static function getArrLoaders()
     {
         return [
-            'model_class' => [function () {
+            'model_class' => function () {
 
                 return WeightRange::class;
-            }]
+            },
         ];
     }
 
@@ -44,7 +44,7 @@ class WeightRangeFindingService extends Service {
     public static function getArrTraits()
     {
         return [
-            FindingService::class
+            FindingService::class,
         ];
     }
 

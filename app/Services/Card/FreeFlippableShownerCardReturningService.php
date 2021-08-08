@@ -21,15 +21,15 @@ class FreeFlippableShownerCardReturningService extends Service {
     public static function getArrLoaders()
     {
         return [
-            'evaluated_time' => ['card', function ($card) {
+            'evaluated_time' => function ($card) {
 
                 return $card->{Card::UPDATED_AT};
-            }],
+            },
 
-            'is_free' => ['is_free_time', function ($isFreeTime) {
+            'is_free' => function ($isFreeTime) {
 
                 return $isFreeTime;
-            }],
+            },
         ];
     }
 
@@ -46,7 +46,7 @@ class FreeFlippableShownerCardReturningService extends Service {
     public static function getArrTraits()
     {
         return [
-            FreeFlippableCardReturningService::class
+            FreeFlippableCardReturningService::class,
         ];
     }
 

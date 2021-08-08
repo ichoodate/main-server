@@ -12,7 +12,7 @@ class CareerFindingService extends Service {
     {
         return [
             'model'
-                => 'career keyword for {{id}}'
+                => 'career keyword for {{id}}',
         ];
     }
 
@@ -24,10 +24,10 @@ class CareerFindingService extends Service {
     public static function getArrLoaders()
     {
         return [
-            'model_class' => [function () {
+            'model_class' => function () {
 
                 return Career::class;
-            }]
+            },
         ];
     }
 
@@ -44,7 +44,7 @@ class CareerFindingService extends Service {
     public static function getArrTraits()
     {
         return [
-            FindingService::class
+            FindingService::class,
         ];
     }
 

@@ -12,7 +12,7 @@ class ItemFindingService extends Service {
     {
         return [
             'model'
-                => 'item for {{id}}'
+                => 'item for {{id}}',
         ];
     }
 
@@ -24,10 +24,10 @@ class ItemFindingService extends Service {
     public static function getArrLoaders()
     {
         return [
-            'model_class' => [function () {
+            'model_class' => function () {
 
                 return Item::class;
-            }]
+            },
         ];
     }
 
@@ -44,7 +44,7 @@ class ItemFindingService extends Service {
     public static function getArrTraits()
     {
         return [
-            FindingService::class
+            FindingService::class,
         ];
     }
 

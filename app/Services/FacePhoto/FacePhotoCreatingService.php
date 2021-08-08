@@ -15,25 +15,25 @@ class FacePhotoCreatingService extends Service {
     public static function getArrCallbackLists()
     {
         return [
-            'auth_user' => ['auth_user', function ($authUser) {
+            'auth_user' => function ($authUser) {
 
                 (new FacePhoto)->query()
                     ->qWhere(FacePhoto::USER_ID, $authUser->getKey())
                     ->delete();
-            }]
+            },
         ];
     }
 
     public static function getArrLoaders()
     {
         return [
-            'result' => ['auth_user', 'data', function ($authUser, $data) {
+            'result' => function ($authUser, $data) {
 
                 return (new FacePhoto)->create([
                     FacePhoto::USER_ID => $authUser->getKey(),
                     FacePhoto::DATA    => $data
                 ]);
-            }]
+            },
         ];
     }
 
@@ -41,7 +41,7 @@ class FacePhotoCreatingService extends Service {
     {
         return [
             'result'
-                => ['auth_user']
+                => ['auth_user'],
         ];
     }
 

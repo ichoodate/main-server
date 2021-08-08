@@ -11,7 +11,7 @@ class AdminRoleExistingService extends Service {
     {
         return [
             'admin_role'
-                => 'admin role for {{auth_user}}'
+                => 'admin role for {{auth_user}}',
         ];
     }
 
@@ -23,10 +23,10 @@ class AdminRoleExistingService extends Service {
     public static function getArrLoaders()
     {
         return [
-            'admin_role' => ['auth_user', function ($authUser) {
+            'admin_role' => function ($authUser) {
 
                 return $authUser->role()->qWhere(Role::TYPE, Role::TYPE_ADMIN)->first();
-            }]
+            },
         ];
     }
 

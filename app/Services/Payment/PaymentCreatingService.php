@@ -22,7 +22,7 @@ class PaymentCreatingService extends Service {
     public static function getArrLoaders()
     {
         return [
-            'created' => ['auth_user', 'item', 'payment_amount', 'payment_currency', function ($authUser, $item, $paymentAmount, $paymentCurrency) {
+            'created' => function ($authUser, $item, $paymentAmount, $paymentCurrency) {
 
                 return (new Payment)->create([
                     Payment::USER_ID
@@ -34,26 +34,26 @@ class PaymentCreatingService extends Service {
                     Payment::CURRENCY
                         => $paymentCurrency
                 ]);
-            }],
+            },
 
-            'item' => ['item_id', function ($itemId) {
+            'item' => function ($itemId) {
 
                 return [ItemFindingService::class, [
                     'id' => $itemId
                 ], [
                     'id' => '{{item_id}}'
                 ]];
-            }],
+            },
 
-            'item_amount' => ['item', function ($item) {
+            'item_amount' => function ($item) {
 
                 return $item->{Item::FINAL_PRICE};
-            }],
+            },
 
-            'item_currency' => ['item', function ($item) {
+            'item_currency' => function ($item) {
 
                 return $item->{Item::CURRENCY};
-            }]
+            },
         ];
     }
 

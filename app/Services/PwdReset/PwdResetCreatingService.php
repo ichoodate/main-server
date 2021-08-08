@@ -12,7 +12,7 @@ class PwdResetCreatingService extends Service {
     {
         return [
             'user'
-                => 'user for {{email}}'
+                => 'user for {{email}}',
         ];
     }
 
@@ -24,21 +24,21 @@ class PwdResetCreatingService extends Service {
     public static function getArrLoaders()
     {
         return [
-            'user' => ['email', function ($email) {
-
-                return (new User)->query()
-                    ->qWhere(User::EMAIL, $email)
-                    ->first();
-            }],
-
-            'created' => ['user', function ($user) {
+            'created' => function ($user) {
 
                 return (new PwdReset)->create([
                     PwdReset::TOKEN    => str_random(32),
                     PwdReset::EMAIL    => $user->{User::EMAIL},
                     PwdReset::COMPLETE => false
                 ]);
-            }]
+            },
+
+            'user' => function ($email) {
+
+                return (new User)->query()
+                    ->qWhere(User::EMAIL, $email)
+                    ->first();
+            },
         ];
     }
 

@@ -13,7 +13,7 @@ class NotificationFindingService extends Service {
     {
         return [
             'model'
-                => 'notification for {{id}}'
+                => 'notification for {{id}}',
         ];
     }
 
@@ -25,23 +25,23 @@ class NotificationFindingService extends Service {
     public static function getArrLoaders()
     {
         return [
-            'available_expands' => [function () {
+            'available_expands' => function () {
 
                 return ['related', 'user'];
-            }],
+            },
 
-            'model_class' => [function () {
+            'model_class' => function () {
 
                 return Notification::class;
-            }],
+            },
 
-            'permitted_user' => ['auth_user', 'model', function ($authUser, $model) {
+            'permitted_user' => function ($authUser, $model) {
 
                 if ( $model->{Notification::USER_ID} == $authUser->getkey() )
                 {
                     return $authUser;
                 }
-            }]
+            },
         ];
     }
 
@@ -59,7 +59,7 @@ class NotificationFindingService extends Service {
     {
         return [
             FindingService::class,
-            PermittedUserRequiringService::class
+            PermittedUserRequiringService::class,
         ];
     }
 

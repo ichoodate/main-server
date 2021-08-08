@@ -13,7 +13,7 @@ class InvoiceFindingService extends Service {
     {
         return [
             'model'
-                => 'invoice for {{id}}'
+                => 'invoice for {{id}}',
         ];
     }
 
@@ -25,23 +25,23 @@ class InvoiceFindingService extends Service {
     public static function getArrLoaders()
     {
         return [
-            'available_expands' => [function () {
+            'available_expands' => function () {
 
                 return ['user'];
-            }],
+            },
 
-            'model_class' => [function () {
+            'model_class' => function () {
 
                 return Invoice::class;
-            }],
+            },
 
-            'permitted_user' => ['auth_user', 'model', function ($authUser, $model) {
+            'permitted_user' => function ($authUser, $model) {
 
                 if ( in_array($authUser->getKey(), [$model->{Invoice::USER_ID}]) )
                 {
                     return $authUser;
                 }
-            }]
+            },
         ];
     }
 
@@ -59,7 +59,7 @@ class InvoiceFindingService extends Service {
     {
         return [
             FindingService::class,
-            PermittedUserRequiringService::class
+            PermittedUserRequiringService::class,
         ];
     }
 

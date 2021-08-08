@@ -14,7 +14,7 @@ class ChattingContentFindingService extends Service {
     {
         return [
             'model'
-                => 'chatting_content for {{id}}'
+                => 'chatting_content for {{id}}',
         ];
     }
 
@@ -26,12 +26,12 @@ class ChattingContentFindingService extends Service {
     public static function getArrLoaders()
     {
         return [
-            'available_expands' => [function () {
+            'available_expands' => function () {
 
                 return ['match', 'writer'];
-            }],
+            },
 
-            'match' => ['auth_user', 'model', function ($authUser, $model) {
+            'match' => function ($authUser, $model) {
 
                 return [MatchFindingService::class, [
                     'auth_user'
@@ -44,12 +44,12 @@ class ChattingContentFindingService extends Service {
                     'id'
                         => 'match_id of {{model}}'
                 ]];
-            }],
+            },
 
-            'model_class' => [function () {
+            'model_class' => function () {
 
                 return ChattingContent::class;
-            }]
+            },
         ];
     }
 
@@ -69,7 +69,7 @@ class ChattingContentFindingService extends Service {
     public static function getArrTraits()
     {
         return [
-            FindingService::class
+            FindingService::class,
         ];
     }
 

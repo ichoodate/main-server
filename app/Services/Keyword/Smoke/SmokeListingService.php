@@ -21,10 +21,10 @@ class SmokeListingService extends Service {
     public static function getArrLoaders()
     {
         return [
-            'model_class' => [function () {
+            'model_class' => function () {
 
                 return Smoke::class;
-            }]
+            },
         ];
     }
 
@@ -41,7 +41,7 @@ class SmokeListingService extends Service {
     public static function getArrTraits()
     {
         return [
-            ListingService::class
+            ListingService::class,
         ];
     }
 

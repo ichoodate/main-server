@@ -12,7 +12,7 @@ class BirthYearFindingService extends Service {
     {
         return [
             'model'
-                => 'birth_year keyword for {{id}}'
+                => 'birth_year keyword for {{id}}',
         ];
     }
 
@@ -24,10 +24,10 @@ class BirthYearFindingService extends Service {
     public static function getArrLoaders()
     {
         return [
-            'model_class' => [function () {
+            'model_class' => function () {
 
                 return BirthYear::class;
-            }]
+            },
         ];
     }
 
@@ -44,7 +44,7 @@ class BirthYearFindingService extends Service {
     public static function getArrTraits()
     {
         return [
-            FindingService::class
+            FindingService::class,
         ];
     }
 

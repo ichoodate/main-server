@@ -12,7 +12,7 @@ class LanguageFindingService extends Service {
     {
         return [
             'model'
-                => 'language keyword for {{id}}'
+                => 'language keyword for {{id}}',
         ];
     }
 
@@ -24,10 +24,10 @@ class LanguageFindingService extends Service {
     public static function getArrLoaders()
     {
         return [
-            'model_class' => [function () {
+            'model_class' => function () {
 
                 return Language::class;
-            }]
+            },
         ];
     }
 
@@ -44,7 +44,7 @@ class LanguageFindingService extends Service {
     public static function getArrTraits()
     {
         return [
-            FindingService::class
+            FindingService::class,
         ];
     }
 

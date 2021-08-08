@@ -22,7 +22,7 @@ class FreeFlippableChooserCardReturningService extends Service {
     public static function getArrLoaders()
     {
         return [
-            'evaluated_count' => ['auth_user', 'card', function ($authUser, $card) {
+            'evaluated_count' => function ($authUser, $card) {
 
                 $cardQuery = (new Card)->query()
                     ->qSelect([Card::ID])
@@ -34,27 +34,27 @@ class FreeFlippableChooserCardReturningService extends Service {
                     ->qWhereIn(CardFlip::CARD_ID, $cardQuery)
                     ->qWhere(CardFlip::USER_ID, $authUser->getKey())
                     ->count();
-            }],
+            },
 
-            'evaluated_time' => ['card', function ($card) {
+            'evaluated_time' => function ($card) {
 
                 return $card->{Card::CREATED_AT};
-            }],
+            },
 
-            'is_free' => ['is_free_count', 'is_free_time', function ($isFreeCount, $isFreeTime) {
+            'is_free' => function ($isFreeCount, $isFreeTime) {
 
                 return $isFreeCount && $isFreeTime;
-            }],
+            },
 
-            'is_free_count' => ['limited_max_count', 'evaluated_count', function ($limitedMaxCount, $evaluatedCount) {
+            'is_free_count' => function ($evaluatedCount, $limitedMaxCount) {
 
                 return $limitedMaxCount > $evaluatedCount;
-            }],
+            },
 
-            'limited_max_count' => [function () {
+            'limited_max_count' => function () {
 
                 return 2;
-            }]
+            },
         ];
     }
 
@@ -71,7 +71,7 @@ class FreeFlippableChooserCardReturningService extends Service {
     public static function getArrTraits()
     {
         return [
-            FreeFlippableCardReturningService::class
+            FreeFlippableCardReturningService::class,
         ];
     }
 

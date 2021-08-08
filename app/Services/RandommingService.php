@@ -15,27 +15,27 @@ class RandommingService extends Service {
     public static function getArrCallbackLists()
     {
         return [
-            'query.limit' => ['query', 'limit', function ($query, $limit) {
+            'query.limit' => function ($limit, $query) {
 
                 $query->take($limit);
-            }]
+            },
         ];
     }
 
     public static function getArrLoaders()
     {
         return [
-            'limit' => [function () {
+            'limit' => function () {
 
                 return 12;
-            }],
+            },
 
-            'result' => ['query', function ($query) {
+            'result' => function ($query) {
 
                 return $query
                     ->orderByRaw('rand()')
                     ->get();
-            }]
+            },
         ];
     }
 
@@ -55,7 +55,7 @@ class RandommingService extends Service {
     public static function getArrTraits()
     {
         return [
-            ListingService::class
+            ListingService::class,
         ];
     }
 

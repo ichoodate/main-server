@@ -10,7 +10,7 @@ class PermittedUserRequiringService extends Service {
     {
         return [
             'permitted_user'
-                => '{{auth_user}} who is related user of {{model}}'
+                => '{{auth_user}} who is related user of {{model}}',
         ];
     }
 
@@ -22,10 +22,10 @@ class PermittedUserRequiringService extends Service {
     public static function getArrLoaders()
     {
         return [
-            'permitted_user' => ['auth_user', 'model', function ($authUser, $model) {
+            'permitted_user' => function ($authUser, $model) {
 
                 throw new \Exception;
-            }]
+            },
         ];
     }
 

@@ -22,16 +22,16 @@ class TicketReplyCreatingService extends Service {
     public static function getArrLoaders()
     {
         return [
-            'created' => ['auth_user', 'ticket', 'description', function ($authUser, $ticket, $description) {
+            'created' => function ($authUser, $description, $ticket) {
 
                 return (new Reply)->create([
                     Reply::WRITER_ID   => $authUser->getKey(),
                     Reply::DESCRIPTION => $description,
                     Reply::TICKET_ID   => $ticket->getKey()
                 ]);
-            }],
+            },
 
-            'ticket' => ['auth_user', 'ticket_id', function ($authUser, $ticketId) {
+            'ticket' => function ($authUser, $ticketId) {
 
                 return [TicketFindingService::class, [
                     'auth_user'
@@ -44,7 +44,7 @@ class TicketReplyCreatingService extends Service {
                     'id'
                         => '{{ticket_id}}'
                 ]];
-            }]
+            },
         ];
     }
 

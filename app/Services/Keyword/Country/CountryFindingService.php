@@ -12,7 +12,7 @@ class CountryFindingService extends Service {
     {
         return [
             'model'
-                => 'country keyword for {{id}}'
+                => 'country keyword for {{id}}',
         ];
     }
 
@@ -24,15 +24,15 @@ class CountryFindingService extends Service {
     public static function getArrLoaders()
     {
         return [
-            'available_expands' => [function () {
+            'available_expands' => function () {
 
                 return ['state', 'residence', 'nationality'];
-            }],
+            },
 
-            'model_class' => [function () {
+            'model_class' => function () {
 
                 return Country::class;
-            }]
+            },
         ];
     }
 
@@ -49,7 +49,7 @@ class CountryFindingService extends Service {
     public static function getArrTraits()
     {
         return [
-            FindingService::class
+            FindingService::class,
         ];
     }
 

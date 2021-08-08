@@ -14,14 +14,14 @@ class HobbyUserIdealTypeKwdPvtCreatingService extends Service {
     {
         return [
             'keywords.*'
-                => 'keyword.* of {{keyword_ids}}'
+                => 'keyword.* of {{keyword_ids}}',
         ];
     }
 
     public static function getArrCallbackLists()
     {
         return [
-            'auth_user' => ['auth_user', function ($authUser) {
+            'auth_user' => function ($authUser) {
 
                 $keywordIds = (new Hobby)->query()
                     ->qSelect(Hobby::ID)
@@ -31,23 +31,23 @@ class HobbyUserIdealTypeKwdPvtCreatingService extends Service {
                     ->qWhere(UserIdealTypeKwdPvt::USER_ID, $authUser->getKey())
                     ->qWhereIn(UserIdealTypeKwdPvt::KEYWORD_ID, $keywordIds)
                     ->delete();
-            }]
+            },
         ];
     }
 
     public static function getArrLoaders()
     {
         return [
-            'keywords' => ['keyword_ids', function ($keywordIds) {
+            'keywords' => function ($keywordIds) {
 
                 $keywordIds = preg_split('/\s*,\s*/', $keywordIds);
 
                 return Hobby::query()
                     ->findMany($keywordIds)
                     ->sortByIds($keywordIds);
-            }],
+            },
 
-            'result' => ['auth_user', 'keywords', function ($authUser, $keywords) {
+            'result' => function ($authUser, $keywords) {
 
                 $result = (new UserIdealTypeKwdPvt)->newCollection();
 
@@ -60,7 +60,7 @@ class HobbyUserIdealTypeKwdPvtCreatingService extends Service {
                 }
 
                 return $result;
-            }]
+            },
         ];
     }
 

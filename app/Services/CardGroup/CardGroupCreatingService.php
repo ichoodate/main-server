@@ -22,7 +22,7 @@ class CardGroupCreatingService extends Service {
     public static function getArrLoaders()
     {
         return [
-            'cards' => ['auth_user', 'matches', 'users', 'created', function ($authUser, $matches, $users, $created) {
+            'cards' => function ($authUser, $created, $matches, $users) {
 
                 $cards = (new Card)->newCollection();
 
@@ -39,14 +39,14 @@ class CardGroupCreatingService extends Service {
                 }
 
                 return $cards;
-            }],
+            },
 
-            'created' => [function () {
+            'created' => function () {
 
                 throw new \Exception;
-            }],
+            },
 
-            'matches' => ['auth_user', 'users', function ($authUser, $users) {
+            'matches' => function ($authUser, $users) {
 
                 return [MatchCreatingService::class, [
                     'auth_user'
@@ -54,12 +54,12 @@ class CardGroupCreatingService extends Service {
                     'matching_users'
                         => $users,
                 ]];
-            }],
+            },
 
-            'users' => [function () {
+            'users' => function () {
 
                 throw new \Exception;
-            }]
+            },
         ];
     }
 

@@ -16,20 +16,29 @@ class PopularityCreatingService extends Service {
     public static function getArrCallbackLists()
     {
         return [
-            'user' => ['auth_user', 'user', function ($authUser, $user) {
+            'user' => function ($authUser, $user) {
 
                 Popularity::query()
                     ->where(Popularity::SENDER_ID, $authUser->getKey())
                     ->where(Popularity::RECEIVER_ID, $user->getKey())
                     ->delete();
-            }]
+            },
         ];
     }
 
     public static function getArrLoaders()
     {
         return [
-            'user' => ['auth_user', 'user_id', function ($authUser, $userId) {
+            'created' => function ($authUser, $point, $user) {
+
+                return Popularity::create([
+                    Popularity::SENDER_ID   => $authUser->getKey(),
+                    Popularity::RECEIVER_ID => $user->getKey(),
+                    Popularity::POINT       => $point
+                ]);
+            },
+
+            'user' => function ($authUser, $userId) {
 
                 return [MatchingUserFindingService::class, [
                     'auth_user'
@@ -42,16 +51,7 @@ class PopularityCreatingService extends Service {
                     'id'
                         => '{{user_id}}',
                 ]];
-            }],
-
-            'created' => ['auth_user', 'user', 'point', function ($authUser, $user, $point) {
-
-                return Popularity::create([
-                    Popularity::SENDER_ID   => $authUser->getKey(),
-                    Popularity::RECEIVER_ID => $user->getKey(),
-                    Popularity::POINT       => $point
-                ]);
-            }]
+            },
         ];
     }
 

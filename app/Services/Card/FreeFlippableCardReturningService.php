@@ -19,31 +19,31 @@ class FreeFlippableCardReturningService extends Service {
     public static function getArrLoaders()
     {
         return [
-            'card' => [function () {
+            'card' => function () {
 
                 throw new \Exception;
-            }],
+            },
 
-            'is_free_time' => ['limited_min_time', 'evaluated_time', function ($limitedMinTime, $evaluatedTime) {
+            'is_free_time' => function ($evaluatedTime, $limitedMinTime) {
 
                 return strtotime($limitedMinTime) <= strtotime($evaluatedTime);
-            }],
+            },
 
-            'limited_min_time' => [function () {
+            'limited_min_time' => function () {
 
                 return (new \DateTime)
                     ->modify('-1 day')
                     ->modify('+1 second')
                     ->format('Y-m-d H:i:s');
-            }],
+            },
 
-            'result' => ['card', 'is_free', function ($card, $isFree) {
+            'result' => function ($card, $isFree) {
 
                 if ( $isFree )
                 {
                     return $card;
                 }
-            }]
+            },
         ];
     }
 

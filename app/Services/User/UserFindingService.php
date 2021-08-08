@@ -24,15 +24,15 @@ class UserFindingService extends Service {
     public static function getArrLoaders()
     {
         return [
-            'available_expands' => [function () {
+            'available_expands' => function () {
 
                 return ['facePhoto', 'friend', 'match', 'match.cards.flips', 'popularity'];
-            }],
+            },
 
-            'model_class' => [function () {
+            'model_class' => function () {
 
                 return User::class;
-            }]
+            },
         ];
     }
 
@@ -49,7 +49,7 @@ class UserFindingService extends Service {
     public static function getArrTraits()
     {
         return [
-            FindingService::class
+            FindingService::class,
         ];
     }
 

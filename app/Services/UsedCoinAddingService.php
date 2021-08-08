@@ -12,14 +12,14 @@ class UsedCoinAddingService extends Service {
     {
         return [
             'remain_coin'
-                => 'coin total count own by {{auth_user}}'
+                => 'coin total count own by {{auth_user}}',
         ];
     }
 
     public static function getArrCallbackLists()
     {
         return [
-            'used_coins' => ['used_coins', 'balances', function ($usedCoins, $balances) {
+            'used_coins' => function ($balances, $usedCoins) {
 
                 foreach ( $usedCoins as $i => $usedCoin )
                 {
@@ -27,14 +27,14 @@ class UsedCoinAddingService extends Service {
                     $balance->{Balance::COUNT} += $usedCoin->{Coin::COUNT};
                     $balance->save();
                 }
-            }]
+            },
         ];
     }
 
     public static function getArrLoaders()
     {
         return [
-            'balances' => ['auth_user', 'timezone', function ($authUser, $timezone) {
+            'balances' => function ($authUser, $timezone) {
 
                 $time = new \DateTime('now', new \DateTimeZone($timezone));
 
@@ -43,19 +43,19 @@ class UsedCoinAddingService extends Service {
                     ->qWhere(Balance::DELETED_AT, '>=', $time->format('Y-m-d H:i:s'))
                     ->qOrderBy(Balance::DELETED_AT, 'asc')
                     ->get();
-            }],
+            },
 
-            'remain_coin' => ['balances', function ($balances) {
+            'remain_coin' => function ($balances) {
 
                 return $balances->sum(Balance::COUNT);
-            }],
+            },
 
-            'required_coin' => [function () {
+            'required_coin' => function () {
 
                 throw new \Exception;
-            }],
+            },
 
-            'used_coins' => ['auth_user', 'result', 'required_coin', 'balances', function ($authUser, $result, $requiredCoin, $balances) {
+            'used_coins' => function ($authUser, $balances, $requiredCoin, $result) {
 
                 $counts    = [];
                 $usedCoins = (new Coin)->newCollection();
@@ -94,7 +94,7 @@ class UsedCoinAddingService extends Service {
                 }
 
                 return $usedCoins;
-            }]
+            },
         ];
     }
 

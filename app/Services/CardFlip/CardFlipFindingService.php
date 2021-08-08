@@ -13,7 +13,7 @@ class CardFlipFindingService extends Service {
     {
         return [
             'model'
-                => 'card_flip for {{id}}'
+                => 'card_flip for {{id}}',
         ];
     }
 
@@ -25,23 +25,23 @@ class CardFlipFindingService extends Service {
     public static function getArrLoaders()
     {
         return [
-            'available_expands' => [function () {
+            'available_expands' => function () {
 
                 return ['user', 'card.concrete'];
-            }],
+            },
 
-            'model_class' => [function () {
+            'model_class' => function () {
 
                 return CardFlip::class;
-            }],
+            },
 
-            'permitted_user' => ['auth_user', 'model', function ($authUser, $model) {
+            'permitted_user' => function ($authUser, $model) {
 
                 if ( $authUser->getkey() == $model->{CardFlip::USER_ID} )
                 {
                     return $authUser;
                 }
-            }]
+            },
         ];
     }
 
@@ -59,7 +59,7 @@ class CardFlipFindingService extends Service {
     {
         return [
             FindingService::class,
-            PermittedUserRequiringService::class
+            PermittedUserRequiringService::class,
         ];
     }
 

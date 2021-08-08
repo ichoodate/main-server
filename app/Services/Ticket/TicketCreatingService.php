@@ -20,14 +20,14 @@ class TicketCreatingService extends Service {
     public static function getArrLoaders()
     {
         return [
-            'created' => ['auth_user', 'subject', 'description', function ($authUser, $subject, $description) {
+            'created' => function ($authUser, $description, $subject) {
 
                 return (new Ticket)->create([
                     Ticket::WRITER_ID   => $authUser->getKey(),
                     Ticket::SUBJECT     => $subject,
                     Ticket::DESCRIPTION => $description
                 ]);
-            }]
+            },
         ];
     }
 

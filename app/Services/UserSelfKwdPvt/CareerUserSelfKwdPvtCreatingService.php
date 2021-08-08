@@ -18,7 +18,7 @@ class CareerUserSelfKwdPvtCreatingService extends Service {
     public static function getArrCallbackLists()
     {
         return [
-            'auth_user' => ['auth_user', function ($authUser) {
+            'auth_user' => function ($authUser) {
 
                 $keywordIds = (new Career)->query()
                     ->qSelect(Career::ID)
@@ -28,14 +28,14 @@ class CareerUserSelfKwdPvtCreatingService extends Service {
                     ->qWhere(UserSelfKwdPvt::USER_ID, $authUser->getKey())
                     ->qWhereIn(UserSelfKwdPvt::KEYWORD_ID, $keywordIds)
                     ->delete();
-            }]
+            },
         ];
     }
 
     public static function getArrLoaders()
     {
         return [
-            'keyword' => ['keyword_id', function ($keywordId) {
+            'keyword' => function ($keywordId) {
 
                 return [CareerFindingService::class, [
                     'id'
@@ -44,15 +44,15 @@ class CareerUserSelfKwdPvtCreatingService extends Service {
                     'id'
                         => '{{keyword_id}}'
                 ]];
-            }],
+            },
 
-            'result' => ['auth_user', 'keyword', function ($authUser, $keyword) {
+            'result' => function ($authUser, $keyword) {
 
                 return (new UserSelfKwdPvt)->create([
                     UserSelfKwdPvt::USER_ID => $authUser->getKey(),
                     UserSelfKwdPvt::KEYWORD_ID => $keyword->getKey()
                 ]);
-            }]
+            },
         ];
     }
 

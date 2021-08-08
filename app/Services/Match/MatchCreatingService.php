@@ -21,7 +21,7 @@ class MatchCreatingService extends Service {
     public static function getArrLoaders()
     {
         return [
-            'auth_user_id_field' => ['auth_user', function ($authUser) {
+            'auth_user_id_field' => function ($authUser) {
 
                 if ( $authUser->{User::GENDER} == User::GENDER_MAN )
                 {
@@ -31,9 +31,9 @@ class MatchCreatingService extends Service {
                 {
                     return Match::WOMAN_ID;
                 }
-            }],
+            },
 
-            'created' => ['auth_user', 'auth_user_id_field', 'new_matching_user_ids', 'matching_user_id_field', function ($authUser, $authUserIdField, $newMatchingUserIds, $matchingUserIdField) {
+            'created' => function ($authUser, $authUserIdField, $matchingUserIdField, $newMatchingUserIds) {
 
                 $matches = (new Match)->newCollection();
 
@@ -48,22 +48,22 @@ class MatchCreatingService extends Service {
                 }
 
                 return $matches;
-            }],
+            },
 
-            'existed' => ['auth_user', 'auth_user_id_field', 'matching_user_id_field', 'matching_user_ids', function ($authUser, $authUserIdField, $matchingUserIdField, $matchingUserIds) {
+            'existed' => function ($authUser, $authUserIdField, $matchingUserIdField, $matchingUserIds) {
 
                 return (new Match)->query()
                     ->qWhere($authUserIdField, $authUser->getKey())
                     ->qWhereIn($matchingUserIdField, $matchingUserIds)
                     ->get();
-            }],
+            },
 
-            'existed_matching_user_ids' => ['existed', 'matching_user_id_field', function ($existed, $matchingUserIdField) {
+            'existed_matching_user_ids' => function ($existed, $matchingUserIdField) {
 
                 return $existed->pluck($matchingUserIdField)->all();
-            }],
+            },
 
-            'matching_user_id_field' => ['auth_user', function ($authUser) {
+            'matching_user_id_field' => function ($authUser) {
 
                 if ( $authUser->{User::GENDER} == User::GENDER_MAN )
                 {
@@ -73,27 +73,27 @@ class MatchCreatingService extends Service {
                 {
                     return Match::MAN_ID;
                 }
-            }],
+            },
 
-            'matching_users' => [function () {
-
-                throw new \Exception;
-            }],
-
-            'matching_user_ids' => ['matching_users', function ($matchingUsers) {
+            'matching_user_ids' => function ($matchingUsers) {
 
                 return $matchingUsers->modelKeys();
-            }],
+            },
 
-            'new_matching_user_ids' => ['matching_user_ids', 'existed_matching_user_ids', function ($matchingUserIds, $existedMatchingUserIds) {
+            'matching_users' => function () {
+
+                throw new \Exception;
+            },
+
+            'new_matching_user_ids' => function ($existedMatchingUserIds, $matchingUserIds) {
 
                 return array_values(array_diff($matchingUserIds, $existedMatchingUserIds));
-            }],
+            },
 
-            'result' => ['created', 'existed', function ($created, $existed) {
+            'result' => function ($created, $existed) {
 
                 return $created->merge($existed);
-            }]
+            },
         ];
     }
 

@@ -22,27 +22,27 @@ class CardFlipCreatingService extends Service {
                 => '{{auth_user}}\'s flip activity about {{card}}',
 
             'free_flippable_card'
-                => 'free flippable card for {{card_id}}'
+                => 'free flippable card for {{card_id}}',
         ];
     }
 
     public static function getArrCallbackLists()
     {
         return [
-            'created.card' => ['card', 'auth_user', function ($card, $authUser) {
+            'created.card' => function ($authUser, $card) {
 
                 if ( $card->{Card::SHOWNER_ID} == $authUser->getKey() )
                 {
                     $card->touch();
                 }
-            }]
+            },
         ];
     }
 
     public static function getArrLoaders()
     {
         return [
-            'card' => ['auth_user', 'card_id', function ($authUser, $cardId) {
+            'card' => function ($authUser, $cardId) {
 
                 return [CardFindingService::class, [
                     'auth_user'
@@ -55,25 +55,25 @@ class CardFlipCreatingService extends Service {
                     'id'
                         => '{{card_id}}'
                 ]];
-            }],
+            },
 
-            'card_flip' => ['auth_user', 'card', function ($authUser, $card) {
+            'card_flip' => function ($authUser, $card) {
 
                 return CardFlip::query()
                     ->where(CardFlip::USER_ID, $authUser->getKey())
                     ->where(CardFlip::CARD_ID, $card->getKey())
                     ->first();
-            }],
+            },
 
-            'created' => ['auth_user', 'card', function ($authUser, $card) {
+            'created' => function ($authUser, $card) {
 
                 return (new CardFlip)->create([
                     CardFlip::CARD_ID => $card->getKey(),
                     CardFlip::USER_ID => $authUser->getKey()
                 ]);
-            }],
+            },
 
-            'free_flippable_card' => ['auth_user', 'card', function ($authUser, $card) {
+            'free_flippable_card' => function ($authUser, $card) {
 
                 if ( $card->{Card::CHOOSER_ID} == $authUser->getKey() )
                 {
@@ -103,7 +103,7 @@ class CardFlipCreatingService extends Service {
                             => '{{card}}'
                     ]];
                 }
-            }],
+            },
         ];
     }
 
@@ -111,7 +111,7 @@ class CardFlipCreatingService extends Service {
     {
         return [
             'created'
-                => ['card_flip', 'free_flippable_card']
+                => ['card_flip', 'free_flippable_card'],
         ];
     }
 

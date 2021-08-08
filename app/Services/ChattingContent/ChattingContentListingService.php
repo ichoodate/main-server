@@ -18,22 +18,22 @@ class ChattingContentListingService extends Service {
     public static function getArrCallbackLists()
     {
         return [
-            'query.match' => ['query', 'match', function ($query, $match) {
+            'query.match' => function ($match, $query) {
 
                 $query->qWhere(ChattingContent::MATCH_ID, $match->getKey());
-            }]
+            },
         ];
     }
 
     public static function getArrLoaders()
     {
         return [
-            'available_expands' => [function () {
+            'available_expands' => function () {
 
                 return ['match', 'writer'];
-            }],
+            },
 
-            'cursor' => ['auth_user', 'cursor_id', function ($authUser, $cursorId) {
+            'cursor' => function ($authUser, $cursorId) {
 
                 return [ChattingContentFindingService::class, [
                     'auth_user'
@@ -46,9 +46,9 @@ class ChattingContentListingService extends Service {
                     'id'
                         => '{{cursor_id}}'
                 ]];
-            }],
+            },
 
-            'match' => ['auth_user', 'match_id', function ($authUser, $matchId) {
+            'match' => function ($authUser, $matchId) {
 
                 return [MatchFindingService::class, [
                     'auth_user'
@@ -61,12 +61,12 @@ class ChattingContentListingService extends Service {
                     'id'
                         => '{{match_id}}'
                 ]];
-            }],
+            },
 
-            'model_class' => [function () {
+            'model_class' => function () {
 
                 return ChattingContent::class;
-            }]
+            },
         ];
     }
 
@@ -89,7 +89,7 @@ class ChattingContentListingService extends Service {
     public static function getArrTraits()
     {
         return [
-            LimitedListingService::class
+            LimitedListingService::class,
         ];
     }
 

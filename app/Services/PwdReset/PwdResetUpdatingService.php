@@ -19,51 +19,51 @@ class PwdResetUpdatingService extends Service {
                 => 'completion of {{result}}',
 
             'result_token'
-                => 'token of {{result}}'
+                => 'token of {{result}}',
         ];
     }
 
     public static function getArrCallbackLists()
     {
         return [
-            'user.new_password' => ['user', 'new_password', function ($user, $newPassword) {
-
-                $user->{User::PASSWORD} = Hash::make($newPassword);
-                $user->save();
-            }],
-
-            'result_complete' => ['result', function ($result) {
+            'result_complete' => function ($result) {
 
                 $result->{PwdReset::COMPLETE} = true;
                 $result->save();
-            }]
+            },
+
+            'user.new_password' => function ($newPassword, $user) {
+
+                $user->{User::PASSWORD} = Hash::make($newPassword);
+                $user->save();
+            },
         ];
     }
 
     public static function getArrLoaders()
     {
         return [
-            'result' => ['id', function ($id) {
+            'result' => function ($id) {
 
                 return PwdReset::find($id);
-            }],
+            },
 
-            'result_token' => ['result', function ($result) {
-
-                return $result->{PwdReset::TOKEN};
-            }],
-
-            'result_complete' => ['result', function ($result) {
+            'result_complete' => function ($result) {
 
                 return $result->{PwdReset::COMPLETE};
-            }],
+            },
 
-            'user' => ['result', function ($result) {
+            'result_token' => function ($result) {
+
+                return $result->{PwdReset::TOKEN};
+            },
+
+            'user' => function ($result) {
 
                 return (new User)->query()
                     ->qWhere(User::EMAIL, $result->{PwdReset::EMAIL})
                     ->first();
-            }]
+            },
         ];
     }
 

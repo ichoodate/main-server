@@ -12,7 +12,7 @@ class BodyFindingService extends Service {
     {
         return [
             'model'
-                => 'body keyword for {{id}}'
+                => 'body keyword for {{id}}',
         ];
     }
 
@@ -24,10 +24,10 @@ class BodyFindingService extends Service {
     public static function getArrLoaders()
     {
         return [
-            'model_class' => [function () {
+            'model_class' => function () {
 
                 return Body::class;
-            }]
+            },
         ];
     }
 
@@ -44,7 +44,7 @@ class BodyFindingService extends Service {
     public static function getArrTraits()
     {
         return [
-            FindingService::class
+            FindingService::class,
         ];
     }
 

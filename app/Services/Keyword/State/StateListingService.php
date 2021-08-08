@@ -18,21 +18,21 @@ class StateListingService extends Service {
     public static function getArrCallbackLists()
     {
         return [
-            'query.country' => ['query', 'country', function ($query, $country) {
-                $query->qWhere(State::COUNTRY_ID, $country->getKey());
-            }]
+            'query.country' => function ($country, $query) {
+
+            },
         ];
     }
 
     public static function getArrLoaders()
     {
         return [
-            'available_expands' => [function () {
+            'available_expands' => function () {
 
                 return ['country', 'residence'];
-            }],
+            },
 
-            'country' => ['country_id', function ($countryId) {
+            'country' => function ($countryId) {
 
                 return [CountryFindingService::class, [
                     'id'
@@ -41,9 +41,9 @@ class StateListingService extends Service {
                     'id'
                         => '{{country_id}}'
                 ]];
-            }],
+            },
 
-            'cursor' => ['cursor_id', function ($cursorId) {
+            'cursor' => function ($cursorId) {
 
                 return [StateFindingService::class, [
                     'id'
@@ -52,12 +52,12 @@ class StateListingService extends Service {
                     'id'
                         => '{{cursor_id}}'
                 ]];
-            }],
+            },
 
-            'model_class' => [function () {
+            'model_class' => function () {
 
                 return State::class;
-            }]
+            },
         ];
     }
 
@@ -77,7 +77,7 @@ class StateListingService extends Service {
     public static function getArrTraits()
     {
         return [
-            ListingService::class
+            ListingService::class,
         ];
     }
 

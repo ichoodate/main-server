@@ -12,7 +12,7 @@ class EduBgFindingService extends Service {
     {
         return [
             'model'
-                => 'education_background keyword for {{id}}'
+                => 'education_background keyword for {{id}}',
         ];
     }
 
@@ -24,10 +24,10 @@ class EduBgFindingService extends Service {
     public static function getArrLoaders()
     {
         return [
-            'model_class' => [function () {
+            'model_class' => function () {
 
                 return EduBg::class;
-            }]
+            },
         ];
     }
 
@@ -44,7 +44,7 @@ class EduBgFindingService extends Service {
     public static function getArrTraits()
     {
         return [
-            FindingService::class
+            FindingService::class,
         ];
     }
 

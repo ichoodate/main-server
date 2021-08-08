@@ -15,7 +15,7 @@ class MatchingUserFindingService extends Service {
                 => 'gender of {{auth_user}}',
 
             'model_gender'
-                => 'gender of {{model}}'
+                => 'gender of {{model}}',
         ];
     }
 
@@ -27,15 +27,15 @@ class MatchingUserFindingService extends Service {
     public static function getArrLoaders()
     {
         return [
-            'auth_user_gender' => ['auth_user', function ($authUser) {
+            'auth_user_gender' => function ($authUser) {
 
                 return $authUser->{User::GENDER};
-            }],
+            },
 
-            'model_gender' => ['model', function ($model) {
+            'model_gender' => function ($model) {
 
                 return $model->{User::GENDER};
-            }]
+            },
         ];
     }
 
@@ -58,7 +58,7 @@ class MatchingUserFindingService extends Service {
     public static function getArrTraits()
     {
         return [
-            UserFindingService::class
+            UserFindingService::class,
         ];
     }
 

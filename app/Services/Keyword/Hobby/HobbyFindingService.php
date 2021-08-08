@@ -12,7 +12,7 @@ class HobbyFindingService extends Service {
     {
         return [
             'model'
-                => 'hobby keyword for {{id}}'
+                => 'hobby keyword for {{id}}',
         ];
     }
 
@@ -24,10 +24,10 @@ class HobbyFindingService extends Service {
     public static function getArrLoaders()
     {
         return [
-            'model_class' => [function () {
+            'model_class' => function () {
 
                 return Hobby::class;
-            }]
+            },
         ];
     }
 
@@ -44,7 +44,7 @@ class HobbyFindingService extends Service {
     public static function getArrTraits()
     {
         return [
-            FindingService::class
+            FindingService::class,
         ];
     }
 

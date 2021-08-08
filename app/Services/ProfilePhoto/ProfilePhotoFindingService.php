@@ -12,7 +12,7 @@ class ProfilePhotoFindingService extends Service {
     {
         return [
             'model'
-                => 'profile_photo for {{id}}'
+                => 'profile_photo for {{id}}',
         ];
     }
 
@@ -24,15 +24,15 @@ class ProfilePhotoFindingService extends Service {
     public static function getArrLoaders()
     {
         return [
-            'available_expands' => [function () {
+            'available_expands' => function () {
 
                 return ['user'];
-            }],
+            },
 
-            'model_class' => [function () {
+            'model_class' => function () {
 
                 return ProfilePhoto::class;
-            }]
+            },
         ];
     }
 

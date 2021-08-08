@@ -12,7 +12,7 @@ class LocalizableFindingService extends Service {
     {
         return [
             'model'
-                => 'localizable for {{id}}'
+                => 'localizable for {{id}}',
         ];
     }
 
@@ -24,10 +24,10 @@ class LocalizableFindingService extends Service {
     public static function getArrLoaders()
     {
         return [
-            'model_class' => [function () {
+            'model_class' => function () {
 
                 return Localizable::class;
-            }]
+            },
         ];
     }
 
@@ -44,7 +44,7 @@ class LocalizableFindingService extends Service {
     public static function getArrTraits()
     {
         return [
-            FindingService::class
+            FindingService::class,
         ];
     }
 

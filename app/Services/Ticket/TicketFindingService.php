@@ -14,7 +14,7 @@ class TicketFindingService extends Service {
     {
         return [
             'model'
-                => 'ticket for {{id}}'
+                => 'ticket for {{id}}',
         ];
     }
 
@@ -26,23 +26,23 @@ class TicketFindingService extends Service {
     public static function getArrLoaders()
     {
         return [
-            'available_expands' => [function () {
+            'available_expands' => function () {
 
                 return ['replies', 'writer'];
-            }],
+            },
 
-            'model_class' => [function () {
+            'model_class' => function () {
 
                 return Ticket::class;
-            }],
+            },
 
-            'permitted_user' => ['admin_role', 'auth_user', 'model', function ($adminRole, $authUser, $model) {
+            'permitted_user' => function ($adminRole, $authUser, $model) {
 
                 if ( ! empty($adminRole) || $authUser->getKey() == $model->{Ticket::WRITER_ID} )
                 {
                     return $authUser;
                 }
-            }]
+            },
         ];
     }
 
@@ -61,7 +61,7 @@ class TicketFindingService extends Service {
         return [
             AdminRoleExistingService::class,
             FindingService::class,
-            PermittedUserRequiringService::class
+            PermittedUserRequiringService::class,
         ];
     }
 

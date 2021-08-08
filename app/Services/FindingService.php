@@ -17,38 +17,38 @@ class FindingService extends Service {
     public static function getArrCallbackLists()
     {
         return [
-            'result' => ['result', 'expands', function ($result, $expands) {
+            'result' => function ($expands, $result) {
 
                 $expands = preg_split('/\s*,\s*/', $expands);
                 $collection = $result->newCollection();
                 $collection->push($result);
                 $collection->loadVisible($expands);
-            }]
+            },
         ];
     }
 
     public static function getArrLoaders()
     {
         return [
-            'available_expands' => [function () {
+            'available_expands' => function () {
 
                 return [];
-            }],
+            },
 
-            'model' => ['model_class', 'id', function ($modelClass, $id) {
+            'model' => function ($id, $modelClass) {
 
                 return inst($modelClass)->find($id);
-            }],
+            },
 
-            'model_class' => [function () {
+            'model_class' => function () {
 
                 throw new \Exception;
-            }],
+            },
 
-            'result' => ['model', function ($model) {
+            'result' => function ($model) {
 
                 return $model;
-            }]
+            },
         ];
     }
 

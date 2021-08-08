@@ -17,30 +17,30 @@ class CountryListingService extends Service {
     public static function getArrCallbackLists()
     {
         return [
-            'query' => ['query', function ($query) {
+            'query' => function ($query) {
 
                 $query->qOrderBy('name', 'asc');
-            }],
+            },
 
-            'query.name' => ['query', 'name', function ($query, $name) {
+            'query.name' => function ($name, $query) {
 
                 $query->qWhere('name', $name);
-            }]
+            },
         ];
     }
 
     public static function getArrLoaders()
     {
         return [
-            'available_expands' => [function () {
+            'available_expands' => function () {
 
                 return ['state', 'residence', 'nationality'];
-            }],
+            },
 
-            'model_class' => [function () {
+            'model_class' => function () {
 
                 return Country::class;
-            }]
+            },
         ];
     }
 
@@ -60,7 +60,7 @@ class CountryListingService extends Service {
     public static function getArrTraits()
     {
         return [
-            ListingService::class
+            ListingService::class,
         ];
     }
 

@@ -20,7 +20,7 @@ class TodayCardGroupCreatingService extends Service {
                 => 'card group created within date',
 
             'user_ideal_type_kwd_pvt_keyword_ids'
-                => 'ideal type keyword ids of {{auth_user}}'
+                => 'ideal type keyword ids of {{auth_user}}',
         ];
     }
 
@@ -32,15 +32,15 @@ class TodayCardGroupCreatingService extends Service {
     public static function getArrLoaders()
     {
         return [
-            'created' => ['auth_user', function ($authUser) {
+            'created' => function ($authUser) {
 
                 return (new CardGroup)->create([
                     CardGroup::USER_ID => $authUser->getKey(),
                     CardGroup::TYPE    => CardGroup::TYPE_DAILY
                 ]);
-            }],
+            },
 
-            'today_card_group' => ['auth_user', function ($authUser) {
+            'today_card_group' => function ($authUser) {
 
                 $time = new \DateTime('now', new \DateTimeZone('UTC'));
 
@@ -54,21 +54,21 @@ class TodayCardGroupCreatingService extends Service {
                     ->qWhere(CardGroup::TYPE, CardGroup::TYPE_DAILY)
                     ->qWhere(CardGroup::CREATED_AT, '>=', $time->format('Y-m-d H:i:s'))
                     ->first();
-            }],
+            },
 
-            'user_ideal_type_kwd_pvts' => ['auth_user', function ($authUser) {
+            'user_ideal_type_kwd_pvt_keyword_ids' => function ($userIdealTypeKwdPvts) {
+
+                return $userIdealTypeKwdPvts->pluck(UserIdealTypeKwdPvt::KEYWORD_ID)->all();
+            },
+
+            'user_ideal_type_kwd_pvts' => function ($authUser) {
 
                 return (new UserIdealTypeKwdPvt)->query()
                     ->qWhere(UserIdealTypeKwdPvt::USER_ID, $authUser->getKey())
                     ->get();
-            }],
+            },
 
-            'user_ideal_type_kwd_pvt_keyword_ids' => ['user_ideal_type_kwd_pvts', function ($userIdealTypeKwdPvts) {
-
-                return $userIdealTypeKwdPvts->pluck(UserIdealTypeKwdPvt::KEYWORD_ID)->all();
-            }],
-
-            'users' => ['auth_user', 'user_ideal_type_kwd_pvt_keyword_ids', function ($authUser, $userIdealTypeKwdPvtKeywordIds) {
+            'users' => function ($authUser, $userIdealTypeKwdPvtKeywordIds) {
 
                 return [MatchingUserListingService::class, [
                     'auth_user'
@@ -88,9 +88,9 @@ class TodayCardGroupCreatingService extends Service {
                     'limit',
                     'strict'
                 ]];
-            }],
+            },
 
-            'users_count' => ['users', function ($users) {
+            'users_count' => function ($users) {
 
                 $count = $users->count();
 
@@ -100,7 +100,7 @@ class TodayCardGroupCreatingService extends Service {
                 }
 
                 return $count;
-            }]
+            },
         ];
     }
 

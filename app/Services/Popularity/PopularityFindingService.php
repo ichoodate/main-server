@@ -13,7 +13,7 @@ class PopularityFindingService extends Service {
     {
         return [
             'model'
-                => 'popularity for {{id}}'
+                => 'popularity for {{id}}',
         ];
     }
 
@@ -25,17 +25,17 @@ class PopularityFindingService extends Service {
     public static function getArrLoaders()
     {
         return [
-            'available_expands' => [function () {
+            'available_expands' => function () {
 
                 return ['receiver', 'sender'];
-            }],
+            },
 
-            'model_class' => [function () {
+            'model_class' => function () {
 
                 return Popularity::class;
-            }],
+            },
 
-            'permitted_user' => ['auth_user', 'model', function ($authUser, $model) {
+            'permitted_user' => function ($authUser, $model) {
 
                 if ( in_array($authUser->getKey(), [
                     $model->{Popularity::SENDER_ID}, $model->{Popularity::RECEIVER_ID}
@@ -43,7 +43,7 @@ class PopularityFindingService extends Service {
                 {
                     return $authUser;
                 }
-            }]
+            },
         ];
     }
 

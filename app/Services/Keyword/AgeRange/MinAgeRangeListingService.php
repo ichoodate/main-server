@@ -16,20 +16,20 @@ class MinAgeRangeListingService extends Service {
     public static function getArrCallbackLists()
     {
         return [
-            'query.max' => ['query', 'max', function ($query, $max) {
+            'query.max' => function ($max, $query) {
 
                 $query->qWhere('max', $max);
-            }]
+            },
         ];
     }
 
     public static function getArrLoaders()
     {
         return [
-            'model_class' => [function () {
+            'model_class' => function () {
 
                 return AgeRange::class;
-            }]
+            },
         ];
     }
 
@@ -49,7 +49,7 @@ class MinAgeRangeListingService extends Service {
     public static function getArrTraits()
     {
         return [
-            ListingService::class
+            ListingService::class,
         ];
     }
 

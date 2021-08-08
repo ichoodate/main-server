@@ -23,14 +23,14 @@ class NoticeCreatingService extends Service {
     public static function getArrLoaders()
     {
         return [
-            'created' => ['type', 'subject', 'description', function ($type, $subject, $description) {
+            'created' => function ($description, $subject, $type) {
 
                 return (new Notice)->create([
                     Notice::TYPE        => $type,
                     Notice::SUBJECT     => $subject,
                     Notice::DESCRIPTION => $description
                 ]);
-            }]
+            },
         ];
     }
 

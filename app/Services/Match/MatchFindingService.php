@@ -13,7 +13,7 @@ class MatchFindingService extends Service {
     {
         return [
             'model'
-                => 'match for {{id}}'
+                => 'match for {{id}}',
         ];
     }
 
@@ -25,23 +25,23 @@ class MatchFindingService extends Service {
     public static function getArrLoaders()
     {
         return [
-            'available_expands' => [function () {
+            'available_expands' => function () {
 
                 return ['cards', 'friends', 'man', 'woman'];
-            }],
+            },
 
-            'model_class' => [function () {
+            'model_class' => function () {
 
                 return Match::class;
-            }],
+            },
 
-            'permitted_user' => ['auth_user', 'model', function ($authUser, $model) {
+            'permitted_user' => function ($authUser, $model) {
 
                 if ( in_array($authUser->getKey(), [$model->{Match::MAN_ID}, $model->{Match::WOMAN_ID}]) )
                 {
                     return $authUser;
                 }
-            }]
+            },
         ];
     }
 
@@ -59,7 +59,7 @@ class MatchFindingService extends Service {
     {
         return [
             FindingService::class,
-            PermittedUserRequiringService::class
+            PermittedUserRequiringService::class,
         ];
     }
 

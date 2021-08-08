@@ -16,14 +16,14 @@ class MatchingUserListingService extends Service {
     {
         return [
             'keywords.*'
-                => 'keywords.* for {{keyword_ids}}'
+                => 'keywords.* for {{keyword_ids}}',
         ];
     }
 
     public static function getArrCallbackLists()
     {
         return [
-            'query.keywords' => ['query', 'keywords', 'matching_gender', 'strict', function ($query, $keywords = '', $matchingGender, $strict) {
+            'query.keywords' => function ($keywords='', $matchingGender, $query, $strict) {
 
                 $nested = (new User)->query()
                     ->select(User::ID)
@@ -53,19 +53,19 @@ class MatchingUserListingService extends Service {
 
                 $query
                     ->qWhereIn(User::ID, $sub->getQuery()->get()->pluck(UserSelfKwdPvt::USER_ID)->all());
-            }]
+            },
         ];
     }
 
     public static function getArrLoaders()
     {
         return [
-            'available_expands' => [function () {
+            'available_expands' => function () {
 
                 return ['facePhoto', 'friend', 'match', 'match.cards.flips', 'popularity'];
-            }],
+            },
 
-            'keywords' => ['keyword_ids', function ($keywordIds) {
+            'keywords' => function ($keywordIds) {
 
                 $keywordIds = preg_split('/\s*,\s*/', $keywordIds);
 
@@ -74,9 +74,9 @@ class MatchingUserListingService extends Service {
                     ->qWhereIn(Obj::TYPE, Obj::TYPE_KEYWORD_VALUES)
                     ->get()
                     ->sortByIds($keywordIds);
-            }],
+            },
 
-            'matching_gender' => ['auth_user', function ($authUser) {
+            'matching_gender' => function ($authUser) {
 
                 if ( $authUser->{User::GENDER} == User::GENDER_MAN )
                 {
@@ -86,17 +86,17 @@ class MatchingUserListingService extends Service {
                 {
                     return User::GENDER_MAN;
                 }
-            }],
+            },
 
-            'model_class' => [function () {
+            'model_class' => function () {
 
                 return User::class;
-            }],
+            },
 
-            'strict' => [function () {
+            'strict' => function () {
 
                 return false;
-            }]
+            },
         ];
     }
 
@@ -125,7 +125,7 @@ class MatchingUserListingService extends Service {
     public static function getArrTraits()
     {
         return [
-            RandommingService::class
+            RandommingService::class,
         ];
     }
 

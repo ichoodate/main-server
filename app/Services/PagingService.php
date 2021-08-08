@@ -16,22 +16,17 @@ class PagingService extends Service {
     public static function getArrCallbackLists()
     {
         return [
-            'query.skip' => ['query', 'skip', function ($query, $skip) {
+            'query.skip' => function ($query, $skip) {
 
                 $query->skip($skip);
-            }],
+            },
         ];
     }
 
     public static function getArrLoaders()
     {
         return [
-            'skip' => ['page', 'limit', function ($page, $limit) {
-
-                return ( $page - 1 ) * $limit;
-            }],
-
-            'result' => ['query', 'limit', 'page', function ($query, $limit, $page) {
+            'result' => function ($limit, $page, $query) {
 
                 return app()->makeWith(LengthAwarePaginator::class, [
                     'items' => $query->get(),
@@ -43,7 +38,12 @@ class PagingService extends Service {
                         'pageName' => 'page',
                     ]
                 ]);
-            }]
+            },
+
+            'skip' => function ($limit, $page) {
+
+                return ( $page - 1 ) * $limit;
+            },
         ];
     }
 

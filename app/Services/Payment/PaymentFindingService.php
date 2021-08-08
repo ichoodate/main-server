@@ -13,7 +13,7 @@ class PaymentFindingService extends Service {
     {
         return [
             'model'
-                => 'payment for {{id}}'
+                => 'payment for {{id}}',
         ];
     }
 
@@ -25,23 +25,23 @@ class PaymentFindingService extends Service {
     public static function getArrLoaders()
     {
         return [
-            'available_expands' => [function () {
+            'available_expands' => function () {
 
                 return ['item', 'user'];
-            }],
+            },
 
-            'model_class' => [function () {
+            'model_class' => function () {
 
                 return Payment::class;
-            }],
+            },
 
-            'permitted_user' => ['auth_user', 'model', function ($authUser, $model) {
+            'permitted_user' => function ($authUser, $model) {
 
                 if ( $model->{Payment::USER_ID} == $authUser->getkey() )
                 {
                     return $authUser;
                 }
-            }]
+            },
         ];
     }
 
@@ -59,7 +59,7 @@ class PaymentFindingService extends Service {
     {
         return [
             FindingService::class,
-            PermittedUserRequiringService::class
+            PermittedUserRequiringService::class,
         ];
     }
 

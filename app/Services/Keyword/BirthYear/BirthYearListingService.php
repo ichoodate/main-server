@@ -21,10 +21,10 @@ class BirthYearListingService extends Service {
     public static function getArrLoaders()
     {
         return [
-            'model_class' => [function () {
+            'model_class' => function () {
 
                 return BirthYear::class;
-            }]
+            },
         ];
     }
 
@@ -41,7 +41,7 @@ class BirthYearListingService extends Service {
     public static function getArrTraits()
     {
         return [
-            ListingService::class
+            ListingService::class,
         ];
     }
 

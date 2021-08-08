@@ -17,22 +17,22 @@ class InvoiceListingService extends Service {
     public static function getArrCallbackLists()
     {
         return [
-            'query.auth_user' => ['query', 'auth_user', function ($query, $authUser) {
+            'query.auth_user' => function ($authUser, $query) {
 
                 $query->qWhere(Invoice::USER_ID, $authUser->getKey());
-            }]
+            },
         ];
     }
 
      public static function getArrLoaders()
     {
         return [
-            'available_expands' => [function () {
+            'available_expands' => function () {
 
                 return ['user'];
-            }],
+            },
 
-            'cursor' => ['auth_user', 'cursor_id', function ($authUser, $cursorId) {
+            'cursor' => function ($authUser, $cursorId) {
 
                 return [InvoiceFindingService::class, [
                     'auth_user'
@@ -45,12 +45,12 @@ class InvoiceListingService extends Service {
                     'id'
                         => '{{cursor_id}}'
                 ]];
-            }],
+            },
 
-            'model_class' => [function () {
+            'model_class' => function () {
 
                 return Invoice::class;
-            }]
+            },
         ];
     }
 
@@ -70,7 +70,7 @@ class InvoiceListingService extends Service {
     public static function getArrTraits()
     {
         return [
-            LimitedListingService::class
+            LimitedListingService::class,
         ];
     }
 

@@ -12,7 +12,7 @@ class ResidenceFindingService extends Service {
     {
         return [
             'model'
-                => 'residence keyword for {{id}}'
+                => 'residence keyword for {{id}}',
         ];
     }
 
@@ -24,10 +24,10 @@ class ResidenceFindingService extends Service {
     public static function getArrLoaders()
     {
         return [
-            'model_class' => [function () {
+            'model_class' => function () {
 
                 return Residence::class;
-            }]
+            },
         ];
     }
 
@@ -44,7 +44,7 @@ class ResidenceFindingService extends Service {
     public static function getArrTraits()
     {
         return [
-            FindingService::class
+            FindingService::class,
         ];
     }
 

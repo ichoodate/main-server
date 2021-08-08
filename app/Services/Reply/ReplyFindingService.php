@@ -14,7 +14,7 @@ class ReplyFindingService extends Service {
     {
         return [
             'model'
-                => 'reply for {{id}}'
+                => 'reply for {{id}}',
         ];
     }
 
@@ -26,12 +26,12 @@ class ReplyFindingService extends Service {
     public static function getArrLoaders()
     {
         return [
-            'model_class' => [function () {
+            'model_class' => function () {
 
                 return Reply::class;
-            }],
+            },
 
-            'ticket' => ['auth_user', 'model', function ($authUser, $model) {
+            'ticket' => function ($authUser, $model) {
 
                 return [TicketFindingService::class, [
                     'auth_user'
@@ -44,7 +44,7 @@ class ReplyFindingService extends Service {
                     'id'
                         => 'ticket_id of {{model}}'
                 ]];
-            }]
+            },
         ];
     }
 
@@ -52,7 +52,7 @@ class ReplyFindingService extends Service {
     {
         return [
             'result'
-                => ['ticket']
+                => ['ticket'],
         ];
     }
 
@@ -67,7 +67,7 @@ class ReplyFindingService extends Service {
     public static function getArrTraits()
     {
         return [
-            FindingService::class
+            FindingService::class,
         ];
     }
 

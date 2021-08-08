@@ -19,7 +19,7 @@ class CursoringService extends Service
     public static function getArrLoaders()
     {
         return [
-            'result' => ['cursor', 'limit', 'query', 'order_by_list', function ($cursor, $limit='', $query, $orderByList) {
+            'result' => function ($cursor, $limit='', $orderByList, $query) {
 
                 $wheres = [];
                 $result = [];
@@ -60,7 +60,7 @@ class CursoringService extends Service
                 }
 
                 return $query->getModel()->newCollection($result);
-            }]
+            },
         ];
     }
 

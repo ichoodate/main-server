@@ -16,30 +16,30 @@ class CardGroupListingService extends Service {
     public static function getArrCallbackLists()
     {
         return [
-            'query.timezone' => ['query', 'after', 'timezone', function ($query, $after, $timezone) {
+            'query.auth_user' => function ($authUser, $query) {
+
+                $query->qWhere(CardGroup::USER_ID, $authUser->getKey());
+            },
+
+            'query.timezone' => function ($after, $query, $timezone) {
 
                 $time = new \DateTime($after, new \DateTimeZone($timezone));
                 $time->setTimezone(new \DateTimeZone('UTC'));
 
                 $query->qWhere(CardGroup::CREATED_AT, '>=', $time->format('Y-m-d H:i:s'));
-            }],
-
-            'query.auth_user' => ['query', 'auth_user', function ($query, $authUser) {
-
-                $query->qWhere(CardGroup::USER_ID, $authUser->getKey());
-            }]
+            },
         ];
     }
 
     public static function getArrLoaders()
     {
         return [
-            'available_expands' => [function () {
+            'available_expands' => function () {
 
                 return ['cards.flips', 'cards.chooser.facePhoto', 'cards.chooser.popularity', 'cards.showner.facePhoto', 'cards.showner.popularity', 'user'];
-            }],
+            },
 
-            'cursor' => ['auth_user', 'cursor_id', function ($authUser, $cursorId) {
+            'cursor' => function ($authUser, $cursorId) {
 
                 return [CardGroupFindingService::class, [
                     'auth_user'
@@ -52,12 +52,12 @@ class CardGroupListingService extends Service {
                     'id'
                         => '{{cursor_id}}'
                 ]];
-            }],
+            },
 
-            'model_class' => [function () {
+            'model_class' => function () {
 
                 return CardGroup::class;
-            }]
+            },
         ];
     }
 
@@ -83,7 +83,7 @@ class CardGroupListingService extends Service {
     public static function getArrTraits()
     {
         return [
-            LimitedListingService::class
+            LimitedListingService::class,
         ];
     }
 

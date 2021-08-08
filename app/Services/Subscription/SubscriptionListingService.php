@@ -18,22 +18,22 @@ class SubscriptionListingService extends Service {
     public static function getArrCallbackLists()
     {
         return [
-            'query.auth_user' => ['query', 'auth_user', function ($query, $authUser) {
+            'query.auth_user' => function ($authUser, $query) {
 
                 $query->qWhere(Subscription::USER_ID, $authUser->getKey());
-            }]
+            },
         ];
     }
 
     public static function getArrLoaders()
     {
         return [
-            'available_expands' => [function () {
+            'available_expands' => function () {
 
                 return ['payment', 'user'];
-            }],
+            },
 
-            'cursor' => ['auth_user', 'cursor_id', function ($authUser, $cursorId) {
+            'cursor' => function ($authUser, $cursorId) {
 
                 return [SubscriptionFindingService::class, [
                     'auth_user'
@@ -46,12 +46,12 @@ class SubscriptionListingService extends Service {
                     'id'
                         => '{{cursor_id}}'
                 ]];
-            }],
+            },
 
-            'model_class' => [function () {
+            'model_class' => function () {
 
                 return Subscription::class;
-            }]
+            },
         ];
     }
 
@@ -71,7 +71,7 @@ class SubscriptionListingService extends Service {
     public static function getArrTraits()
     {
         return [
-            LimitedListingService::class
+            LimitedListingService::class,
         ];
     }
 

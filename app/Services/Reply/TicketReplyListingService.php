@@ -21,22 +21,22 @@ class TicketReplyListingService extends Service {
     public static function getArrCallbackLists()
     {
         return [
-            'query.ticket' => ['query', 'ticket', function ($query, $ticket) {
+            'query.ticket' => function ($query, $ticket) {
 
                 $query->qWhere(Reply::TICKET_ID, $ticket->getKey());
-            }]
+            },
         ];
     }
 
     public static function getArrLoaders()
     {
         return [
-            'available_expands' => [function () {
+            'available_expands' => function () {
 
                 return ['ticket', 'writer'];
-            }],
+            },
 
-            'cursor' => ['auth_user', 'cursor_id', function ($authUser, $cursorId) {
+            'cursor' => function ($authUser, $cursorId) {
 
                 return [ReplyFindingService::class, [
                     'auth_user'
@@ -49,14 +49,14 @@ class TicketReplyListingService extends Service {
                     'id'
                         => '{{cursor_id}}'
                 ]];
-            }],
+            },
 
-            'model_class' => [function () {
+            'model_class' => function () {
 
                 return Reply::class;
-            }],
+            },
 
-            'ticket' => ['auth_user', 'ticket_id', function ($authUser, $ticketId) {
+            'ticket' => function ($authUser, $ticketId) {
 
                 return [TicketFindingService::class, [
                     'auth_user'
@@ -69,7 +69,7 @@ class TicketReplyListingService extends Service {
                     'id'
                         => '{{ticket_id}}'
                 ]];
-            }]
+            },
         ];
     }
 
@@ -95,7 +95,7 @@ class TicketReplyListingService extends Service {
     public static function getArrTraits()
     {
         return [
-            LimitedListingService::class
+            LimitedListingService::class,
         ];
     }
 

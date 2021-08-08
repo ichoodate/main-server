@@ -16,16 +16,16 @@ class NoticeListingService extends Service {
     public static function getArrCallbackLists()
     {
         return [
-            'query.type' => ['query', 'type', function ($query, $type) {
+            'query.type' => function ($query, $type) {
 
                 $query->qWhere(Notice::TYPE, $type);
-            }]
+            },
         ];
     }
     public static function getArrLoaders()
     {
         return [
-            'cursor' => ['cursor_id', function ($cursorId) {
+            'cursor' => function ($cursorId) {
 
                 return [NoticeFindingService::class, [
                     'id'
@@ -34,12 +34,12 @@ class NoticeListingService extends Service {
                     'id'
                         => '{{cursor_id}}'
                 ]];
-            }],
+            },
 
-            'model_class' => [function () {
+            'model_class' => function () {
 
                 return Notice::class;
-            }]
+            },
         ];
     }
 
@@ -59,7 +59,7 @@ class NoticeListingService extends Service {
     public static function getArrTraits()
     {
         return [
-            LimitedListingService::class
+            LimitedListingService::class,
         ];
     }
 

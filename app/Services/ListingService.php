@@ -12,67 +12,67 @@ class ListingService extends Service {
             'available_expands'
                 => 'options for {{expands}}',
 
-            'available_order_by'
-                => 'options for {{order_by}}',
+            'available_fields'
+                => 'options for {{fields}}',
 
             'available_group_by'
                 => 'options for {{group_by}}',
 
-            'available_fields'
-                => 'options for {{fields}}'
+            'available_order_by'
+                => 'options for {{order_by}}',
         ];
     }
 
     public static function getArrCallbackLists()
     {
         return [
-            'query.fields' => ['query', 'available_fields', 'fields', function ($query, $availableFields, $fields='') {
+            'query.fields' => function ($availableFields, $fields='', $query) {
 
                 $fields = $fields ? preg_split('/\s*,\s*/', $fields) : $availableFields;
 
                 $query->qSelect($fields);
-            }],
+            },
 
-            'query.group_by' => ['query', 'group_by', function ($query, $groupBy) {
+            'query.group_by' => function ($groupBy, $query) {
 
                 $groupBy = preg_split('/\s*,\s*/', $groupBy);
 
                 $query->qSelect($groupBy);
-            }],
+            },
 
-            'query.order_by_list' => ['query', 'order_by_list', function ($query, $orderByList) {
+            'query.order_by_list' => function ($orderByList, $query) {
 
                 foreach ( $orderByList as $key => $direction )
                 {
                     $query->qOrderBy($key, $direction);
                 }
-            }],
+            },
 
-            'result' => ['result', 'expands', function ($result, $expands) {
+            'result' => function ($expands, $result) {
 
                 $expands = preg_split('/\s*,\s*/', $expands);
 
                 $result->loadVisible($expands);
-            }]
+            },
         ];
     }
 
     public static function getArrLoaders()
     {
         return [
-            'available_group_by' => [function () {
-
-                return [];
-            }],
-
-            'available_fields' => ['model_class', function ($model_class) {
+            'available_fields' => function ($modelClass) {
 
                 $model = inst($model_class);
 
                 return array_diff(array_merge($model->getFillable(), $model->getGuarded()), $model->getHidden());
-            }],
+            },
 
-            'available_order_by' => ['model_class', function ($modelClass) {
+            'available_group_by' => function () {
+
+                return [];
+            },
+
+            'available_order_by' => function ($modelClass) {
 
                 if ( !in_array($modelClass::CREATED_AT, inst($modelClass)->getFillable()) )
                 {
@@ -82,19 +82,14 @@ class ListingService extends Service {
                 {
                     return ['created_at desc, id desc'];
                 }
-            }],
+            },
 
-            'model_class' => [function () {
+            'model_class' => function () {
 
                 throw new \Exception;
-            }],
+            },
 
-            'query' => ['model_class', function ($modelClass) {
-
-                return inst($modelClass)->query();
-            }],
-
-            'order_by_list' => ['available_order_by', 'order_by', function ($availableOrderBy, $orderBy='') {
+            'order_by_list' => function ($availableOrderBy, $orderBy='') {
 
                 if ( empty($orderBy) && empty($availableOrderBy) )
                 {
@@ -119,14 +114,19 @@ class ListingService extends Service {
                 }
 
                 return $array;
-            }],
+            },
 
-            'result' => ['query', function ($query) {
+            'query' => function ($modelClass) {
+
+                return inst($modelClass)->query();
+            },
+
+            'result' => function ($query) {
 
                 $result = $query->get();
 
                 return $result;
-            }]
+            },
         ];
     }
 

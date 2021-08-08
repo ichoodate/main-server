@@ -16,25 +16,25 @@ class UserIdealTypeKwdPvtListingService extends Service {
     public static function getArrCallbackLists()
     {
         return [
-            'query.auth_user' => ['query', 'auth_user', function ($query, $authUser) {
+            'query.auth_user' => function ($authUser, $query) {
 
                 $query->qWhere(UserIdealTypeKwdPvt::USER_ID, $authUser->getKey());
-            }]
+            },
         ];
     }
 
     public static function getArrLoaders()
     {
         return [
-            'available_expands' => [function () {
+            'available_expands' => function () {
 
                 return ['keyword.concrete', 'user'];
-            }],
+            },
 
-            'model_class' => [function () {
+            'model_class' => function () {
 
                 return UserIdealTypeKwdPvt::class;
-            }]
+            },
         ];
     }
 
@@ -54,7 +54,7 @@ class UserIdealTypeKwdPvtListingService extends Service {
     public static function getArrTraits()
     {
         return [
-            ListingService::class
+            ListingService::class,
         ];
     }
 
