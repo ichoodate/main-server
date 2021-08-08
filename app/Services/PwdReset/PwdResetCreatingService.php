@@ -18,8 +18,7 @@ class PwdResetCreatingService extends Service {
 
     public static function getArrCallbackLists()
     {
-        return [
-        ];
+        return [];
     }
 
     public static function getArrLoaders()
