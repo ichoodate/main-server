@@ -5,7 +5,7 @@ namespace App\Services\UserSelfKwdPvt;
 use App\Database\Models\Keyword\Religion;
 use App\Database\Models\UserSelfKwdPvt;
 use App\Services\Keyword\Religion\ReligionFindingService;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class ReligionUserSelfKwdPvtCreatingService extends Service
 {

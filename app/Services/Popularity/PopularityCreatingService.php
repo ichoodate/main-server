@@ -4,7 +4,7 @@ namespace App\Services\Popularity;
 
 use App\Database\Models\Popularity;
 use App\Services\User\MatchingUserFindingService;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class PopularityCreatingService extends Service
 {

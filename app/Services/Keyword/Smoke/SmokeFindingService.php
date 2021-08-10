@@ -4,7 +4,7 @@ namespace App\Services\Keyword\Smoke;
 
 use App\Database\Models\Keyword\Smoke;
 use App\Services\FindingService;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class SmokeFindingService extends Service
 {

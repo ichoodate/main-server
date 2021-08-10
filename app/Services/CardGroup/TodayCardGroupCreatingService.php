@@ -5,7 +5,7 @@ namespace App\Services\CardGroup;
 use App\Database\Models\CardGroup;
 use App\Database\Models\UserIdealTypeKwdPvt;
 use App\Services\User\MatchingUserListingService;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class TodayCardGroupCreatingService extends Service
 {

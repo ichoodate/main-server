@@ -5,7 +5,7 @@ namespace App\Services\UserIdealTypeKwdPvt;
 use App\Database\Models\Keyword\AgeRange;
 use App\Database\Models\UserIdealTypeKwdPvt;
 use App\Services\Keyword\AgeRange\AgeRangeFindingService;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class AgeRangeUserIdealTypeKwdPvtCreatingService extends Service
 {

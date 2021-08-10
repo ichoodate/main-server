@@ -4,7 +4,7 @@ namespace App\Services\Keyword\BirthYear;
 
 use App\Database\Models\Keyword\BirthYear;
 use App\Services\FindingService;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class BirthYearFindingService extends Service
 {

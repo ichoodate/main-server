@@ -4,7 +4,7 @@ namespace App\Services\Keyword\Career;
 
 use App\Database\Models\Keyword\Career;
 use App\Services\ListingService;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class CareerListingService extends Service
 {

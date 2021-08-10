@@ -5,7 +5,7 @@ namespace App\Services\UserIdealTypeKwdPvt;
 use App\Database\Models\Keyword\Career;
 use App\Database\Models\UserIdealTypeKwdPvt;
 use App\Services\Keyword\Career\CareerFindingService;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class CareerUserIdealTypeKwdPvtCreatingService extends Service
 {

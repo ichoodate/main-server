@@ -5,7 +5,7 @@ namespace App\Services\FacePhoto;
 use App\Database\Models\FacePhoto;
 use App\Services\FindingService;
 use App\Services\PermittedUserRequiringService;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class FacePhotoFindingService extends Service
 {

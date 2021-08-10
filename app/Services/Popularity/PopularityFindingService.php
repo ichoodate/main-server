@@ -5,7 +5,7 @@ namespace App\Services\Popularity;
 use App\Database\Models\Popularity;
 use App\Services\FindingService;
 use App\Services\PermittedUserRequiringService;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class PopularityFindingService extends Service
 {

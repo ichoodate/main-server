@@ -4,7 +4,7 @@ namespace App\Services\Keyword\Body;
 
 use App\Database\Models\Keyword\Body;
 use App\Services\FindingService;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class BodyFindingService extends Service
 {

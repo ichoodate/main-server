@@ -5,7 +5,7 @@ namespace App\Services\Card;
 use App\Database\Models\Card;
 use App\Services\FindingService;
 use App\Services\PermittedUserRequiringService;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class CardFindingService extends Service
 {

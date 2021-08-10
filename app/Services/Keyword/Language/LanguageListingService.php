@@ -4,7 +4,7 @@ namespace App\Services\Keyword\Language;
 
 use App\Database\Models\Keyword\Language;
 use App\Services\ListingService;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class LanguageListingService extends Service
 {

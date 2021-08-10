@@ -4,7 +4,7 @@ namespace App\Services\Payment;
 
 use App\Database\Models\Payment;
 use App\Services\LimitedListingService;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class PaymentListingService extends Service
 {

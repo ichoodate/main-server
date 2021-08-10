@@ -4,7 +4,7 @@ namespace App\Services\Notice;
 
 use App\Database\Models\Notice;
 use App\Services\AdminRoleExistingService;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class NoticeCreatingService extends Service
 {

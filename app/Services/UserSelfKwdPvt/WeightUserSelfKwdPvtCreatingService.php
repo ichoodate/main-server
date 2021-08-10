@@ -5,7 +5,7 @@ namespace App\Services\UserSelfKwdPvt;
 use App\Database\Models\Keyword\Weight;
 use App\Database\Models\UserSelfKwdPvt;
 use App\Services\Keyword\Weight\WeightFindingService;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class WeightUserSelfKwdPvtCreatingService extends Service
 {

@@ -7,7 +7,7 @@ use App\Database\Models\CardFlip;
 use App\Services\Card\CardFindingService;
 use App\Services\Card\FreeFlippableChooserCardReturningService;
 use App\Services\Card\FreeFlippableShownerCardReturningService;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class CardFlipCreatingService extends Service
 {

@@ -5,7 +5,7 @@ namespace App\Services\Match;
 use App\Database\Models\Match;
 use App\Services\FindingService;
 use App\Services\PermittedUserRequiringService;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class MatchFindingService extends Service
 {

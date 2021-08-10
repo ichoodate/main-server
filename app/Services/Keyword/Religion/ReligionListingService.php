@@ -4,7 +4,7 @@ namespace App\Services\Keyword\Religion;
 
 use App\Database\Models\Keyword\Religion;
 use App\Services\ListingService;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class ReligionListingService extends Service
 {

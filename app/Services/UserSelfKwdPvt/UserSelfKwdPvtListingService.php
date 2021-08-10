@@ -4,7 +4,7 @@ namespace App\Services\UserSelfKwdPvt;
 
 use App\Database\Models\UserSelfKwdPvt;
 use App\Services\ListingService;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class UserSelfKwdPvtListingService extends Service
 {

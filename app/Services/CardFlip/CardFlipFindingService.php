@@ -5,7 +5,7 @@ namespace App\Services\CardFlip;
 use App\Database\Models\CardFlip;
 use App\Services\FindingService;
 use App\Services\PermittedUserRequiringService;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class CardFlipFindingService extends Service
 {

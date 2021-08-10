@@ -2,7 +2,7 @@
 
 namespace App\Services\CardFlip;
 
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class NonFreeCardFlipCreatingService extends Service
 {

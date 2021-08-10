@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use App\Database\Collection;
 use App\Database\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 use Illuminate\Pagination\AbstractPaginator;
 use Illuminate\Support\Facades\DB;
 

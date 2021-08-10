@@ -4,7 +4,7 @@ namespace App\Services\Friend;
 
 use App\Database\Models\Friend;
 use App\Services\Match\MatchFindingService;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class FriendCreatingService extends Service
 {

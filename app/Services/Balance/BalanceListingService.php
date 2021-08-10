@@ -4,7 +4,7 @@ namespace App\Services\Balance;
 
 use App\Database\Models\Balance;
 use App\Services\LimitedListingService;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class BalanceListingService extends Service
 {

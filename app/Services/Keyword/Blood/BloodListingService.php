@@ -4,7 +4,7 @@ namespace App\Services\Keyword\Blood;
 
 use App\Database\Models\Keyword\Blood;
 use App\Services\ListingService;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class BloodListingService extends Service
 {

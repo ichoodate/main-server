@@ -14,9 +14,9 @@
 Route::prefix('api')->group(function () {
 
     Route::middleware([
-        'Illuminate\Extend\Http\ServiceRunMiddleware',
-        'Illuminate\Extend\Http\ServiceParameterSettingMiddleware',
-        'Illuminate\Extend\Http\RequestInputTransformMiddleware',
+        'FunctionalCoding\Illuminate\Http\ServiceRunMiddleware',
+        'FunctionalCoding\Illuminate\Http\ServiceParameterSettingMiddleware',
+        'FunctionalCoding\Illuminate\Http\RequestInputTransformMiddleware',
     ])->group(function () {
 
         Route::resource(

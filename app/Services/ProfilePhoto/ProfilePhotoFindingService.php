@@ -4,7 +4,7 @@ namespace App\Services\ProfilePhoto;
 
 use App\Database\Models\ProfilePhoto;
 use App\Services\FindingService;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class ProfilePhotoFindingService extends Service
 {

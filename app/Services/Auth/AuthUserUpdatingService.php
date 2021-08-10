@@ -5,7 +5,7 @@ namespace App\Services\Auth;
 use App\Database\Models\Keyword\BirthYear;
 use App\Database\Models\User;
 use App\Database\Models\UserSelfKwdPvt;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class AuthUserUpdatingService extends Service
 {

@@ -4,7 +4,7 @@ namespace App\Services\Localizable;
 
 use App\Database\Models\Localizable;
 use App\Services\FindingService;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class LocalizableFindingService extends Service
 {

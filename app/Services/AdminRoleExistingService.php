@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Database\Models\Role;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class AdminRoleExistingService extends Service
 {

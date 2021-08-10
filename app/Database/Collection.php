@@ -2,7 +2,7 @@
 
 namespace App\Database;
 
-class Collection extends \Illuminate\Extend\Collection
+class Collection extends \FunctionalCoding\Illuminate\Collection
 {
     public function sortByIds($ids)
     {

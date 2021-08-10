@@ -5,7 +5,7 @@ namespace App\Services\UserIdealTypeKwdPvt;
 use App\Database\Models\Keyword\WeightRange;
 use App\Database\Models\UserIdealTypeKwdPvt;
 use App\Services\Keyword\WeightRange\WeightRangeFindingService;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class WeightRangeUserIdealTypeKwdPvtCreatingService extends Service
 {

@@ -5,7 +5,7 @@ namespace App\Services\Role;
 use App\Database\Models\Role;
 use App\Services\FindingService;
 use App\Services\PermittedUserRequiringService;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class RoleFindingService extends Service
 {

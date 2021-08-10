@@ -4,7 +4,7 @@ namespace App\Services\UserSelfKwdPvt;
 
 use App\Database\Models\Keyword\Hobby;
 use App\Database\Models\UserSelfKwdPvt;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class HobbyUserSelfKwdPvtCreatingService extends Service
 {

@@ -5,7 +5,7 @@ namespace App\Services\UserIdealTypeKwdPvt;
 use App\Database\Models\Keyword\Drink;
 use App\Database\Models\UserIdealTypeKwdPvt;
 use App\Services\Keyword\Drink\DrinkFindingService;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class DrinkUserIdealTypeKwdPvtCreatingService extends Service
 {

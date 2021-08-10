@@ -5,7 +5,7 @@ namespace App\Services\Notification;
 use App\Database\Models\Notification;
 use App\Services\FindingService;
 use App\Services\PermittedUserRequiringService;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class NotificationFindingService extends Service
 {

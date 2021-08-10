@@ -5,7 +5,7 @@ namespace App\Services\UserIdealTypeKwdPvt;
 use App\Database\Models\Keyword\StatureRange;
 use App\Database\Models\UserIdealTypeKwdPvt;
 use App\Services\Keyword\StatureRange\StatureRangeFindingService;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class StatureRangeUserIdealTypeKwdPvtCreatingService extends Service
 {

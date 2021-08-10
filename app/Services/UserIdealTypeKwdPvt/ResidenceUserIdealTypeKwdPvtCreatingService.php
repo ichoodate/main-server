@@ -5,7 +5,7 @@ namespace App\Services\UserIdealTypeKwdPvt;
 use App\Database\Models\Keyword\Residence;
 use App\Database\Models\UserIdealTypeKwdPvt;
 use App\Services\Keyword\Residence\ResidenceFindingService;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class ResidenceUserIdealTypeKwdPvtCreatingService extends Service
 {

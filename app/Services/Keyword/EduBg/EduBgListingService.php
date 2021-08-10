@@ -4,7 +4,7 @@ namespace App\Services\Keyword\EduBg;
 
 use App\Database\Models\Keyword\EduBg;
 use App\Services\ListingService;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class EduBgListingService extends Service
 {

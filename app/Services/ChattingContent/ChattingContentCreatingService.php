@@ -5,7 +5,7 @@ namespace App\Services\ChattingContent;
 use App\Database\Models\ChattingContent;
 use App\Database\Models\Friend;
 use App\Services\Match\MatchFindingService;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class ChattingContentCreatingService extends Service
 {

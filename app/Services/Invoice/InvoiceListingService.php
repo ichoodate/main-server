@@ -4,7 +4,7 @@ namespace App\Services\Invoice;
 
 use App\Database\Models\Invoice;
 use App\Services\LimitedListingService;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class InvoiceListingService extends Service
 {

@@ -5,7 +5,7 @@ namespace App\Services\Friend;
 use App\Database\Models\Friend;
 use App\Services\FindingService;
 use App\Services\PermittedUserRequiringService;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class FriendFindingService extends Service
 {

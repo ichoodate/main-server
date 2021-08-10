@@ -5,7 +5,7 @@ namespace App\Services\Balance;
 use App\Database\Models\Balance;
 use App\Services\FindingService;
 use App\Services\PermittedUserRequiringService;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class BalanceFindingService extends Service
 {

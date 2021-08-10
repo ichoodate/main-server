@@ -4,7 +4,7 @@ namespace Tests\Functional;
 
 use App\Database\Model;
 use Faker\Generator as Faker;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Tests\TestCase;

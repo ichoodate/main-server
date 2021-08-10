@@ -8,7 +8,7 @@ use App\Database\Models\Friend;
 use App\Database\Models\Match;
 use App\Database\Models\User;
 use App\Services\LimitedListingService;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class CardListingService extends Service
 {

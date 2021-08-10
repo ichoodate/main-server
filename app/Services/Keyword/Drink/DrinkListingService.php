@@ -4,7 +4,7 @@ namespace App\Services\Keyword\Drink;
 
 use App\Database\Models\Keyword\Drink;
 use App\Services\ListingService;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class DrinkListingService extends Service
 {

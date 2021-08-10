@@ -3,7 +3,7 @@
 namespace App\Services\User;
 
 use App\Database\Models\User;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class MatchingUserFindingService extends Service
 {

@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 

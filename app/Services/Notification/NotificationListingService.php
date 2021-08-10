@@ -4,7 +4,7 @@ namespace App\Services\Notification;
 
 use App\Database\Models\Notification;
 use App\Services\LimitedListingService;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class NotificationListingService extends Service
 {

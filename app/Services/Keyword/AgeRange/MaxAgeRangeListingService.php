@@ -4,7 +4,7 @@ namespace App\Services\Keyword\AgeRange;
 
 use App\Database\Models\Keyword\AgeRange;
 use App\Services\ListingService;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class MaxAgeRangeListingService extends Service
 {

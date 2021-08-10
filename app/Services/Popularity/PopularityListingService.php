@@ -4,7 +4,7 @@ namespace App\Services\Popularity;
 
 use App\Database\Models\Popularity;
 use App\Services\LimitedListingService;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class PopularityListingService extends Service
 {

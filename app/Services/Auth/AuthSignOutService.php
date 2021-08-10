@@ -2,7 +2,7 @@
 
 namespace App\Services\Auth;
 
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class AuthSignOutService extends Service
 {

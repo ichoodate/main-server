@@ -5,7 +5,7 @@ namespace App\Services\UserIdealTypeKwdPvt;
 use App\Database\Models\Keyword\Nationality;
 use App\Database\Models\UserIdealTypeKwdPvt;
 use App\Services\Keyword\Nationality\NationalityFindingService;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class NationalityUserIdealTypeKwdPvtCreatingService extends Service
 {

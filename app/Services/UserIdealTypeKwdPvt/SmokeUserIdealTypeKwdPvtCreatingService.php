@@ -5,7 +5,7 @@ namespace App\Services\UserIdealTypeKwdPvt;
 use App\Database\Models\Keyword\Smoke;
 use App\Database\Models\UserIdealTypeKwdPvt;
 use App\Services\Keyword\Smoke\SmokeFindingService;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class SmokeUserIdealTypeKwdPvtCreatingService extends Service
 {

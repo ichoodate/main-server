@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class PermittedUserRequiringService extends Service
 {

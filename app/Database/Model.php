@@ -4,7 +4,7 @@ namespace App\Database;
 
 use App\Database\Models\Obj;
 
-abstract class Model extends \Illuminate\Extend\Model
+abstract class Model extends \FunctionalCoding\Illuminate\Model
 {
     public const CREATED_AT = null;
     public const UPDATED_AT = null;

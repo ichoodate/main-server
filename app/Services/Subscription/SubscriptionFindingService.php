@@ -5,7 +5,7 @@ namespace App\Services\Subscription;
 use App\Database\Models\Subscription;
 use App\Services\FindingService;
 use App\Services\PermittedUserRequiringService;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class SubscriptionFindingService extends Service
 {

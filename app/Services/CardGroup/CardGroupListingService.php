@@ -4,7 +4,7 @@ namespace App\Services\CardGroup;
 
 use App\Database\Models\CardGroup;
 use App\Services\LimitedListingService;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class CardGroupListingService extends Service
 {

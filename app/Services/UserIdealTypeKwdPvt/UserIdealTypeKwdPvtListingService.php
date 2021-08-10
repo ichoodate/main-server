@@ -4,7 +4,7 @@ namespace App\Services\UserIdealTypeKwdPvt;
 
 use App\Database\Models\UserIdealTypeKwdPvt;
 use App\Services\ListingService;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class UserIdealTypeKwdPvtListingService extends Service
 {

@@ -4,7 +4,7 @@ namespace App\Services\CardGroup;
 
 use App\Database\Models\Card;
 use App\Services\Match\MatchCreatingService;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class CardGroupCreatingService extends Service
 {

@@ -4,7 +4,7 @@ namespace App\Services\Keyword\Stature;
 
 use App\Database\Models\Keyword\Stature;
 use App\Services\ListingService;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class StatureListingService extends Service
 {

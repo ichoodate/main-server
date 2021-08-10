@@ -6,7 +6,7 @@ use App\Database\Models\Obj;
 use App\Database\Models\User;
 use App\Database\Models\UserSelfKwdPvt;
 use App\Services\RandommingService;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 use Illuminate\Support\Facades\DB;
 
 class MatchingUserListingService extends Service

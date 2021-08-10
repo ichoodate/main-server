@@ -3,7 +3,7 @@
 namespace App\Services\ProfilePhoto;
 
 use App\Database\Models\ProfilePhoto;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class ProfilePhotoCreatingService extends Service
 {

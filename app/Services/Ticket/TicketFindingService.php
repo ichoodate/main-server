@@ -6,7 +6,7 @@ use App\Database\Models\Ticket;
 use App\Services\AdminRoleExistingService;
 use App\Services\FindingService;
 use App\Services\PermittedUserRequiringService;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class TicketFindingService extends Service
 {

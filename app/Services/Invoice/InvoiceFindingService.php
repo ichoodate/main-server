@@ -5,7 +5,7 @@ namespace App\Services\Invoice;
 use App\Database\Models\Invoice;
 use App\Services\FindingService;
 use App\Services\PermittedUserRequiringService;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class InvoiceFindingService extends Service
 {

@@ -4,7 +4,7 @@ namespace App\Services\Auth;
 
 use App\Database\Models\Balance;
 use App\Database\Models\User;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class AuthSignUpService extends Service
 {

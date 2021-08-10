@@ -3,7 +3,7 @@
 namespace App\Services\Ticket;
 
 use App\Database\Models\Ticket;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class TicketCreatingService extends Service
 {

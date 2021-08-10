@@ -4,7 +4,7 @@ namespace App\Services\Subscription;
 
 use App\Database\Models\Subscription;
 use App\Services\LimitedListingService;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class SubscriptionListingService extends Service
 {

@@ -4,7 +4,7 @@ namespace App\Services\Keyword\StatureRange;
 
 use App\Database\Models\Keyword\StatureRange;
 use App\Services\ListingService;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class MinStatureRangeListingService extends Service
 {

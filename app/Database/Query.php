@@ -2,7 +2,7 @@
 
 namespace App\Database;
 
-class Query extends \Illuminate\Extend\Query
+class Query extends \FunctionalCoding\Illuminate\Query
 {
     public static $instId = 1;
 

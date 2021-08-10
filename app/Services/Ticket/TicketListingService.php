@@ -4,7 +4,7 @@ namespace App\Services\Ticket;
 
 use App\Database\Models\Ticket;
 use App\Services\LimitedListingService;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class TicketListingService extends Service
 {

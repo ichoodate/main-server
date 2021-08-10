@@ -5,7 +5,7 @@ namespace App\Services\ProfilePhoto;
 use App\Database\Models\ProfilePhoto;
 use App\Services\LimitedListingService;
 use App\Services\User\UserFindingService;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class ProfilePhotoListingService extends Service
 {

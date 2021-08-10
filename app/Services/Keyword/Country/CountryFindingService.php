@@ -4,7 +4,7 @@ namespace App\Services\Keyword\Country;
 
 use App\Database\Models\Keyword\Country;
 use App\Services\FindingService;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class CountryFindingService extends Service
 {

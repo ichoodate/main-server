@@ -4,7 +4,7 @@ namespace App\Services\Keyword\Hobby;
 
 use App\Database\Models\Keyword\Hobby;
 use App\Services\FindingService;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class HobbyFindingService extends Service
 {

@@ -4,7 +4,7 @@ namespace App\Services\Keyword\Weight;
 
 use App\Database\Models\Keyword\Weight;
 use App\Services\FindingService;
-use Illuminate\Extend\Service;
+use FunctionalCoding\Service;
 
 class WeightFindingService extends Service
 {
