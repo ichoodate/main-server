@@ -3,8 +3,8 @@
 namespace App\Services\Popularity;
 
 use App\Models\Popularity;
-use FunctionalCoding\Illuminate\Service\FindService;
 use App\Services\PermittedUserRequiringService;
+use FunctionalCoding\Illuminate\Service\FindService;
 use FunctionalCoding\Service;
 
 class PopularityFindingService extends Service

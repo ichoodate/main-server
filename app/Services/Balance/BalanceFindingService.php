@@ -3,8 +3,8 @@
 namespace App\Services\Balance;
 
 use App\Models\Balance;
-use FunctionalCoding\Illuminate\Service\FindService;
 use App\Services\PermittedUserRequiringService;
+use FunctionalCoding\Illuminate\Service\FindService;
 use FunctionalCoding\Service;
 
 class BalanceFindingService extends Service

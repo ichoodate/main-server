@@ -3,8 +3,8 @@
 namespace App\Services\Role;
 
 use App\Models\Role;
-use FunctionalCoding\Illuminate\Service\FindService;
 use App\Services\PermittedUserRequiringService;
+use FunctionalCoding\Illuminate\Service\FindService;
 use FunctionalCoding\Service;
 
 class RoleFindingService extends Service

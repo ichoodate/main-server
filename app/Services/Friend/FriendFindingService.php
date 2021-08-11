@@ -3,8 +3,8 @@
 namespace App\Services\Friend;
 
 use App\Models\Friend;
-use FunctionalCoding\Illuminate\Service\FindService;
 use App\Services\PermittedUserRequiringService;
+use FunctionalCoding\Illuminate\Service\FindService;
 use FunctionalCoding\Service;
 
 class FriendFindingService extends Service

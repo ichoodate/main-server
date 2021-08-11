@@ -3,8 +3,8 @@
 namespace App\Services\Subscription;
 
 use App\Models\Subscription;
-use FunctionalCoding\Illuminate\Service\FindService;
 use App\Services\PermittedUserRequiringService;
+use FunctionalCoding\Illuminate\Service\FindService;
 use FunctionalCoding\Service;
 
 class SubscriptionFindingService extends Service

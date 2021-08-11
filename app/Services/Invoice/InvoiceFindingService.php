@@ -3,8 +3,8 @@
 namespace App\Services\Invoice;
 
 use App\Models\Invoice;
-use FunctionalCoding\Illuminate\Service\FindService;
 use App\Services\PermittedUserRequiringService;
+use FunctionalCoding\Illuminate\Service\FindService;
 use FunctionalCoding\Service;
 
 class InvoiceFindingService extends Service

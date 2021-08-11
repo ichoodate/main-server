@@ -3,8 +3,8 @@
 namespace App\Services\Card;
 
 use App\Models\Card;
-use FunctionalCoding\Illuminate\Service\FindService;
 use App\Services\PermittedUserRequiringService;
+use FunctionalCoding\Illuminate\Service\FindService;
 use FunctionalCoding\Service;
 
 class CardFindingService extends Service

@@ -3,8 +3,8 @@
 namespace App\Services\Match;
 
 use App\Models\Match;
-use FunctionalCoding\Illuminate\Service\FindService;
 use App\Services\PermittedUserRequiringService;
+use FunctionalCoding\Illuminate\Service\FindService;
 use FunctionalCoding\Service;
 
 class MatchFindingService extends Service

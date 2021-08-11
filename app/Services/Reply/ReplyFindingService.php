@@ -3,8 +3,8 @@
 namespace App\Services\Reply;
 
 use App\Models\Reply;
-use FunctionalCoding\Illuminate\Service\FindService;
 use App\Services\Ticket\TicketFindingService;
+use FunctionalCoding\Illuminate\Service\FindService;
 use FunctionalCoding\Service;
 
 class ReplyFindingService extends Service

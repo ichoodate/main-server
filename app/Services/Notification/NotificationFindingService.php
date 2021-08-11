@@ -3,8 +3,8 @@
 namespace App\Services\Notification;
 
 use App\Models\Notification;
-use FunctionalCoding\Illuminate\Service\FindService;
 use App\Services\PermittedUserRequiringService;
+use FunctionalCoding\Illuminate\Service\FindService;
 use FunctionalCoding\Service;
 
 class NotificationFindingService extends Service

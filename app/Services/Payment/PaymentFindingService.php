@@ -3,8 +3,8 @@
 namespace App\Services\Payment;
 
 use App\Models\Payment;
-use FunctionalCoding\Illuminate\Service\FindService;
 use App\Services\PermittedUserRequiringService;
+use FunctionalCoding\Illuminate\Service\FindService;
 use FunctionalCoding\Service;
 
 class PaymentFindingService extends Service

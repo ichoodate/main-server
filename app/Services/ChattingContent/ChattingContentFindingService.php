@@ -3,8 +3,8 @@
 namespace App\Services\ChattingContent;
 
 use App\Models\ChattingContent;
-use FunctionalCoding\Illuminate\Service\FindService;
 use App\Services\Match\MatchFindingService;
+use FunctionalCoding\Illuminate\Service\FindService;
 use FunctionalCoding\Service;
 
 class ChattingContentFindingService extends Service

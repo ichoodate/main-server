@@ -3,8 +3,8 @@
 namespace App\Services\ProfilePhoto;
 
 use App\Models\ProfilePhoto;
-use FunctionalCoding\Illuminate\Service\PaginationListService;
 use App\Services\User\UserFindingService;
+use FunctionalCoding\Illuminate\Service\PaginationListService;
 use FunctionalCoding\Service;
 
 class ProfilePhotoListingService extends Service

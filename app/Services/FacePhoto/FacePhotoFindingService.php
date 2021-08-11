@@ -3,8 +3,8 @@
 namespace App\Services\FacePhoto;
 
 use App\Models\FacePhoto;
-use FunctionalCoding\Illuminate\Service\FindService;
 use App\Services\PermittedUserRequiringService;
+use FunctionalCoding\Illuminate\Service\FindService;
 use FunctionalCoding\Service;
 
 class FacePhotoFindingService extends Service
