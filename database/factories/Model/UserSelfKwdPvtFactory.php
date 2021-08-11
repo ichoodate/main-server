@@ -2,7 +2,7 @@
 
 namespace Database\Factories\Model;
 
-use App\Database\Models\UserSelfKwdPvt;
+use App\Models\UserSelfKwdPvt;
 use Database\Factories\ModelFactory;
 
 class UserSelfKwdPvtFactory extends ModelFactory {

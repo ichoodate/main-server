@@ -2,7 +2,7 @@
 
 namespace Database\Factories\Model;
 
-use App\Database\Models\Subscription;
+use App\Models\Subscription;
 use Database\Factories\ModelFactory;
 
 class SubscriptionFactory extends ModelFactory {

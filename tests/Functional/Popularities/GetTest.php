@@ -2,8 +2,8 @@
 
 namespace Tests\Functional\Popularities;
 
-use App\Database\Models\Popularity;
-use App\Database\Models\User;
+use App\Models\Popularity;
+use App\Models\User;
 use Tests\Functional\_TestCase;
 
 /**

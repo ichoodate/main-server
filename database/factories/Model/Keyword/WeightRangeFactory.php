@@ -3,7 +3,7 @@
 namespace Database\Factories\Model\Keyword;
 
 use Database\Factories\ModelFactory;
-use App\Database\Models\Keyword\WeightRange;
+use App\Models\Keyword\WeightRange;
 
 class WeightRangeFactory extends ModelFactory {
 

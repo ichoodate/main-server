@@ -2,8 +2,8 @@
 
 namespace Tests\Functional\Activities;
 
-use App\Database\Models\CardFlip;
-use App\Database\Models\User;
+use App\Models\CardFlip;
+use App\Models\User;
 use Tests\Functional\_TestCase;
 
 /**

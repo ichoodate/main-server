@@ -2,8 +2,8 @@
 
 namespace App\Services\Auth;
 
-use App\Database\Models\Balance;
-use App\Database\Models\User;
+use App\Models\Balance;
+use App\Models\User;
 use FunctionalCoding\Service;
 
 class AuthSignUpService extends Service

@@ -2,7 +2,7 @@
 
 namespace App\Services\Keyword\Blood;
 
-use App\Database\Models\Keyword\Blood;
+use App\Models\Keyword\Blood;
 use App\Services\ListingService;
 use FunctionalCoding\Service;
 

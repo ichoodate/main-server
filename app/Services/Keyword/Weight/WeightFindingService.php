@@ -2,7 +2,7 @@
 
 namespace App\Services\Keyword\Weight;
 
-use App\Database\Models\Keyword\Weight;
+use App\Models\Keyword\Weight;
 use App\Services\FindingService;
 use FunctionalCoding\Service;
 

@@ -2,10 +2,10 @@
 
 namespace Database\Factories\Model;
 
-use App\Database\Models\CardFlip;
-use App\Database\Models\Card;
-use App\Database\Models\Obj;
-use App\Database\Models\Match;
+use App\Models\CardFlip;
+use App\Models\Card;
+use App\Models\Obj;
+use App\Models\Match;
 use Database\Factories\ModelFactory;
 
 class CardFactory extends ModelFactory {

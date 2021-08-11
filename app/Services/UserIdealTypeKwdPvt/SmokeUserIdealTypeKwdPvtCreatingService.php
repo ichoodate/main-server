@@ -2,8 +2,8 @@
 
 namespace App\Services\UserIdealTypeKwdPvt;
 
-use App\Database\Models\Keyword\Smoke;
-use App\Database\Models\UserIdealTypeKwdPvt;
+use App\Models\Keyword\Smoke;
+use App\Models\UserIdealTypeKwdPvt;
 use App\Services\Keyword\Smoke\SmokeFindingService;
 use FunctionalCoding\Service;
 

@@ -2,7 +2,7 @@
 
 namespace App\Services\Keyword\EduBg;
 
-use App\Database\Models\Keyword\EduBg;
+use App\Models\Keyword\EduBg;
 use App\Services\ListingService;
 use FunctionalCoding\Service;
 

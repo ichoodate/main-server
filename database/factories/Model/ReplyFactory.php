@@ -2,7 +2,7 @@
 
 namespace Database\Factories\Model;
 
-use App\Database\Models\Reply;
+use App\Models\Reply;
 use Database\Factories\ModelFactory;
 
 class ReplyFactory extends ModelFactory {

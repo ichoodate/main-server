@@ -2,8 +2,8 @@
 
 namespace App\Services\UserSelfKwdPvt;
 
-use App\Database\Models\Keyword\Smoke;
-use App\Database\Models\UserSelfKwdPvt;
+use App\Models\Keyword\Smoke;
+use App\Models\UserSelfKwdPvt;
 use App\Services\Keyword\Smoke\SmokeFindingService;
 use FunctionalCoding\Service;
 

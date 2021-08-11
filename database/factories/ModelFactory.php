@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Database\Models\Card;
-use App\Database\Models\Obj;
+use App\Models\Card;
+use App\Models\Obj;
 use Faker;
 use Mockery;
 

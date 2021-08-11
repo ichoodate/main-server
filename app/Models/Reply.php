@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Database\Models;
+namespace App\Models;
 
-use App\Database\Model;
+use App\Model;
 
 class Reply extends Model
 {

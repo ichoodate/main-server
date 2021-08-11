@@ -2,9 +2,9 @@
 
 namespace Tests\Functional\IdealTypeKeyword;
 
-use App\Database\Models\Keyword\StatureRange;
-use App\Database\Models\User;
-use App\Database\Models\UserIdealTypeKwdPvt;
+use App\Models\Keyword\StatureRange;
+use App\Models\User;
+use App\Models\UserIdealTypeKwdPvt;
 use Tests\Functional\_TestCase;
 
 /**

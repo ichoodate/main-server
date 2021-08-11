@@ -2,8 +2,8 @@
 
 namespace Tests\Functional\Auth;
 
-use App\Database\Models\Balance;
-use App\Database\Models\User;
+use App\Models\Balance;
+use App\Models\User;
 use Tests\Functional\_TestCase;
 
 /**

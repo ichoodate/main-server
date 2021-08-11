@@ -2,8 +2,8 @@
 
 namespace App\Services\UserIdealTypeKwdPvt;
 
-use App\Database\Models\Keyword\Hobby;
-use App\Database\Models\UserIdealTypeKwdPvt;
+use App\Models\Keyword\Hobby;
+use App\Models\UserIdealTypeKwdPvt;
 use FunctionalCoding\Service;
 
 class HobbyUserIdealTypeKwdPvtCreatingService extends Service

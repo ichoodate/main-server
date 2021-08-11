@@ -2,7 +2,7 @@
 
 namespace Database\Factories\Model;
 
-use App\Database\Models\ChattingContent;
+use App\Models\ChattingContent;
 use Database\Factories\ModelFactory;
 
 class ChattingContentFactory extends ModelFactory {

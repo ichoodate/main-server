@@ -2,7 +2,7 @@
 
 namespace Database\Seeds\Table\Keyword;
 
-use App\Database\Models\Keyword\Drink;
+use App\Models\Keyword\Drink;
 use Database\Seeds\TableSeeder;
 
 class DrinkTableSeeder extends TableSeeder {

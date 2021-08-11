@@ -3,7 +3,7 @@
 namespace Database\Factories\Model\Keyword;
 
 use Database\Factories\ModelFactory;
-use App\Database\Models\Keyword\StatureRange;
+use App\Models\Keyword\StatureRange;
 
 class StatureRangeFactory extends ModelFactory {
 

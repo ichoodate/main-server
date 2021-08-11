@@ -2,7 +2,7 @@
 
 namespace Database\Factories\Model;
 
-use App\Database\Models\Obj;
+use App\Models\Obj;
 use Database\Factories\ModelFactory;
 
 class ObjFactory extends ModelFactory {

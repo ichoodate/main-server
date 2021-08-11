@@ -2,7 +2,7 @@
 
 namespace Tests\Functional\Localizables;
 
-use App\Database\Models\Localizable;
+use App\Models\Localizable;
 use Tests\Functional\_TestCase;
 
 /**

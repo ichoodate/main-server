@@ -2,7 +2,7 @@
 
 namespace Tests\Functional\Keyword\Drinks;
 
-use App\Database\Models\Keyword\Drink;
+use App\Models\Keyword\Drink;
 use Tests\Functional\_TestCase;
 
 /**

@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Database\Models\Role;
+use App\Models\Role;
 use FunctionalCoding\Service;
 
 class AdminRoleExistingService extends Service

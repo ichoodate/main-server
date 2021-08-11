@@ -2,7 +2,7 @@
 
 namespace App\Services\Invoice;
 
-use App\Database\Models\Invoice;
+use App\Models\Invoice;
 use App\Services\LimitedListingService;
 use FunctionalCoding\Service;
 

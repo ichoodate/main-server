@@ -3,7 +3,7 @@
 namespace Database\Factories\Model\Keyword;
 
 use Database\Factories\ModelFactory;
-use App\Database\Models\Keyword\Religion;
+use App\Models\Keyword\Religion;
 
 class ReligionFactory extends ModelFactory {
 

@@ -2,7 +2,7 @@
 
 namespace Tests\Functional\Keyword\States;
 
-use App\Database\Models\Keyword\State;
+use App\Models\Keyword\State;
 use Tests\Functional\_TestCase;
 
 /**

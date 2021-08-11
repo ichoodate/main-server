@@ -2,7 +2,7 @@
 
 namespace App\Services\Keyword\Religion;
 
-use App\Database\Models\Keyword\Religion;
+use App\Models\Keyword\Religion;
 use App\Services\ListingService;
 use FunctionalCoding\Service;
 

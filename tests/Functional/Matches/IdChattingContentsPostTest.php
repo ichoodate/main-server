@@ -2,10 +2,10 @@
 
 namespace Tests\Functional\Matches;
 
-use App\Database\Models\ChattingContent;
-use App\Database\Models\Friend;
-use App\Database\Models\Match;
-use App\Database\Models\User;
+use App\Models\ChattingContent;
+use App\Models\Friend;
+use App\Models\Match;
+use App\Models\User;
 use Tests\Functional\_TestCase;
 
 /**

@@ -2,7 +2,7 @@
 
 namespace Tests\Functional\Keyword\Statures;
 
-use App\Database\Models\Keyword\Stature;
+use App\Models\Keyword\Stature;
 use Tests\Functional\_TestCase;
 
 /**

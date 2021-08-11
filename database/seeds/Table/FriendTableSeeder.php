@@ -2,9 +2,9 @@
 
 namespace Database\Seeds\Table;
 
-use App\Database\Models\Card;
-use App\Database\Models\CardFlip;
-use App\Database\Models\Friend;
+use App\Models\Card;
+use App\Models\CardFlip;
+use App\Models\Friend;
 use Database\Seeds\TableSeeder;
 
 class FriendTableSeeder extends TableSeeder {

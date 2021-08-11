@@ -2,7 +2,7 @@
 
 namespace Database\Factories\Models;
 
-use App\Database\Models\Friend;
+use App\Models\Friend;
 
 class FriendFactory extends ModelFactory {
 

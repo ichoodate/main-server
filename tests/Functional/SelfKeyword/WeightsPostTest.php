@@ -2,9 +2,9 @@
 
 namespace Tests\Functional\SelfKeyword;
 
-use App\Database\Models\Keyword\Weight;
-use App\Database\Models\User;
-use App\Database\Models\UserSelfKwdPvt;
+use App\Models\Keyword\Weight;
+use App\Models\User;
+use App\Models\UserSelfKwdPvt;
 use Tests\Functional\_TestCase;
 
 /**

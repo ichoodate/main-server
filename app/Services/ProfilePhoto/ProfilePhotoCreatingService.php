@@ -2,7 +2,7 @@
 
 namespace App\Services\ProfilePhoto;
 
-use App\Database\Models\ProfilePhoto;
+use App\Models\ProfilePhoto;
 use FunctionalCoding\Service;
 
 class ProfilePhotoCreatingService extends Service

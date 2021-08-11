@@ -2,8 +2,8 @@
 
 namespace Tests\Functional\Notifications;
 
-use App\Database\Models\Notification;
-use App\Database\Models\User;
+use App\Models\Notification;
+use App\Models\User;
 use Tests\Functional\_TestCase;
 
 /**

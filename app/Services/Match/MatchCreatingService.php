@@ -2,8 +2,8 @@
 
 namespace App\Services\Match;
 
-use App\Database\Models\Match;
-use App\Database\Models\User;
+use App\Models\Match;
+use App\Models\User;
 use FunctionalCoding\Service;
 
 class MatchCreatingService extends Service

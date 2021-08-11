@@ -2,8 +2,8 @@
 
 namespace Database\Seeds\Table\Keyword;
 
-use App\Database\Models\Obj;
-use App\Database\Models\Keyword\Career;
+use App\Models\Obj;
+use App\Models\Keyword\Career;
 use Database\Seeds\TableSeeder;
 
 class CareerTableSeeder extends TableSeeder {

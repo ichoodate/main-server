@@ -2,7 +2,7 @@
 
 namespace App\Services\CardGroup;
 
-use App\Database\Models\Card;
+use App\Models\Card;
 use App\Services\Match\MatchCreatingService;
 use FunctionalCoding\Service;
 

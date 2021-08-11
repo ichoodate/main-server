@@ -2,10 +2,10 @@
 
 namespace Database\Seeds\Table\Keyword;
 
-use App\Database\Models\Obj;
-use App\Database\Models\Keyword\Country;
-use App\Database\Models\Keyword\State;
-use App\Database\Models\Keyword\Residence;
+use App\Models\Obj;
+use App\Models\Keyword\Country;
+use App\Models\Keyword\State;
+use App\Models\Keyword\Residence;
 use Database\Seeds\TableSeeder;
 
 class ResidenceTableSeeder extends TableSeeder {

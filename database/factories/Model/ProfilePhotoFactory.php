@@ -2,7 +2,7 @@
 
 namespace Database\Factories\Model;
 
-use App\Database\Models\ProfilePhoto;
+use App\Models\ProfilePhoto;
 use Database\Factories\ModelFactory;
 
 class ProfilePhotoFactory extends ModelFactory {

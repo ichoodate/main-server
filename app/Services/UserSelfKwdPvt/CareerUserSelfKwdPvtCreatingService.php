@@ -2,8 +2,8 @@
 
 namespace App\Services\UserSelfKwdPvt;
 
-use App\Database\Models\Keyword\Career;
-use App\Database\Models\UserSelfKwdPvt;
+use App\Models\Keyword\Career;
+use App\Models\UserSelfKwdPvt;
 use App\Services\Keyword\Career\CareerFindingService;
 use FunctionalCoding\Service;
 

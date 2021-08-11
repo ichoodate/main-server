@@ -2,7 +2,7 @@
 
 namespace App\Services\Keyword\Nationality;
 
-use App\Database\Models\Keyword\Nationality;
+use App\Models\Keyword\Nationality;
 use App\Services\FindingService;
 use FunctionalCoding\Service;
 

@@ -2,7 +2,7 @@
 
 namespace Database\Factories\Model;
 
-use App\Database\Models\FacePhoto;
+use App\Models\FacePhoto;
 use Database\Factories\ModelFactory;
 
 class FacePhotoFactory extends ModelFactory {

@@ -3,7 +3,7 @@
 namespace Database\Factories\Model\Keyword;
 
 use Database\Factories\ModelFactory;
-use App\Database\Models\Keyword\Drink;
+use App\Models\Keyword\Drink;
 
 class DrinkFactory extends ModelFactory {
 

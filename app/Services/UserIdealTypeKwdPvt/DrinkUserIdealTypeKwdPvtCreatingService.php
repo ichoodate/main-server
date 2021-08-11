@@ -2,8 +2,8 @@
 
 namespace App\Services\UserIdealTypeKwdPvt;
 
-use App\Database\Models\Keyword\Drink;
-use App\Database\Models\UserIdealTypeKwdPvt;
+use App\Models\Keyword\Drink;
+use App\Models\UserIdealTypeKwdPvt;
 use App\Services\Keyword\Drink\DrinkFindingService;
 use FunctionalCoding\Service;
 

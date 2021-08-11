@@ -2,7 +2,7 @@
 
 namespace Database\Seeds\Table;
 
-use App\Database\Models\Localizable;
+use App\Models\Localizable;
 use Database\Seeds\TableSeeder;
 
 class LocalizableTableSeeder extends TableSeeder {

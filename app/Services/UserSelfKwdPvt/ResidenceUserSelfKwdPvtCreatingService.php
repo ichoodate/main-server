@@ -2,8 +2,8 @@
 
 namespace App\Services\UserSelfKwdPvt;
 
-use App\Database\Models\Keyword\Residence;
-use App\Database\Models\UserSelfKwdPvt;
+use App\Models\Keyword\Residence;
+use App\Models\UserSelfKwdPvt;
 use App\Services\Keyword\Residence\ResidenceFindingService;
 use FunctionalCoding\Service;
 

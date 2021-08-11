@@ -2,9 +2,9 @@
 
 namespace Database\Seeds\Table;
 
-use App\Database\Models\Match;
-use App\Database\Models\Obj;
-use App\Database\Models\User;
+use App\Models\Match;
+use App\Models\Obj;
+use App\Models\User;
 use Database\Seeds\TableSeeder;
 
 class MatchTableSeeder extends TableSeeder {

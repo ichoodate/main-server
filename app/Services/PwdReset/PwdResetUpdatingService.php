@@ -2,8 +2,8 @@
 
 namespace App\Services\PwdReset;
 
-use App\Database\Models\PwdReset;
-use App\Database\Models\User;
+use App\Models\PwdReset;
+use App\Models\User;
 use FunctionalCoding\Service;
 use Illuminate\Support\Facades\Hash;
 

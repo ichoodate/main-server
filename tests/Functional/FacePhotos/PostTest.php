@@ -2,8 +2,8 @@
 
 namespace Tests\Functional\FacePhotos;
 
-use App\Database\Models\FacePhoto;
-use App\Database\Models\User;
+use App\Models\FacePhoto;
+use App\Models\User;
 use Tests\Functional\_TestCase;
 
 /**

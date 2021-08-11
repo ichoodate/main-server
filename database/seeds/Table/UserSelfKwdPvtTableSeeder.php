@@ -2,18 +2,18 @@
 
 namespace Database\Seeds\Table;
 
-use App\Database\Models\User;
-use App\Database\Models\UserSelfKwdPvt;
-use App\Database\Models\Keyword\BirthYear;
-use App\Database\Models\Keyword\Career;
-use App\Database\Models\Keyword\Drink;
-use App\Database\Models\Keyword\Hobby;
-use App\Database\Models\Keyword\Nationality;
-use App\Database\Models\Keyword\Religion;
-use App\Database\Models\Keyword\Residence;
-use App\Database\Models\Keyword\Smoke;
-use App\Database\Models\Keyword\Stature;
-use App\Database\Models\Keyword\Weight;
+use App\Models\User;
+use App\Models\UserSelfKwdPvt;
+use App\Models\Keyword\BirthYear;
+use App\Models\Keyword\Career;
+use App\Models\Keyword\Drink;
+use App\Models\Keyword\Hobby;
+use App\Models\Keyword\Nationality;
+use App\Models\Keyword\Religion;
+use App\Models\Keyword\Residence;
+use App\Models\Keyword\Smoke;
+use App\Models\Keyword\Stature;
+use App\Models\Keyword\Weight;
 use Database\Seeds\TableSeeder;
 
 class UserSelfKwdPvtTableSeeder extends TableSeeder {

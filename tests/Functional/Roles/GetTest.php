@@ -2,8 +2,8 @@
 
 namespace Tests\Functional\Roles;
 
-use App\Database\Models\Role;
-use App\Database\Models\User;
+use App\Models\Role;
+use App\Models\User;
 use Tests\Functional\_TestCase;
 
 /**

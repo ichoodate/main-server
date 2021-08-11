@@ -2,7 +2,7 @@
 
 namespace Database\Seeds\Table\Keyword;
 
-use App\Database\Models\Keyword\AgeRange;
+use App\Models\Keyword\AgeRange;
 use Database\Seeds\TableSeeder;
 
 class AgeRangeTableSeeder extends TableSeeder {

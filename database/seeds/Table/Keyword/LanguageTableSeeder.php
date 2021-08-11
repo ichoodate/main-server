@@ -2,8 +2,8 @@
 
 namespace Database\Seeds\Table\Keyword;
 
-use App\Database\Models\Obj;
-use App\Database\Models\Keyword\Language;
+use App\Models\Obj;
+use App\Models\Keyword\Language;
 use Database\Seeds\TableSeeder;
 
 class LanguageTableSeeder extends TableSeeder {

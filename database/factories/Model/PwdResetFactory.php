@@ -2,7 +2,7 @@
 
 namespace Database\Factories\Model;
 
-use App\Database\Models\PwdReset;
+use App\Models\PwdReset;
 use Database\Factories\ModelFactory;
 
 class PwdResetFactory extends ModelFactory {

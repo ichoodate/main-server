@@ -2,11 +2,11 @@
 
 namespace Tests\Functional\Cards;
 
-use App\Database\Models\Card;
-use App\Database\Models\CardFlip;
-use App\Database\Models\Friend;
-use App\Database\Models\Match;
-use App\Database\Models\User;
+use App\Models\Card;
+use App\Models\CardFlip;
+use App\Models\Friend;
+use App\Models\Match;
+use App\Models\User;
 use App\Services\Card\CardListingService;
 use Tests\Functional\_TestCase;
 

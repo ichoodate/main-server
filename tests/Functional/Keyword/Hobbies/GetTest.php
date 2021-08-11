@@ -2,7 +2,7 @@
 
 namespace Tests\Functional\Keyword\Hobbies;
 
-use App\Database\Models\Keyword\Hobby;
+use App\Models\Keyword\Hobby;
 use Tests\Functional\_TestCase;
 
 /**

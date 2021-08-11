@@ -2,7 +2,7 @@
 
 namespace Database\Factories\Model;
 
-use App\Database\Models\Ticket;
+use App\Models\Ticket;
 use Database\Factories\ModelFactory;
 
 class TicketFactory extends ModelFactory {

@@ -2,8 +2,8 @@
 
 namespace App\Services\UserSelfKwdPvt;
 
-use App\Database\Models\Keyword\Religion;
-use App\Database\Models\UserSelfKwdPvt;
+use App\Models\Keyword\Religion;
+use App\Models\UserSelfKwdPvt;
 use App\Services\Keyword\Religion\ReligionFindingService;
 use FunctionalCoding\Service;
 

@@ -2,7 +2,7 @@
 
 namespace App\Services\Popularity;
 
-use App\Database\Models\Popularity;
+use App\Models\Popularity;
 use App\Services\User\MatchingUserFindingService;
 use FunctionalCoding\Service;
 

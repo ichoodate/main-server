@@ -2,7 +2,7 @@
 
 namespace App\Services\UserIdealTypeKwdPvt;
 
-use App\Database\Models\UserIdealTypeKwdPvt;
+use App\Models\UserIdealTypeKwdPvt;
 use App\Services\ListingService;
 use FunctionalCoding\Service;
 

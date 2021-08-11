@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
-use App\Database\Models\Balance;
-use App\Database\Models\Coin;
+use App\Models\Balance;
+use App\Models\Coin;
 use FunctionalCoding\Service;
 
 class UsedCoinAddingService extends Service

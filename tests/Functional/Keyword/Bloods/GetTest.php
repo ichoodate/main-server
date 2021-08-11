@@ -2,7 +2,7 @@
 
 namespace Tests\Functional\Keyword\Bloods;
 
-use App\Database\Models\Keyword\Blood;
+use App\Models\Keyword\Blood;
 use Tests\Functional\_TestCase;
 
 /**

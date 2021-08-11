@@ -2,7 +2,7 @@
 
 namespace App\Services\Reply;
 
-use App\Database\Models\Reply;
+use App\Models\Reply;
 use App\Services\Ticket\TicketFindingService;
 use FunctionalCoding\Service;
 

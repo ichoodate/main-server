@@ -2,8 +2,8 @@
 
 namespace Database\Factories\Model;
 
-use App\Database\Models\Card;
-use App\Database\Models\CardGroup;
+use App\Models\Card;
+use App\Models\CardGroup;
 use Database\Factories\ModelFactory;
 
 class CardGroupFactory extends ModelFactory {

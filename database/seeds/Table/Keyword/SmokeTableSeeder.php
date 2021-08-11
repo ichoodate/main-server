@@ -2,8 +2,8 @@
 
 namespace Database\Seeds\Table\Keyword;
 
-use App\Database\Models\Obj;
-use App\Database\Models\Keyword\Smoke;
+use App\Models\Obj;
+use App\Models\Keyword\Smoke;
 use Database\Seeds\TableSeeder;
 
 class SmokeTableSeeder extends TableSeeder {

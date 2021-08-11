@@ -3,7 +3,7 @@
 namespace Database\Factories\Model\Keyword;
 
 use Database\Factories\ModelFactory;
-use App\Database\Models\Keyword\Smoke;
+use App\Models\Keyword\Smoke;
 
 class SmokeFactory extends ModelFactory {
 

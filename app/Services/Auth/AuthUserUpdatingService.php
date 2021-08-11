@@ -2,9 +2,9 @@
 
 namespace App\Services\Auth;
 
-use App\Database\Models\Keyword\BirthYear;
-use App\Database\Models\User;
-use App\Database\Models\UserSelfKwdPvt;
+use App\Models\Keyword\BirthYear;
+use App\Models\User;
+use App\Models\UserSelfKwdPvt;
 use FunctionalCoding\Service;
 
 class AuthUserUpdatingService extends Service

@@ -2,7 +2,7 @@
 
 namespace Database\Factories\Model;
 
-use App\Database\Models\Invoice;
+use App\Models\Invoice;
 use Database\Factories\ModelFactory;
 
 class InvoiceFactory extends ModelFactory {

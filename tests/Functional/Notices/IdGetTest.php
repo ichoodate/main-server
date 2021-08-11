@@ -2,7 +2,7 @@
 
 namespace Tests\Functional\Notices;
 
-use App\Database\Models\Notice;
+use App\Models\Notice;
 use Tests\Functional\_TestCase;
 
 /**

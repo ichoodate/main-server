@@ -2,7 +2,7 @@
 
 namespace Database\Factories\Model;
 
-use App\Database\Models\Item;
+use App\Models\Item;
 use Database\Factories\ModelFactory;
 
 class ItemFactory extends ModelFactory {

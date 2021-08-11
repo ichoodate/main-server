@@ -2,9 +2,9 @@
 
 namespace Database\Seeds\Table;
 
-use App\Database\Models\Card;
-use App\Database\Models\CardFlip;
-use App\Database\Models\ChattingContent;
+use App\Models\Card;
+use App\Models\CardFlip;
+use App\Models\ChattingContent;
 use Illuminate\Database\Seeder;
 
 class CardFlipTableSeeder extends Seeder {

@@ -2,8 +2,8 @@
 
 namespace Database\Seeds\Table\Keyword;
 
-use App\Database\Models\Obj;
-use App\Database\Models\Keyword\Religion;
+use App\Models\Obj;
+use App\Models\Keyword\Religion;
 use Database\Seeds\TableSeeder;
 
 class ReligionTableSeeder extends TableSeeder {

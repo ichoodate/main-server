@@ -2,8 +2,8 @@
 
 namespace Tests\Functional\IdealTypeKeywords;
 
-use App\Database\Models\User;
-use App\Database\Models\UserIdealTypeKwdPvt;
+use App\Models\User;
+use App\Models\UserIdealTypeKwdPvt;
 use Tests\Functional\_TestCase;
 
 /**

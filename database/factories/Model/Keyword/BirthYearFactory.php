@@ -3,7 +3,7 @@
 namespace Database\Factories\Model\Keyword;
 
 use Database\Factories\ModelFactory;
-use App\Database\Models\Keyword\BirthYear;
+use App\Models\Keyword\BirthYear;
 
 class BirthYearFactory extends ModelFactory {
 

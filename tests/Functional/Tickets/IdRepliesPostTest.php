@@ -2,8 +2,8 @@
 
 namespace Tests\Functional\Tickets;
 
-use App\Database\Models\Ticket;
-use App\Database\Models\User;
+use App\Models\Ticket;
+use App\Models\User;
 use Tests\Functional\_TestCase;
 
 /**

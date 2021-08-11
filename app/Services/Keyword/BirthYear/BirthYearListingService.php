@@ -2,7 +2,7 @@
 
 namespace App\Services\Keyword\BirthYear;
 
-use App\Database\Models\Keyword\BirthYear;
+use App\Models\Keyword\BirthYear;
 use App\Services\ListingService;
 use FunctionalCoding\Service;
 

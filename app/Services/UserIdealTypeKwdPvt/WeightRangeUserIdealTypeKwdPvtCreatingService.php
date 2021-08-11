@@ -2,8 +2,8 @@
 
 namespace App\Services\UserIdealTypeKwdPvt;
 
-use App\Database\Models\Keyword\WeightRange;
-use App\Database\Models\UserIdealTypeKwdPvt;
+use App\Models\Keyword\WeightRange;
+use App\Models\UserIdealTypeKwdPvt;
 use App\Services\Keyword\WeightRange\WeightRangeFindingService;
 use FunctionalCoding\Service;
 

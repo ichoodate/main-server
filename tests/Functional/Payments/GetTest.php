@@ -2,8 +2,8 @@
 
 namespace Tests\Functional\Payments;
 
-use App\Database\Models\Payment;
-use App\Database\Models\User;
+use App\Models\Payment;
+use App\Models\User;
 use Tests\Functional\_TestCase;
 
 /**

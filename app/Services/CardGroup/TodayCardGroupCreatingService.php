@@ -2,8 +2,8 @@
 
 namespace App\Services\CardGroup;
 
-use App\Database\Models\CardGroup;
-use App\Database\Models\UserIdealTypeKwdPvt;
+use App\Models\CardGroup;
+use App\Models\UserIdealTypeKwdPvt;
 use App\Services\User\MatchingUserListingService;
 use FunctionalCoding\Service;
 

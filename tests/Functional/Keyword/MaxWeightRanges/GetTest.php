@@ -2,7 +2,7 @@
 
 namespace Tests\Functional\Keyword\MaxWeightRanges;
 
-use App\Database\Models\Keyword\WeightRange;
+use App\Models\Keyword\WeightRange;
 use Tests\Functional\_TestCase;
 
 /**

@@ -2,7 +2,7 @@
 
 namespace App\Services\Keyword\Hobby;
 
-use App\Database\Models\Keyword\Hobby;
+use App\Models\Keyword\Hobby;
 use App\Services\FindingService;
 use FunctionalCoding\Service;
 

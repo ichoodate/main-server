@@ -2,7 +2,7 @@
 
 namespace App\Services\Payment;
 
-use App\Database\Models\Payment;
+use App\Models\Payment;
 use App\Services\LimitedListingService;
 use FunctionalCoding\Service;
 

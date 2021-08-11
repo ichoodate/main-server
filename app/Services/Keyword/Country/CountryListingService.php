@@ -2,7 +2,7 @@
 
 namespace App\Services\Keyword\Country;
 
-use App\Database\Models\Keyword\Country;
+use App\Models\Keyword\Country;
 use App\Services\ListingService;
 use FunctionalCoding\Service;
 

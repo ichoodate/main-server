@@ -2,7 +2,7 @@
 
 namespace App\Services\CardFlip;
 
-use App\Database\Models\CardFlip;
+use App\Models\CardFlip;
 use App\Services\FindingService;
 use App\Services\PermittedUserRequiringService;
 use FunctionalCoding\Service;

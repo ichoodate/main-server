@@ -2,9 +2,9 @@
 
 namespace Database\Seeds\Table\Keyword;
 
-use App\Database\Models\Obj;
-use App\Database\Models\Keyword\Country;
-use App\Database\Models\Keyword\Nationality;
+use App\Models\Obj;
+use App\Models\Keyword\Country;
+use App\Models\Keyword\Nationality;
 use Database\Seeds\TableSeeder;
 
 class NationalityTableSeeder extends TableSeeder {

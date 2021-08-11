@@ -2,8 +2,8 @@
 
 namespace Tests\Functional\Users;
 
-use App\Database\Models\ProfilePhoto;
-use App\Database\Models\User;
+use App\Models\ProfilePhoto;
+use App\Models\User;
 use Tests\Functional\_TestCase;
 
 /**

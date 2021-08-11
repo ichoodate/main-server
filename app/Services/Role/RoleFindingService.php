@@ -2,7 +2,7 @@
 
 namespace App\Services\Role;
 
-use App\Database\Models\Role;
+use App\Models\Role;
 use App\Services\FindingService;
 use App\Services\PermittedUserRequiringService;
 use FunctionalCoding\Service;

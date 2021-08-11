@@ -2,7 +2,7 @@
 
 namespace App\Services\FacePhoto;
 
-use App\Database\Models\FacePhoto;
+use App\Models\FacePhoto;
 use App\Services\FindingService;
 use App\Services\PermittedUserRequiringService;
 use FunctionalCoding\Service;

@@ -2,8 +2,8 @@
 
 namespace Database\Seeds\Table\Keyword;
 
-use App\Database\Models\Obj;
-use App\Database\Models\Keyword\Hobby;
+use App\Models\Obj;
+use App\Models\Keyword\Hobby;
 use Database\Seeds\TableSeeder;
 
 class HobbyTableSeeder extends TableSeeder {

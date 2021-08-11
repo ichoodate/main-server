@@ -2,7 +2,7 @@
 
 namespace Tests\Functional\Keyword\Nationalities;
 
-use App\Database\Models\Keyword\Nationality;
+use App\Models\Keyword\Nationality;
 use Tests\Functional\_TestCase;
 
 /**

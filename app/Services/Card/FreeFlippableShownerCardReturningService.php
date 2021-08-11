@@ -2,7 +2,7 @@
 
 namespace App\Services\Card;
 
-use App\Database\Models\Card;
+use App\Models\Card;
 use FunctionalCoding\Service;
 
 class FreeFlippableShownerCardReturningService extends Service

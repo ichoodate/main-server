@@ -2,7 +2,7 @@
 
 namespace Database\Seeds\Table;
 
-use App\Database\Models\Notice;
+use App\Models\Notice;
 use Database\Seeds\TableSeeder;
 
 class NoticeTableSeeder extends TableSeeder {

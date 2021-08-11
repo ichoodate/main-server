@@ -2,8 +2,8 @@
 
 namespace Database\Seeds\Table\Keyword;
 
-use App\Database\Models\Obj;
-use App\Database\Models\Keyword\Blood;
+use App\Models\Obj;
+use App\Models\Keyword\Blood;
 use Database\Seeds\TableSeeder;
 
 class BloodTableSeeder extends TableSeeder {

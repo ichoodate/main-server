@@ -2,7 +2,7 @@
 
 namespace App\Services\Localizable;
 
-use App\Database\Models\Localizable;
+use App\Models\Localizable;
 use App\Services\FindingService;
 use FunctionalCoding\Service;
 

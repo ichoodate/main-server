@@ -2,7 +2,7 @@
 
 namespace App\Services\Keyword\StatureRange;
 
-use App\Database\Models\Keyword\StatureRange;
+use App\Models\Keyword\StatureRange;
 use App\Services\FindingService;
 use FunctionalCoding\Service;
 

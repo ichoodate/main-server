@@ -2,7 +2,7 @@
 
 namespace Database\Factories\Model;
 
-use App\Database\Models\CardFlip;
+use App\Models\CardFlip;
 use Database\Factories\ModelFactory;
 
 class CardFlipFactory extends ModelFactory {

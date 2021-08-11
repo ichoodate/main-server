@@ -2,7 +2,7 @@
 
 namespace Tests\Functional\Auth;
 
-use App\Database\Models\User;
+use App\Models\User;
 use Tests\Functional\_TestCase;
 
 /**

@@ -2,7 +2,7 @@
 
 namespace App\Services\Balance;
 
-use App\Database\Models\Balance;
+use App\Models\Balance;
 use App\Services\LimitedListingService;
 use FunctionalCoding\Service;
 

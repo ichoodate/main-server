@@ -2,8 +2,8 @@
 
 namespace Tests\Functional\PwdResets;
 
-use App\Database\Models\PwdReset;
-use App\Database\Models\User;
+use App\Models\PwdReset;
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Tests\Functional\_TestCase;
 

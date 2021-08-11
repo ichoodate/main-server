@@ -2,7 +2,7 @@
 
 namespace Tests\Functional\Keyword\MinAgeRanges;
 
-use App\Database\Models\Keyword\AgeRange;
+use App\Models\Keyword\AgeRange;
 use Tests\Functional\_TestCase;
 
 /**

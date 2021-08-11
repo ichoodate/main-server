@@ -2,7 +2,7 @@
 
 namespace Database\Seeds\Table\Keyword;
 
-use App\Database\Models\Keyword\BirthYear;
+use App\Models\Keyword\BirthYear;
 use Database\Seeds\TableSeeder;
 
 class BirthYearTableSeeder extends TableSeeder {

@@ -2,7 +2,7 @@
 
 namespace App\Services\Friend;
 
-use App\Database\Models\Friend;
+use App\Models\Friend;
 use App\Services\FindingService;
 use App\Services\PermittedUserRequiringService;
 use FunctionalCoding\Service;

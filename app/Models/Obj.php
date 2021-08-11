@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Database\Models;
+namespace App\Models;
 
-use App\Database\Model;
+use App\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
 class Obj extends Model

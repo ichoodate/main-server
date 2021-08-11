@@ -2,7 +2,7 @@
 
 namespace Tests\Functional\Keyword\Weights;
 
-use App\Database\Models\Keyword\Weight;
+use App\Models\Keyword\Weight;
 use Tests\Functional\_TestCase;
 
 /**

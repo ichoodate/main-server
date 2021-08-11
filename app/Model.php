@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Database;
+namespace App;
 
-use App\Database\Models\Obj;
+use App\Models\Obj;
 
 abstract class Model extends \FunctionalCoding\Illuminate\Model
 {

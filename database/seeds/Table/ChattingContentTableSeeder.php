@@ -2,9 +2,9 @@
 
 namespace Database\Seeds\Table;
 
-use App\Database\Models\ChattingContent;
-use App\Database\Models\Friend;
-use App\Database\Models\Match;
+use App\Models\ChattingContent;
+use App\Models\Friend;
+use App\Models\Match;
 use Database\Seeds\TableSeeder;
 use Illuminate\Support\Str;
 

@@ -2,7 +2,7 @@
 
 namespace Database\Factories\Model;
 
-use App\Database\Models\Popularity;
+use App\Models\Popularity;
 use Database\Factories\ModelFactory;
 
 class PopularityFactory extends ModelFactory {

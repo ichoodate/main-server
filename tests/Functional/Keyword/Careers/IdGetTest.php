@@ -2,7 +2,7 @@
 
 namespace Tests\Functional\Keyword\Careers;
 
-use App\Database\Models\Keyword\Career;
+use App\Models\Keyword\Career;
 use Tests\Functional\_TestCase;
 
 /**

@@ -2,7 +2,7 @@
 
 namespace Tests\Functional\Keyword\Smokes;
 
-use App\Database\Models\Keyword\Smoke;
+use App\Models\Keyword\Smoke;
 use Tests\Functional\_TestCase;
 
 /**

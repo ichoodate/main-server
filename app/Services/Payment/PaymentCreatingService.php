@@ -2,8 +2,8 @@
 
 namespace App\Services\Payment;
 
-use App\Database\Models\Item;
-use App\Database\Models\Payment;
+use App\Models\Item;
+use App\Models\Payment;
 use App\Services\Item\ItemFindingService;
 use FunctionalCoding\Service;
 

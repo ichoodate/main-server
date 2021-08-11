@@ -2,7 +2,7 @@
 
 namespace App\Services\ProfilePhoto;
 
-use App\Database\Models\ProfilePhoto;
+use App\Models\ProfilePhoto;
 use App\Services\LimitedListingService;
 use App\Services\User\UserFindingService;
 use FunctionalCoding\Service;

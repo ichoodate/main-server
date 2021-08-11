@@ -2,7 +2,7 @@
 
 namespace Tests\Functional\Keyword\MaxStatureRanges;
 
-use App\Database\Models\Keyword\StatureRange;
+use App\Models\Keyword\StatureRange;
 use Tests\Functional\_TestCase;
 
 /**

@@ -2,7 +2,7 @@
 
 namespace App\Services\ChattingContent;
 
-use App\Database\Models\ChattingContent;
+use App\Models\ChattingContent;
 use App\Services\FindingService;
 use App\Services\Match\MatchFindingService;
 use FunctionalCoding\Service;

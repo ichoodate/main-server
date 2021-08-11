@@ -2,7 +2,7 @@
 
 namespace App\Services\Keyword\Drink;
 
-use App\Database\Models\Keyword\Drink;
+use App\Models\Keyword\Drink;
 use App\Services\FindingService;
 use FunctionalCoding\Service;
 

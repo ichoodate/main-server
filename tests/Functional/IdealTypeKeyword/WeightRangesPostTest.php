@@ -2,9 +2,9 @@
 
 namespace Tests\Functional\IdealTypeKeyword;
 
-use App\Database\Models\Keyword\WeightRange;
-use App\Database\Models\User;
-use App\Database\Models\UserIdealTypeKwdPvt;
+use App\Models\Keyword\WeightRange;
+use App\Models\User;
+use App\Models\UserIdealTypeKwdPvt;
 use Tests\Functional\_TestCase;
 
 /**

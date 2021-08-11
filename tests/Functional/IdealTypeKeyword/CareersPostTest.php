@@ -2,9 +2,9 @@
 
 namespace Tests\Functional\IdealTypeKeyword;
 
-use App\Database\Models\Keyword\Career;
-use App\Database\Models\User;
-use App\Database\Models\UserIdealTypeKwdPvt;
+use App\Models\Keyword\Career;
+use App\Models\User;
+use App\Models\UserIdealTypeKwdPvt;
 use Tests\Functional\_TestCase;
 
 /**

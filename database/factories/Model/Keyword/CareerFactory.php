@@ -3,7 +3,7 @@
 namespace Database\Factories\Model\Keyword;
 
 use Database\Factories\ModelFactory;
-use App\Database\Models\Keyword\Career;
+use App\Models\Keyword\Career;
 
 class CareerFactory extends ModelFactory {
 

@@ -2,7 +2,7 @@
 
 namespace Tests\Functional\Keyword\Countries;
 
-use App\Database\Models\Keyword\Country;
+use App\Models\Keyword\Country;
 use Tests\Functional\_TestCase;
 
 /**

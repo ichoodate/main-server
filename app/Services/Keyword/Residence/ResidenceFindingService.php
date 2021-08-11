@@ -2,7 +2,7 @@
 
 namespace App\Services\Keyword\Residence;
 
-use App\Database\Models\Keyword\Residence;
+use App\Models\Keyword\Residence;
 use App\Services\FindingService;
 use FunctionalCoding\Service;
 

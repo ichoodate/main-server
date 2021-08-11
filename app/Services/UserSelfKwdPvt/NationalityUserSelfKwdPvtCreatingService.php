@@ -2,8 +2,8 @@
 
 namespace App\Services\UserSelfKwdPvt;
 
-use App\Database\Models\Keyword\Nationality;
-use App\Database\Models\UserSelfKwdPvt;
+use App\Models\Keyword\Nationality;
+use App\Models\UserSelfKwdPvt;
 use App\Services\Keyword\Nationality\NationalityFindingService;
 use FunctionalCoding\Service;
 

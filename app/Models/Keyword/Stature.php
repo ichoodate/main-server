@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Database\Models\Keyword;
+namespace App\Models\Keyword;
 
-use App\Database\Model;
+use App\Model;
 
 class Stature extends Model
 {

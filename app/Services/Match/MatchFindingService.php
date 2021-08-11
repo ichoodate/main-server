@@ -2,7 +2,7 @@
 
 namespace App\Services\Match;
 
-use App\Database\Models\Match;
+use App\Models\Match;
 use App\Services\FindingService;
 use App\Services\PermittedUserRequiringService;
 use FunctionalCoding\Service;

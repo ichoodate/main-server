@@ -2,8 +2,8 @@
 
 namespace App\Services\UserIdealTypeKwdPvt;
 
-use App\Database\Models\Keyword\StatureRange;
-use App\Database\Models\UserIdealTypeKwdPvt;
+use App\Models\Keyword\StatureRange;
+use App\Models\UserIdealTypeKwdPvt;
 use App\Services\Keyword\StatureRange\StatureRangeFindingService;
 use FunctionalCoding\Service;
 

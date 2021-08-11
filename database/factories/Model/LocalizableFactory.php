@@ -2,7 +2,7 @@
 
 namespace Database\Factories\Model;
 
-use App\Database\Models\Localizable;
+use App\Models\Localizable;
 use Database\Factories\ModelFactory;
 
 class LocalizableFactory extends ModelFactory {

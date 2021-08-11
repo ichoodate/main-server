@@ -3,7 +3,7 @@
 namespace Database\Factories\Model\Keyword;
 
 use Database\Factories\ModelFactory;
-use App\Database\Models\Keyword\Language;
+use App\Models\Keyword\Language;
 
 class LanguageFactory extends ModelFactory {
 

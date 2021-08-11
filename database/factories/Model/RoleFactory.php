@@ -2,7 +2,7 @@
 
 namespace Database\Factories\Model;
 
-use App\Database\Models\Role;
+use App\Models\Role;
 use Database\Factories\ModelFactory;
 
 class RoleFactory extends ModelFactory {

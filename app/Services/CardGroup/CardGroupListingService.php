@@ -2,7 +2,7 @@
 
 namespace App\Services\CardGroup;
 
-use App\Database\Models\CardGroup;
+use App\Models\CardGroup;
 use App\Services\LimitedListingService;
 use FunctionalCoding\Service;
 

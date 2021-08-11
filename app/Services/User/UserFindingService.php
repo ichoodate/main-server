@@ -2,7 +2,7 @@
 
 namespace App\Services\User;
 
-use App\Database\Models\User;
+use App\Models\User;
 use App\Services\FindingService;
 use FunctionalCoding\Service;
 

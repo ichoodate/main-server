@@ -2,7 +2,7 @@
 
 namespace App\Services\CardGroup;
 
-use App\Database\Models\CardGroup;
+use App\Models\CardGroup;
 use App\Services\FindingService;
 use App\Services\PermittedUserRequiringService;
 use FunctionalCoding\Service;

@@ -2,8 +2,8 @@
 
 namespace App\Services\CardFlip;
 
-use App\Database\Models\Card;
-use App\Database\Models\CardFlip;
+use App\Models\Card;
+use App\Models\CardFlip;
 use App\Services\Card\CardFindingService;
 use App\Services\Card\FreeFlippableChooserCardReturningService;
 use App\Services\Card\FreeFlippableShownerCardReturningService;

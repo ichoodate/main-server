@@ -2,7 +2,7 @@
 
 namespace Tests\Functional\Keyword\Bodies;
 
-use App\Database\Models\Keyword\Body;
+use App\Models\Keyword\Body;
 use Tests\Functional\_TestCase;
 
 /**

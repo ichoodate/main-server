@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Database\Models\Keyword;
+namespace App\Models\Keyword;
 
-use App\Database\Model;
-use App\Database\Models\Obj;
+use App\Model;
+use App\Models\Obj;
 
 class Residence extends Model
 {

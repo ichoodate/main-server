@@ -2,7 +2,7 @@
 
 namespace App\Services\Ticket;
 
-use App\Database\Models\Ticket;
+use App\Models\Ticket;
 use FunctionalCoding\Service;
 
 class TicketCreatingService extends Service

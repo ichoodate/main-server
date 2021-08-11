@@ -2,7 +2,7 @@
 
 namespace Tests\Functional\Keyword\Languages;
 
-use App\Database\Models\Keyword\Language;
+use App\Models\Keyword\Language;
 use Tests\Functional\_TestCase;
 
 /**

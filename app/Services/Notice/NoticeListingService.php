@@ -2,7 +2,7 @@
 
 namespace App\Services\Notice;
 
-use App\Database\Models\Notice;
+use App\Models\Notice;
 use App\Services\LimitedListingService;
 use FunctionalCoding\Service;
 

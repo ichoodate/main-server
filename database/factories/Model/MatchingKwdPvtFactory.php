@@ -2,7 +2,7 @@
 
 namespace Database\Factories\Model;
 
-use App\Database\Models\MatchingKwdPvt;
+use App\Models\MatchingKwdPvt;
 use Database\Factories\ModelFactory;
 
 class MatchingKwdPvtFactory extends ModelFactory {

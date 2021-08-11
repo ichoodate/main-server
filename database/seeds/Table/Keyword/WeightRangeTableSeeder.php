@@ -2,8 +2,8 @@
 
 namespace Database\Seeds\Table\Keyword;
 
-use App\Database\Models\Obj;
-use App\Database\Models\Keyword\WeightRange;
+use App\Models\Obj;
+use App\Models\Keyword\WeightRange;
 use Database\Seeds\TableSeeder;
 
 class WeightRangeTableSeeder extends TableSeeder {

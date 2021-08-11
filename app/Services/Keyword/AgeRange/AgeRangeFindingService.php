@@ -2,7 +2,7 @@
 
 namespace App\Services\Keyword\AgeRange;
 
-use App\Database\Models\Keyword\AgeRange;
+use App\Models\Keyword\AgeRange;
 use App\Services\FindingService;
 use FunctionalCoding\Service;
 

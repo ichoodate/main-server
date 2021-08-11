@@ -2,7 +2,7 @@
 
 namespace Tests\Functional;
 
-use App\Database\Model;
+use App\Model;
 use Faker\Generator as Faker;
 use FunctionalCoding\Service;
 use Illuminate\Foundation\Testing\DatabaseMigrations;

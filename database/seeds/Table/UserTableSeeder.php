@@ -2,7 +2,7 @@
 
 namespace Database\Seeds\Table;
 
-use App\Database\Models\User;
+use App\Models\User;
 use Database\Seeds\TableSeeder;
 use Illuminate\Support\Facades\Hash;
 

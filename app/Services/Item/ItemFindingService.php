@@ -2,7 +2,7 @@
 
 namespace App\Services\Item;
 
-use App\Database\Models\Item;
+use App\Models\Item;
 use App\Services\FindingService;
 use FunctionalCoding\Service;
 

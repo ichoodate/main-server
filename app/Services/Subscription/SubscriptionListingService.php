@@ -2,7 +2,7 @@
 
 namespace App\Services\Subscription;
 
-use App\Database\Models\Subscription;
+use App\Models\Subscription;
 use App\Services\LimitedListingService;
 use FunctionalCoding\Service;
 

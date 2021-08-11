@@ -2,7 +2,7 @@
 
 namespace Tests\Functional\Keyword\BirthYears;
 
-use App\Database\Models\Keyword\BirthYear;
+use App\Models\Keyword\BirthYear;
 use Tests\Functional\_TestCase;
 
 /**

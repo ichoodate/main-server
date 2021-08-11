@@ -3,7 +3,7 @@
 namespace Database\Factories\Model\Keyword;
 
 use Database\Factories\ModelFactory;
-use App\Database\Models\Keyword\Blood;
+use App\Models\Keyword\Blood;
 
 class BloodFactory extends ModelFactory {
 

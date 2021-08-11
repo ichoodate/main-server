@@ -2,8 +2,8 @@
 
 namespace Tests\Functional\Subscriptions;
 
-use App\Database\Models\Subscription;
-use App\Database\Models\User;
+use App\Models\Subscription;
+use App\Models\User;
 use Tests\Functional\_TestCase;
 
 /**

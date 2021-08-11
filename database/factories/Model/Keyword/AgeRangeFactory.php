@@ -3,7 +3,7 @@
 namespace Database\Factories\Model\Keyword;
 
 use Database\Factories\ModelFactory;
-use App\Database\Models\Keyword\AgeRange;
+use App\Models\Keyword\AgeRange;
 
 class AgeRangeFactory extends ModelFactory {
 

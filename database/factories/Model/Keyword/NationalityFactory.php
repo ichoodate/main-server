@@ -3,7 +3,7 @@
 namespace Database\Factories\Model\Keyword;
 
 use Database\Factories\ModelFactory;
-use App\Database\Models\Keyword\Nationality;
+use App\Models\Keyword\Nationality;
 
 class NationalityFactory extends ModelFactory {
 

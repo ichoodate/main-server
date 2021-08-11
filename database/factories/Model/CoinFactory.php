@@ -2,8 +2,8 @@
 
 namespace Database\Factories\Model;
 
-use App\Database\Models\Coin;
-use App\Database\Models\User;
+use App\Models\Coin;
+use App\Models\User;
 use Database\Factories\ModelFactory;
 
 class CoinFactory extends ModelFactory {

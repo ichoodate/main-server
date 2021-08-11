@@ -2,8 +2,8 @@
 
 namespace Database\Seeds\Table;
 
-use App\Database\Models\User;
-use App\Database\Models\ProfilePhoto;
+use App\Models\User;
+use App\Models\ProfilePhoto;
 use Database\Seeds\TableSeeder;
 
 class ProfilePhotoTableSeeder extends TableSeeder {

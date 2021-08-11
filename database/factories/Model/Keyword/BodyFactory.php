@@ -3,7 +3,7 @@
 namespace Database\Factories\Model\Keyword;
 
 use Database\Factories\ModelFactory;
-use App\Database\Models\Keyword\Body;
+use App\Models\Keyword\Body;
 
 class BodyFactory extends ModelFactory {
 

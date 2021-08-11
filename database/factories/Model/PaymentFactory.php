@@ -2,7 +2,7 @@
 
 namespace Database\Factories\Model;
 
-use App\Database\Models\Payment;
+use App\Models\Payment;
 use Database\Factories\ModelFactory;
 
 class PaymentFactory extends ModelFactory {

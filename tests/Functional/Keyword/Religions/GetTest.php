@@ -2,7 +2,7 @@
 
 namespace Tests\Functional\Keyword\Religions;
 
-use App\Database\Models\Keyword\Religion;
+use App\Models\Keyword\Religion;
 use Tests\Functional\_TestCase;
 
 /**

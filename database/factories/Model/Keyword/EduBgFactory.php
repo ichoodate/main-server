@@ -3,7 +3,7 @@
 namespace Database\Factories\Model\Keyword;
 
 use Database\Factories\ModelFactory;
-use App\Database\Models\Keyword\EduBg;
+use App\Models\Keyword\EduBg;
 
 class EduBgFactory extends ModelFactory {
 

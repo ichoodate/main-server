@@ -2,8 +2,8 @@
 
 namespace Tests\Functional\CardGroups;
 
-use App\Database\Models\CardGroup;
-use App\Database\Models\User;
+use App\Models\CardGroup;
+use App\Models\User;
 use Tests\Functional\_TestCase;
 
 /**

@@ -2,10 +2,10 @@
 
 namespace Database\Seeds\Table;
 
-use App\Database\Models\Card;
-use App\Database\Models\CardGroup;
-use App\Database\Models\Match;
-use App\Database\Models\User;
+use App\Models\Card;
+use App\Models\CardGroup;
+use App\Models\Match;
+use App\Models\User;
 use Database\Seeds\TableSeeder;
 use Illuminate\Support\Facades\DB;
 

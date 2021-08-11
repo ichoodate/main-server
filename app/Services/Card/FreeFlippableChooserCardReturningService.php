@@ -2,8 +2,8 @@
 
 namespace App\Services\Card;
 
-use App\Database\Models\Card;
-use App\Database\Models\CardFlip;
+use App\Models\Card;
+use App\Models\CardFlip;
 use FunctionalCoding\Service;
 
 class FreeFlippableChooserCardReturningService extends Service

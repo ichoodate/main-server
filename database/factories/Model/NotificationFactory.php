@@ -2,7 +2,7 @@
 
 namespace Database\Factories\Model;
 
-use App\Database\Models\Notification;
+use App\Models\Notification;
 use Database\Factories\ModelFactory;
 
 class NotificationFactory extends ModelFactory {

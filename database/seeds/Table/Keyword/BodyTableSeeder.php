@@ -2,8 +2,8 @@
 
 namespace Database\Seeds\Table\Keyword;
 
-use App\Database\Models\Obj;
-use App\Database\Models\Keyword\Body;
+use App\Models\Obj;
+use App\Models\Keyword\Body;
 use Database\Seeds\TableSeeder;
 
 class BodyTableSeeder extends TableSeeder {

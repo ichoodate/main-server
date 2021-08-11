@@ -2,7 +2,7 @@
 
 namespace Database\Factories\Model;
 
-use App\Database\Models\Balance;
+use App\Models\Balance;
 use Database\Factories\ModelFactory;
 
 class BalanceFactory extends ModelFactory {

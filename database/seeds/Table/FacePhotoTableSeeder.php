@@ -2,8 +2,8 @@
 
 namespace Database\Seeds\Table;
 
-use App\Database\Models\User;
-use App\Database\Models\FacePhoto;
+use App\Models\User;
+use App\Models\FacePhoto;
 use Database\Seeds\TableSeeder;
 
 class FacePhotoTableSeeder extends TableSeeder {

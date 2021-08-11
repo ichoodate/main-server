@@ -2,7 +2,7 @@
 
 namespace App\Services\Keyword\Career;
 
-use App\Database\Models\Keyword\Career;
+use App\Models\Keyword\Career;
 use App\Services\ListingService;
 use FunctionalCoding\Service;
 

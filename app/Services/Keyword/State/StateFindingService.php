@@ -2,7 +2,7 @@
 
 namespace App\Services\Keyword\State;
 
-use App\Database\Models\Keyword\State;
+use App\Models\Keyword\State;
 use App\Services\FindingService;
 use FunctionalCoding\Service;
 

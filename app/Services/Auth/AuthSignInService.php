@@ -2,7 +2,7 @@
 
 namespace App\Services\Auth;
 
-use App\Database\Models\User;
+use App\Models\User;
 use FunctionalCoding\Service;
 
 class AuthSignInService extends Service

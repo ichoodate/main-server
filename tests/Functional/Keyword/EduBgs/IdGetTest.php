@@ -2,7 +2,7 @@
 
 namespace Tests\Functional\Keyword\EduBgs;
 
-use App\Database\Models\Keyword\EduBg;
+use App\Models\Keyword\EduBg;
 use Tests\Functional\_TestCase;
 
 /**

@@ -2,7 +2,7 @@
 
 namespace App\Services\Keyword\Smoke;
 
-use App\Database\Models\Keyword\Smoke;
+use App\Models\Keyword\Smoke;
 use App\Services\ListingService;
 use FunctionalCoding\Service;
 

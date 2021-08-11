@@ -2,8 +2,8 @@
 
 namespace Database\Seeds\Table\Keyword;
 
-use App\Database\Models\Obj;
-use App\Database\Models\Keyword\StatureRange;
+use App\Models\Obj;
+use App\Models\Keyword\StatureRange;
 use Database\Seeds\TableSeeder;
 
 class StatureRangeTableSeeder extends TableSeeder {

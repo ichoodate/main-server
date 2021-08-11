@@ -2,7 +2,7 @@
 
 namespace App\Services\Keyword\Body;
 
-use App\Database\Models\Keyword\Body;
+use App\Models\Keyword\Body;
 use App\Services\ListingService;
 use FunctionalCoding\Service;
 
