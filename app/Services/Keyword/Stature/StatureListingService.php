@@ -3,7 +3,7 @@
 namespace App\Services\Keyword\Stature;
 
 use App\Models\Keyword\Stature;
-use App\Services\ListingService;
+use FunctionalCoding\Illuminate\Service\ListService;
 use FunctionalCoding\Service;
 
 class StatureListingService extends Service
@@ -40,7 +40,7 @@ class StatureListingService extends Service
     public static function getArrTraits()
     {
         return [
-            ListingService::class,
+            ListService::class,
         ];
     }
 }

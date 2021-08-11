@@ -4,7 +4,7 @@ namespace App\Services\Keyword\State;
 
 use App\Models\Keyword\State;
 use App\Services\Keyword\Country\CountryFindingService;
-use App\Services\ListingService;
+use FunctionalCoding\Illuminate\Service\ListService;
 use FunctionalCoding\Service;
 
 class StateListingService extends Service
@@ -66,7 +66,7 @@ class StateListingService extends Service
     public static function getArrTraits()
     {
         return [
-            ListingService::class,
+            ListService::class,
         ];
     }
 }

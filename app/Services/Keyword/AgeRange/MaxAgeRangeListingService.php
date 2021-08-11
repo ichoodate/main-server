@@ -3,7 +3,7 @@
 namespace App\Services\Keyword\AgeRange;
 
 use App\Models\Keyword\AgeRange;
-use App\Services\ListingService;
+use FunctionalCoding\Illuminate\Service\ListService;
 use FunctionalCoding\Service;
 
 class MaxAgeRangeListingService extends Service
@@ -46,7 +46,7 @@ class MaxAgeRangeListingService extends Service
     public static function getArrTraits()
     {
         return [
-            ListingService::class,
+            ListService::class,
         ];
     }
 }

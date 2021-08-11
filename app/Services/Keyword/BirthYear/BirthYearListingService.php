@@ -3,7 +3,7 @@
 namespace App\Services\Keyword\BirthYear;
 
 use App\Models\Keyword\BirthYear;
-use App\Services\ListingService;
+use FunctionalCoding\Illuminate\Service\ListService;
 use FunctionalCoding\Service;
 
 class BirthYearListingService extends Service
@@ -40,7 +40,7 @@ class BirthYearListingService extends Service
     public static function getArrTraits()
     {
         return [
-            ListingService::class,
+            ListService::class,
         ];
     }
 }

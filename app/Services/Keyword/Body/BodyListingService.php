@@ -3,7 +3,7 @@
 namespace App\Services\Keyword\Body;
 
 use App\Models\Keyword\Body;
-use App\Services\ListingService;
+use FunctionalCoding\Illuminate\Service\ListService;
 use FunctionalCoding\Service;
 
 class BodyListingService extends Service
@@ -40,7 +40,7 @@ class BodyListingService extends Service
     public static function getArrTraits()
     {
         return [
-            ListingService::class,
+            ListService::class,
         ];
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Services\Keyword\Career;
 
 use App\Models\Keyword\Career;
-use App\Services\ListingService;
+use FunctionalCoding\Illuminate\Service\ListService;
 use FunctionalCoding\Service;
 
 class CareerListingService extends Service
@@ -46,7 +46,7 @@ class CareerListingService extends Service
     public static function getArrTraits()
     {
         return [
-            ListingService::class,
+            ListService::class,
         ];
     }
 }

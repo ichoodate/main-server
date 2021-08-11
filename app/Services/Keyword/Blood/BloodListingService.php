@@ -3,7 +3,7 @@
 namespace App\Services\Keyword\Blood;
 
 use App\Models\Keyword\Blood;
-use App\Services\ListingService;
+use FunctionalCoding\Illuminate\Service\ListService;
 use FunctionalCoding\Service;
 
 class BloodListingService extends Service
@@ -40,7 +40,7 @@ class BloodListingService extends Service
     public static function getArrTraits()
     {
         return [
-            ListingService::class,
+            ListService::class,
         ];
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Services\Item;
 
 use App\Models\Item;
-use App\Services\ListingService;
+use FunctionalCoding\Illuminate\Service\ListService;
 use FunctionalCoding\Service;
 
 class ItemListingService extends Service
@@ -40,7 +40,7 @@ class ItemListingService extends Service
     public static function getArrTraits()
     {
         return [
-            ListingService::class,
+            ListService::class,
         ];
     }
 }

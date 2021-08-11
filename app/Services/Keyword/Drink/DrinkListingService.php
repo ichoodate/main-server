@@ -3,7 +3,7 @@
 namespace App\Services\Keyword\Drink;
 
 use App\Models\Keyword\Drink;
-use App\Services\ListingService;
+use FunctionalCoding\Illuminate\Service\ListService;
 use FunctionalCoding\Service;
 
 class DrinkListingService extends Service
@@ -40,7 +40,7 @@ class DrinkListingService extends Service
     public static function getArrTraits()
     {
         return [
-            ListingService::class,
+            ListService::class,
         ];
     }
 }

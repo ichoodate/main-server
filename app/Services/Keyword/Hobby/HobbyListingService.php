@@ -3,7 +3,7 @@
 namespace App\Services\Keyword\Hobby;
 
 use App\Models\Keyword\Hobby;
-use App\Services\ListingService;
+use FunctionalCoding\Illuminate\Service\ListService;
 use FunctionalCoding\Service;
 
 class HobbyListingService extends Service
@@ -40,7 +40,7 @@ class HobbyListingService extends Service
     public static function getArrTraits()
     {
         return [
-            ListingService::class,
+            ListService::class,
         ];
     }
 }

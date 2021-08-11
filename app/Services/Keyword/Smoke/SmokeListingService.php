@@ -3,7 +3,7 @@
 namespace App\Services\Keyword\Smoke;
 
 use App\Models\Keyword\Smoke;
-use App\Services\ListingService;
+use FunctionalCoding\Illuminate\Service\ListService;
 use FunctionalCoding\Service;
 
 class SmokeListingService extends Service
@@ -40,7 +40,7 @@ class SmokeListingService extends Service
     public static function getArrTraits()
     {
         return [
-            ListingService::class,
+            ListService::class,
         ];
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Services\UserSelfKwdPvt;
 
 use App\Models\UserSelfKwdPvt;
-use App\Services\ListingService;
+use FunctionalCoding\Illuminate\Service\ListService;
 use FunctionalCoding\Service;
 
 class UserSelfKwdPvtListingService extends Service
@@ -50,7 +50,7 @@ class UserSelfKwdPvtListingService extends Service
     public static function getArrTraits()
     {
         return [
-            ListingService::class,
+            ListService::class,
         ];
     }
 }

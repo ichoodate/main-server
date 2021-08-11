@@ -3,7 +3,7 @@
 namespace App\Services\Keyword\WeightRange;
 
 use App\Models\Keyword\WeightRange;
-use App\Services\ListingService;
+use FunctionalCoding\Illuminate\Service\ListService;
 use FunctionalCoding\Service;
 
 class MaxWeightRangeListingService extends Service
@@ -46,7 +46,7 @@ class MaxWeightRangeListingService extends Service
     public static function getArrTraits()
     {
         return [
-            ListingService::class,
+            ListService::class,
         ];
     }
 }

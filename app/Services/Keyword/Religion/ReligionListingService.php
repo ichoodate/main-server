@@ -3,7 +3,7 @@
 namespace App\Services\Keyword\Religion;
 
 use App\Models\Keyword\Religion;
-use App\Services\ListingService;
+use FunctionalCoding\Illuminate\Service\ListService;
 use FunctionalCoding\Service;
 
 class ReligionListingService extends Service
@@ -40,7 +40,7 @@ class ReligionListingService extends Service
     public static function getArrTraits()
     {
         return [
-            ListingService::class,
+            ListService::class,
         ];
     }
 }
