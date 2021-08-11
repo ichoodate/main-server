@@ -3,31 +3,36 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateKeywordStaturesTable extends Migration {
-
+class CreateKeywordStaturesTable extends Migration
+{
     public function up()
     {
-        Schema::create('keyword_statures', function(Blueprint $table)
-        {
+        Schema::create('keyword_statures', function (Blueprint $table) {
             $table
                 ->bigInteger('id')
-                ->unsigned();
+                ->unsigned()
+            ;
             $table
-                ->string('cm');
+                ->string('cm')
+            ;
             $table
-                ->string('inch');
+                ->string('inch')
+            ;
 
             $table
                 ->primary('id')
                 ->foreign('id')
                 ->references('id')
                 ->on('objs')
-                ->onDelete('cascade');
+                ->onDelete('cascade')
+            ;
 
             $table
-                ->index('cm');
+                ->index('cm')
+            ;
             $table
-                ->index('inch');
+                ->index('inch')
+            ;
         });
     }
 
@@ -35,5 +40,4 @@ class CreateKeywordStaturesTable extends Migration {
     {
         Schema::drop('keyword_statures');
     }
-
 }

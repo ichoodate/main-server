@@ -10,6 +10,6 @@ class TableSeeder extends Seeder
     {
         $path = str_replace('App\\Database\\Models\\', '', $modelClass);
 
-        return inst('Database\\Factories\\Model\\' . $path . 'Factory');
+        return inst('Database\\Factories\\Model\\'.$path.'Factory');
     }
 }

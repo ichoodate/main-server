@@ -3,48 +3,58 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateChattingContentsTable extends Migration {
-
+class CreateChattingContentsTable extends Migration
+{
     public function up()
     {
-        Schema::create('chatting_contents', function(Blueprint $table)
-        {
+        Schema::create('chatting_contents', function (Blueprint $table) {
             $table
                 ->bigInteger('id')
-                ->unsigned();
+                ->unsigned()
+            ;
             $table
                 ->bigInteger('match_id')
-                ->unsigned();
+                ->unsigned()
+            ;
             $table
                 ->bigInteger('writer_id')
-                ->unsigned();
+                ->unsigned()
+            ;
             $table
-                ->string('message');
+                ->string('message')
+            ;
             $table
-                ->timestamps();
+                ->timestamps()
+            ;
 
             $table
-                ->primary('id');
+                ->primary('id')
+            ;
             $table
-                ->index('match_id');
+                ->index('match_id')
+            ;
             $table
-                ->index('writer_id');
+                ->index('writer_id')
+            ;
 
             $table
                 ->foreign('id')
                 ->references('id')
                 ->on('objs')
-                ->onDelete('cascade');
+                ->onDelete('cascade')
+            ;
             $table
                 ->foreign('match_id')
                 ->references('id')
                 ->on('objs')
-                ->onDelete('cascade');
+                ->onDelete('cascade')
+            ;
             $table
                 ->foreign('writer_id')
                 ->references('id')
                 ->on('objs')
-                ->onDelete('cascade');
+                ->onDelete('cascade')
+            ;
         });
     }
 
@@ -52,5 +62,4 @@ class CreateChattingContentsTable extends Migration {
     {
         Schema::drop('chatting_contents');
     }
-
 }

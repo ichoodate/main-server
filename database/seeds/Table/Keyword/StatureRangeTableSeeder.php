@@ -2,24 +2,20 @@
 
 namespace Database\Seeds\Table\Keyword;
 
-use App\Models\Obj;
 use App\Models\Keyword\StatureRange;
 use Database\Seeds\TableSeeder;
 
-class StatureRangeTableSeeder extends TableSeeder {
-
+class StatureRangeTableSeeder extends TableSeeder
+{
     public function run()
     {
-        for ( $i = 140; $i <= 200;  $i++ )
-        {
-            for ( $j = 200; $j >= $i; $j-- )
-            {
+        for ($i = 140; $i <= 200; ++$i) {
+            for ($j = 200; $j >= $i; --$j) {
                 StatureRange::create([
                     StatureRange::MIN => $i,
-                    StatureRange::MAX => $j
+                    StatureRange::MAX => $j,
                 ]);
             }
         }
     }
-
 }

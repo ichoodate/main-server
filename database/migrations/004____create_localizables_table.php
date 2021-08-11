@@ -3,40 +3,48 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateLocalizablesTable extends Migration {
-
+class CreateLocalizablesTable extends Migration
+{
     public function up()
     {
-        Schema::create('localizables', function(Blueprint $table)
-        {
+        Schema::create('localizables', function (Blueprint $table) {
             $table
                 ->bigInteger('id')
-                ->unsigned();
+                ->unsigned()
+            ;
             $table
                 ->bigInteger('keyword_id')
-                ->unsigned();
+                ->unsigned()
+            ;
             $table
-                ->string('language');
+                ->string('language')
+            ;
             $table
-                ->string('text');
+                ->string('text')
+            ;
             $table
-                ->timestamps();
+                ->timestamps()
+            ;
 
             $table
-                ->primary('id');
+                ->primary('id')
+            ;
             $table
-                ->index('keyword_id');
+                ->index('keyword_id')
+            ;
 
             $table
                 ->foreign('id')
                 ->references('id')
                 ->on('objs')
-                ->onDelete('cascade');
+                ->onDelete('cascade')
+            ;
             $table
                 ->foreign('keyword_id')
                 ->references('id')
                 ->on('objs')
-                ->onDelete('cascade');
+                ->onDelete('cascade')
+            ;
         });
     }
 
@@ -44,5 +52,4 @@ class CreateLocalizablesTable extends Migration {
     {
         Schema::drop('localizables');
     }
-
 }

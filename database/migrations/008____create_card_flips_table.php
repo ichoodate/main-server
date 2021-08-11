@@ -3,47 +3,56 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateCardFlipsTable extends Migration {
-
+class CreateCardFlipsTable extends Migration
+{
     public function up()
     {
-        Schema::create('card_flips', function (Blueprint $table)
-        {
+        Schema::create('card_flips', function (Blueprint $table) {
             $table
                 ->bigInteger('id')
-                ->unsigned();
+                ->unsigned()
+            ;
             $table
                 ->bigInteger('user_id')
-                ->unsigned();
+                ->unsigned()
+            ;
             $table
                 ->bigInteger('card_id')
-                ->unsigned();
+                ->unsigned()
+            ;
             $table
                 ->timestamp('created_at')
-                ->default(app('db')->raw('CURRENT_TIMESTAMP'));
+                ->default(app('db')->raw('CURRENT_TIMESTAMP'))
+            ;
 
             $table
-                ->primary('id');
+                ->primary('id')
+            ;
             $table
-                ->index('user_id');
+                ->index('user_id')
+            ;
             $table
-                ->index('card_id');
+                ->index('card_id')
+            ;
 
             $table
                 ->foreign('id')
                 ->references('id')
                 ->on('objs')
-                ->onDelete('cascade');
+                ->onDelete('cascade')
+            ;
             $table
                 ->foreign('user_id')
                 ->references('id')
                 ->on('objs')
-                ->onDelete('cascade');
+                ->onDelete('cascade')
+            ;
             $table
                 ->foreign('card_id')
                 ->references('id')
                 ->on('objs')
-                ->onDelete('cascade');
+                ->onDelete('cascade')
+            ;
         });
     }
 
@@ -51,5 +60,4 @@ class CreateCardFlipsTable extends Migration {
     {
         Schema::drop('card_flips');
     }
-
 }

@@ -3,55 +3,57 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateProfilePhotosTable extends Migration {
-
+class CreateProfilePhotosTable extends Migration
+{
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up()
     {
-        Schema::create('profile_photos', function(Blueprint $table)
-        {
+        Schema::create('profile_photos', function (Blueprint $table) {
             $table
                 ->bigInteger('id')
-                ->unsigned();
+                ->unsigned()
+            ;
             $table
                 ->bigInteger('user_id')
-                ->unsigned();
+                ->unsigned()
+            ;
             $table
-                ->mediumText('data');
+                ->mediumText('data')
+            ;
             $table
                 ->timestamp('created_at')
-                ->default(app('db')->raw('CURRENT_TIMESTAMP'));
+                ->default(app('db')->raw('CURRENT_TIMESTAMP'))
+            ;
 
             $table
-                ->primary('id');
+                ->primary('id')
+            ;
             $table
-                ->index('user_id');
+                ->index('user_id')
+            ;
 
             $table
                 ->foreign('id')
                 ->references('id')
                 ->on('objs')
-                ->onDelete('cascade');
+                ->onDelete('cascade')
+            ;
             $table
                 ->foreign('user_id')
                 ->references('id')
                 ->on('objs')
-                ->onDelete('cascade');
+                ->onDelete('cascade')
+            ;
         });
     }
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down()
     {
         Schema::drop('profile_photos');
     }
-
 }

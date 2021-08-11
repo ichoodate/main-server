@@ -3,24 +3,26 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateKeywordBodiesTable extends Migration {
-
+class CreateKeywordBodiesTable extends Migration
+{
     public function up()
     {
-        Schema::create('keyword_bodies', function(Blueprint $table)
-        {
+        Schema::create('keyword_bodies', function (Blueprint $table) {
             $table
                 ->bigInteger('id')
-                ->unsigned();
+                ->unsigned()
+            ;
             $table
-                ->string('type');
+                ->string('type')
+            ;
 
             $table
                 ->primary('id')
                 ->foreign('id')
                 ->references('id')
                 ->on('objs')
-                ->onDelete('cascade');
+                ->onDelete('cascade')
+            ;
         });
     }
 
@@ -28,5 +30,4 @@ class CreateKeywordBodiesTable extends Migration {
     {
         Schema::drop('keyword_bodies');
     }
-
 }

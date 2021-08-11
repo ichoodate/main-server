@@ -2,19 +2,17 @@
 
 namespace Database\Seeds\Table;
 
-use App\Models\User;
 use App\Models\ProfilePhoto;
+use App\Models\User;
 use Database\Seeds\TableSeeder;
 
-class ProfilePhotoTableSeeder extends TableSeeder {
-
+class ProfilePhotoTableSeeder extends TableSeeder
+{
     public function run()
     {
-        for ( $k = 0; $k < 100; $k++ )
-        {
-            for ( $i = 0; $i < 10; $i++ )
-            {
-                $user  = User::skip($i)->first();
+        for ($k = 0; $k < 100; ++$k) {
+            for ($i = 0; $i < 10; ++$i) {
+                $user = User::skip($i)->first();
                 $width = rand(100, 1920);
                 $height = rand(100, 1080);
 
@@ -22,10 +20,9 @@ class ProfilePhotoTableSeeder extends TableSeeder {
 
                 ProfilePhoto::create([
                     'user_id' => $user->getKey(),
-                    'data'    => $data
+                    'data' => $data,
                 ]);
             }
         }
     }
-
 }

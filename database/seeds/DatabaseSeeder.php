@@ -4,11 +4,6 @@ use Database\Seeds\Table\CardFlipTableSeeder;
 use Database\Seeds\Table\CardTableSeeder;
 use Database\Seeds\Table\ChattingContentTableSeeder;
 use Database\Seeds\Table\FacePhotoTableSeeder;
-use Database\Seeds\Table\MatchTableSeeder;
-use Database\Seeds\Table\ProfilePhotoTableSeeder;
-use Database\Seeds\Table\UserTableSeeder;
-use Database\Seeds\Table\UserIdealTypeKwdPvtTableSeeder;
-use Database\Seeds\Table\UserSelfKwdPvtTableSeeder;
 use Database\Seeds\Table\Keyword\AgeRangeTableSeeder;
 use Database\Seeds\Table\Keyword\BirthYearTableSeeder;
 use Database\Seeds\Table\Keyword\BloodTableSeeder;
@@ -23,18 +18,21 @@ use Database\Seeds\Table\Keyword\ReligionTableSeeder;
 use Database\Seeds\Table\Keyword\ResidenceTableSeeder;
 use Database\Seeds\Table\Keyword\SmokeTableSeeder;
 use Database\Seeds\Table\Keyword\StateTableSeeder;
-use Database\Seeds\Table\Keyword\StatureTableSeeder;
 use Database\Seeds\Table\Keyword\StatureRangeTableSeeder;
-use Database\Seeds\Table\Keyword\WeightTableSeeder;
+use Database\Seeds\Table\Keyword\StatureTableSeeder;
 use Database\Seeds\Table\Keyword\WeightRangeTableSeeder;
+use Database\Seeds\Table\Keyword\WeightTableSeeder;
+use Database\Seeds\Table\MatchTableSeeder;
+use Database\Seeds\Table\ProfilePhotoTableSeeder;
+use Database\Seeds\Table\UserIdealTypeKwdPvtTableSeeder;
+use Database\Seeds\Table\UserSelfKwdPvtTableSeeder;
+use Database\Seeds\Table\UserTableSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
     public function run()
     {
@@ -66,5 +64,4 @@ class DatabaseSeeder extends Seeder
         // $this->call(UserIdealTypeKwdPvtTableSeeder::class);
         // $this->call(UserSelfKwdPvtTableSeeder::class);
     }
-
 }

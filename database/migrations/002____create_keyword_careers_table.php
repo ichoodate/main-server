@@ -3,35 +3,40 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateKeywordCareersTable extends Migration {
-
+class CreateKeywordCareersTable extends Migration
+{
     public function up()
     {
-        Schema::create('keyword_careers', function(Blueprint $table)
-        {
+        Schema::create('keyword_careers', function (Blueprint $table) {
             $table
                 ->bigInteger('id')
-                ->unsigned();
+                ->unsigned()
+            ;
             $table
                 ->bigInteger('parent_id')
                 ->unsigned()
-                ->nullable();
+                ->nullable()
+            ;
             $table
-                ->string('type'); // 'table', 'section', 'division', 'group', 'class', 'sub_class', 'custom'
+                ->string('type') // 'table', 'section', 'division', 'group', 'class', 'sub_class', 'custom'
+            ;
             $table
-                ->string('name');
+                ->string('name')
+            ;
 
             $table
                 ->primary('id')
                 ->foreign('id')
                 ->references('id')
                 ->on('objs')
-                ->onDelete('cascade');
+                ->onDelete('cascade')
+            ;
             $table
                 ->foreign('parent_id')
                 ->references('id')
                 ->on('objs')
-                ->onDelete('cascade');
+                ->onDelete('cascade')
+            ;
         });
     }
 
@@ -39,5 +44,4 @@ class CreateKeywordCareersTable extends Migration {
     {
         Schema::drop('keyword_careers');
     }
-
 }

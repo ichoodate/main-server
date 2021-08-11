@@ -3,49 +3,59 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreatePopularitiesTable extends Migration {
-
+class CreatePopularitiesTable extends Migration
+{
     public function up()
     {
-        Schema::create('popularities', function(Blueprint $table)
-        {
+        Schema::create('popularities', function (Blueprint $table) {
             $table
                 ->bigInteger('id')
-                ->unsigned();
+                ->unsigned()
+            ;
             $table
                 ->bigInteger('sender_id')
-                ->unsigned();
+                ->unsigned()
+            ;
             $table
                 ->bigInteger('receiver_id')
-                ->unsigned();
+                ->unsigned()
+            ;
             $table
                 ->tinyInteger('point')
-                ->unsigned();
+                ->unsigned()
+            ;
             $table
-                ->timestamps();
+                ->timestamps()
+            ;
 
             $table
-                ->primary('id');
+                ->primary('id')
+            ;
             $table
-                ->index('sender_id');
+                ->index('sender_id')
+            ;
             $table
-                ->index('receiver_id');
+                ->index('receiver_id')
+            ;
 
             $table
                 ->foreign('id')
                 ->references('id')
                 ->on('objs')
-                ->onDelete('cascade');
+                ->onDelete('cascade')
+            ;
             $table
                 ->foreign('sender_id')
                 ->references('id')
                 ->on('objs')
-                ->onDelete('cascade');
+                ->onDelete('cascade')
+            ;
             $table
                 ->foreign('receiver_id')
                 ->references('id')
                 ->on('objs')
-                ->onDelete('cascade');
+                ->onDelete('cascade')
+            ;
         });
     }
 
@@ -53,5 +63,4 @@ class CreatePopularitiesTable extends Migration {
     {
         Schema::drop('popularities');
     }
-
 }

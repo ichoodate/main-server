@@ -3,32 +3,38 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateKeywordSchoolsTable extends Migration {
-
+class CreateKeywordSchoolsTable extends Migration
+{
     public function up()
     {
-        Schema::create('keyword_schools', function(Blueprint $table)
-        {
+        Schema::create('keyword_schools', function (Blueprint $table) {
             $table
                 ->bigInteger('id')
-                ->unsigned();
+                ->unsigned()
+            ;
             $table
-                ->string('scholarship_id');
+                ->string('scholarship_id')
+            ;
             $table
-                ->string('address_id');
+                ->string('address_id')
+            ;
             $table
-                ->string('religion_id');
+                ->string('religion_id')
+            ;
             $table
-                ->string('coed'); // coed or men or women
+                ->string('coed') // coed or men or women
+            ;
             $table
-                ->string('type');
+                ->string('type')
+            ;
 
             $table
                 ->primary('id')
                 ->foreign('id')
                 ->references('id')
                 ->on('objs')
-                ->onDelete('cascade');
+                ->onDelete('cascade')
+            ;
         });
     }
 
@@ -36,5 +42,4 @@ class CreateKeywordSchoolsTable extends Migration {
     {
         Schema::drop('keyword_schools');
     }
-
 }

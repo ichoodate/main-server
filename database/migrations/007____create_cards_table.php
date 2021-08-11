@@ -3,71 +3,87 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateCardsTable extends Migration {
-
+class CreateCardsTable extends Migration
+{
     public function up()
     {
-        Schema::create('cards', function(Blueprint $table)
-        {
+        Schema::create('cards', function (Blueprint $table) {
             $table
                 ->bigInteger('id')
-                ->unsigned();
+                ->unsigned()
+            ;
             $table
                 ->bigInteger('group_id')
                 ->unsigned()
-                ->nullable();
+                ->nullable()
+            ;
             $table
                 ->bigInteger('chooser_id')
-                ->unsigned();
+                ->unsigned()
+            ;
             $table
                 ->bigInteger('showner_id')
-                ->unsigned();
+                ->unsigned()
+            ;
             $table
                 ->bigInteger('match_id')
-                ->unsigned();
+                ->unsigned()
+            ;
             $table
                 ->timestamp('created_at')
-                ->default(app('db')->raw('CURRENT_TIMESTAMP'));
+                ->default(app('db')->raw('CURRENT_TIMESTAMP'))
+            ;
             $table
                 ->timestamp('updated_at')
-                ->default(app('db')->raw('CURRENT_TIMESTAMP'));
+                ->default(app('db')->raw('CURRENT_TIMESTAMP'))
+            ;
 
             $table
-                ->primary('id');
+                ->primary('id')
+            ;
             $table
-                ->index('group_id');
+                ->index('group_id')
+            ;
             $table
-                ->index('chooser_id');
+                ->index('chooser_id')
+            ;
             $table
-                ->index('showner_id');
+                ->index('showner_id')
+            ;
             $table
-                ->index('match_id');
+                ->index('match_id')
+            ;
 
             $table
                 ->foreign('id')
                 ->references('id')
                 ->on('objs')
-                ->onDelete('cascade');
+                ->onDelete('cascade')
+            ;
             $table
                 ->foreign('group_id')
                 ->references('id')
                 ->on('objs')
-                ->onDelete('cascade');
+                ->onDelete('cascade')
+            ;
             $table
                 ->foreign('chooser_id')
                 ->references('id')
                 ->on('objs')
-                ->onDelete('cascade');
+                ->onDelete('cascade')
+            ;
             $table
                 ->foreign('showner_id')
                 ->references('id')
                 ->on('objs')
-                ->onDelete('cascade');
+                ->onDelete('cascade')
+            ;
             $table
                 ->foreign('match_id')
                 ->references('id')
                 ->on('objs')
-                ->onDelete('cascade');
+                ->onDelete('cascade')
+            ;
         });
     }
 
@@ -75,5 +91,4 @@ class CreateCardsTable extends Migration {
     {
         Schema::drop('cards');
     }
-
 }

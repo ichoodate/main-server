@@ -3,12 +3,11 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateDataFromYqlStatesTable extends Migration {
-
+class CreateDataFromYqlStatesTable extends Migration
+{
     public function up()
     {
-        Schema::create('data_from_yql_states', function(Blueprint $table)
-        {
+        Schema::create('data_from_yql_states', function (Blueprint $table) {
             $table->increments('id');
             $table->string('iso_3166_1_alpha2');
             $table->string('name');
@@ -27,5 +26,4 @@ class CreateDataFromYqlStatesTable extends Migration {
     {
         Schema::drop('data_from_yql_states');
     }
-
 }

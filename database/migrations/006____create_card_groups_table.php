@@ -3,39 +3,46 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateCardGroupsTable extends Migration {
-
+class CreateCardGroupsTable extends Migration
+{
     public function up()
     {
-        Schema::create('card_groups', function(Blueprint $table)
-        {
+        Schema::create('card_groups', function (Blueprint $table) {
             $table
                 ->bigInteger('id')
-                ->unsigned();
+                ->unsigned()
+            ;
             $table
                 ->bigInteger('user_id')
-                ->unsigned();
+                ->unsigned()
+            ;
             $table
-                ->string('type');
+                ->string('type')
+            ;
             $table
                 ->timestamp('created_at')
-                ->default(app('db')->raw('CURRENT_TIMESTAMP'));
+                ->default(app('db')->raw('CURRENT_TIMESTAMP'))
+            ;
 
             $table
-                ->primary('id');
+                ->primary('id')
+            ;
             $table
-                ->index('user_id');
+                ->index('user_id')
+            ;
 
             $table
                 ->foreign('id')
                 ->references('id')
                 ->on('objs')
-                ->onDelete('cascade');
+                ->onDelete('cascade')
+            ;
             $table
                 ->foreign('user_id')
                 ->references('id')
                 ->on('objs')
-                ->onDelete('cascade');
+                ->onDelete('cascade')
+            ;
         });
     }
 
@@ -43,5 +50,4 @@ class CreateCardGroupsTable extends Migration {
     {
         Schema::drop('card_groups');
     }
-
 }

@@ -3,21 +3,23 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateMatchesTable extends Migration {
-
+class CreateMatchesTable extends Migration
+{
     public function up()
     {
-        Schema::create('matches', function(Blueprint $table)
-        {
+        Schema::create('matches', function (Blueprint $table) {
             $table
                 ->bigInteger('id')
-                ->unsigned();
+                ->unsigned()
+            ;
             $table
                 ->bigInteger('man_id')
-                ->unsigned();
+                ->unsigned()
+            ;
             $table
                 ->bigInteger('woman_id')
-                ->unsigned();
+                ->unsigned()
+            ;
             // $table
             //     ->timestamp('created_at')
             //     ->default(app('db')->raw('CURRENT_TIMESTAMP'));
@@ -26,29 +28,36 @@ class CreateMatchesTable extends Migration {
             //     ->default(app('db')->raw('CURRENT_TIMESTAMP'));
 
             $table
-                ->primary('id');
+                ->primary('id')
+            ;
             $table
-                ->index('man_id');
+                ->index('man_id')
+            ;
             $table
-                ->index('woman_id');
+                ->index('woman_id')
+            ;
             $table
-                ->unique(['man_id', 'woman_id']);
+                ->unique(['man_id', 'woman_id'])
+            ;
 
             $table
                 ->foreign('id')
                 ->references('id')
                 ->on('objs')
-                ->onDelete('cascade');
+                ->onDelete('cascade')
+            ;
             $table
                 ->foreign('man_id')
                 ->references('id')
                 ->on('objs')
-                ->onDelete('cascade');
+                ->onDelete('cascade')
+            ;
             $table
                 ->foreign('woman_id')
                 ->references('id')
                 ->on('objs')
-                ->onDelete('cascade');
+                ->onDelete('cascade')
+            ;
         });
     }
 
@@ -56,5 +65,4 @@ class CreateMatchesTable extends Migration {
     {
         Schema::drop('matches');
     }
-
 }

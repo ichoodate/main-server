@@ -9,26 +9,21 @@ use App\Models\User;
 use Database\Seeds\TableSeeder;
 use Illuminate\Support\Facades\DB;
 
-class CardTableSeeder extends TableSeeder {
-
+class CardTableSeeder extends TableSeeder
+{
     public function run()
     {
-        for ( $i = 0; $i < Match::count(); $i++ )
-        {
+        for ($i = 0; $i < Match::count(); ++$i) {
             $match = Match::skip($i)->first();
 
-            do
-            {
-                $manId     = $match->{Match::MAN_ID};
-                $womanId   = $match->{Match::WOMAN_ID};
+            do {
+                $manId = $match->{Match::MAN_ID};
+                $womanId = $match->{Match::WOMAN_ID};
 
-                if ( rand(0, 1) )
-                {
+                if (rand(0, 1)) {
                     $chooserId = $manId;
                     $shownerId = $womanId;
-                }
-                else
-                {
+                } else {
                     $shownerId = $manId;
                     $chooserId = $womanId;
                 }
@@ -41,28 +36,24 @@ class CardTableSeeder extends TableSeeder {
                     ->where(Card::CHOOSER_ID, $chooser->getKey())
                     ->groupBy(Card::GROUP_ID)
                     ->orderBy('count', 'asc')
-                    ->first();
+                    ->first()
+                ;
 
-                if ( empty($card) || $card['count'] == 4 )
-                {
+                if (empty($card) || 4 == $card['count']) {
                     $group = $this->factory(CardGroup::class)->create([
-                        CardGroup::USER_ID => $chooser->getKey()
+                        CardGroup::USER_ID => $chooser->getKey(),
                     ]);
-                }
-                else
-                {
+                } else {
                     $group = CardGroup::find($card->{Card::GROUP_ID});
                 }
 
                 $this->factory(Card::class)->create([
                     Card::CHOOSER_ID => $chooser->getKey(),
                     Card::SHOWNER_ID => $showner->getKey(),
-                    Card::MATCH_ID   => $match->getKey(),
-                    Card::GROUP_ID   => $group->getKey()
+                    Card::MATCH_ID => $match->getKey(),
+                    Card::GROUP_ID => $group->getKey(),
                 ]);
-            }
-            while ( rand(1,5) == 5 );
+            } while (5 == rand(1, 5));
         }
     }
-
 }

@@ -3,58 +3,69 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateCoinsTable extends Migration {
-
+class CreateCoinsTable extends Migration
+{
     public function up()
     {
-        Schema::create('coins', function(Blueprint $table)
-        {
+        Schema::create('coins', function (Blueprint $table) {
             $table
                 ->bigInteger('id')
-                ->unsigned();
+                ->unsigned()
+            ;
             $table
                 ->bigInteger('balance_id')
-                ->unsigned();
+                ->unsigned()
+            ;
             $table
                 ->bigInteger('user_id')
-                ->unsigned();
+                ->unsigned()
+            ;
             $table
                 ->bigInteger('related_id')
-                ->unsigned();
+                ->unsigned()
+            ;
             $table
-                ->smallInteger('count');
+                ->smallInteger('count')
+            ;
             $table
                 ->timestamp('created_at')
-                ->default(app('db')->raw('CURRENT_TIMESTAMP'));
+                ->default(app('db')->raw('CURRENT_TIMESTAMP'))
+            ;
 
             $table
-                ->primary('id');
+                ->primary('id')
+            ;
             $table
-                ->index('user_id');
+                ->index('user_id')
+            ;
 
             $table
                 ->foreign('id')
                 ->references('id')
                 ->on('objs')
-                ->onDelete('cascade');
+                ->onDelete('cascade')
+            ;
 
             $table
                 ->foreign('balance_id')
                 ->references('id')
                 ->on('objs')
-                ->onDelete('cascade');
+                ->onDelete('cascade')
+            ;
 
             $table
                 ->foreign('related_id')
                 ->references('id')
                 ->on('objs')
-                ->onDelete('cascade');
+                ->onDelete('cascade')
+            ;
 
             $table
                 ->foreign('user_id')
                 ->references('id')
                 ->on('objs')
-                ->onDelete('cascade');
+                ->onDelete('cascade')
+            ;
         });
     }
 
@@ -62,5 +73,4 @@ class CreateCoinsTable extends Migration {
     {
         Schema::drop('coins');
     }
-
 }

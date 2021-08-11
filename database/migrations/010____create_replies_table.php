@@ -3,52 +3,63 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateRepliesTable extends Migration {
-
+class CreateRepliesTable extends Migration
+{
     public function up()
     {
-        Schema::create('replies', function(Blueprint $table)
-        {
+        Schema::create('replies', function (Blueprint $table) {
             $table
                 ->bigInteger('id')
-                ->unsigned();
+                ->unsigned()
+            ;
             $table
                 ->bigInteger('writer_id')
-                ->unsigned();
+                ->unsigned()
+            ;
             $table
                 ->bigInteger('ticket_id')
-                ->unsigned();
+                ->unsigned()
+            ;
             $table
-                ->text('description');
+                ->text('description')
+            ;
             $table
                 ->timestamp('created_at')
-                ->default(app('db')->raw('CURRENT_TIMESTAMP'));
+                ->default(app('db')->raw('CURRENT_TIMESTAMP'))
+            ;
             $table
                 ->timestamp('updated_at')
-                ->default(app('db')->raw('CURRENT_TIMESTAMP'));
+                ->default(app('db')->raw('CURRENT_TIMESTAMP'))
+            ;
 
             $table
-                ->primary('id');
+                ->primary('id')
+            ;
             $table
-                ->index('writer_id');
+                ->index('writer_id')
+            ;
             $table
-                ->index('ticket_id');
+                ->index('ticket_id')
+            ;
 
             $table
                 ->foreign('id')
                 ->references('id')
                 ->on('objs')
-                ->onDelete('cascade');
+                ->onDelete('cascade')
+            ;
             $table
                 ->foreign('writer_id')
                 ->references('id')
                 ->on('objs')
-                ->onDelete('cascade');
+                ->onDelete('cascade')
+            ;
             $table
                 ->foreign('ticket_id')
                 ->references('id')
                 ->on('objs')
-                ->onDelete('cascade');
+                ->onDelete('cascade')
+            ;
         });
     }
 
@@ -56,5 +67,4 @@ class CreateRepliesTable extends Migration {
     {
         Schema::drop('replies');
     }
-
 }

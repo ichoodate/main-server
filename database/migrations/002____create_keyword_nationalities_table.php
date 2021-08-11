@@ -3,30 +3,33 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateKeywordNationalitiesTable extends Migration {
-
+class CreateKeywordNationalitiesTable extends Migration
+{
     public function up()
     {
-        Schema::create('keyword_nationalities', function(Blueprint $table)
-        {
+        Schema::create('keyword_nationalities', function (Blueprint $table) {
             $table
                 ->bigInteger('id')
-                ->unsigned();
+                ->unsigned()
+            ;
             $table
                 ->bigInteger('country_id')
-                ->unsigned();
+                ->unsigned()
+            ;
 
             $table
                 ->primary('id')
                 ->foreign('id')
                 ->references('id')
                 ->on('objs')
-                ->onDelete('cascade');
+                ->onDelete('cascade')
+            ;
             $table
                 ->foreign('country_id')
                 ->references('id')
                 ->on('objs')
-                ->onDelete('cascade');
+                ->onDelete('cascade')
+            ;
         });
     }
 
@@ -34,5 +37,4 @@ class CreateKeywordNationalitiesTable extends Migration {
     {
         Schema::drop('keyword_nationalities');
     }
-
 }

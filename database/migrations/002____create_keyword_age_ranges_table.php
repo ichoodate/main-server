@@ -3,32 +3,37 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateKeywordAgeRangesTable extends Migration {
-
+class CreateKeywordAgeRangesTable extends Migration
+{
     public function up()
     {
-        Schema::create('keyword_age_ranges', function(Blueprint $table)
-        {
+        Schema::create('keyword_age_ranges', function (Blueprint $table) {
             $table
                 ->bigInteger('id')
-                ->unsigned();
+                ->unsigned()
+            ;
             $table
                 ->integer('min')
-                ->unsigned();
+                ->unsigned()
+            ;
             $table
                 ->integer('max')
-                ->unsigned();
+                ->unsigned()
+            ;
 
             $table
-                ->primary('id');
+                ->primary('id')
+            ;
             $table
-                ->unique(['min', 'max']);
+                ->unique(['min', 'max'])
+            ;
 
             $table
                 ->foreign('id')
                 ->references('id')
                 ->on('objs')
-                ->onDelete('cascade');
+                ->onDelete('cascade')
+            ;
         });
     }
 
@@ -36,5 +41,4 @@ class CreateKeywordAgeRangesTable extends Migration {
     {
         Schema::drop('keyword_age_ranges');
     }
-
 }

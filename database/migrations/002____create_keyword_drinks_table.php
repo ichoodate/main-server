@@ -3,24 +3,26 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateKeywordDrinksTable extends Migration {
-
+class CreateKeywordDrinksTable extends Migration
+{
     public function up()
     {
-        Schema::create('keyword_drinks', function(Blueprint $table)
-        {
+        Schema::create('keyword_drinks', function (Blueprint $table) {
             $table
                 ->bigInteger('id')
-                ->unsigned();
+                ->unsigned()
+            ;
             $table
-                ->string('type');
+                ->string('type')
+            ;
 
             $table
                 ->primary('id')
                 ->foreign('id')
                 ->references('id')
                 ->on('objs')
-                ->onDelete('cascade');
+                ->onDelete('cascade')
+            ;
         });
     }
 
@@ -28,5 +30,4 @@ class CreateKeywordDrinksTable extends Migration {
     {
         Schema::drop('keyword_drinks');
     }
-
 }

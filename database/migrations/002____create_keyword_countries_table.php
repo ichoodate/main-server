@@ -3,40 +3,48 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateKeywordCountriesTable extends Migration {
-
+class CreateKeywordCountriesTable extends Migration
+{
     public function up()
     {
-        Schema::create('keyword_countries', function(Blueprint $table)
-        {
+        Schema::create('keyword_countries', function (Blueprint $table) {
             $table
                 ->bigInteger('id')
-                ->unsigned();
+                ->unsigned()
+            ;
             $table
-                ->string('iso'); // iso_3166_1_alpha2
+                ->string('iso') // iso_3166_1_alpha2
+            ;
             $table
-                ->string('name'); // iso_3166_1_alpha2
+                ->string('name') // iso_3166_1_alpha2
+            ;
             $table
                 ->integer('e164')
-                ->unsigned();
+                ->unsigned()
+            ;
             $table
                 ->string('cctld')
-                ->nullable();
+                ->nullable()
+            ;
             $table
                 ->string('currency')
-                ->nullable();
+                ->nullable()
+            ;
             $table
                 ->string('language')
-                ->nullable();
+                ->nullable()
+            ;
 
             $table
                 ->primary('id')
                 ->foreign('id')
                 ->references('id')
                 ->on('objs')
-                ->onDelete('cascade');
+                ->onDelete('cascade')
+            ;
             $table
-                ->unique('iso'); // iso_3166_1_alpha2
+                ->unique('iso') // iso_3166_1_alpha2
+            ;
         });
     }
 
@@ -44,5 +52,4 @@ class CreateKeywordCountriesTable extends Migration {
     {
         Schema::drop('keyword_countries');
     }
-
 }

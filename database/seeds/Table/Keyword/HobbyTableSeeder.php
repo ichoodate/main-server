@@ -2,20 +2,17 @@
 
 namespace Database\Seeds\Table\Keyword;
 
-use App\Models\Obj;
 use App\Models\Keyword\Hobby;
 use Database\Seeds\TableSeeder;
 
-class HobbyTableSeeder extends TableSeeder {
-
+class HobbyTableSeeder extends TableSeeder
+{
     public function run()
     {
-        foreach ( Hobby::TYPE_VALUES as $type )
-        {
+        foreach (Hobby::TYPE_VALUES as $type) {
             Hobby::create([
-                Hobby::TYPE => $type
+                Hobby::TYPE => $type,
             ]);
         }
     }
-
 }

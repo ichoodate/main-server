@@ -3,52 +3,63 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateSubscriptionsTable extends Migration {
-
+class CreateSubscriptionsTable extends Migration
+{
     public function up()
     {
-        Schema::create('subscriptions', function(Blueprint $table)
-        {
+        Schema::create('subscriptions', function (Blueprint $table) {
             $table
                 ->bigInteger('id')
-                ->unsigned();
+                ->unsigned()
+            ;
             $table
                 ->bigInteger('user_id')
-                ->unsigned();
+                ->unsigned()
+            ;
             $table
                 ->bigInteger('payment_id')
-                ->unsigned();
+                ->unsigned()
+            ;
             $table
-                ->string('type');
+                ->string('type')
+            ;
             $table
                 ->timestamp('created_at')
-                ->default(app('db')->raw('CURRENT_TIMESTAMP'));
+                ->default(app('db')->raw('CURRENT_TIMESTAMP'))
+            ;
             $table
                 ->timestamp('deleted_at')
-                ->nullable();
+                ->nullable()
+            ;
 
             $table
-                ->primary('id');
+                ->primary('id')
+            ;
             $table
-                ->index('user_id');
+                ->index('user_id')
+            ;
             $table
-                ->index('payment_id');
+                ->index('payment_id')
+            ;
 
             $table
                 ->foreign('id')
                 ->references('id')
                 ->on('objs')
-                ->onDelete('cascade');
+                ->onDelete('cascade')
+            ;
             $table
                 ->foreign('user_id')
                 ->references('id')
                 ->on('objs')
-                ->onDelete('cascade');
+                ->onDelete('cascade')
+            ;
             $table
                 ->foreign('payment_id')
                 ->references('id')
                 ->on('objs')
-                ->onDelete('cascade');
+                ->onDelete('cascade')
+            ;
         });
     }
 
@@ -56,5 +67,4 @@ class CreateSubscriptionsTable extends Migration {
     {
         Schema::drop('subscriptions');
     }
-
 }

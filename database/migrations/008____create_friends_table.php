@@ -3,57 +3,69 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateFriendsTable extends Migration {
-
+class CreateFriendsTable extends Migration
+{
     public function up()
     {
-        Schema::create('friends', function (Blueprint $table)
-        {
+        Schema::create('friends', function (Blueprint $table) {
             $table
                 ->bigInteger('id')
-                ->unsigned();
+                ->unsigned()
+            ;
             $table
                 ->bigInteger('sender_id')
-                ->unsigned();
+                ->unsigned()
+            ;
             $table
                 ->bigInteger('receiver_id')
-                ->unsigned();
+                ->unsigned()
+            ;
             $table
                 ->bigInteger('match_id')
-                ->unsigned();
+                ->unsigned()
+            ;
             $table
                 ->timestamp('created_at')
-                ->default(app('db')->raw('CURRENT_TIMESTAMP'));
+                ->default(app('db')->raw('CURRENT_TIMESTAMP'))
+            ;
 
             $table
-                ->primary('id');
+                ->primary('id')
+            ;
             $table
-                ->index('sender_id');
+                ->index('sender_id')
+            ;
             $table
-                ->index('match_id');
+                ->index('match_id')
+            ;
             $table
-                ->index('receiver_id');
+                ->index('receiver_id')
+            ;
 
             $table
                 ->foreign('id')
                 ->references('id')
                 ->on('objs')
-                ->onDelete('cascade');
+                ->onDelete('cascade')
+            ;
             $table
                 ->foreign('sender_id')
                 ->references('id')
                 ->on('objs')
-                ->onDelete('cascade');
+                ->onDelete('cascade')
+            ;
             $table
                 ->foreign('match_id')
                 ->references('id')
                 ->on('objs')
-                ->onDelete('cascade');
+                ->onDelete('cascade')
+            ;
             $table
                 ->foreign('receiver_id')
                 ->references('id')
                 ->on('objs')
-                ->onDelete('cascade');
+                ->onDelete('cascade')
+            ;
         });
     }
 
@@ -61,5 +73,4 @@ class CreateFriendsTable extends Migration {
     {
         Schema::drop('friends');
     }
-
 }

@@ -2,20 +2,17 @@
 
 namespace Database\Factories\Model\Keyword;
 
-use Database\Factories\ModelFactory;
 use App\Models\Keyword\EduBg;
+use Database\Factories\ModelFactory;
 
-class EduBgFactory extends ModelFactory {
-
+class EduBgFactory extends ModelFactory
+{
     public static function default()
     {
         return [
-            EduBg::ID
-                => static::faker()->unique()->randomNumber(8),
+            EduBg::ID => static::faker()->unique()->randomNumber(8),
 
-            EduBg::TYPE
-                => static::faker()->randomElement(EduBg::TYPE_VALUES)
+            EduBg::TYPE => static::faker()->randomElement(EduBg::TYPE_VALUES),
         ];
     }
-
 }

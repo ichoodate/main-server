@@ -2,20 +2,17 @@
 
 namespace Database\Seeds\Table\Keyword;
 
-use App\Models\Obj;
 use App\Models\Keyword\Body;
 use Database\Seeds\TableSeeder;
 
-class BodyTableSeeder extends TableSeeder {
-
+class BodyTableSeeder extends TableSeeder
+{
     public function run()
     {
-        foreach ( Body::TYPE_VALUES as $type )
-        {
+        foreach (Body::TYPE_VALUES as $type) {
             Body::create([
-                Body::TYPE => $type
+                Body::TYPE => $type,
             ]);
         }
     }
-
 }

@@ -3,26 +3,29 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateKeywordLanguagesTable extends Migration {
-
+class CreateKeywordLanguagesTable extends Migration
+{
     public function up()
     {
-        Schema::create('keyword_languages', function(Blueprint $table)
-        {
+        Schema::create('keyword_languages', function (Blueprint $table) {
             $table
                 ->bigInteger('id')
-                ->unsigned();
+                ->unsigned()
+            ;
             $table
-                ->string('type');
+                ->string('type')
+            ;
 
             $table
                 ->primary('id')
                 ->foreign('id')
                 ->references('id')
                 ->on('objs')
-                ->onDelete('cascade');
+                ->onDelete('cascade')
+            ;
             $table
-                ->unique('type');
+                ->unique('type')
+            ;
         });
     }
 
@@ -30,5 +33,4 @@ class CreateKeywordLanguagesTable extends Migration {
     {
         Schema::drop('keyword_languages');
     }
-
 }

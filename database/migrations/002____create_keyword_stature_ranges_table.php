@@ -3,28 +3,31 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateKeywordStatureRangesTable extends Migration {
-
+class CreateKeywordStatureRangesTable extends Migration
+{
     public function up()
     {
-        Schema::create('keyword_stature_ranges', function(Blueprint $table)
-        {
+        Schema::create('keyword_stature_ranges', function (Blueprint $table) {
             $table
                 ->bigInteger('id')
-                ->unsigned();
+                ->unsigned()
+            ;
             $table
                 ->integer('min')
-                ->unsigned();
+                ->unsigned()
+            ;
             $table
                 ->integer('max')
-                ->unsigned();
+                ->unsigned()
+            ;
 
             $table
                 ->primary('id')
                 ->foreign('id')
                 ->references('id')
                 ->on('objs')
-                ->onDelete('cascade');
+                ->onDelete('cascade')
+            ;
         });
     }
 
@@ -32,5 +35,4 @@ class CreateKeywordStatureRangesTable extends Migration {
     {
         Schema::drop('keyword_stature_ranges');
     }
-
 }

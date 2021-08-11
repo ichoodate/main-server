@@ -3,43 +3,51 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateMatchingKeywordPivotsTable extends Migration {
-
+class CreateMatchingKeywordPivotsTable extends Migration
+{
     public function up()
     {
-        Schema::create('matching_keyword_pivots', function(Blueprint $table)
-        {
+        Schema::create('matching_keyword_pivots', function (Blueprint $table) {
             $table
                 ->bigInteger('id')
-                ->unsigned();
+                ->unsigned()
+            ;
             $table
                 ->bigInteger('ideal_type_kwd_id')
-                ->unsigned();
+                ->unsigned()
+            ;
             $table
                 ->bigInteger('matching_kwd_id')
-                ->unsigned();
+                ->unsigned()
+            ;
             $table
-                ->primary('id');
+                ->primary('id')
+            ;
             $table
-                ->index('ideal_type_kwd_id');
+                ->index('ideal_type_kwd_id')
+            ;
             $table
-                ->index('matching_kwd_id');
+                ->index('matching_kwd_id')
+            ;
 
             $table
                 ->foreign('id')
                 ->references('id')
                 ->on('objs')
-                ->onDelete('cascade');
+                ->onDelete('cascade')
+            ;
             $table
                 ->foreign('ideal_type_kwd_id')
                 ->references('id')
                 ->on('objs')
-                ->onDelete('cascade');
+                ->onDelete('cascade')
+            ;
             $table
                 ->foreign('matching_kwd_id')
                 ->references('id')
                 ->on('objs')
-                ->onDelete('cascade');
+                ->onDelete('cascade')
+            ;
         });
     }
 
@@ -47,5 +55,4 @@ class CreateMatchingKeywordPivotsTable extends Migration {
     {
         Schema::drop('matching_keyword_pivots');
     }
-
 }

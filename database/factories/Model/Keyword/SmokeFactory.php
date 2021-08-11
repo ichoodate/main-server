@@ -2,20 +2,17 @@
 
 namespace Database\Factories\Model\Keyword;
 
-use Database\Factories\ModelFactory;
 use App\Models\Keyword\Smoke;
+use Database\Factories\ModelFactory;
 
-class SmokeFactory extends ModelFactory {
-
+class SmokeFactory extends ModelFactory
+{
     public static function default()
     {
         return [
-            Smoke::ID
-                => static::faker()->unique()->randomNumber(8),
+            Smoke::ID => static::faker()->unique()->randomNumber(8),
 
-            Smoke::TYPE
-                => static::faker()->randomElement(Smoke::TYPE_VALUES)
+            Smoke::TYPE => static::faker()->randomElement(Smoke::TYPE_VALUES),
         ];
     }
-
 }

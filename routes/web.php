@@ -12,13 +12,11 @@
 */
 
 Route::prefix('api')->group(function () {
-
     Route::middleware([
         'FunctionalCoding\Illuminate\Http\ServiceRunMiddleware',
         'FunctionalCoding\Illuminate\Http\ServiceParameterSettingMiddleware',
         'FunctionalCoding\Illuminate\Http\RequestInputTransformMiddleware',
     ])->group(function () {
-
         Route::resource(
             'auth/sign-in',
             'Api\AuthSignInController'

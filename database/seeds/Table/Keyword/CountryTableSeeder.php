@@ -2,34 +2,31 @@
 
 namespace Database\Seeds\Table\Keyword;
 
-use App\Models\Obj;
 use App\Models\Keyword\Country;
-use App\Models\Photo;
 use Database\Seeds\TableSeeder;
 
-class CountryTableSeeder extends TableSeeder {
-
+class CountryTableSeeder extends TableSeeder
+{
     public function run()
     {
-        foreach ( [
+        foreach ([
             ['KR', 'South Korea', '82', '.kr', 'KRW', 'ko-KR'],
             ['US', 'United States', '1', '.us', 'USD', 'en-US'],
             ['JP', 'Japan', '81', '.jp', 'JPY', 'ja-JP'],
-            ['CN', 'China', '86', '.cn', 'RMB', 'zh-CN']
-        ] as $val )
-        {
+            ['CN', 'China', '86', '.cn', 'RMB', 'zh-CN'],
+        ] as $val) {
             Country::create([
                 Country::ISO => $val[0],
                 Country::NAME => $val[1],
                 Country::E164 => $val[2],
                 Country::CCTLD => $val[3],
                 Country::CURRENCY => $val[4],
-                Country::LANGUAGE => $val[5]
+                Country::LANGUAGE => $val[5],
             ]);
         }
     }
 
-        // $languages = [
+    // $languages = [
         //     'de-DE',
         //     'el-GR',
         //     'en-US',
@@ -416,5 +413,4 @@ class CountryTableSeeder extends TableSeeder {
         //         $keywordCountry->save();
         //     }
         // }
-
 }

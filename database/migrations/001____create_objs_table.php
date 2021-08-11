@@ -3,16 +3,17 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateObjsTable extends Migration {
-
+class CreateObjsTable extends Migration
+{
     public function up()
     {
-        Schema::create('objs', function(Blueprint $table)
-        {
+        Schema::create('objs', function (Blueprint $table) {
             $table
-                ->bigIncrements('id');
+                ->bigIncrements('id')
+            ;
             $table
-                ->string('type');
+                ->string('type')
+            ;
         });
     }
 
@@ -20,5 +21,4 @@ class CreateObjsTable extends Migration {
     {
         Schema::drop('objs');
     }
-
 }

@@ -3,57 +3,62 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateUsersTable extends Migration {
-
+class CreateUsersTable extends Migration
+{
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up()
     {
-        Schema::create('users', function(Blueprint $table)
-        {
+        Schema::create('users', function (Blueprint $table) {
             $table
                 ->bigInteger('id')
-                ->unsigned();
+                ->unsigned()
+            ;
             $table
-                ->string('email');
+                ->string('email')
+            ;
             $table
-                ->string('password', 60);
+                ->string('password', 60)
+            ;
             $table
-                ->string('gender');
+                ->string('gender')
+            ;
             $table
-                ->datetime('birth');
+                ->datetime('birth')
+            ;
             $table
-                ->string('name');
+                ->string('name')
+            ;
             $table
-                ->boolean('email_verified');
+                ->boolean('email_verified')
+            ;
             $table
                 ->timestamp('created_at')
-                ->default(app('db')->raw('CURRENT_TIMESTAMP'));
+                ->default(app('db')->raw('CURRENT_TIMESTAMP'))
+            ;
 
             $table
-                ->primary('id');
+                ->primary('id')
+            ;
             $table
-                ->unique('email');
+                ->unique('email')
+            ;
 
             $table
                 ->foreign('id')
                 ->references('id')
                 ->on('objs')
-                ->onDelete('cascade');
+                ->onDelete('cascade')
+            ;
         });
     }
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down()
     {
         Schema::drop('users');
     }
-
 }

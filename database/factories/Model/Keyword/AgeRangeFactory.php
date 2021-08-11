@@ -2,23 +2,19 @@
 
 namespace Database\Factories\Model\Keyword;
 
-use Database\Factories\ModelFactory;
 use App\Models\Keyword\AgeRange;
+use Database\Factories\ModelFactory;
 
-class AgeRangeFactory extends ModelFactory {
-
+class AgeRangeFactory extends ModelFactory
+{
     public static function default()
     {
         return [
-            AgeRange::ID
-                => static::faker()->unique()->randomNumber(8),
+            AgeRange::ID => static::faker()->unique()->randomNumber(8),
 
-            AgeRange::MIN
-                => static::faker()->numberBetween(20, 40),
+            AgeRange::MIN => static::faker()->numberBetween(20, 40),
 
-            AgeRange::MAX
-                => static::faker()->numberBetween(30, 50)
+            AgeRange::MAX => static::faker()->numberBetween(30, 50),
         ];
     }
-
 }

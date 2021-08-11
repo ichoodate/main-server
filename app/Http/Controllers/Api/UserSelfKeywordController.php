@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\User;
 use App\Http\Controllers\ApiController;
+use App\Models\User;
 use App\Services\UserSelfKwdPvt\UserSelfKwdPvtListingService;
 
 class UserSelfKeywordController extends ApiController

@@ -5,22 +5,18 @@ namespace Database\Factories\Model;
 use App\Models\ProfilePhoto;
 use Database\Factories\ModelFactory;
 
-class ProfilePhotoFactory extends ModelFactory {
-
+class ProfilePhotoFactory extends ModelFactory
+{
     public static function default()
     {
         return [
-            ProfilePhoto::ID
-                => static::faker()->unique()->randomNumber(8),
+            ProfilePhoto::ID => static::faker()->unique()->randomNumber(8),
 
-            ProfilePhoto::USER_ID
-                => static::faker()->unique()->randomNumber(8),
+            ProfilePhoto::USER_ID => static::faker()->unique()->randomNumber(8),
 
-            ProfilePhoto::DATA
-                => static::faker()->text,
+            ProfilePhoto::DATA => static::faker()->text,
 
-            ProfilePhoto::CREATED_AT
-                => static::faker()->dateTimeThisYear->format('Y-m-d H:i:s'),
+            ProfilePhoto::CREATED_AT => static::faker()->dateTimeThisYear->format('Y-m-d H:i:s'),
         ];
     }
 }

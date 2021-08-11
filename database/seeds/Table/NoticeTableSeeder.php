@@ -5,14 +5,12 @@ namespace Database\Seeds\Table;
 use App\Models\Notice;
 use Database\Seeds\TableSeeder;
 
-class NoticeTableSeeder extends TableSeeder {
-
+class NoticeTableSeeder extends TableSeeder
+{
     public function run()
     {
-        for( $i = 0; $i < 100; $i++ )
-        {
-           $this->factory(Notice::class)->create();
+        for ($i = 0; $i < 100; ++$i) {
+            $this->factory(Notice::class)->create();
         }
     }
-
 }

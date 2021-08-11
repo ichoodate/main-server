@@ -2,20 +2,17 @@
 
 namespace Database\Seeds\Table\Keyword;
 
-use App\Models\Obj;
 use App\Models\Keyword\Language;
 use Database\Seeds\TableSeeder;
 
-class LanguageTableSeeder extends TableSeeder {
-
+class LanguageTableSeeder extends TableSeeder
+{
     public function run()
     {
-        foreach ( Language::TYPE_VALUES as $type )
-        {
+        foreach (Language::TYPE_VALUES as $type) {
             Language::create([
-                Language::TYPE => $type
+                Language::TYPE => $type,
             ]);
         }
     }
-
 }
