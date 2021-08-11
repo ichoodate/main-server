@@ -5,7 +5,7 @@ namespace App\Services\User;
 use App\Models\Obj;
 use App\Models\User;
 use App\Models\UserSelfKwdPvt;
-use App\Services\RandommingService;
+use FunctionalCoding\Illuminate\Service\RandomListService;
 use FunctionalCoding\Service;
 use Illuminate\Support\Facades\DB;
 
@@ -110,7 +110,7 @@ class MatchingUserListingService extends Service
     public static function getArrTraits()
     {
         return [
-            RandommingService::class,
+            RandomListService::class,
         ];
     }
 }
