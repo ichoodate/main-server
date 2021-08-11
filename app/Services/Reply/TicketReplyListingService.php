@@ -3,7 +3,7 @@
 namespace App\Services\Reply;
 
 use App\Models\Reply;
-use App\Services\LimitedListingService;
+use FunctionalCoding\Illuminate\Service\PaginationListService;
 use App\Services\Ticket\TicketFindingService;
 use FunctionalCoding\Service;
 
@@ -77,7 +77,7 @@ class TicketReplyListingService extends Service
     public static function getArrTraits()
     {
         return [
-            LimitedListingService::class,
+            PaginationListService::class,
         ];
     }
 }

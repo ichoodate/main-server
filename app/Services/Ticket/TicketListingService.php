@@ -3,7 +3,7 @@
 namespace App\Services\Ticket;
 
 use App\Models\Ticket;
-use App\Services\LimitedListingService;
+use FunctionalCoding\Illuminate\Service\PaginationListService;
 use FunctionalCoding\Service;
 
 class TicketListingService extends Service
@@ -60,7 +60,7 @@ class TicketListingService extends Service
     public static function getArrTraits()
     {
         return [
-            LimitedListingService::class,
+            PaginationListService::class,
         ];
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Services\Popularity;
 
 use App\Models\Popularity;
-use App\Services\LimitedListingService;
+use FunctionalCoding\Illuminate\Service\PaginationListService;
 use FunctionalCoding\Service;
 
 class PopularityListingService extends Service
@@ -60,7 +60,7 @@ class PopularityListingService extends Service
     public static function getArrTraits()
     {
         return [
-            LimitedListingService::class,
+            PaginationListService::class,
         ];
     }
 }

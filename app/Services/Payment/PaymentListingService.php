@@ -3,7 +3,7 @@
 namespace App\Services\Payment;
 
 use App\Models\Payment;
-use App\Services\LimitedListingService;
+use FunctionalCoding\Illuminate\Service\PaginationListService;
 use FunctionalCoding\Service;
 
 class PaymentListingService extends Service
@@ -60,7 +60,7 @@ class PaymentListingService extends Service
     public static function getArrTraits()
     {
         return [
-            LimitedListingService::class,
+            PaginationListService::class,
         ];
     }
 }

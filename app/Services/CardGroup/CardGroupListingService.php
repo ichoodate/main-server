@@ -3,7 +3,7 @@
 namespace App\Services\CardGroup;
 
 use App\Models\CardGroup;
-use App\Services\LimitedListingService;
+use FunctionalCoding\Illuminate\Service\PaginationListService;
 use FunctionalCoding\Service;
 
 class CardGroupListingService extends Service
@@ -71,7 +71,7 @@ class CardGroupListingService extends Service
     public static function getArrTraits()
     {
         return [
-            LimitedListingService::class,
+            PaginationListService::class,
         ];
     }
 }

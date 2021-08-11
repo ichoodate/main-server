@@ -3,7 +3,7 @@
 namespace App\Services\Balance;
 
 use App\Models\Balance;
-use App\Services\LimitedListingService;
+use FunctionalCoding\Illuminate\Service\PaginationListService;
 use FunctionalCoding\Service;
 
 class BalanceListingService extends Service
@@ -60,7 +60,7 @@ class BalanceListingService extends Service
     public static function getArrTraits()
     {
         return [
-            LimitedListingService::class,
+            PaginationListService::class,
         ];
     }
 }

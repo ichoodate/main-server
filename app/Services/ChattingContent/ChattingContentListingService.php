@@ -3,7 +3,7 @@
 namespace App\Services\ChattingContent;
 
 use App\Models\ChattingContent;
-use App\Services\LimitedListingService;
+use FunctionalCoding\Illuminate\Service\PaginationListService;
 use App\Services\Match\MatchFindingService;
 use FunctionalCoding\Service;
 
@@ -73,7 +73,7 @@ class ChattingContentListingService extends Service
     public static function getArrTraits()
     {
         return [
-            LimitedListingService::class,
+            PaginationListService::class,
         ];
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Services\ProfilePhoto;
 
 use App\Models\ProfilePhoto;
-use App\Services\LimitedListingService;
+use FunctionalCoding\Illuminate\Service\PaginationListService;
 use App\Services\User\UserFindingService;
 use FunctionalCoding\Service;
 
@@ -67,7 +67,7 @@ class ProfilePhotoListingService extends Service
     public static function getArrTraits()
     {
         return [
-            LimitedListingService::class,
+            PaginationListService::class,
         ];
     }
 }

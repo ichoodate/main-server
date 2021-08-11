@@ -7,7 +7,7 @@ use App\Models\CardFlip;
 use App\Models\Friend;
 use App\Models\Match;
 use App\Models\User;
-use App\Services\LimitedListingService;
+use FunctionalCoding\Illuminate\Service\PaginationListService;
 use FunctionalCoding\Service;
 
 class CardListingService extends Service
@@ -260,7 +260,7 @@ class CardListingService extends Service
     public static function getArrTraits()
     {
         return [
-            LimitedListingService::class,
+            PaginationListService::class,
         ];
     }
 }

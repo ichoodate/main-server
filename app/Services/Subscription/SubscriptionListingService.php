@@ -3,7 +3,7 @@
 namespace App\Services\Subscription;
 
 use App\Models\Subscription;
-use App\Services\LimitedListingService;
+use FunctionalCoding\Illuminate\Service\PaginationListService;
 use FunctionalCoding\Service;
 
 class SubscriptionListingService extends Service
@@ -60,7 +60,7 @@ class SubscriptionListingService extends Service
     public static function getArrTraits()
     {
         return [
-            LimitedListingService::class,
+            PaginationListService::class,
         ];
     }
 }

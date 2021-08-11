@@ -3,7 +3,7 @@
 namespace App\Services\Notice;
 
 use App\Models\Notice;
-use App\Services\LimitedListingService;
+use FunctionalCoding\Illuminate\Service\PaginationListService;
 use FunctionalCoding\Service;
 
 class NoticeListingService extends Service
@@ -54,7 +54,7 @@ class NoticeListingService extends Service
     public static function getArrTraits()
     {
         return [
-            LimitedListingService::class,
+            PaginationListService::class,
         ];
     }
 }
