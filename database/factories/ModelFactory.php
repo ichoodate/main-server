@@ -38,7 +38,7 @@ abstract class ModelFactory
     {
         $path = str_replace('App\\Database\\Models\\', '', $modelClass);
 
-        return inst('Database\\Factories\\Model\\'.$path.'Factory');
+        return app('Database\\Factories\\Model\\'.$path.'Factory');
     }
 
     public static function faker()
@@ -49,12 +49,12 @@ abstract class ModelFactory
     public static function make(array $data = [], $itemCount = null)
     {
         $modelClass = static::class();
-        $model = inst($modelClass);
+        $model = app($modelClass);
         $data = static::setDefault($data);
         $attrs = array_only($data, $model->getFillable());
 
         if (null != $itemCount) {
-            $collection = inst($modelClass)->newCollection();
+            $collection = app($modelClass)->newCollection();
 
             for ($i = 0; $i < $itemCount; ++$i) {
                 $collection->push(static::make($data));

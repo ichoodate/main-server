@@ -52,7 +52,7 @@ class ListingService extends Service
     {
         return [
             'available_fields' => function ($modelClass) {
-                $model = inst($model_class);
+                $model = app($model_class);
 
                 return array_diff(array_merge($model->getFillable(), $model->getGuarded()), $model->getHidden());
             },
@@ -62,7 +62,7 @@ class ListingService extends Service
             },
 
             'available_order_by' => function ($modelClass) {
-                if (!in_array($modelClass::CREATED_AT, inst($modelClass)->getFillable())) {
+                if (!in_array($modelClass::CREATED_AT, app($modelClass)->getFillable())) {
                     return ['id asc'];
                 }
 
@@ -97,7 +97,7 @@ class ListingService extends Service
             },
 
             'query' => function ($modelClass) {
-                return inst($modelClass)->query();
+                return app($modelClass)->query();
             },
 
             'result' => function ($query) {

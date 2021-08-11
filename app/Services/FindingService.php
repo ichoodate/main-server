@@ -33,7 +33,7 @@ class FindingService extends Service
             },
 
             'model' => function ($id, $modelClass) {
-                return inst($modelClass)->find($id);
+                return app($modelClass)->find($id);
             },
 
             'model_class' => function () {

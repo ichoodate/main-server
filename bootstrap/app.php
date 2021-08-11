@@ -40,7 +40,7 @@ $app->singleton(
     App\Exceptions\Handler::class
 );
 
-$app->useStoragePath(env('APP_STORAGE', base_path() . '/storage'));
+$app->useStoragePath(env('APP_STORAGE', base_path().'/storage'));
 
 /*
 |--------------------------------------------------------------------------
@@ -52,26 +52,5 @@ $app->useStoragePath(env('APP_STORAGE', base_path() . '/storage'));
 | from the actual running of the application and sending responses.
 |
 */
-
-if ( ! function_exists('inst') )
-{
-    function inst($class, $args = [])
-    {
-        $ref     = new ReflectionClass($class);
-        $cons    = $ref->getConstructor();
-        $params  = $cons ? $cons->getParameters(): [];
-        $argsDic = [];
-
-        foreach ( $params as $i => $param )
-        {
-            if ( array_key_exists($i, $args) )
-            {
-                $argsDic[$param->getName()] = $args[$i];
-            }
-        }
-
-        return app($class, $argsDic);
-    }
-}
 
 return $app;

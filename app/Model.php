@@ -18,15 +18,15 @@ abstract class Model extends \FunctionalCoding\Illuminate\Model
     public static function create(array $attributes = [])
     {
         if (Obj::class != static::class && !array_key_exists(static::ID, $attributes)) {
-            $obj = inst(Obj::class, [[
+            $obj = new Obj([
                 Obj::MODEL_CLASS => static::class,
-            ]]);
+            ]);
             $obj->save();
 
             $attributes[static::ID] = $obj->getKey();
         }
 
-        $model = inst(static::class, [$attributes]);
+        $model = new static($attributes);
         $model->save();
 
         return $model;

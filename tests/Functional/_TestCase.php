@@ -60,7 +60,7 @@ class _TestCase extends TestCase
     public function assertPersistence($model, $existCount = 1)
     {
         $attrs = $model->getAttributes();
-        $query = inst(get_class($model))->query();
+        $query = app(get_class($model))->query();
 
         foreach ($attrs as $attr => $value) {
             $query->where($attr, $value);
@@ -154,7 +154,7 @@ class _TestCase extends TestCase
     {
         $path = str_replace('App\\Database\\Models\\', '', $modelClass);
 
-        return inst('Database\\Factories\\Model\\'.$path.'Factory');
+        return app('Database\\Factories\\Model\\'.$path.'Factory');
     }
 
     public function getHttpMethod()
