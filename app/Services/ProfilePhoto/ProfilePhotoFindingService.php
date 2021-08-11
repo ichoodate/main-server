@@ -3,7 +3,7 @@
 namespace App\Services\ProfilePhoto;
 
 use App\Models\ProfilePhoto;
-use App\Services\FindingService;
+use FunctionalCoding\Illuminate\Service\FindService;
 use FunctionalCoding\Service;
 
 class ProfilePhotoFindingService extends Service
@@ -46,7 +46,7 @@ class ProfilePhotoFindingService extends Service
     public static function getArrTraits()
     {
         return [
-            FindingService::class,
+            FindService::class,
         ];
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Services\Keyword\WeightRange;
 
 use App\Models\Keyword\WeightRange;
-use App\Services\FindingService;
+use FunctionalCoding\Illuminate\Service\FindService;
 use FunctionalCoding\Service;
 
 class WeightRangeFindingService extends Service
@@ -42,7 +42,7 @@ class WeightRangeFindingService extends Service
     public static function getArrTraits()
     {
         return [
-            FindingService::class,
+            FindService::class,
         ];
     }
 }

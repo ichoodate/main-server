@@ -3,7 +3,7 @@
 namespace App\Services\Keyword\Hobby;
 
 use App\Models\Keyword\Hobby;
-use App\Services\FindingService;
+use FunctionalCoding\Illuminate\Service\FindService;
 use FunctionalCoding\Service;
 
 class HobbyFindingService extends Service
@@ -42,7 +42,7 @@ class HobbyFindingService extends Service
     public static function getArrTraits()
     {
         return [
-            FindingService::class,
+            FindService::class,
         ];
     }
 }

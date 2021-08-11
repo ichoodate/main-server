@@ -3,7 +3,7 @@
 namespace App\Services\Keyword\StatureRange;
 
 use App\Models\Keyword\StatureRange;
-use App\Services\FindingService;
+use FunctionalCoding\Illuminate\Service\FindService;
 use FunctionalCoding\Service;
 
 class StatureRangeFindingService extends Service
@@ -42,7 +42,7 @@ class StatureRangeFindingService extends Service
     public static function getArrTraits()
     {
         return [
-            FindingService::class,
+            FindService::class,
         ];
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Services\Keyword\EduBg;
 
 use App\Models\Keyword\EduBg;
-use App\Services\FindingService;
+use FunctionalCoding\Illuminate\Service\FindService;
 use FunctionalCoding\Service;
 
 class EduBgFindingService extends Service
@@ -42,7 +42,7 @@ class EduBgFindingService extends Service
     public static function getArrTraits()
     {
         return [
-            FindingService::class,
+            FindService::class,
         ];
     }
 }

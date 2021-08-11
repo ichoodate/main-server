@@ -3,7 +3,7 @@
 namespace App\Services\Role;
 
 use App\Models\Role;
-use App\Services\FindingService;
+use FunctionalCoding\Illuminate\Service\FindService;
 use App\Services\PermittedUserRequiringService;
 use FunctionalCoding\Service;
 
@@ -53,7 +53,7 @@ class RoleFindingService extends Service
     public static function getArrTraits()
     {
         return [
-            FindingService::class,
+            FindService::class,
             PermittedUserRequiringService::class,
         ];
     }

@@ -3,7 +3,7 @@
 namespace App\Services\User;
 
 use App\Models\User;
-use App\Services\FindingService;
+use FunctionalCoding\Illuminate\Service\FindService;
 use FunctionalCoding\Service;
 
 class UserFindingService extends Service
@@ -46,7 +46,7 @@ class UserFindingService extends Service
     public static function getArrTraits()
     {
         return [
-            FindingService::class,
+            FindService::class,
         ];
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Services\Keyword\AgeRange;
 
 use App\Models\Keyword\AgeRange;
-use App\Services\FindingService;
+use FunctionalCoding\Illuminate\Service\FindService;
 use FunctionalCoding\Service;
 
 class AgeRangeFindingService extends Service
@@ -42,7 +42,7 @@ class AgeRangeFindingService extends Service
     public static function getArrTraits()
     {
         return [
-            FindingService::class,
+            FindService::class,
         ];
     }
 }

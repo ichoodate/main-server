@@ -3,7 +3,7 @@
 namespace App\Services\Reply;
 
 use App\Models\Reply;
-use App\Services\FindingService;
+use FunctionalCoding\Illuminate\Service\FindService;
 use App\Services\Ticket\TicketFindingService;
 use FunctionalCoding\Service;
 
@@ -57,7 +57,7 @@ class ReplyFindingService extends Service
     public static function getArrTraits()
     {
         return [
-            FindingService::class,
+            FindService::class,
         ];
     }
 }

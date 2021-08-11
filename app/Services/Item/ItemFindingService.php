@@ -3,7 +3,7 @@
 namespace App\Services\Item;
 
 use App\Models\Item;
-use App\Services\FindingService;
+use FunctionalCoding\Illuminate\Service\FindService;
 use FunctionalCoding\Service;
 
 class ItemFindingService extends Service
@@ -42,7 +42,7 @@ class ItemFindingService extends Service
     public static function getArrTraits()
     {
         return [
-            FindingService::class,
+            FindService::class,
         ];
     }
 }

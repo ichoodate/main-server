@@ -3,7 +3,7 @@
 namespace App\Services\Card;
 
 use App\Models\Card;
-use App\Services\FindingService;
+use FunctionalCoding\Illuminate\Service\FindService;
 use App\Services\PermittedUserRequiringService;
 use FunctionalCoding\Service;
 
@@ -55,7 +55,7 @@ class CardFindingService extends Service
     public static function getArrTraits()
     {
         return [
-            FindingService::class,
+            FindService::class,
             PermittedUserRequiringService::class,
         ];
     }

@@ -3,7 +3,7 @@
 namespace App\Services\Keyword\Residence;
 
 use App\Models\Keyword\Residence;
-use App\Services\FindingService;
+use FunctionalCoding\Illuminate\Service\FindService;
 use FunctionalCoding\Service;
 
 class ResidenceFindingService extends Service
@@ -42,7 +42,7 @@ class ResidenceFindingService extends Service
     public static function getArrTraits()
     {
         return [
-            FindingService::class,
+            FindService::class,
         ];
     }
 }

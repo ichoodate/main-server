@@ -3,7 +3,7 @@
 namespace App\Services\Keyword\State;
 
 use App\Models\Keyword\State;
-use App\Services\FindingService;
+use FunctionalCoding\Illuminate\Service\FindService;
 use FunctionalCoding\Service;
 
 class StateFindingService extends Service
@@ -46,7 +46,7 @@ class StateFindingService extends Service
     public static function getArrTraits()
     {
         return [
-            FindingService::class,
+            FindService::class,
         ];
     }
 }

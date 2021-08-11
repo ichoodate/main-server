@@ -3,7 +3,7 @@
 namespace App\Services\Keyword\Nationality;
 
 use App\Models\Keyword\Nationality;
-use App\Services\FindingService;
+use FunctionalCoding\Illuminate\Service\FindService;
 use FunctionalCoding\Service;
 
 class NationalityFindingService extends Service
@@ -46,7 +46,7 @@ class NationalityFindingService extends Service
     public static function getArrTraits()
     {
         return [
-            FindingService::class,
+            FindService::class,
         ];
     }
 }

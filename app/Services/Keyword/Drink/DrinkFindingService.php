@@ -3,7 +3,7 @@
 namespace App\Services\Keyword\Drink;
 
 use App\Models\Keyword\Drink;
-use App\Services\FindingService;
+use FunctionalCoding\Illuminate\Service\FindService;
 use FunctionalCoding\Service;
 
 class DrinkFindingService extends Service
@@ -42,7 +42,7 @@ class DrinkFindingService extends Service
     public static function getArrTraits()
     {
         return [
-            FindingService::class,
+            FindService::class,
         ];
     }
 }

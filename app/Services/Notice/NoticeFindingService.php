@@ -3,7 +3,7 @@
 namespace App\Services\Notice;
 
 use App\Models\Notice;
-use App\Services\FindingService;
+use FunctionalCoding\Illuminate\Service\FindService;
 use FunctionalCoding\Service;
 
 class NoticeFindingService extends Service
@@ -42,7 +42,7 @@ class NoticeFindingService extends Service
     public static function getArrTraits()
     {
         return [
-            FindingService::class,
+            FindService::class,
         ];
     }
 }

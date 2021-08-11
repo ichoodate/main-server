@@ -3,7 +3,7 @@
 namespace App\Services\Localizable;
 
 use App\Models\Localizable;
-use App\Services\FindingService;
+use FunctionalCoding\Illuminate\Service\FindService;
 use FunctionalCoding\Service;
 
 class LocalizableFindingService extends Service
@@ -42,7 +42,7 @@ class LocalizableFindingService extends Service
     public static function getArrTraits()
     {
         return [
-            FindingService::class,
+            FindService::class,
         ];
     }
 }
