@@ -3,7 +3,7 @@
 namespace App\Services\Keyword\BirthYear;
 
 use App\Models\Keyword\BirthYear;
-use FunctionalCoding\Illuminate\Service\ListService;
+use FunctionalCoding\ORM\Eloquent\Service\ListService;
 use FunctionalCoding\Service;
 
 class BirthYearListingService extends Service

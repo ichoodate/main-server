@@ -3,7 +3,7 @@
 namespace App\Services\Keyword\EduBg;
 
 use App\Models\Keyword\EduBg;
-use FunctionalCoding\Illuminate\Service\ListService;
+use FunctionalCoding\ORM\Eloquent\Service\ListService;
 use FunctionalCoding\Service;
 
 class EduBgListingService extends Service

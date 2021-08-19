@@ -4,7 +4,7 @@ namespace App\Services\Reply;
 
 use App\Models\Reply;
 use App\Services\Ticket\TicketFindingService;
-use FunctionalCoding\Illuminate\Service\FindService;
+use FunctionalCoding\ORM\Eloquent\Service\FindService;
 use FunctionalCoding\Service;
 
 class ReplyFindingService extends Service

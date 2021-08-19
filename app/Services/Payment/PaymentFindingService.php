@@ -4,7 +4,7 @@ namespace App\Services\Payment;
 
 use App\Models\Payment;
 use App\Services\PermittedUserRequiringService;
-use FunctionalCoding\Illuminate\Service\FindService;
+use FunctionalCoding\ORM\Eloquent\Service\FindService;
 use FunctionalCoding\Service;
 
 class PaymentFindingService extends Service

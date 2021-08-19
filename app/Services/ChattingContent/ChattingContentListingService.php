@@ -4,7 +4,7 @@ namespace App\Services\ChattingContent;
 
 use App\Models\ChattingContent;
 use App\Services\Match\MatchFindingService;
-use FunctionalCoding\Illuminate\Service\PaginationListService;
+use FunctionalCoding\ORM\Eloquent\Service\PaginationListService;
 use FunctionalCoding\Service;
 
 class ChattingContentListingService extends Service

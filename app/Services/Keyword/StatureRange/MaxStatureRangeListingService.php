@@ -3,7 +3,7 @@
 namespace App\Services\Keyword\StatureRange;
 
 use App\Models\Keyword\StatureRange;
-use FunctionalCoding\Illuminate\Service\ListService;
+use FunctionalCoding\ORM\Eloquent\Service\ListService;
 use FunctionalCoding\Service;
 
 class MaxStatureRangeListingService extends Service

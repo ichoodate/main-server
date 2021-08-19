@@ -3,7 +3,7 @@
 namespace App\Services\Keyword\WeightRange;
 
 use App\Models\Keyword\WeightRange;
-use FunctionalCoding\Illuminate\Service\ListService;
+use FunctionalCoding\ORM\Eloquent\Service\ListService;
 use FunctionalCoding\Service;
 
 class MinWeightRangeListingService extends Service

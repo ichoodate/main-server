@@ -3,7 +3,7 @@
 namespace App\Services\Keyword\Language;
 
 use App\Models\Keyword\Language;
-use FunctionalCoding\Illuminate\Service\FindService;
+use FunctionalCoding\ORM\Eloquent\Service\FindService;
 use FunctionalCoding\Service;
 
 class LanguageFindingService extends Service

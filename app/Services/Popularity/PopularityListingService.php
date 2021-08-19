@@ -3,7 +3,7 @@
 namespace App\Services\Popularity;
 
 use App\Models\Popularity;
-use FunctionalCoding\Illuminate\Service\PaginationListService;
+use FunctionalCoding\ORM\Eloquent\Service\PaginationListService;
 use FunctionalCoding\Service;
 
 class PopularityListingService extends Service

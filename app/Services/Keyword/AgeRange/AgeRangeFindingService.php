@@ -3,7 +3,7 @@
 namespace App\Services\Keyword\AgeRange;
 
 use App\Models\Keyword\AgeRange;
-use FunctionalCoding\Illuminate\Service\FindService;
+use FunctionalCoding\ORM\Eloquent\Service\FindService;
 use FunctionalCoding\Service;
 
 class AgeRangeFindingService extends Service

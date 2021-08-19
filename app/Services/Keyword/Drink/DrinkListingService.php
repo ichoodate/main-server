@@ -3,7 +3,7 @@
 namespace App\Services\Keyword\Drink;
 
 use App\Models\Keyword\Drink;
-use FunctionalCoding\Illuminate\Service\ListService;
+use FunctionalCoding\ORM\Eloquent\Service\ListService;
 use FunctionalCoding\Service;
 
 class DrinkListingService extends Service

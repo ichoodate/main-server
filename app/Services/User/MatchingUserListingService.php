@@ -5,7 +5,7 @@ namespace App\Services\User;
 use App\Models\Obj;
 use App\Models\User;
 use App\Models\UserSelfKwdPvt;
-use FunctionalCoding\Illuminate\Service\RandomListService;
+use FunctionalCoding\ORM\Eloquent\Service\RandomListService;
 use FunctionalCoding\Service;
 use Illuminate\Support\Facades\DB;
 

@@ -3,7 +3,7 @@
 namespace App\Services\Keyword\Smoke;
 
 use App\Models\Keyword\Smoke;
-use FunctionalCoding\Illuminate\Service\FindService;
+use FunctionalCoding\ORM\Eloquent\Service\FindService;
 use FunctionalCoding\Service;
 
 class SmokeFindingService extends Service

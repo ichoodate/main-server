@@ -4,7 +4,7 @@ namespace App\Services\Notification;
 
 use App\Models\Notification;
 use App\Services\PermittedUserRequiringService;
-use FunctionalCoding\Illuminate\Service\FindService;
+use FunctionalCoding\ORM\Eloquent\Service\FindService;
 use FunctionalCoding\Service;
 
 class NotificationFindingService extends Service

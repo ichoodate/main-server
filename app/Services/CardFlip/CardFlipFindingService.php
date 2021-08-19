@@ -4,7 +4,7 @@ namespace App\Services\CardFlip;
 
 use App\Models\CardFlip;
 use App\Services\PermittedUserRequiringService;
-use FunctionalCoding\Illuminate\Service\FindService;
+use FunctionalCoding\ORM\Eloquent\Service\FindService;
 use FunctionalCoding\Service;
 
 class CardFlipFindingService extends Service

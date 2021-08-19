@@ -3,7 +3,7 @@
 namespace App\Services\Keyword\Country;
 
 use App\Models\Keyword\Country;
-use FunctionalCoding\Illuminate\Service\FindService;
+use FunctionalCoding\ORM\Eloquent\Service\FindService;
 use FunctionalCoding\Service;
 
 class CountryFindingService extends Service

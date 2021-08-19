@@ -3,7 +3,7 @@
 namespace App\Services\Subscription;
 
 use App\Models\Subscription;
-use FunctionalCoding\Illuminate\Service\PaginationListService;
+use FunctionalCoding\ORM\Eloquent\Service\PaginationListService;
 use FunctionalCoding\Service;
 
 class SubscriptionListingService extends Service

@@ -3,7 +3,7 @@
 namespace App\Services\Keyword\Drink;
 
 use App\Models\Keyword\Drink;
-use FunctionalCoding\Illuminate\Service\FindService;
+use FunctionalCoding\ORM\Eloquent\Service\FindService;
 use FunctionalCoding\Service;
 
 class DrinkFindingService extends Service

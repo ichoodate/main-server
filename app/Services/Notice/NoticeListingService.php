@@ -3,7 +3,7 @@
 namespace App\Services\Notice;
 
 use App\Models\Notice;
-use FunctionalCoding\Illuminate\Service\PaginationListService;
+use FunctionalCoding\ORM\Eloquent\Service\PaginationListService;
 use FunctionalCoding\Service;
 
 class NoticeListingService extends Service

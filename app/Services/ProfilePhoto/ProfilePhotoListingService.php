@@ -4,7 +4,7 @@ namespace App\Services\ProfilePhoto;
 
 use App\Models\ProfilePhoto;
 use App\Services\User\UserFindingService;
-use FunctionalCoding\Illuminate\Service\PaginationListService;
+use FunctionalCoding\ORM\Eloquent\Service\PaginationListService;
 use FunctionalCoding\Service;
 
 class ProfilePhotoListingService extends Service

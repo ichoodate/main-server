@@ -3,7 +3,7 @@
 namespace App\Services\Keyword\State;
 
 use App\Models\Keyword\State;
-use FunctionalCoding\Illuminate\Service\FindService;
+use FunctionalCoding\ORM\Eloquent\Service\FindService;
 use FunctionalCoding\Service;
 
 class StateFindingService extends Service

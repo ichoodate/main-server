@@ -3,7 +3,7 @@
 namespace App\Services\Keyword\StatureRange;
 
 use App\Models\Keyword\StatureRange;
-use FunctionalCoding\Illuminate\Service\FindService;
+use FunctionalCoding\ORM\Eloquent\Service\FindService;
 use FunctionalCoding\Service;
 
 class StatureRangeFindingService extends Service

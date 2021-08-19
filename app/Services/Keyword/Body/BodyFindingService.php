@@ -3,7 +3,7 @@
 namespace App\Services\Keyword\Body;
 
 use App\Models\Keyword\Body;
-use FunctionalCoding\Illuminate\Service\FindService;
+use FunctionalCoding\ORM\Eloquent\Service\FindService;
 use FunctionalCoding\Service;
 
 class BodyFindingService extends Service

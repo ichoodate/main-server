@@ -3,7 +3,7 @@
 namespace App\Services\ProfilePhoto;
 
 use App\Models\ProfilePhoto;
-use FunctionalCoding\Illuminate\Service\FindService;
+use FunctionalCoding\ORM\Eloquent\Service\FindService;
 use FunctionalCoding\Service;
 
 class ProfilePhotoFindingService extends Service

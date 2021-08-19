@@ -4,7 +4,7 @@ namespace App\Services\Keyword\State;
 
 use App\Models\Keyword\State;
 use App\Services\Keyword\Country\CountryFindingService;
-use FunctionalCoding\Illuminate\Service\ListService;
+use FunctionalCoding\ORM\Eloquent\Service\ListService;
 use FunctionalCoding\Service;
 
 class StateListingService extends Service

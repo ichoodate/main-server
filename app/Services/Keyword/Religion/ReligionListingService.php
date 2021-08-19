@@ -3,7 +3,7 @@
 namespace App\Services\Keyword\Religion;
 
 use App\Models\Keyword\Religion;
-use FunctionalCoding\Illuminate\Service\ListService;
+use FunctionalCoding\ORM\Eloquent\Service\ListService;
 use FunctionalCoding\Service;
 
 class ReligionListingService extends Service

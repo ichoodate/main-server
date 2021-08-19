@@ -3,7 +3,7 @@
 namespace App\Services\Keyword\Blood;
 
 use App\Models\Keyword\Blood;
-use FunctionalCoding\Illuminate\Service\FindService;
+use FunctionalCoding\ORM\Eloquent\Service\FindService;
 use FunctionalCoding\Service;
 
 class BloodFindingService extends Service

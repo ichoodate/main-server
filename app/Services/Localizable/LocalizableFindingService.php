@@ -3,7 +3,7 @@
 namespace App\Services\Localizable;
 
 use App\Models\Localizable;
-use FunctionalCoding\Illuminate\Service\FindService;
+use FunctionalCoding\ORM\Eloquent\Service\FindService;
 use FunctionalCoding\Service;
 
 class LocalizableFindingService extends Service

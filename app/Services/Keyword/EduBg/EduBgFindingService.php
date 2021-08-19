@@ -3,7 +3,7 @@
 namespace App\Services\Keyword\EduBg;
 
 use App\Models\Keyword\EduBg;
-use FunctionalCoding\Illuminate\Service\FindService;
+use FunctionalCoding\ORM\Eloquent\Service\FindService;
 use FunctionalCoding\Service;
 
 class EduBgFindingService extends Service

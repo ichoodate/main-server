@@ -4,7 +4,7 @@ namespace App\Services\Role;
 
 use App\Models\Role;
 use App\Services\PermittedUserRequiringService;
-use FunctionalCoding\Illuminate\Service\FindService;
+use FunctionalCoding\ORM\Eloquent\Service\FindService;
 use FunctionalCoding\Service;
 
 class RoleFindingService extends Service

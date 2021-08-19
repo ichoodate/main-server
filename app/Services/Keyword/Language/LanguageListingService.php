@@ -3,7 +3,7 @@
 namespace App\Services\Keyword\Language;
 
 use App\Models\Keyword\Language;
-use FunctionalCoding\Illuminate\Service\ListService;
+use FunctionalCoding\ORM\Eloquent\Service\ListService;
 use FunctionalCoding\Service;
 
 class LanguageListingService extends Service

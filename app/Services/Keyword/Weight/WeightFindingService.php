@@ -3,7 +3,7 @@
 namespace App\Services\Keyword\Weight;
 
 use App\Models\Keyword\Weight;
-use FunctionalCoding\Illuminate\Service\FindService;
+use FunctionalCoding\ORM\Eloquent\Service\FindService;
 use FunctionalCoding\Service;
 
 class WeightFindingService extends Service

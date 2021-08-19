@@ -3,7 +3,7 @@
 namespace App\Services\Notice;
 
 use App\Models\Notice;
-use FunctionalCoding\Illuminate\Service\FindService;
+use FunctionalCoding\ORM\Eloquent\Service\FindService;
 use FunctionalCoding\Service;
 
 class NoticeFindingService extends Service

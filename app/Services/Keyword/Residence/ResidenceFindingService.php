@@ -3,7 +3,7 @@
 namespace App\Services\Keyword\Residence;
 
 use App\Models\Keyword\Residence;
-use FunctionalCoding\Illuminate\Service\FindService;
+use FunctionalCoding\ORM\Eloquent\Service\FindService;
 use FunctionalCoding\Service;
 
 class ResidenceFindingService extends Service

@@ -5,7 +5,7 @@ namespace App\Services\Ticket;
 use App\Models\Ticket;
 use App\Services\AdminRoleExistingService;
 use App\Services\PermittedUserRequiringService;
-use FunctionalCoding\Illuminate\Service\FindService;
+use FunctionalCoding\ORM\Eloquent\Service\FindService;
 use FunctionalCoding\Service;
 
 class TicketFindingService extends Service

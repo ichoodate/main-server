@@ -3,7 +3,7 @@
 namespace App\Services\UserSelfKwdPvt;
 
 use App\Models\UserSelfKwdPvt;
-use FunctionalCoding\Illuminate\Service\ListService;
+use FunctionalCoding\ORM\Eloquent\Service\ListService;
 use FunctionalCoding\Service;
 
 class UserSelfKwdPvtListingService extends Service

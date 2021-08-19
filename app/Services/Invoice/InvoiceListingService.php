@@ -3,7 +3,7 @@
 namespace App\Services\Invoice;
 
 use App\Models\Invoice;
-use FunctionalCoding\Illuminate\Service\PaginationListService;
+use FunctionalCoding\ORM\Eloquent\Service\PaginationListService;
 use FunctionalCoding\Service;
 
 class InvoiceListingService extends Service

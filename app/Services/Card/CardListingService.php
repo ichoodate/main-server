@@ -7,7 +7,7 @@ use App\Models\CardFlip;
 use App\Models\Friend;
 use App\Models\Match;
 use App\Models\User;
-use FunctionalCoding\Illuminate\Service\PaginationListService;
+use FunctionalCoding\ORM\Eloquent\Service\PaginationListService;
 use FunctionalCoding\Service;
 
 class CardListingService extends Service

@@ -3,7 +3,7 @@
 namespace App\Services\Balance;
 
 use App\Models\Balance;
-use FunctionalCoding\Illuminate\Service\PaginationListService;
+use FunctionalCoding\ORM\Eloquent\Service\PaginationListService;
 use FunctionalCoding\Service;
 
 class BalanceListingService extends Service

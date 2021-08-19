@@ -3,7 +3,7 @@
 namespace App\Services\Keyword\Career;
 
 use App\Models\Keyword\Career;
-use FunctionalCoding\Illuminate\Service\FindService;
+use FunctionalCoding\ORM\Eloquent\Service\FindService;
 use FunctionalCoding\Service;
 
 class CareerFindingService extends Service

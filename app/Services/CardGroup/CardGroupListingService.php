@@ -3,7 +3,7 @@
 namespace App\Services\CardGroup;
 
 use App\Models\CardGroup;
-use FunctionalCoding\Illuminate\Service\PaginationListService;
+use FunctionalCoding\ORM\Eloquent\Service\PaginationListService;
 use FunctionalCoding\Service;
 
 class CardGroupListingService extends Service

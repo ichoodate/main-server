@@ -3,7 +3,7 @@
 namespace App\Services\UserIdealTypeKwdPvt;
 
 use App\Models\UserIdealTypeKwdPvt;
-use FunctionalCoding\Illuminate\Service\ListService;
+use FunctionalCoding\ORM\Eloquent\Service\ListService;
 use FunctionalCoding\Service;
 
 class UserIdealTypeKwdPvtListingService extends Service

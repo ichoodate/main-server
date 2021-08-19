@@ -3,7 +3,7 @@
 namespace App\Services\Payment;
 
 use App\Models\Payment;
-use FunctionalCoding\Illuminate\Service\PaginationListService;
+use FunctionalCoding\ORM\Eloquent\Service\PaginationListService;
 use FunctionalCoding\Service;
 
 class PaymentListingService extends Service

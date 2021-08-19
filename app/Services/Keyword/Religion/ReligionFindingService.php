@@ -3,7 +3,7 @@
 namespace App\Services\Keyword\Religion;
 
 use App\Models\Keyword\Religion;
-use FunctionalCoding\Illuminate\Service\FindService;
+use FunctionalCoding\ORM\Eloquent\Service\FindService;
 use FunctionalCoding\Service;
 
 class ReligionFindingService extends Service

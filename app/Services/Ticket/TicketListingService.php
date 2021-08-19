@@ -3,7 +3,7 @@
 namespace App\Services\Ticket;
 
 use App\Models\Ticket;
-use FunctionalCoding\Illuminate\Service\PaginationListService;
+use FunctionalCoding\ORM\Eloquent\Service\PaginationListService;
 use FunctionalCoding\Service;
 
 class TicketListingService extends Service

@@ -3,7 +3,7 @@
 namespace App\Services\Keyword\Hobby;
 
 use App\Models\Keyword\Hobby;
-use FunctionalCoding\Illuminate\Service\ListService;
+use FunctionalCoding\ORM\Eloquent\Service\ListService;
 use FunctionalCoding\Service;
 
 class HobbyListingService extends Service

@@ -3,7 +3,7 @@
 namespace App\Services\Keyword\Hobby;
 
 use App\Models\Keyword\Hobby;
-use FunctionalCoding\Illuminate\Service\FindService;
+use FunctionalCoding\ORM\Eloquent\Service\FindService;
 use FunctionalCoding\Service;
 
 class HobbyFindingService extends Service

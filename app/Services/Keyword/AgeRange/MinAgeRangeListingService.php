@@ -3,7 +3,7 @@
 namespace App\Services\Keyword\AgeRange;
 
 use App\Models\Keyword\AgeRange;
-use FunctionalCoding\Illuminate\Service\ListService;
+use FunctionalCoding\ORM\Eloquent\Service\ListService;
 use FunctionalCoding\Service;
 
 class MinAgeRangeListingService extends Service

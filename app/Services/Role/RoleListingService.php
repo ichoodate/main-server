@@ -3,7 +3,7 @@
 namespace App\Services\Role;
 
 use App\Models\Role;
-use FunctionalCoding\Illuminate\Service\ListService;
+use FunctionalCoding\ORM\Eloquent\Service\ListService;
 use FunctionalCoding\Service;
 
 class RoleListingService extends Service
