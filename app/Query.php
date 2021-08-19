@@ -2,10 +2,8 @@
 
 namespace App;
 
-class Query extends \FunctionalCoding\Illuminate\Query
+class Query extends \Illuminate\Database\Eloquent\Builder
 {
-    public static $instId = 1;
-
     public function alias($alias = null)
     {
         $query = $this->getQuery();
@@ -59,6 +57,13 @@ class Query extends \FunctionalCoding\Illuminate\Query
         return call_user_func_array([$this, 'groupBy'], [$columns]);
     }
 
+    public function qOrderBy($column, $direction)
+    {
+        $column = $this->getTable().'.'.$column.' '.$direction;
+
+        return call_user_func_array([$this, 'orderByRaw'], [$column]);
+    }
+
     public function qOrWhere($column)
     {
         $args = func_get_args();
@@ -75,6 +80,17 @@ class Query extends \FunctionalCoding\Illuminate\Query
         $args[0] = $this->getTable().'.'.$column;
 
         return call_user_func_array([$this, 'orWhereIn'], $args);
+    }
+
+    public function qSelect($columns)
+    {
+        $columns = is_array($columns) ? $columns : [$columns];
+
+        foreach ($columns as $i => $column) {
+            $columns[$i] = $this->getTable().'.'.$column;
+        }
+
+        return call_user_func_array([$this, 'selectRaw'], [implode(',', $columns)]);
     }
 
     public function qWhere($column)
@@ -113,15 +129,6 @@ class Query extends \FunctionalCoding\Illuminate\Query
         return call_user_func_array([$this, 'whereNotIn'], $args);
     }
 
-    public function qWhereNull($column)
-    {
-        $args = func_get_args();
-
-        $args[0] = $this->getTable().'.'.$column;
-
-        return call_user_func_array([$this, 'whereNull'], $args);
-    }
-
     public function qWhereNotNull($column)
     {
         $args = func_get_args();
@@ -129,6 +136,15 @@ class Query extends \FunctionalCoding\Illuminate\Query
         $args[0] = $this->getTable().'.'.$column;
 
         return call_user_func_array([$this, 'whereNotNull'], $args);
+    }
+
+    public function qWhereNull($column)
+    {
+        $args = func_get_args();
+
+        $args[0] = $this->getTable().'.'.$column;
+
+        return call_user_func_array([$this, 'whereNull'], $args);
     }
 
     public function qWhereSub($column)
@@ -140,29 +156,30 @@ class Query extends \FunctionalCoding\Illuminate\Query
         return call_user_func_array([$this, 'whereSub'], $args);
     }
 
-    public function qSelect($columns)
-    {
-        $columns = is_array($columns) ? $columns : [$columns];
-
-        foreach ($columns as $i => $column) {
-            $columns[$i] = $this->getTable().'.'.$column;
-        }
-
-        return call_user_func_array([$this, 'selectRaw'], [implode(',', $columns)]);
-    }
-
-    public function qOrderBy($column, $direction)
-    {
-        $column = $this->getTable().'.'.$column.' '.$direction;
-
-        return call_user_func_array([$this, 'orderByRaw'], [$column]);
-    }
-
     public function selectIdQuery()
     {
         $keyName = $this->getModel()->getKeyName();
 
         return $this->qSelect($keyName)->getQuery();
+    }
+
+    public function toSqlWithBindings()
+    {
+        $str = str_replace('?', "'?'", parent::toSql());
+
+        return vsprintf(str_replace('?', '%s', $str), $this->getBindings());
+    }
+
+    /**
+     * overriding laravel/framework.
+     *
+     * @return int
+     */
+    public function update(array $values)
+    {
+        // return $this->toBase()->update($this->addUpdatedAtColumn($values));
+
+        return $this->toBase()->update($values);
     }
 
     public function where($column, $operator = null, $value = null, $boolean = 'and')
@@ -180,17 +197,5 @@ class Query extends \FunctionalCoding\Illuminate\Query
         }
 
         return $this;
-    }
-
-    /**
-     * overriding laravel/framework.
-     *
-     * @return int
-     */
-    public function update(array $values)
-    {
-        // return $this->toBase()->update($this->addUpdatedAtColumn($values));
-
-        return $this->toBase()->update($values);
     }
 }

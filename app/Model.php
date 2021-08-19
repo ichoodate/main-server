@@ -2,18 +2,13 @@
 
 namespace App;
 
-use App\Models\Obj;
-
-abstract class Model extends \FunctionalCoding\Illuminate\Model
+class Model extends \Illuminate\Database\Eloquent\Model
 {
     public const CREATED_AT = null;
     public const UPDATED_AT = null;
-    public $incrementing = false;
 
-    // this property related to freshTimestamp method
-    // public $timestamps = false;
+    public $incrementing = false;
     protected $guarded = [];
-    protected $dateFormat = 'Y-m-d H:i:s';
 
     public static function create(array $attributes = [])
     {
@@ -32,6 +27,11 @@ abstract class Model extends \FunctionalCoding\Illuminate\Model
         return $model;
     }
 
+    public function getModelType()
+    {
+        return array_flip(Relation::morphMap())[static::class];
+    }
+
     public function newCollection(array $models = [])
     {
         return new Collection($models);
@@ -42,14 +42,20 @@ abstract class Model extends \FunctionalCoding\Illuminate\Model
         return new Query($query);
     }
 
-    public function setAttribute($key, $value)
+    public function newSubIdQuery()
     {
-        if ($this->hasSetMutator($key) || in_array($key, $this->getFillable())) {
-            parent::setAttribute($key, $value);
-        } else {
-            $this->setRelation($key, $value);
-        }
+        return $this->setKeysForSaveQuery($this->newModelQuery());
+    }
 
-        return $this;
+    public function relation($related, array $localKeys, array $otherKeys, $isManyRelation)
+    {
+        $query = (new $related())->newQuery();
+
+        return new Relation($query, $this, $localKeys, $otherKeys, $isManyRelation);
+    }
+
+    public function setCast($key, $value)
+    {
+        $this->casts[$key] = $value;
     }
 }

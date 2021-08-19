@@ -11,11 +11,24 @@
 |
 */
 
+use App\Http\Middlewares\RequestInputValueCastingMiddleware;
+use App\Http\Middlewares\ServiceParameterSettingMiddleware;
+use App\Http\Middlewares\ServiceRunMiddleware;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
+
+$prefix = str_replace('/', DIRECTORY_SEPARATOR, $_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR);
+$prefix = str_replace($prefix, '', __FILE__);
+$prefix = str_replace('routes'.DIRECTORY_SEPARATOR.'web.php', '', $prefix);
+$prefix = rtrim($prefix, DIRECTORY_SEPARATOR);
+$prefix = str_replace(DIRECTORY_SEPARATOR, '/', $prefix);
+$prefix = $_SERVER['DOCUMENT_ROOT'] && Str::startsWith(__FILE__, str_replace('/', DIRECTORY_SEPARATOR, $_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR)) ? $prefix : '';
+
 Route::prefix('api')->group(function () {
     Route::middleware([
-        'FunctionalCoding\Illuminate\Http\ServiceRunMiddleware',
-        'FunctionalCoding\Illuminate\Http\ServiceParameterSettingMiddleware',
-        'FunctionalCoding\Illuminate\Http\RequestInputTransformMiddleware',
+        ServiceRunMiddleware::class,
+        ServiceParameterSettingMiddleware::class,
+        RequestInputValueCastingMiddleware::class,
     ])->group(function () {
         Route::resource(
             'auth/sign-in',
@@ -377,4 +390,8 @@ Route::prefix('api')->group(function () {
             'Api\UserProfilePhotoController'
         )->only(['index']);
     });
+});
+
+Route::get('/', function () {
+    return view('welcome');
 });
