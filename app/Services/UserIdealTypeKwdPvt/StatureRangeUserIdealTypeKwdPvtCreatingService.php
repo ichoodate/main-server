@@ -7,7 +7,7 @@ use App\Models\UserIdealTypeKwdPvt;
 use App\Services\Keyword\StatureRange\StatureRangeFindingService;
 use FunctionalCoding\Service;
 
-class StatureRangeUserIdealTypeKwdPvtCreatingService extends Service
+class IdealTypeStatureRangeKeywordCreatingService extends Service
 {
     public static function getArrBindNames()
     {

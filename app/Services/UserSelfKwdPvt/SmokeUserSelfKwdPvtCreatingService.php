@@ -7,7 +7,7 @@ use App\Models\UserSelfKwdPvt;
 use App\Services\Keyword\Smoke\SmokeFindingService;
 use FunctionalCoding\Service;
 
-class SmokeUserSelfKwdPvtCreatingService extends Service
+class UserSmokeKeywordCreatingService extends Service
 {
     public static function getArrBindNames()
     {

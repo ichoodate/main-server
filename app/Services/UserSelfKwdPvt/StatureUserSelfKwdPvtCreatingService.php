@@ -7,7 +7,7 @@ use App\Models\UserSelfKwdPvt;
 use App\Services\Keyword\Stature\StatureFindingService;
 use FunctionalCoding\Service;
 
-class StatureUserSelfKwdPvtCreatingService extends Service
+class UserStatureKeywordCreatingService extends Service
 {
     public static function getArrBindNames()
     {

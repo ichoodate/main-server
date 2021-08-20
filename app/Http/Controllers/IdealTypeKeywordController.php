@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\ControllersController;
-use App\Services\UserIdealTypeKwdPvt\UserIdealTypeKwdPvtListingService;
+use App\Services\UserIdealTypeKwdPvt\IdealTypeKeywordListingService;
 
 class IdealTypeKeywordController extends ApiController
 {
     public static function index()
     {
-        return [UserIdealTypeKwdPvtListingService::class, [
+        return [IdealTypeKeywordListingService::class, [
             'auth_user' => auth()->user(),
             'expands' => static::input('expands'),
             'fields' => static::input('fields'),

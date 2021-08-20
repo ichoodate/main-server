@@ -6,7 +6,7 @@ use App\Models\UserSelfKwdPvt;
 use FunctionalCoding\ORM\Eloquent\Service\ListService;
 use FunctionalCoding\Service;
 
-class UserSelfKwdPvtListingService extends Service
+class UserKeywordListingService extends Service
 {
     public static function getArrBindNames()
     {

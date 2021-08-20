@@ -7,7 +7,7 @@ use App\Models\UserSelfKwdPvt;
 use App\Services\Keyword\Religion\ReligionFindingService;
 use FunctionalCoding\Service;
 
-class ReligionUserSelfKwdPvtCreatingService extends Service
+class UserReligionKeywordCreatingService extends Service
 {
     public static function getArrBindNames()
     {

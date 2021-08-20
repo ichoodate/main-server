@@ -7,7 +7,7 @@ use App\Models\UserSelfKwdPvt;
 use App\Services\Keyword\Weight\WeightFindingService;
 use FunctionalCoding\Service;
 
-class WeightUserSelfKwdPvtCreatingService extends Service
+class UserWeightKeywordCreatingService extends Service
 {
     public static function getArrBindNames()
     {

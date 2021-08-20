@@ -6,7 +6,7 @@ use App\Models\UserIdealTypeKwdPvt;
 use FunctionalCoding\ORM\Eloquent\Service\ListService;
 use FunctionalCoding\Service;
 
-class UserIdealTypeKwdPvtListingService extends Service
+class IdealTypeKeywordListingService extends Service
 {
     public static function getArrBindNames()
     {

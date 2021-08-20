@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\ControllersController;
-use App\Services\UserSelfKwdPvt\UserSelfKwdPvtListingService;
+use App\Services\UserSelfKwdPvt\UserKeywordListingService;
 
 class SelfKeywordController extends ApiController
 {
     public static function index()
     {
-        return [UserSelfKwdPvtListingService::class, [
+        return [UserKeywordListingService::class, [
             'auth_user' => auth()->user(),
             'expands' => static::input('expands'),
             'fields' => static::input('fields'),

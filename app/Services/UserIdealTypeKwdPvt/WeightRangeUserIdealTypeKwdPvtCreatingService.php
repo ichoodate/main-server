@@ -7,7 +7,7 @@ use App\Models\UserIdealTypeKwdPvt;
 use App\Services\Keyword\WeightRange\WeightRangeFindingService;
 use FunctionalCoding\Service;
 
-class WeightRangeUserIdealTypeKwdPvtCreatingService extends Service
+class IdealTypeWeightRangeKeywordCreatingService extends Service
 {
     public static function getArrBindNames()
     {

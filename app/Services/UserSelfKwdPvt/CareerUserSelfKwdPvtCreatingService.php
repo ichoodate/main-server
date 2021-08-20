@@ -7,7 +7,7 @@ use App\Models\UserSelfKwdPvt;
 use App\Services\Keyword\Career\CareerFindingService;
 use FunctionalCoding\Service;
 
-class CareerUserSelfKwdPvtCreatingService extends Service
+class UserCareerKeywordCreatingService extends Service
 {
     public static function getArrBindNames()
     {

@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\IdealTypeKeyword;
 
 use App\Http\ControllersController;
-use App\Services\UserIdealTypeKwdPvt\WeightRangeUserIdealTypeKwdPvtCreatingService;
+use App\Services\UserIdealTypeKwdPvt\IdealTypeWeightRangeKeywordCreatingService;
 
 class WeightRangeController extends ApiController
 {
     public static function store()
     {
-        return [WeightRangeUserIdealTypeKwdPvtCreatingService::class, [
+        return [IdealTypeWeightRangeKeywordCreatingService::class, [
             'auth_user' => auth()->user(),
             'keyword_id' => static::input('keyword_id'),
         ], [

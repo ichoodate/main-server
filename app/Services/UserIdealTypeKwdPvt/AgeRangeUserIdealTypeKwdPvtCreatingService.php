@@ -7,7 +7,7 @@ use App\Models\UserIdealTypeKwdPvt;
 use App\Services\Keyword\AgeRange\AgeRangeFindingService;
 use FunctionalCoding\Service;
 
-class AgeRangeUserIdealTypeKwdPvtCreatingService extends Service
+class IdealTypeAgeRangeKeywordCreatingService extends Service
 {
     public static function getArrBindNames()
     {

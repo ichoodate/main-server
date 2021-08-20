@@ -7,7 +7,7 @@ use App\Models\UserIdealTypeKwdPvt;
 use App\Services\Keyword\Residence\ResidenceFindingService;
 use FunctionalCoding\Service;
 
-class ResidenceUserIdealTypeKwdPvtCreatingService extends Service
+class IdealTypeResidenceKeywordCreatingService extends Service
 {
     public static function getArrBindNames()
     {

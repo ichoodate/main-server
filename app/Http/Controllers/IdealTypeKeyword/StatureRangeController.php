@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\IdealTypeKeyword;
 
 use App\Http\ControllersController;
-use App\Services\UserIdealTypeKwdPvt\StatureRangeUserIdealTypeKwdPvtCreatingService;
+use App\Services\UserIdealTypeKwdPvt\IdealTypeStatureRangeKeywordCreatingService;
 
 class StatureRangeController extends ApiController
 {
     public static function store()
     {
-        return [StatureRangeUserIdealTypeKwdPvtCreatingService::class, [
+        return [IdealTypeStatureRangeKeywordCreatingService::class, [
             'auth_user' => auth()->user(),
             'keyword_id' => static::input('keyword_id'),
         ], [

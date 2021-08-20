@@ -7,7 +7,7 @@ use App\Models\UserIdealTypeKwdPvt;
 use App\Services\Keyword\Drink\DrinkFindingService;
 use FunctionalCoding\Service;
 
-class DrinkUserIdealTypeKwdPvtCreatingService extends Service
+class IdealTypeDrinkKeywordCreatingService extends Service
 {
     public static function getArrBindNames()
     {

@@ -7,7 +7,7 @@ use App\Models\UserSelfKwdPvt;
 use App\Services\Keyword\Nationality\NationalityFindingService;
 use FunctionalCoding\Service;
 
-class NationalityUserSelfKwdPvtCreatingService extends Service
+class UserNationalityKeywordCreatingService extends Service
 {
     public static function getArrBindNames()
     {

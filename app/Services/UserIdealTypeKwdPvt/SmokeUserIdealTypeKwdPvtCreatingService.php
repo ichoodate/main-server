@@ -7,7 +7,7 @@ use App\Models\UserIdealTypeKwdPvt;
 use App\Services\Keyword\Smoke\SmokeFindingService;
 use FunctionalCoding\Service;
 
-class SmokeUserIdealTypeKwdPvtCreatingService extends Service
+class IdealTypeSmokeKeywordCreatingService extends Service
 {
     public static function getArrBindNames()
     {

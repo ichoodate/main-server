@@ -6,7 +6,7 @@ use App\Models\Keyword\Hobby;
 use App\Models\UserSelfKwdPvt;
 use FunctionalCoding\Service;
 
-class HobbyUserSelfKwdPvtCreatingService extends Service
+class UserHobbyKeywordCreatingService extends Service
 {
     public static function getArrBindNames()
     {

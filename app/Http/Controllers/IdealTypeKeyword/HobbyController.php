@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\IdealTypeKeyword;
 
 use App\Http\ControllersController;
-use App\Services\UserIdealTypeKwdPvt\HobbyUserIdealTypeKwdPvtCreatingService;
+use App\Services\UserIdealTypeKwdPvt\IdealTypeHobbyKeywordCreatingService;
 
 class HobbyController extends ApiController
 {
     public static function store()
     {
-        return [HobbyUserIdealTypeKwdPvtCreatingService::class, [
+        return [IdealTypeHobbyKeywordCreatingService::class, [
             'auth_user' => auth()->user(),
             'keyword_ids' => static::input('keyword_ids'),
         ], [

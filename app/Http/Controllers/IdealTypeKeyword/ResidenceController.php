@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\IdealTypeKeyword;
 
 use App\Http\ControllersController;
-use App\Services\UserIdealTypeKwdPvt\ResidenceUserIdealTypeKwdPvtCreatingService;
+use App\Services\UserIdealTypeKwdPvt\IdealTypeResidenceKeywordCreatingService;
 
 class ResidenceController extends ApiController
 {
     public static function store()
     {
-        return [ResidenceUserIdealTypeKwdPvtCreatingService::class, [
+        return [IdealTypeResidenceKeywordCreatingService::class, [
             'auth_user' => auth()->user(),
             'keyword_id' => static::input('keyword_id'),
         ], [
