@@ -24,7 +24,7 @@ $prefix = rtrim($prefix, DIRECTORY_SEPARATOR);
 $prefix = str_replace(DIRECTORY_SEPARATOR, '/', $prefix);
 $prefix = $_SERVER['DOCUMENT_ROOT'] && Str::startsWith(__FILE__, str_replace('/', DIRECTORY_SEPARATOR, $_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR)) ? $prefix : '';
 
-Route::prefix('api')->group(function () {
+Route::prefix($prefix)->group(function () {
     Route::middleware([
         ServiceRunMiddleware::class,
         ServiceParameterSettingMiddleware::class,
@@ -32,362 +32,362 @@ Route::prefix('api')->group(function () {
     ])->group(function () {
         Route::resource(
             'auth/sign-in',
-            'Api\AuthSignInController'
+            'AuthSignInController'
         )->only(['store']);
 
         Route::resource(
             'auth/sign-out',
-            'Api\AuthSignOutController'
+            'AuthSignOutController'
         )->only(['index', 'store']);
 
         Route::resource(
             'auth/sign-up',
-            'Api\AuthSignUpController'
+            'AuthSignUpController'
         )->only(['store']);
 
         Route::get(
             'auth/user',
-            'Api\AuthUserController@index'
+            'AuthUserController@index'
         );
 
         Route::patch(
             'auth/user',
-            'Api\AuthUserController@update'
+            'AuthUserController@update'
         );
 
         Route::resource(
             'balances',
-            'Api\BalanceController'
+            'BalanceController'
         )->only(['index', 'show']);
 
         Route::resource(
             'cards',
-            'Api\CardController'
+            'CardController'
         )->only(['index', 'show']);
 
         Route::resource(
             'card-flips',
-            'Api\CardFlipController'
+            'CardFlipController'
         )->only(['show', 'store']);
 
         Route::resource(
             'card-groups',
-            'Api\CardGroupController'
+            'CardGroupController'
         )->only(['index', 'store', 'show']);
 
         Route::resource(
             'chatting-contents',
-            'Api\ChattingContentController'
+            'ChattingContentController'
         )->only(['index', 'store']);
 
         Route::resource(
             'face-photos',
-            'Api\FacePhotoController'
+            'FacePhotoController'
         )->only(['store', 'show']);
 
         Route::resource(
             'friends',
-            'Api\FriendController'
+            'FriendController'
         )->only(['store']);
 
         Route::resource(
             'keyword/age-ranges',
-            'Api\Keyword\AgeRangeController'
+            'Keyword\AgeRangeController'
         )->only(['show']);
 
         Route::resource(
             'keyword/birth-years',
-            'Api\Keyword\BirthYearController'
+            'Keyword\BirthYearController'
         )->only(['index', 'show']);
 
         Route::resource(
             'keyword/bloods',
-            'Api\Keyword\BloodController'
+            'Keyword\BloodController'
         )->only(['index', 'show']);
 
         Route::resource(
             'keyword/bodies',
-            'Api\Keyword\BodyController'
+            'Keyword\BodyController'
         )->only(['index', 'show']);
 
         Route::resource(
             'keyword/careers',
-            'Api\Keyword\CareerController'
+            'Keyword\CareerController'
         )->only(['index', 'show']);
 
         Route::resource(
             'keyword/countries',
-            'Api\Keyword\CountryController'
+            'Keyword\CountryController'
         )->only(['index', 'show']);
 
         Route::resource(
             'keyword/drinks',
-            'Api\Keyword\DrinkController'
+            'Keyword\DrinkController'
         )->only(['index', 'show']);
 
         Route::resource(
             'keyword/education-backgrounds',
-            'Api\Keyword\EduBgController'
+            'Keyword\EduBgController'
         )->only(['index', 'show']);
 
         Route::resource(
             'keyword/hobbies',
-            'Api\Keyword\HobbyController'
+            'Keyword\HobbyController'
         )->only(['index', 'show']);
 
         Route::resource(
             'keyword/languages',
-            'Api\Keyword\LanguageController'
+            'Keyword\LanguageController'
         )->only(['index', 'show']);
 
         Route::resource(
             'keyword/min-age-ranges',
-            'Api\Keyword\MinAgeRangeController'
+            'Keyword\MinAgeRangeController'
         )->only(['index']);
 
         Route::resource(
             'keyword/min-stature-ranges',
-            'Api\Keyword\MinStatureRangeController'
+            'Keyword\MinStatureRangeController'
         )->only(['index']);
 
         Route::resource(
             'keyword/min-weight-ranges',
-            'Api\Keyword\MinWeightRangeController'
+            'Keyword\MinWeightRangeController'
         )->only(['index']);
 
         Route::resource(
             'keyword/max-age-ranges',
-            'Api\Keyword\MaxAgeRangeController'
+            'Keyword\MaxAgeRangeController'
         )->only(['index']);
 
         Route::resource(
             'keyword/max-stature-ranges',
-            'Api\Keyword\MaxStatureRangeController'
+            'Keyword\MaxStatureRangeController'
         )->only(['index']);
 
         Route::resource(
             'keyword/max-weight-ranges',
-            'Api\Keyword\MaxWeightRangeController'
+            'Keyword\MaxWeightRangeController'
         )->only(['index']);
 
         Route::resource(
             'keyword/nationalities',
-            'Api\Keyword\NationalityController'
+            'Keyword\NationalityController'
         )->only(['show']);
 
         Route::resource(
             'keyword/religions',
-            'Api\Keyword\ReligionController'
+            'Keyword\ReligionController'
         )->only(['index', 'show']);
 
         Route::resource(
             'keyword/residences',
-            'Api\Keyword\ResidenceController'
+            'Keyword\ResidenceController'
         )->only(['show']);
 
         Route::resource(
             'keyword/smokes',
-            'Api\Keyword\SmokeController'
+            'Keyword\SmokeController'
         )->only(['index', 'show']);
 
         Route::resource(
             'keyword/states',
-            'Api\Keyword\StateController'
+            'Keyword\StateController'
         )->only(['index', 'show']);
 
         Route::resource(
             'keyword/statures',
-            'Api\Keyword\StatureController'
+            'Keyword\StatureController'
         )->only(['index', 'show']);
 
         Route::resource(
             'keyword/stature-ranges',
-            'Api\Keyword\StatureRangeController'
+            'Keyword\StatureRangeController'
         )->only(['show']);
 
         Route::resource(
             'keyword/weights',
-            'Api\Keyword\WeightController'
+            'Keyword\WeightController'
         )->only(['index', 'show']);
 
         Route::resource(
             'keyword/weight-ranges',
-            'Api\Keyword\WeightRangeController'
+            'Keyword\WeightRangeController'
         )->only(['show']);
 
         Route::resource(
             'ideal-type-keyword/age-ranges',
-            'Api\IdealTypeKeyword\AgeRangeController'
+            'IdealTypeKeyword\AgeRangeController'
         )->only(['store']);
 
         Route::resource(
             'ideal-type-keyword/careers',
-            'Api\IdealTypeKeyword\CareerController'
+            'IdealTypeKeyword\CareerController'
         )->only(['store']);
 
         Route::resource(
             'ideal-type-keyword/drinks',
-            'Api\IdealTypeKeyword\DrinkController'
+            'IdealTypeKeyword\DrinkController'
         )->only(['store']);
 
         Route::resource(
             'ideal-type-keyword/hobbies',
-            'Api\IdealTypeKeyword\HobbyController'
+            'IdealTypeKeyword\HobbyController'
         )->only(['store']);
 
         Route::resource(
             'ideal-type-keyword/nationalities',
-            'Api\IdealTypeKeyword\NationalityController'
+            'IdealTypeKeyword\NationalityController'
         )->only(['store']);
 
         Route::resource(
             'ideal-type-keyword/religions',
-            'Api\IdealTypeKeyword\ReligionController'
+            'IdealTypeKeyword\ReligionController'
         )->only(['store']);
 
         Route::resource(
             'ideal-type-keyword/residences',
-            'Api\IdealTypeKeyword\ResidenceController'
+            'IdealTypeKeyword\ResidenceController'
         )->only(['store']);
 
         Route::resource(
             'ideal-type-keyword/smokes',
-            'Api\IdealTypeKeyword\SmokeController'
+            'IdealTypeKeyword\SmokeController'
         )->only(['store']);
 
         Route::resource(
             'ideal-type-keyword/stature-ranges',
-            'Api\IdealTypeKeyword\StatureRangeController'
+            'IdealTypeKeyword\StatureRangeController'
         )->only(['store']);
 
         Route::resource(
             'ideal-type-keyword/weight-ranges',
-            'Api\IdealTypeKeyword\WeightRangeController'
+            'IdealTypeKeyword\WeightRangeController'
         )->only(['store']);
 
         Route::resource(
             'ideal-type-keywords',
-            'Api\IdealTypeKeywordController'
+            'IdealTypeKeywordController'
         )->only(['index']);
 
         Route::resource(
             'invoices',
-            'Api\InvoiceController'
+            'InvoiceController'
         )->only(['index', 'show']);
 
         Route::resource(
             'notices',
-            'Api\NoticeController'
+            'NoticeController'
         )->only(['index', 'show', 'store']);
 
         Route::resource(
             'notifications',
-            'Api\NotificationController'
+            'NotificationController'
         )->only(['index', 'show']);
 
         Route::resource(
             'payments',
-            'Api\PaymentController'
+            'PaymentController'
         )->only(['index', 'show']);
 
         Route::resource(
             'popularities',
-            'Api\PopularityController'
+            'PopularityController'
         )->only(['index', 'show', 'store']);
 
         Route::resource(
             'profile-photos',
-            'Api\ProfilePhotoController'
+            'ProfilePhotoController'
         )->only(['index', 'show', 'store']);
 
         Route::resource(
             'pwd-resets',
-            'Api\PwdResetController'
+            'PwdResetController'
         )->only(['store', 'update']);
 
         Route::resource(
             'roles',
-            'Api\RoleController'
+            'RoleController'
         )->only(['index', 'show']);
 
         Route::resource(
             'self-keyword/careers',
-            'Api\SelfKeyword\CareerController'
+            'SelfKeyword\CareerController'
         )->only(['store']);
 
         Route::resource(
             'self-keyword/drinks',
-            'Api\SelfKeyword\DrinkController'
+            'SelfKeyword\DrinkController'
         )->only(['store']);
 
         Route::resource(
             'self-keyword/hobbies',
-            'Api\SelfKeyword\HobbyController'
+            'SelfKeyword\HobbyController'
         )->only(['store']);
 
         Route::resource(
             'self-keyword/nationalities',
-            'Api\SelfKeyword\NationalityController'
+            'SelfKeyword\NationalityController'
         )->only(['store']);
 
         Route::resource(
             'self-keyword/religions',
-            'Api\SelfKeyword\ReligionController'
+            'SelfKeyword\ReligionController'
         )->only(['store']);
 
         Route::resource(
             'self-keyword/residences',
-            'Api\SelfKeyword\ResidenceController'
+            'SelfKeyword\ResidenceController'
         )->only(['store']);
 
         Route::resource(
             'self-keyword/smokes',
-            'Api\SelfKeyword\SmokeController'
+            'SelfKeyword\SmokeController'
         )->only(['store']);
 
         Route::resource(
             'self-keyword/statures',
-            'Api\SelfKeyword\StatureController'
+            'SelfKeyword\StatureController'
         )->only(['store']);
 
         Route::resource(
             'self-keyword/weights',
-            'Api\SelfKeyword\WeightController'
+            'SelfKeyword\WeightController'
         )->only(['store']);
 
         Route::resource(
             'self-keywords',
-            'Api\SelfKeywordController'
+            'SelfKeywordController'
         )->only(['index']);
 
         Route::resource(
             'subscriptions',
-            'Api\SubscriptionController'
+            'SubscriptionController'
         )->only(['index', 'show']);
 
         Route::resource(
             'tickets',
-            'Api\TicketController'
+            'TicketController'
         )->only(['index', 'show']);
 
         Route::resource(
             'tickets/{ticket}/replies',
-            'Api\TicketReplyController'
+            'TicketReplyController'
         )->only(['index', 'store']);
 
         Route::resource(
             'matching-users',
-            'Api\MatchingUserController'
+            'MatchingUserController'
         )->only(['index', 'show']);
 
         Route::resource(
             'users/{user}/self-keywords',
-            'Api\UserSelfKeywordController'
+            'UserSelfKeywordController'
         )->only(['index']);
 
         Route::resource(
             'users/{user}/profile-photos',
-            'Api\UserProfilePhotoController'
+            'UserProfilePhotoController'
         )->only(['index']);
     });
 });
