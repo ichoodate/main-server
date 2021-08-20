@@ -6,20 +6,18 @@ use App\Model;
 
 class Card extends Model
 {
-    public const ID = 'id';
-    public const CREATED_AT = 'created_at';
     public const CHOOSER = 'chooser';
     public const CHOOSER_ID = 'chooser_id';
+    public const CREATED_AT = 'created_at';
     public const FLIPS = 'flips';
     public const GROUP = 'group';
     public const GROUP_ID = 'group_id';
+    public const ID = 'id';
     public const MATCH = 'match';
     public const MATCH_ID = 'match_id';
     public const SHOWNER = 'showner';
     public const SHOWNER_ID = 'showner_id';
     public const UPDATED_AT = 'updated_at';
-
-    protected $table = 'cards';
     protected $casts = [
         self::ID => 'integer',
         self::CHOOSER_ID => 'integer',
@@ -37,14 +35,16 @@ class Card extends Model
         self::CREATED_AT,
     ];
 
-    public function flips()
-    {
-        return $this->hasMany(CardFlip::class, 'card_id', 'id');
-    }
+    protected $table = 'cards';
 
     public function chooser()
     {
         return $this->belongsTo(User::class, 'chooser_id', 'id');
+    }
+
+    public function flips()
+    {
+        return $this->hasMany(CardFlip::class, 'card_id', 'id');
     }
 
     public function group()

@@ -6,20 +6,18 @@ use App\Model;
 
 class Balance extends Model
 {
-    public const ID = 'id';
-    public const USER_ID = 'user_id';
-    public const TYPE = 'type';
     public const COUNT = 'count';
     public const CREATED_AT = 'created_at';
     public const DELETED_AT = 'deleted_at';
+    public const ID = 'id';
+    public const TYPE = 'type';
 
     public const TYPE_BASIC = 'basic';
 
     public const TYPE_VALUES = [
         self::TYPE_BASIC,
     ];
-
-    protected $table = 'balances';
+    public const USER_ID = 'user_id';
     protected $casts = [
         self::ID => 'integer',
         self::USER_ID => 'integer',
@@ -33,6 +31,8 @@ class Balance extends Model
         self::CREATED_AT,
         self::DELETED_AT,
     ];
+
+    protected $table = 'balances';
 
     public function user()
     {

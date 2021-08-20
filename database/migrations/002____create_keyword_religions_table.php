@@ -5,6 +5,11 @@ use Illuminate\Database\Schema\Blueprint;
 
 class CreateKeywordReligionsTable extends Migration
 {
+    public function down()
+    {
+        Schema::drop('keyword_religions');
+    }
+
     public function up()
     {
         Schema::create('keyword_religions', function (Blueprint $table) {
@@ -24,10 +29,5 @@ class CreateKeywordReligionsTable extends Migration
                 ->onDelete('cascade')
             ;
         });
-    }
-
-    public function down()
-    {
-        Schema::drop('keyword_religions');
     }
 }

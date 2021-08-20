@@ -5,6 +5,11 @@ use Illuminate\Database\Schema\Blueprint;
 
 class CreateLocalizablesTable extends Migration
 {
+    public function down()
+    {
+        Schema::drop('localizables');
+    }
+
     public function up()
     {
         Schema::create('localizables', function (Blueprint $table) {
@@ -46,10 +51,5 @@ class CreateLocalizablesTable extends Migration
                 ->onDelete('cascade')
             ;
         });
-    }
-
-    public function down()
-    {
-        Schema::drop('localizables');
     }
 }

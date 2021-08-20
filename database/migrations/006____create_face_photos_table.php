@@ -6,6 +6,14 @@ use Illuminate\Database\Schema\Blueprint;
 class CreateFacePhotosTable extends Migration
 {
     /**
+     * Reverse the migrations.
+     */
+    public function down()
+    {
+        Schema::drop('face_photos');
+    }
+
+    /**
      * Run the migrations.
      */
     public function up()
@@ -47,13 +55,5 @@ class CreateFacePhotosTable extends Migration
                 ->onDelete('cascade')
             ;
         });
-    }
-
-    /**
-     * Reverse the migrations.
-     */
-    public function down()
-    {
-        Schema::drop('face_photos');
     }
 }

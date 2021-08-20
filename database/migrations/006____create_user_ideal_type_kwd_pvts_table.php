@@ -5,6 +5,11 @@ use Illuminate\Database\Schema\Blueprint;
 
 class CreateUserIdealTypeKwdPvtsTable extends Migration
 {
+    public function down()
+    {
+        Schema::drop('user_ideal_type_kwd_pvts');
+    }
+
     public function up()
     {
         Schema::create('user_ideal_type_kwd_pvts', function (Blueprint $table) {
@@ -58,10 +63,5 @@ class CreateUserIdealTypeKwdPvtsTable extends Migration
                 ->onDelete('cascade')
             ;
         });
-    }
-
-    public function down()
-    {
-        Schema::drop('user_ideal_type_kwd_pvts');
     }
 }

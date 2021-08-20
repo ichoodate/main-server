@@ -5,6 +5,11 @@ use Illuminate\Database\Schema\Blueprint;
 
 class CreateKeywordWeightsTable extends Migration
 {
+    public function down()
+    {
+        Schema::drop('keyword_weights');
+    }
+
     public function up()
     {
         Schema::create('keyword_weights', function (Blueprint $table) {
@@ -24,10 +29,5 @@ class CreateKeywordWeightsTable extends Migration
                 ->onDelete('cascade')
             ;
         });
-    }
-
-    public function down()
-    {
-        Schema::drop('keyword_weights');
     }
 }

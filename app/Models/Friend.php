@@ -6,13 +6,11 @@ use App\Model;
 
 class Friend extends Model
 {
-    public const ID = 'id';
-    public const SENDER_ID = 'sender_id';
-    public const RECEIVER_ID = 'receiver_id';
-    public const MATCH_ID = 'match_id';
     public const CREATED_AT = 'created_at';
-
-    protected $table = 'friends';
+    public const ID = 'id';
+    public const MATCH_ID = 'match_id';
+    public const RECEIVER_ID = 'receiver_id';
+    public const SENDER_ID = 'sender_id';
     protected $casts = [
         self::ID => 'integer',
         self::SENDER_ID => 'integer',
@@ -27,10 +25,7 @@ class Friend extends Model
         self::CREATED_AT,
     ];
 
-    public function sender()
-    {
-        return $this->belongsTo(User::class, 'sender_id', 'id');
-    }
+    protected $table = 'friends';
 
     public function match()
     {
@@ -40,5 +35,10 @@ class Friend extends Model
     public function receiver()
     {
         return $this->belongsTo(User::class, 'receiver_id', 'id');
+    }
+
+    public function sender()
+    {
+        return $this->belongsTo(User::class, 'sender_id', 'id');
     }
 }

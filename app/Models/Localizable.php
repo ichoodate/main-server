@@ -9,7 +9,6 @@ class Localizable extends Model
     public const ID = 'id';
     public const KEYWORD_ID = 'keyword_id';
     public const LANGUAGE = 'language';
-    public const TEXT = 'text';
 
     public const LANGUAGE_VALUES = [
         'de-DE',
@@ -25,8 +24,7 @@ class Localizable extends Model
         'zh-CN',
         'zh-TW',
     ];
-
-    protected $table = 'localizables';
+    public const TEXT = 'text';
     protected $casts = [
         self::ID => 'integer',
         self::KEYWORD_ID => 'integer',
@@ -37,6 +35,8 @@ class Localizable extends Model
         self::LANGUAGE,
         self::TEXT,
     ];
+
+    protected $table = 'localizables';
 
     public function keyword()
     {

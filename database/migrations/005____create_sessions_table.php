@@ -5,6 +5,14 @@ use Illuminate\Database\Migrations\Migration;
 class CreateSessionsTable extends Migration
 {
     /**
+     * Reverse the migrations.
+     */
+    public function down()
+    {
+        Schema::drop('sessions');
+    }
+
+    /**
      * Run the migrations.
      */
     public function up()
@@ -18,13 +26,5 @@ class CreateSessionsTable extends Migration
                 ->unique('id')
             ;
         });
-    }
-
-    /**
-     * Reverse the migrations.
-     */
-    public function down()
-    {
-        Schema::drop('sessions');
     }
 }

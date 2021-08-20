@@ -6,6 +6,14 @@ use Illuminate\Database\Schema\Blueprint;
 class CreatePasswordResetsTable extends Migration
 {
     /**
+     * Reverse the migrations.
+     */
+    public function down()
+    {
+        Schema::drop('password_resets');
+    }
+
+    /**
      * Run the migrations.
      */
     public function up()
@@ -40,13 +48,5 @@ class CreatePasswordResetsTable extends Migration
                 ->index('email')
             ;
         });
-    }
-
-    /**
-     * Reverse the migrations.
-     */
-    public function down()
-    {
-        Schema::drop('password_resets');
     }
 }

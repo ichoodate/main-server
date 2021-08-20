@@ -6,15 +6,13 @@ use App\Model;
 
 class Country extends Model
 {
-    public const ID = 'id';
-    public const ISO = 'iso'; // iso_3166_1_alpha2
-    public const NAME = 'name';
-    public const E164 = 'e164';
     public const CCTLD = 'cctld';
     public const CURRENCY = 'currency';
+    public const E164 = 'e164';
+    public const ID = 'id';
+    public const ISO = 'iso'; // iso_3166_1_alpha2
     public const LANGUAGE = 'language';
-
-    protected $table = 'keyword_countries';
+    public const NAME = 'name';
     protected $fillable = [
         self::ID,
         self::ISO,
@@ -24,6 +22,8 @@ class Country extends Model
         self::CURRENCY,
         self::LANGUAGE,
     ];
+
+    protected $table = 'keyword_countries';
 
     public function nationality()
     {

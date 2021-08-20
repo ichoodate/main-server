@@ -6,6 +6,14 @@ use Illuminate\Database\Schema\Blueprint;
 class CreateRolesTable extends Migration
 {
     /**
+     * Reverse the migrations.
+     */
+    public function down()
+    {
+        Schema::drop('roles');
+    }
+
+    /**
      * Run the migrations.
      */
     public function up()
@@ -43,13 +51,5 @@ class CreateRolesTable extends Migration
                 ->onDelete('cascade')
             ;
         });
-    }
-
-    /**
-     * Reverse the migrations.
-     */
-    public function down()
-    {
-        Schema::drop('roles');
     }
 }

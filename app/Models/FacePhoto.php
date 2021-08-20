@@ -6,12 +6,10 @@ use App\Model;
 
 class FacePhoto extends Model
 {
+    public const CREATED_AT = 'created_at';
+    public const DATA = 'data';
     public const ID = 'id';
     public const USER_ID = 'user_id';
-    public const DATA = 'data';
-    public const CREATED_AT = 'created_at';
-
-    protected $table = 'face_photos';
     protected $casts = [
         self::ID => 'integer',
         self::USER_ID => 'integer',
@@ -22,6 +20,8 @@ class FacePhoto extends Model
         self::DATA,
         self::CREATED_AT,
     ];
+
+    protected $table = 'face_photos';
 
     public function user()
     {

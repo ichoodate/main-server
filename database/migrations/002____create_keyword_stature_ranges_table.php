@@ -5,6 +5,11 @@ use Illuminate\Database\Schema\Blueprint;
 
 class CreateKeywordStatureRangesTable extends Migration
 {
+    public function down()
+    {
+        Schema::drop('keyword_stature_ranges');
+    }
+
     public function up()
     {
         Schema::create('keyword_stature_ranges', function (Blueprint $table) {
@@ -29,10 +34,5 @@ class CreateKeywordStatureRangesTable extends Migration
                 ->onDelete('cascade')
             ;
         });
-    }
-
-    public function down()
-    {
-        Schema::drop('keyword_stature_ranges');
     }
 }

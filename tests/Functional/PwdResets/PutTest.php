@@ -48,6 +48,23 @@ class PutTest extends _TestCase
         });
     }
 
+    public function testErrorFalseRuleResultComplete()
+    {
+        $this->factory(PwdReset::class)->create([
+            PwdReset::ID => 11,
+            PwdReset::TOKEN => 'de99a620c50f2990e87144735cd357e7',
+            PwdReset::EMAIL => 'abcd@gmail.com',
+            PwdReset::COMPLETE => true,
+        ]);
+
+        $this->when(function () {
+            $this->setRouteParameter('id', 11);
+            $this->setInputParameter('token', 'de99a620c50f2990e87144735cd357e7');
+
+            $this->assertError('completion of password reset for 11 must be false.');
+        });
+    }
+
     public function testErrorIntegerRuleId()
     {
         $this->when(function () {
@@ -117,23 +134,6 @@ class PutTest extends _TestCase
             $this->setInputParameter('token', [1, 2, 3, 4]);
 
             $this->assertError('[token] must be a string.');
-        });
-    }
-
-    public function testErrorFalseRuleResultComplete()
-    {
-        $this->factory(PwdReset::class)->create([
-            PwdReset::ID => 11,
-            PwdReset::TOKEN => 'de99a620c50f2990e87144735cd357e7',
-            PwdReset::EMAIL => 'abcd@gmail.com',
-            PwdReset::COMPLETE => true,
-        ]);
-
-        $this->when(function () {
-            $this->setRouteParameter('id', 11);
-            $this->setInputParameter('token', 'de99a620c50f2990e87144735cd357e7');
-
-            $this->assertError('completion of password reset for 11 must be false.');
         });
     }
 }

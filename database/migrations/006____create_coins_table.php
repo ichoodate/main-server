@@ -5,6 +5,11 @@ use Illuminate\Database\Schema\Blueprint;
 
 class CreateCoinsTable extends Migration
 {
+    public function down()
+    {
+        Schema::drop('coins');
+    }
+
     public function up()
     {
         Schema::create('coins', function (Blueprint $table) {
@@ -67,10 +72,5 @@ class CreateCoinsTable extends Migration
                 ->onDelete('cascade')
             ;
         });
-    }
-
-    public function down()
-    {
-        Schema::drop('coins');
     }
 }

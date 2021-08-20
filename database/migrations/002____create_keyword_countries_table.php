@@ -5,6 +5,11 @@ use Illuminate\Database\Schema\Blueprint;
 
 class CreateKeywordCountriesTable extends Migration
 {
+    public function down()
+    {
+        Schema::drop('keyword_countries');
+    }
+
     public function up()
     {
         Schema::create('keyword_countries', function (Blueprint $table) {
@@ -46,10 +51,5 @@ class CreateKeywordCountriesTable extends Migration
                 ->unique('iso') // iso_3166_1_alpha2
             ;
         });
-    }
-
-    public function down()
-    {
-        Schema::drop('keyword_countries');
     }
 }

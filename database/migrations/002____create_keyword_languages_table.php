@@ -5,6 +5,11 @@ use Illuminate\Database\Schema\Blueprint;
 
 class CreateKeywordLanguagesTable extends Migration
 {
+    public function down()
+    {
+        Schema::drop('keyword_languages');
+    }
+
     public function up()
     {
         Schema::create('keyword_languages', function (Blueprint $table) {
@@ -27,10 +32,5 @@ class CreateKeywordLanguagesTable extends Migration
                 ->unique('type')
             ;
         });
-    }
-
-    public function down()
-    {
-        Schema::drop('keyword_languages');
     }
 }

@@ -6,6 +6,14 @@ use Illuminate\Database\Schema\Blueprint;
 class CreateUsersTable extends Migration
 {
     /**
+     * Reverse the migrations.
+     */
+    public function down()
+    {
+        Schema::drop('users');
+    }
+
+    /**
      * Run the migrations.
      */
     public function up()
@@ -52,13 +60,5 @@ class CreateUsersTable extends Migration
                 ->onDelete('cascade')
             ;
         });
-    }
-
-    /**
-     * Reverse the migrations.
-     */
-    public function down()
-    {
-        Schema::drop('users');
     }
 }

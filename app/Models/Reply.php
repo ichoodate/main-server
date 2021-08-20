@@ -6,14 +6,12 @@ use App\Model;
 
 class Reply extends Model
 {
+    public const CREATED_AT = 'created_at';
+    public const DESCRIPTION = 'description';
     public const ID = 'id';
     public const TICKET_ID = 'ticket_id';
-    public const WRITER_ID = 'writer_id';
-    public const DESCRIPTION = 'description';
-    public const CREATED_AT = 'created_at';
     public const UPDATED_AT = 'updated_at';
-
-    protected $table = 'replies';
+    public const WRITER_ID = 'writer_id';
     protected $casts = [
         self::ID => 'integer',
         self::TICKET_ID => 'integer',
@@ -28,6 +26,8 @@ class Reply extends Model
         self::CREATED_AT,
         self::UPDATED_AT,
     ];
+
+    protected $table = 'replies';
 
     public function ticket()
     {

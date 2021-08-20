@@ -5,6 +5,11 @@ use Illuminate\Database\Schema\Blueprint;
 
 class CreateRepliesTable extends Migration
 {
+    public function down()
+    {
+        Schema::drop('replies');
+    }
+
     public function up()
     {
         Schema::create('replies', function (Blueprint $table) {
@@ -61,10 +66,5 @@ class CreateRepliesTable extends Migration
                 ->onDelete('cascade')
             ;
         });
-    }
-
-    public function down()
-    {
-        Schema::drop('replies');
     }
 }

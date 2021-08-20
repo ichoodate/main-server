@@ -69,13 +69,6 @@ class IdRepliesGetTest extends _TestCase
         });
     }
 
-    public function testErrorRequiredRuleTicketId()
-    {
-        $this->when(function () {
-            $this->assertError('[ticket_id] is required.');
-        });
-    }
-
     public function testErrorRequiredRulePermittedUser()
     {
         $this->factory(User::class)->create(['id' => 1]);
@@ -86,6 +79,13 @@ class IdRepliesGetTest extends _TestCase
             $this->setInputParameter('ticket_id', 11);
 
             $this->assertError('authorized user who is related user of ticket for [ticket_id] is required.');
+        });
+    }
+
+    public function testErrorRequiredRuleTicketId()
+    {
+        $this->when(function () {
+            $this->assertError('[ticket_id] is required.');
         });
     }
 }

@@ -6,15 +6,13 @@ use App\Model;
 
 class Match extends Model
 {
-    public const ID = 'id';
     public const CARDS = 'cards';
     public const FRIENDS = 'friends';
+    public const ID = 'id';
     public const MAN = 'man';
     public const MAN_ID = 'man_id';
     public const WOMAN = 'woman';
     public const WOMAN_ID = 'woman_id';
-
-    protected $table = 'matches';
     protected $casts = [
         self::ID => 'integer',
         self::MAN_ID => 'integer',
@@ -25,6 +23,8 @@ class Match extends Model
         self::MAN_ID,
         self::WOMAN_ID,
     ];
+
+    protected $table = 'matches';
 
     public function cards()
     {

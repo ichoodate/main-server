@@ -5,6 +5,11 @@ use Illuminate\Database\Schema\Blueprint;
 
 class CreateNoticesTable extends Migration
 {
+    public function down()
+    {
+        Schema::drop('notices');
+    }
+
     public function up()
     {
         Schema::create('notices', function (Blueprint $table) {
@@ -41,10 +46,5 @@ class CreateNoticesTable extends Migration
                 ->onDelete('cascade')
             ;
         });
-    }
-
-    public function down()
-    {
-        Schema::drop('notices');
     }
 }

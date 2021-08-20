@@ -6,13 +6,13 @@ use App\Model;
 
 class Item extends Model
 {
-    public const ID = 'id';
-    public const TYPE = 'type';
-    public const ORIGINAL_PRICE = 'original_price';
-    public const FINAL_PRICE = 'final_price';
-    public const CURRENCY = 'currency';
     public const CREATED_AT = 'created_at';
+    public const CURRENCY = 'currency';
     public const DELETED_AT = 'deleted_at';
+    public const FINAL_PRICE = 'final_price';
+    public const ID = 'id';
+    public const ORIGINAL_PRICE = 'original_price';
+    public const TYPE = 'type';
 
     public const TYPE_COIN = 'coin';
     public const TYPE_SUBSCRIPTION = 'subscription';
@@ -20,8 +20,6 @@ class Item extends Model
         self::TYPE_COIN,
         self::TYPE_SUBSCRIPTION,
     ];
-
-    protected $table = 'items';
     protected $casts = [
         self::ID => 'integer',
     ];
@@ -34,4 +32,6 @@ class Item extends Model
         self::CREATED_AT,
         self::DELETED_AT,
     ];
+
+    protected $table = 'items';
 }

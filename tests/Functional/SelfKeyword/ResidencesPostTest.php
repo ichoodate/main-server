@@ -60,6 +60,18 @@ class ResidencesPostTest extends _TestCase
         });
     }
 
+    public function testErrorNotNullRuleKeywordModel()
+    {
+        $this->factory(Residence::class)->create(['id' => 11]);
+        $this->factory(Residence::class)->create(['id' => 12]);
+
+        $this->when(function () {
+            $this->setInputParameter('keyword_id', 13);
+
+            $this->assertError('residence_country keyword for [keyword_id] must exist.');
+        });
+    }
+
     public function testErrorRequiredRuleAuthUser()
     {
         $this->when(function () {
@@ -71,18 +83,6 @@ class ResidencesPostTest extends _TestCase
     {
         $this->when(function () {
             $this->assertError('[keyword_id] is required.');
-        });
-    }
-
-    public function testErrorNotNullRuleKeywordModel()
-    {
-        $this->factory(Residence::class)->create(['id' => 11]);
-        $this->factory(Residence::class)->create(['id' => 12]);
-
-        $this->when(function () {
-            $this->setInputParameter('keyword_id', 13);
-
-            $this->assertError('residence_country keyword for [keyword_id] must exist.');
         });
     }
 }

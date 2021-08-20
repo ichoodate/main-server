@@ -7,7 +7,6 @@ use App\Model;
 class Role extends Model
 {
     public const ID = 'id';
-    public const USER_ID = 'user_id';
     public const TYPE = 'type';
 
     public const TYPE_ADMIN = 'admin';
@@ -15,8 +14,7 @@ class Role extends Model
     public const TYPE_VALUES = [
         self::TYPE_ADMIN,
     ];
-
-    protected $table = 'roles';
+    public const USER_ID = 'user_id';
     protected $casts = [
         self::ID => 'integer',
         self::USER_ID => 'integer',
@@ -26,6 +24,8 @@ class Role extends Model
         self::USER_ID,
         self::TYPE,
     ];
+
+    protected $table = 'roles';
 
     public function user()
     {

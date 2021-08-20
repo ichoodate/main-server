@@ -5,6 +5,11 @@ use Illuminate\Database\Schema\Blueprint;
 
 class CreateKeywordBirthYearsTable extends Migration
 {
+    public function down()
+    {
+        Schema::drop('keyword_birth_years');
+    }
+
     public function up()
     {
         Schema::create('keyword_birth_years', function (Blueprint $table) {
@@ -25,10 +30,5 @@ class CreateKeywordBirthYearsTable extends Migration
                 ->onDelete('cascade')
             ;
         });
-    }
-
-    public function down()
-    {
-        Schema::drop('keyword_birth_years');
     }
 }

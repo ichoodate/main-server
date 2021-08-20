@@ -5,6 +5,11 @@ use Illuminate\Database\Schema\Blueprint;
 
 class CreateChattingContentsTable extends Migration
 {
+    public function down()
+    {
+        Schema::drop('chatting_contents');
+    }
+
     public function up()
     {
         Schema::create('chatting_contents', function (Blueprint $table) {
@@ -56,10 +61,5 @@ class CreateChattingContentsTable extends Migration
                 ->onDelete('cascade')
             ;
         });
-    }
-
-    public function down()
-    {
-        Schema::drop('chatting_contents');
     }
 }

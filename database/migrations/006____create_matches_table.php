@@ -5,6 +5,11 @@ use Illuminate\Database\Schema\Blueprint;
 
 class CreateMatchesTable extends Migration
 {
+    public function down()
+    {
+        Schema::drop('matches');
+    }
+
     public function up()
     {
         Schema::create('matches', function (Blueprint $table) {
@@ -59,10 +64,5 @@ class CreateMatchesTable extends Migration
                 ->onDelete('cascade')
             ;
         });
-    }
-
-    public function down()
-    {
-        Schema::drop('matches');
     }
 }

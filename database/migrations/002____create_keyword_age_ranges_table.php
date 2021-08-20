@@ -5,6 +5,11 @@ use Illuminate\Database\Schema\Blueprint;
 
 class CreateKeywordAgeRangesTable extends Migration
 {
+    public function down()
+    {
+        Schema::drop('keyword_age_ranges');
+    }
+
     public function up()
     {
         Schema::create('keyword_age_ranges', function (Blueprint $table) {
@@ -35,10 +40,5 @@ class CreateKeywordAgeRangesTable extends Migration
                 ->onDelete('cascade')
             ;
         });
-    }
-
-    public function down()
-    {
-        Schema::drop('keyword_age_ranges');
     }
 }

@@ -7,22 +7,21 @@ use App\Models\Obj;
 
 class Residence extends Model
 {
+    public const ENTITIES = [
+        self::ID,
+        self::PARENT_ID,
+        self::RELATED_ID,
+    ];
     public const ID = 'id';
     public const PARENT_ID = 'parent_id';
     public const RELATED_ID = 'related_id';
-
-    public const ENTITIES = [
+    protected $fillable = [
         self::ID,
         self::PARENT_ID,
         self::RELATED_ID,
     ];
 
     protected $table = 'keyword_residences';
-    protected $fillable = [
-        self::ID,
-        self::PARENT_ID,
-        self::RELATED_ID,
-    ];
 
     public function related()
     {

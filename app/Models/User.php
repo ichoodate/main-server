@@ -20,28 +20,23 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     use CanResetPassword;
     use MustVerifyEmail;
     use Notifiable;
-
-    public const ID = 'id';
-    public const EMAIL = 'email';
-    public const PASSWORD = 'password';
     public const BIRTH = 'birth';
-    public const GENDER = 'gender';
-    public const NAME = 'name';
-    public const EMAIL_VERIFIED = 'email_verified';
     public const CREATED_AT = 'created_at';
+    public const EMAIL = 'email';
+    public const EMAIL_VERIFIED = 'email_verified';
+    public const GENDER = 'gender';
 
     public const GENDER_MAN = 'man';
-    public const GENDER_WOMAN = 'woman';
 
     public const GENDER_VALUES = [
         self::GENDER_MAN,
         self::GENDER_WOMAN,
     ];
+    public const GENDER_WOMAN = 'woman';
 
-    protected $table = 'users';
-    protected $hidden = [
-        self::PASSWORD,
-    ];
+    public const ID = 'id';
+    public const NAME = 'name';
+    public const PASSWORD = 'password';
     protected $casts = [
         self::ID => 'integer',
     ];
@@ -55,6 +50,11 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         self::EMAIL_VERIFIED,
         self::CREATED_AT,
     ];
+    protected $hidden = [
+        self::PASSWORD,
+    ];
+
+    protected $table = 'users';
 
     public function facePhoto()
     {

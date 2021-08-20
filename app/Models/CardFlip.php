@@ -6,14 +6,12 @@ use App\Model;
 
 class CardFlip extends Model
 {
-    public const ID = 'id';
     public const CARD = 'card';
     public const CARD_ID = 'card_id';
+    public const CREATED_AT = 'created_at';
+    public const ID = 'id';
     public const USER = 'user';
     public const USER_ID = 'user_id';
-    public const CREATED_AT = 'created_at';
-
-    protected $table = 'card_flips';
     protected $casts = [
         self::ID => 'integer',
         self::USER_ID => 'integer',
@@ -25,6 +23,8 @@ class CardFlip extends Model
         self::CARD_ID,
         self::CREATED_AT,
     ];
+
+    protected $table = 'card_flips';
 
     public function card()
     {

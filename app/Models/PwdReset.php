@@ -6,14 +6,12 @@ use App\Model;
 
 class PwdReset extends Model
 {
-    public const ID = 'id';
-    public const EMAIL = 'email';
-    public const TOKEN = 'token';
     public const COMPLETE = 'complete';
     public const CREATED_AT = 'created_at';
+    public const EMAIL = 'email';
+    public const ID = 'id';
+    public const TOKEN = 'token';
     public const UPDATED_AT = 'updated_at';
-
-    protected $table = 'password_resets';
     protected $casts = [];
     protected $fillable = [
         self::ID,
@@ -23,4 +21,6 @@ class PwdReset extends Model
         self::CREATED_AT,
         self::UPDATED_AT,
     ];
+
+    protected $table = 'password_resets';
 }

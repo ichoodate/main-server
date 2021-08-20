@@ -9,8 +9,6 @@ class MatchingKwdPvt extends Model
     public const ID = 'id';
     public const IDEAL_TYPE_KWD_ID = 'ideal_type_kwd_id';
     public const MATCHING_KWD_ID = 'matching_kwd_id';
-
-    protected $table = 'matching_keyword_pivots';
     protected $casts = [
         self::ID => 'integer',
         self::IDEAL_TYPE_KWD_ID => 'integer',
@@ -21,6 +19,8 @@ class MatchingKwdPvt extends Model
         self::IDEAL_TYPE_KWD_ID,
         self::MATCHING_KWD_ID,
     ];
+
+    protected $table = 'matching_keyword_pivots';
 
     public function idealTypeKeywords()
     {

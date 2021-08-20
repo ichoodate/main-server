@@ -5,6 +5,11 @@ use Illuminate\Database\Schema\Blueprint;
 
 class CreateKeywordBodiesTable extends Migration
 {
+    public function down()
+    {
+        Schema::drop('keyword_bodies');
+    }
+
     public function up()
     {
         Schema::create('keyword_bodies', function (Blueprint $table) {
@@ -24,10 +29,5 @@ class CreateKeywordBodiesTable extends Migration
                 ->onDelete('cascade')
             ;
         });
-    }
-
-    public function down()
-    {
-        Schema::drop('keyword_bodies');
     }
 }

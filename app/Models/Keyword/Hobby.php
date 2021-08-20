@@ -16,10 +16,10 @@ class Hobby extends Model
         'hobby4',
         'hobby5',
     ];
-
-    protected $table = 'keyword_hobbies';
     protected $fillable = [
         self::ID,
         self::TYPE,
     ];
+
+    protected $table = 'keyword_hobbies';
 }

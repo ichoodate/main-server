@@ -6,14 +6,12 @@ use App\Model;
 
 class Coin extends Model
 {
-    public const ID = 'id';
-    public const USER_ID = 'user_id';
     public const BALANCE_ID = 'balance_id';
-    public const RELATED_ID = 'related_id';
     public const COUNT = 'count';
     public const CREATED_AT = 'created_at';
-
-    protected $table = 'coins';
+    public const ID = 'id';
+    public const RELATED_ID = 'related_id';
+    public const USER_ID = 'user_id';
     protected $casts = [
         self::ID => 'integer',
         self::USER_ID => 'integer',
@@ -29,6 +27,8 @@ class Coin extends Model
         self::COUNT,
         self::CREATED_AT,
     ];
+
+    protected $table = 'coins';
 
     public function balance()
     {

@@ -6,13 +6,11 @@ use App\Model;
 
 class Popularity extends Model
 {
-    public const ID = 'id';
-    public const SENDER_ID = 'sender_id';
-    public const RECEIVER_ID = 'receiver_id';
-    public const POINT = 'point';
     public const CREATED_AT = 'created_at';
-
-    protected $table = 'popularities';
+    public const ID = 'id';
+    public const POINT = 'point';
+    public const RECEIVER_ID = 'receiver_id';
+    public const SENDER_ID = 'sender_id';
     protected $casts = [
         self::ID => 'integer',
         self::SENDER_ID => 'integer',
@@ -26,6 +24,8 @@ class Popularity extends Model
         self::POINT,
         self::CREATED_AT,
     ];
+
+    protected $table = 'popularities';
 
     public function receiver()
     {

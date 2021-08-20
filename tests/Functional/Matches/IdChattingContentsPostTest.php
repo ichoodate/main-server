@@ -85,6 +85,21 @@ class IdChattingContentsPostTest extends _TestCase
         });
     }
 
+    public function testErrorNotNullRuleMatchPermittedUser()
+    {
+        $this->factory(User::class)->create(['id' => 1]);
+        $this->factory(User::class)->create(['id' => 2]);
+        $this->factory(User::class)->create(['id' => 3]);
+        $this->factory(Match::class)->create(['id' => 11, 'man_id' => 1, 'woman_id' => 2]);
+
+        $this->when(function () {
+            $this->setAuthUser(User::find(3));
+            $this->setRouteParameter('id', 11);
+
+            $this->assertError('authorized user who is related user of match for 11 is required.');
+        });
+    }
+
     public function testErrorNotNullRuleMatchPropose()
     {
         $this->factory(User::class)->create(['id' => 1]);
@@ -102,21 +117,6 @@ class IdChattingContentsPostTest extends _TestCase
     {
         $this->when(function () {
             $this->assertError('authorized user is required.');
-        });
-    }
-
-    public function testErrorNotNullRuleMatchPermittedUser()
-    {
-        $this->factory(User::class)->create(['id' => 1]);
-        $this->factory(User::class)->create(['id' => 2]);
-        $this->factory(User::class)->create(['id' => 3]);
-        $this->factory(Match::class)->create(['id' => 11, 'man_id' => 1, 'woman_id' => 2]);
-
-        $this->when(function () {
-            $this->setAuthUser(User::find(3));
-            $this->setRouteParameter('id', 11);
-
-            $this->assertError('authorized user who is related user of match for 11 is required.');
         });
     }
 

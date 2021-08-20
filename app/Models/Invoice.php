@@ -6,11 +6,9 @@ use App\Model;
 
 class Invoice extends Model
 {
+    public const CREATED_AT = 'created_at';
     public const ID = 'id';
     public const USER_ID = 'user_id';
-    public const CREATED_AT = 'created_at';
-
-    protected $table = 'invoices';
     protected $casts = [
         self::ID => 'integer',
         self::USER_ID => 'integer',
@@ -20,6 +18,8 @@ class Invoice extends Model
         self::USER_ID,
         self::CREATED_AT,
     ];
+
+    protected $table = 'invoices';
 
     public function user()
     {

@@ -8,6 +8,22 @@ use Illuminate\Database\Seeder;
 
 class CardFlipTableSeeder extends Seeder
 {
+    public function createCardFlip($card, $userId)
+    {
+        $cardFlip = CardFlip::query()
+            ->where(CardFlip::RELATED_ID, $card->getKey())
+            ->where(CardFlip::USER_ID, $userId)
+            ->first()
+        ;
+
+        if (empty($cardFlip)) {
+            $this->factory(CardFlip::class)->create([
+                CardFlip::RELATED_ID => $card->getKey(),
+                CardFlip::USER_ID => $userId,
+            ]);
+        }
+    }
+
     public function run()
     {
         $count = Card::count();
@@ -25,22 +41,6 @@ class CardFlipTableSeeder extends Seeder
                     $this->createCardFlip($card, $userId);
                 }
             }
-        }
-    }
-
-    public function createCardFlip($card, $userId)
-    {
-        $cardFlip = CardFlip::query()
-            ->where(CardFlip::RELATED_ID, $card->getKey())
-            ->where(CardFlip::USER_ID, $userId)
-            ->first()
-        ;
-
-        if (empty($cardFlip)) {
-            $this->factory(CardFlip::class)->create([
-                CardFlip::RELATED_ID => $card->getKey(),
-                CardFlip::USER_ID => $userId,
-            ]);
         }
     }
 }

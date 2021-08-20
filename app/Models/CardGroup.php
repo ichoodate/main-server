@@ -6,19 +6,17 @@ use App\Model;
 
 class CardGroup extends Model
 {
-    public const ID = 'id';
     public const CARDS = 'cards';
-    public const USER = 'user';
-    public const USER_ID = 'user_id';
-    public const TYPE = 'type';
     public const CREATED_AT = 'created_at';
+    public const ID = 'id';
+    public const TYPE = 'type';
 
     public const TYPE_DAILY = 'daily';
     public const TYPE_VALUES = [
         self::TYPE_DAILY,
     ];
-
-    protected $table = 'card_groups';
+    public const USER = 'user';
+    public const USER_ID = 'user_id';
     protected $casts = [
         self::ID => 'integer',
         self::USER_ID => 'integer',
@@ -29,6 +27,8 @@ class CardGroup extends Model
         self::TYPE,
         self::CREATED_AT,
     ];
+
+    protected $table = 'card_groups';
 
     public function cards()
     {

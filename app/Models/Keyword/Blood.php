@@ -10,9 +10,9 @@ class Blood extends Model
     public const TYPE = 'type';
 
     public const TYPE_A = 'A';
+    public const TYPE_AB = 'AB';
     public const TYPE_B = 'B';
     public const TYPE_O = 'O';
-    public const TYPE_AB = 'AB';
 
     public const TYPE_VALUES = [
         self::TYPE_A,
@@ -20,10 +20,10 @@ class Blood extends Model
         self::TYPE_O,
         self::TYPE_AB,
     ];
-
-    protected $table = 'keyword_bloods';
     protected $fillable = [
         self::ID,
         self::TYPE,
     ];
+
+    protected $table = 'keyword_bloods';
 }

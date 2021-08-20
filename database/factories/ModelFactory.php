@@ -7,7 +7,12 @@ use Faker;
 
 abstract class ModelFactory
 {
-    abstract public static function default();
+    public static function class()
+    {
+        $path = str_replace('Database\\Factories\\Model\\', '', static::class);
+
+        return 'App\\Database\\Models\\'.str_replace('Factory', '', $path);
+    }
 
     public static function create(array $data = [])
     {
@@ -33,6 +38,8 @@ abstract class ModelFactory
 
         return $model;
     }
+
+    abstract public static function default();
 
     public static function factory($modelClass)
     {
@@ -73,12 +80,5 @@ abstract class ModelFactory
     public static function setDefault($data)
     {
         return array_merge(static::default(), $data);
-    }
-
-    public static function class()
-    {
-        $path = str_replace('Database\\Factories\\Model\\', '', static::class);
-
-        return 'App\\Database\\Models\\'.str_replace('Factory', '', $path);
     }
 }

@@ -5,6 +5,11 @@ use Illuminate\Database\Schema\Blueprint;
 
 class CreateSubscriptionsTable extends Migration
 {
+    public function down()
+    {
+        Schema::drop('subscriptions');
+    }
+
     public function up()
     {
         Schema::create('subscriptions', function (Blueprint $table) {
@@ -61,10 +66,5 @@ class CreateSubscriptionsTable extends Migration
                 ->onDelete('cascade')
             ;
         });
-    }
-
-    public function down()
-    {
-        Schema::drop('subscriptions');
     }
 }

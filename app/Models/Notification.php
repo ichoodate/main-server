@@ -6,14 +6,12 @@ use App\Model;
 
 class Notification extends Model
 {
-    public const ID = 'id';
-    public const USER_ID = 'user_id';
-    public const RELATED_ID = 'related_id';
     public const CREATED_AT = 'created_at';
-    public const UPDATED_AT = 'updated_at';
     public const DELETED_AT = 'deleted_at';
-
-    protected $table = 'notifications';
+    public const ID = 'id';
+    public const RELATED_ID = 'related_id';
+    public const UPDATED_AT = 'updated_at';
+    public const USER_ID = 'user_id';
     protected $casts = [
         self::ID => 'integer',
         self::USER_ID => 'integer',
@@ -27,6 +25,8 @@ class Notification extends Model
         self::UPDATED_AT,
         self::DELETED_AT,
     ];
+
+    protected $table = 'notifications';
 
     public function related()
     {

@@ -5,6 +5,11 @@ use Illuminate\Database\Schema\Blueprint;
 
 class CreateMatchingKeywordPivotsTable extends Migration
 {
+    public function down()
+    {
+        Schema::drop('matching_keyword_pivots');
+    }
+
     public function up()
     {
         Schema::create('matching_keyword_pivots', function (Blueprint $table) {
@@ -49,10 +54,5 @@ class CreateMatchingKeywordPivotsTable extends Migration
                 ->onDelete('cascade')
             ;
         });
-    }
-
-    public function down()
-    {
-        Schema::drop('matching_keyword_pivots');
     }
 }

@@ -5,6 +5,11 @@ use Illuminate\Database\Schema\Blueprint;
 
 class CreateDataFromYqlCountriesTable extends Migration
 {
+    public function down()
+    {
+        Schema::drop('data_from_yql_countries');
+    }
+
     public function up()
     {
         Schema::create('data_from_yql_countries', function (Blueprint $table) {
@@ -17,10 +22,5 @@ class CreateDataFromYqlCountriesTable extends Migration
             $table->unique('woeid');
             $table->unique('name');
         });
-    }
-
-    public function down()
-    {
-        Schema::drop('data_from_yql_countries');
     }
 }

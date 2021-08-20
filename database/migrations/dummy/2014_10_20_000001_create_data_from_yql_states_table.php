@@ -5,6 +5,11 @@ use Illuminate\Database\Schema\Blueprint;
 
 class CreateDataFromYqlStatesTable extends Migration
 {
+    public function down()
+    {
+        Schema::drop('data_from_yql_states');
+    }
+
     public function up()
     {
         Schema::create('data_from_yql_states', function (Blueprint $table) {
@@ -20,10 +25,5 @@ class CreateDataFromYqlStatesTable extends Migration
             $table->unique('woeid');
             $table->index('place_type');
         });
-    }
-
-    public function down()
-    {
-        Schema::drop('data_from_yql_states');
     }
 }

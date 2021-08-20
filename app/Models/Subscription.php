@@ -6,16 +6,14 @@ use App\Model;
 
 class Subscription extends Model
 {
-    public const ID = 'id';
-    public const USER_ID = 'user_id';
-    public const PAYMENT_ID = 'payment_id';
-    public const TYPE = 'type';
     public const CREATED_AT = 'created_at';
     public const DELETED_AT = 'deleted_at';
+    public const ID = 'id';
+    public const PAYMENT_ID = 'payment_id';
+    public const TYPE = 'type';
 
     public const TYPE_VALUES = ['level1', 'level2', 'level3'];
-
-    protected $table = 'subscriptions';
+    public const USER_ID = 'user_id';
     protected $casts = [
         self::ID => 'integer',
         self::USER_ID => 'integer',
@@ -29,6 +27,8 @@ class Subscription extends Model
         self::CREATED_AT,
         self::DELETED_AT,
     ];
+
+    protected $table = 'subscriptions';
 
     public function payment()
     {

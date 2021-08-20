@@ -5,6 +5,11 @@ use Illuminate\Database\Schema\Blueprint;
 
 class CreateItemsTable extends Migration
 {
+    public function down()
+    {
+        Schema::drop('items');
+    }
+
     public function up()
     {
         Schema::create('items', function (Blueprint $table) {
@@ -32,10 +37,5 @@ class CreateItemsTable extends Migration
                 ->nullable()
             ;
         });
-    }
-
-    public function down()
-    {
-        Schema::drop('items');
     }
 }

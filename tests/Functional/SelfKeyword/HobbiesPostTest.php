@@ -67,6 +67,18 @@ class HobbiesPostTest extends _TestCase
         });
     }
 
+    public function testErrorNotNullRuleKeywordModel()
+    {
+        $this->factory(Hobby::class)->create(['id' => 11]);
+        $this->factory(Hobby::class)->create(['id' => 12]);
+
+        $this->when(function () {
+            $this->setInputParameter('keyword_id', 13);
+
+            $this->assertError('hobby keyword for [keyword_id] must exist.');
+        });
+    }
+
     public function testErrorRequiredRuleAuthUser()
     {
         $this->when(function () {
@@ -78,18 +90,6 @@ class HobbiesPostTest extends _TestCase
     {
         $this->when(function () {
             $this->assertError('[keyword_id] is required.');
-        });
-    }
-
-    public function testErrorNotNullRuleKeywordModel()
-    {
-        $this->factory(Hobby::class)->create(['id' => 11]);
-        $this->factory(Hobby::class)->create(['id' => 12]);
-
-        $this->when(function () {
-            $this->setInputParameter('keyword_id', 13);
-
-            $this->assertError('hobby keyword for [keyword_id] must exist.');
         });
     }
 }

@@ -6,6 +6,14 @@ use Illuminate\Database\Schema\Blueprint;
 class CreateProfilePhotosTable extends Migration
 {
     /**
+     * Reverse the migrations.
+     */
+    public function down()
+    {
+        Schema::drop('profile_photos');
+    }
+
+    /**
      * Run the migrations.
      */
     public function up()
@@ -47,13 +55,5 @@ class CreateProfilePhotosTable extends Migration
                 ->onDelete('cascade')
             ;
         });
-    }
-
-    /**
-     * Reverse the migrations.
-     */
-    public function down()
-    {
-        Schema::drop('profile_photos');
     }
 }

@@ -5,6 +5,11 @@ use Illuminate\Database\Schema\Blueprint;
 
 class CreateInvoicesTable extends Migration
 {
+    public function down()
+    {
+        Schema::drop('invoices');
+    }
+
     public function up()
     {
         Schema::create('invoices', function (Blueprint $table) {
@@ -41,10 +46,5 @@ class CreateInvoicesTable extends Migration
                 ->onDelete('cascade')
             ;
         });
-    }
-
-    public function down()
-    {
-        Schema::drop('invoices');
     }
 }

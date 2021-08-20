@@ -5,6 +5,11 @@ use Illuminate\Database\Schema\Blueprint;
 
 class CreateKeywordStaturesTable extends Migration
 {
+    public function down()
+    {
+        Schema::drop('keyword_statures');
+    }
+
     public function up()
     {
         Schema::create('keyword_statures', function (Blueprint $table) {
@@ -34,10 +39,5 @@ class CreateKeywordStaturesTable extends Migration
                 ->index('inch')
             ;
         });
-    }
-
-    public function down()
-    {
-        Schema::drop('keyword_statures');
     }
 }

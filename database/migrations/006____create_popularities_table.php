@@ -5,6 +5,11 @@ use Illuminate\Database\Schema\Blueprint;
 
 class CreatePopularitiesTable extends Migration
 {
+    public function down()
+    {
+        Schema::drop('popularities');
+    }
+
     public function up()
     {
         Schema::create('popularities', function (Blueprint $table) {
@@ -57,10 +62,5 @@ class CreatePopularitiesTable extends Migration
                 ->onDelete('cascade')
             ;
         });
-    }
-
-    public function down()
-    {
-        Schema::drop('popularities');
     }
 }

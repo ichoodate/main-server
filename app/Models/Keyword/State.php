@@ -6,22 +6,22 @@ use App\Model;
 
 class State extends Model
 {
-    public const ID = 'id';
     public const COUNTRY_ID = 'country_id';
-    public const NAME = 'name';
 
     public const ENTITIES = [
         self::ID,
         self::COUNTRY_ID,
         self::NAME,
     ];
-
-    protected $table = 'keyword_states';
+    public const ID = 'id';
+    public const NAME = 'name';
     protected $fillable = [
         self::ID,
         self::COUNTRY_ID,
         self::NAME,
     ];
+
+    protected $table = 'keyword_states';
 
     public function country()
     {
