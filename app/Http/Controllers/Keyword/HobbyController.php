@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Keyword;
 
-use App\Http\ControllersController;
+use App\Http\Controller;
 use App\Services\Keyword\Hobby\HobbyFindingService;
 use App\Services\Keyword\Hobby\HobbyListingService;
 
-class HobbyController extends ApiController
+class HobbyController extends Controller
 {
     public static function index()
     {

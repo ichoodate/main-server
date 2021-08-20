@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\ControllersController;
+use App\Http\Controller;
 use App\Services\PwdReset\PwdResetCreatingService;
 use App\Services\PwdReset\PwdResetUpdatingService;
 
-class PwdResetController extends ApiController
+class PwdResetController extends Controller
 {
     public static function store()
     {

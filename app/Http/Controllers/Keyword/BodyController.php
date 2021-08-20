@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Keyword;
 
-use App\Http\ControllersController;
+use App\Http\Controller;
 use App\Services\Keyword\Body\BodyFindingService;
 use App\Services\Keyword\Body\BodyListingService;
 
-class BodyController extends ApiController
+class BodyController extends Controller
 {
     public static function index()
     {

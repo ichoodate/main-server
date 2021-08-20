@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\IdealTypeKeyword;
 
-use App\Http\ControllersController;
-use App\Services\UserIdealTypeKwdPvt\IdealTypeResidenceKeywordCreatingService;
+use App\Http\Controller;
+use App\Services\IdealTypeKeyword\IdealTypeResidenceKeywordCreatingService;
 
-class ResidenceController extends ApiController
+class ResidenceController extends Controller
 {
     public static function store()
     {

@@ -311,56 +311,6 @@ Route::prefix($prefix)->group(function () {
         )->only(['index', 'show']);
 
         Route::resource(
-            'self-keyword/careers',
-            'SelfKeyword\CareerController'
-        )->only(['store']);
-
-        Route::resource(
-            'self-keyword/drinks',
-            'SelfKeyword\DrinkController'
-        )->only(['store']);
-
-        Route::resource(
-            'self-keyword/hobbies',
-            'SelfKeyword\HobbyController'
-        )->only(['store']);
-
-        Route::resource(
-            'self-keyword/nationalities',
-            'SelfKeyword\NationalityController'
-        )->only(['store']);
-
-        Route::resource(
-            'self-keyword/religions',
-            'SelfKeyword\ReligionController'
-        )->only(['store']);
-
-        Route::resource(
-            'self-keyword/residences',
-            'SelfKeyword\ResidenceController'
-        )->only(['store']);
-
-        Route::resource(
-            'self-keyword/smokes',
-            'SelfKeyword\SmokeController'
-        )->only(['store']);
-
-        Route::resource(
-            'self-keyword/statures',
-            'SelfKeyword\StatureController'
-        )->only(['store']);
-
-        Route::resource(
-            'self-keyword/weights',
-            'SelfKeyword\WeightController'
-        )->only(['store']);
-
-        Route::resource(
-            'self-keywords',
-            'SelfKeywordController'
-        )->only(['index']);
-
-        Route::resource(
             'subscriptions',
             'SubscriptionController'
         )->only(['index', 'show']);
@@ -381,8 +331,58 @@ Route::prefix($prefix)->group(function () {
         )->only(['index', 'show']);
 
         Route::resource(
-            'users/{user}/self-keywords',
-            'UserSelfKeywordController'
+            'user-keyword/careers',
+            'UserKeyword\CareerController'
+        )->only(['store']);
+
+        Route::resource(
+            'user-keyword/drinks',
+            'UserKeyword\DrinkController'
+        )->only(['store']);
+
+        Route::resource(
+            'user-keyword/hobbies',
+            'UserKeyword\HobbyController'
+        )->only(['store']);
+
+        Route::resource(
+            'user-keyword/nationalities',
+            'UserKeyword\NationalityController'
+        )->only(['store']);
+
+        Route::resource(
+            'user-keyword/religions',
+            'UserKeyword\ReligionController'
+        )->only(['store']);
+
+        Route::resource(
+            'user-keyword/residences',
+            'UserKeyword\ResidenceController'
+        )->only(['store']);
+
+        Route::resource(
+            'user-keyword/smokes',
+            'UserKeyword\SmokeController'
+        )->only(['store']);
+
+        Route::resource(
+            'user-keyword/statures',
+            'UserKeyword\StatureController'
+        )->only(['store']);
+
+        Route::resource(
+            'user-keyword/weights',
+            'UserKeyword\WeightController'
+        )->only(['store']);
+
+        Route::resource(
+            'user-keywords',
+            'UserKeywordController'
+        )->only(['index']);
+
+        Route::resource(
+            'users/{user}/keywords',
+            'UserKeywordController'
         )->only(['index']);
 
         Route::resource(

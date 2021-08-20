@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\IdealTypeKeyword;
 
-use App\Http\ControllersController;
-use App\Services\UserIdealTypeKwdPvt\IdealTypeHobbyKeywordCreatingService;
+use App\Http\Controller;
+use App\Services\IdealTypeKeyword\IdealTypeHobbyKeywordCreatingService;
 
-class HobbyController extends ApiController
+class HobbyController extends Controller
 {
     public static function store()
     {

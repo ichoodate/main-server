@@ -4,7 +4,7 @@ namespace App\Services\User;
 
 use App\Models\Obj;
 use App\Models\User;
-use App\Models\UserSelfKwdPvt;
+use App\Models\UserKeyword;
 use FunctionalCoding\ORM\Eloquent\Service\RandomListService;
 use FunctionalCoding\Service;
 use Illuminate\Support\Facades\DB;
@@ -28,15 +28,15 @@ class MatchingUserListingService extends Service
                     ->getQuery()
                 ;
 
-                $sub = (new UserSelfKwdPvt())->query()
-                    ->select(UserSelfKwdPvt::USER_ID)
-                    ->qWhereIn(UserSelfKwdPvt::USER_ID, $nested)
-                    ->qGroupBy(UserSelfKwdPvt::USER_ID)
+                $sub = (new UserKeyword())->query()
+                    ->select(UserKeyword::USER_ID)
+                    ->qWhereIn(UserKeyword::USER_ID, $nested)
+                    ->qGroupBy(UserKeyword::USER_ID)
                 ;
 
                 if ($keywords) {
                     $count = count($keywords->modelKeys());
-                    $sub->qWhereIn(UserSelfKwdPvt::KEYWORD_ID, $keywords->modelKeys());
+                    $sub->qWhereIn(UserKeyword::KEYWORD_ID, $keywords->modelKeys());
                     $sub->take(1000);
 
                     if ($strict) {
@@ -47,7 +47,7 @@ class MatchingUserListingService extends Service
                 }
 
                 $query
-                    ->qWhereIn(User::ID, $sub->getQuery()->get()->pluck(UserSelfKwdPvt::USER_ID)->all())
+                    ->qWhereIn(User::ID, $sub->getQuery()->get()->pluck(UserKeyword::USER_ID)->all())
                 ;
             },
         ];

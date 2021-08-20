@@ -4,7 +4,7 @@ namespace Tests\Functional\IdealTypeKeyword;
 
 use App\Models\Keyword\Hobby;
 use App\Models\User;
-use App\Models\UserIdealTypeKwdPvt;
+use App\Models\IdealTypeKeyword;
 use Tests\Functional\_TestCase;
 
 /**
@@ -23,36 +23,36 @@ class HobbiesPostTest extends _TestCase
         $this->factory(Hobby::class)->create(['id' => 12]);
         $this->factory(Hobby::class)->create(['id' => 13]);
         $this->factory(Hobby::class)->create(['id' => 14]);
-        $this->factory(UserIdealTypeKwdPvt::class)->create(['id' => 101, 'user_id' => 1, 'keyword_id' => 11]);
-        $this->factory(UserIdealTypeKwdPvt::class)->create(['id' => 102, 'user_id' => 1, 'keyword_id' => 12]);
-        $this->factory(UserIdealTypeKwdPvt::class)->create(['id' => 104, 'user_id' => 2, 'keyword_id' => 12]);
+        $this->factory(IdealTypeKeyword::class)->create(['id' => 101, 'user_id' => 1, 'keyword_id' => 11]);
+        $this->factory(IdealTypeKeyword::class)->create(['id' => 102, 'user_id' => 1, 'keyword_id' => 12]);
+        $this->factory(IdealTypeKeyword::class)->create(['id' => 104, 'user_id' => 2, 'keyword_id' => 12]);
 
         $this->when(function () {
             $this->setAuthUser(User::find(1));
             $this->setInputParameter('keyword_ids', '14,13');
 
             $this->assertResultWithPersisting(collect(
-                new UserIdealTypeKwdPvt([
-                    UserIdealTypeKwdPvt::USER_ID => 1,
-                    UserIdealTypeKwdPvt::KEYWORD_ID => 14,
+                new IdealTypeKeyword([
+                    IdealTypeKeyword::USER_ID => 1,
+                    IdealTypeKeyword::KEYWORD_ID => 14,
                 ]),
-                new UserIdealTypeKwdPvt([
-                    UserIdealTypeKwdPvt::USER_ID => 1,
-                    UserIdealTypeKwdPvt::KEYWORD_ID => 13,
+                new IdealTypeKeyword([
+                    IdealTypeKeyword::USER_ID => 1,
+                    IdealTypeKeyword::KEYWORD_ID => 13,
                 ])
             ));
             $this->assertEquals(
                 0,
-                UserIdealTypeKwdPvt::query()
-                    ->where(UserIdealTypeKwdPvt::USER_ID, 1)
-                    ->whereIn(UserIdealTypeKwdPvt::KEYWORD_ID, [11, 12])
+                IdealTypeKeyword::query()
+                    ->where(IdealTypeKeyword::USER_ID, 1)
+                    ->whereIn(IdealTypeKeyword::KEYWORD_ID, [11, 12])
                     ->count()
             );
             $this->assertEquals(
                 1,
-                UserIdealTypeKwdPvt::query()
-                    ->where(UserIdealTypeKwdPvt::USER_ID, 2)
-                    ->where(UserIdealTypeKwdPvt::KEYWORD_ID, 12)
+                IdealTypeKeyword::query()
+                    ->where(IdealTypeKeyword::USER_ID, 2)
+                    ->where(IdealTypeKeyword::KEYWORD_ID, 12)
                     ->count()
             );
         });

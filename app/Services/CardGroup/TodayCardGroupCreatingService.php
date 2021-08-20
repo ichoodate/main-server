@@ -3,7 +3,7 @@
 namespace App\Services\CardGroup;
 
 use App\Models\CardGroup;
-use App\Models\UserIdealTypeKwdPvt;
+use App\Models\IdealTypeKeyword;
 use App\Services\User\MatchingUserListingService;
 use FunctionalCoding\Service;
 
@@ -14,7 +14,7 @@ class TodayCardGroupCreatingService extends Service
         return [
             'today_card_group' => 'card group created within date',
 
-            'user_ideal_type_kwd_pvt_keyword_ids' => 'ideal type keyword ids of {{auth_user}}',
+            'ideal_type_keyword_ids' => 'ideal type keyword ids of {{auth_user}}',
         ];
     }
 
@@ -50,26 +50,26 @@ class TodayCardGroupCreatingService extends Service
                 ;
             },
 
-            'user_ideal_type_kwd_pvt_keyword_ids' => function ($userIdealTypeKwdPvts) {
-                return $userIdealTypeKwdPvts->pluck(UserIdealTypeKwdPvt::KEYWORD_ID)->all();
+            'ideal_type_keyword_ids' => function ($idealTypeKeywords) {
+                return $idealTypeKeywords->pluck(IdealTypeKeyword::KEYWORD_ID)->all();
             },
 
-            'user_ideal_type_kwd_pvts' => function ($authUser) {
-                return (new UserIdealTypeKwdPvt())->query()
-                    ->qWhere(UserIdealTypeKwdPvt::USER_ID, $authUser->getKey())
+            'ideal_type_keywords' => function ($authUser) {
+                return (new IdealTypeKeyword())->query()
+                    ->qWhere(IdealTypeKeyword::USER_ID, $authUser->getKey())
                     ->get()
                 ;
             },
 
-            'users' => function ($authUser, $userIdealTypeKwdPvtKeywordIds) {
+            'users' => function ($authUser, $idealTypeKeywordIds) {
                 return [MatchingUserListingService::class, [
                     'auth_user' => $authUser,
-                    'keyword_ids' => implode(',', $userIdealTypeKwdPvtKeywordIds),
+                    'keyword_ids' => implode(',', $idealTypeKeywordIds),
                     'limit' => 4,
                     'strict' => false,
                 ], [
                     'auth_user' => '{{auth_user}}',
-                    'keyword_ids' => '{{user_ideal_type_kwd_pvt_keyword_ids}}',
+                    'keyword_ids' => '{{ideal_type_keyword_ids}}',
                 ], [
                     'limit',
                     'strict',

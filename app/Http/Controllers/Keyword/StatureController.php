@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Keyword;
 
-use App\Http\ControllersController;
+use App\Http\Controller;
 use App\Services\Keyword\Stature\StatureFindingService;
 use App\Services\Keyword\Stature\StatureListingService;
 
-class StatureController extends ApiController
+class StatureController extends Controller
 {
     public static function index()
     {

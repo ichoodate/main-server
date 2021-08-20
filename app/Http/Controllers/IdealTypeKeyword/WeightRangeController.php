@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\IdealTypeKeyword;
 
-use App\Http\ControllersController;
-use App\Services\UserIdealTypeKwdPvt\IdealTypeWeightRangeKeywordCreatingService;
+use App\Http\Controller;
+use App\Services\IdealTypeKeyword\IdealTypeWeightRangeKeywordCreatingService;
 
-class WeightRangeController extends ApiController
+class WeightRangeController extends Controller
 {
     public static function store()
     {

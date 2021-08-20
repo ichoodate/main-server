@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\IdealTypeKeyword;
 
-use App\Http\ControllersController;
-use App\Services\UserIdealTypeKwdPvt\IdealTypeSmokeKeywordCreatingService;
+use App\Http\Controller;
+use App\Services\IdealTypeKeyword\IdealTypeSmokeKeywordCreatingService;
 
-class SmokeController extends ApiController
+class SmokeController extends Controller
 {
     public static function store()
     {

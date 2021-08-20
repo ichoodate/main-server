@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\ControllersController;
+use App\Http\Controller;
 use App\Services\Ticket\TicketCreatingService;
 use App\Services\Ticket\TicketFindingService;
 use App\Services\Ticket\TicketListingService;
 
-class TicketController extends ApiController
+class TicketController extends Controller
 {
     public static function index()
     {

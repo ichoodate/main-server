@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Keyword;
 
-use App\Http\ControllersController;
+use App\Http\Controller;
 use App\Services\Keyword\WeightRange\MaxWeightRangeListingService;
 
-class MaxWeightRangeController extends ApiController
+class MaxWeightRangeController extends Controller
 {
     public static function index()
     {

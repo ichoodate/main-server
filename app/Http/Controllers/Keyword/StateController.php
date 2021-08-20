@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Keyword;
 
-use App\Http\ControllersController;
+use App\Http\Controller;
 use App\Services\Keyword\State\StateFindingService;
 use App\Services\Keyword\State\StateListingService;
 
-class StateController extends ApiController
+class StateController extends Controller
 {
     public static function index()
     {

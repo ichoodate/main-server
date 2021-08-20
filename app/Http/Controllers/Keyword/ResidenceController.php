@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Keyword;
 
-use App\Http\ControllersController;
+use App\Http\Controller;
 use App\Services\Keyword\Residence\ResidenceFindingService;
 use App\Services\Keyword\Residence\ResidenceListingService;
 
-class ResidenceController extends ApiController
+class ResidenceController extends Controller
 {
     public static function index()
     {

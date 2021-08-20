@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\IdealTypeKeyword;
 
-use App\Http\ControllersController;
-use App\Services\UserIdealTypeKwdPvt\IdealTypeStatureRangeKeywordCreatingService;
+use App\Http\Controller;
+use App\Services\IdealTypeKeyword\IdealTypeStatureRangeKeywordCreatingService;
 
-class StatureRangeController extends ApiController
+class StatureRangeController extends Controller
 {
     public static function store()
     {

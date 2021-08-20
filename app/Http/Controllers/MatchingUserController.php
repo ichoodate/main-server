@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\ControllersController;
+use App\Http\Controller;
 use App\Services\User\MatchingUserFindingService;
 use App\Services\User\MatchingUserListingService;
 
-class MatchingUserController extends ApiController
+class MatchingUserController extends Controller
 {
     public static function index()
     {

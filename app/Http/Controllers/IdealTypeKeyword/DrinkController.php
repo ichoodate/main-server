@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\IdealTypeKeyword;
 
-use App\Http\ControllersController;
-use App\Services\UserIdealTypeKwdPvt\IdealTypeDrinkKeywordCreatingService;
+use App\Http\Controller;
+use App\Services\IdealTypeKeyword\IdealTypeDrinkKeywordCreatingService;
 
-class DrinkController extends ApiController
+class DrinkController extends Controller
 {
     public static function store()
     {

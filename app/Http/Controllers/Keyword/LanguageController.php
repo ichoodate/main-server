@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Keyword;
 
-use App\Http\ControllersController;
+use App\Http\Controller;
 use App\Services\Keyword\Language\LanguageFindingService;
 use App\Services\Keyword\Language\LanguageListingService;
 
-class LanguageController extends ApiController
+class LanguageController extends Controller
 {
     public static function index()
     {

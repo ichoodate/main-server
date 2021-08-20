@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\ControllersController;
+use App\Http\Controller;
 use App\Services\ProfilePhoto\ProfilePhotoListingService;
 
-class UserProfilePhotoController extends ApiController
+class UserProfilePhotoController extends Controller
 {
     public static function index()
     {

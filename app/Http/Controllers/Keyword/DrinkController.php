@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Keyword;
 
-use App\Http\ControllersController;
+use App\Http\Controller;
 use App\Services\Keyword\Drink\DrinkFindingService;
 use App\Services\Keyword\Drink\DrinkListingService;
 
-class DrinkController extends ApiController
+class DrinkController extends Controller
 {
     public static function index()
     {

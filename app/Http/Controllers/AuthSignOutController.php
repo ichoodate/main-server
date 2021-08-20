@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\ControllersController;
+use App\Http\Controller;
 use App\Services\Auth\AuthSignOutService;
 
-class AuthSignOutController extends ApiController
+class AuthSignOutController extends Controller
 {
     public static function store()
     {

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Keyword;
 
-use App\Http\ControllersController;
+use App\Http\Controller;
 use App\Services\Keyword\Nationality\NationalityFindingService;
 
-class NationalityController extends ApiController
+class NationalityController extends Controller
 {
     public static function show()
     {

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\ControllersController;
-use App\Services\UserIdealTypeKwdPvt\IdealTypeKeywordListingService;
+use App\Http\Controller;
+use App\Services\IdealTypeKeyword\IdealTypeKeywordListingService;
 
-class IdealTypeKeywordController extends ApiController
+class IdealTypeKeywordController extends Controller
 {
     public static function index()
     {

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Keyword;
 
-use App\Http\ControllersController;
+use App\Http\Controller;
 use App\Services\Keyword\BirthYear\BirthYearFindingService;
 use App\Services\Keyword\BirthYear\BirthYearListingService;
 
-class BirthYearController extends ApiController
+class BirthYearController extends Controller
 {
     public static function index()
     {

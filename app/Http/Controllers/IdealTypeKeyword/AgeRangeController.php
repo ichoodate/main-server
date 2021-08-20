@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\IdealTypeKeyword;
 
-use App\Http\ControllersController;
-use App\Services\UserIdealTypeKwdPvt\IdealTypeAgeRangeKeywordCreatingService;
+use App\Http\Controller;
+use App\Services\IdealTypeKeyword\IdealTypeAgeRangeKeywordCreatingService;
 
-class AgeRangeController extends ApiController
+class AgeRangeController extends Controller
 {
     public static function store()
     {

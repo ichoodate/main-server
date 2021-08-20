@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\ControllersController;
+use App\Http\Controller;
 use App\Services\Friend\FriendCreatingService;
 use App\Services\Friend\FriendFindingService;
 
-class FriendController extends ApiController
+class FriendController extends Controller
 {
     public static function show()
     {

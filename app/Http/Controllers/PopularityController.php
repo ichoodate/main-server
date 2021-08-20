@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\ControllersController;
+use App\Http\Controller;
 use App\Services\Popularity\PopularityCreatingService;
 use App\Services\Popularity\PopularityFindingService;
 use App\Services\Popularity\PopularityListingService;
 
-class PopularityController extends ApiController
+class PopularityController extends Controller
 {
     public static function index()
     {

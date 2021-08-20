@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\IdealTypeKeyword;
 
-use App\Http\ControllersController;
-use App\Services\UserIdealTypeKwdPvt\IdealTypeReligionKeywordCreatingService;
+use App\Http\Controller;
+use App\Services\IdealTypeKeyword\IdealTypeReligionKeywordCreatingService;
 
-class ReligionController extends ApiController
+class ReligionController extends Controller
 {
     public static function store()
     {

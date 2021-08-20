@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\ControllersController;
+use App\Http\Controller;
 use App\Services\CardGroup\CardGroupFindingService;
 use App\Services\CardGroup\CardGroupListingService;
 use App\Services\CardGroup\TodayCardGroupCreatingService;
 
-class CardGroupController extends ApiController
+class CardGroupController extends Controller
 {
     public static function index()
     {

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\ControllersController;
+use App\Http\Controller;
 use App\Services\Payment\PaymentFindingService;
 use App\Services\Payment\PaymentListingService;
 
-class PaymentController extends ApiController
+class PaymentController extends Controller
 {
     public static function index()
     {

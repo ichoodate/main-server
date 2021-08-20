@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Keyword;
 
-use App\Http\ControllersController;
+use App\Http\Controller;
 use App\Services\Keyword\StatureRange\MaxStatureRangeListingService;
 
-class MaxStatureRangeController extends ApiController
+class MaxStatureRangeController extends Controller
 {
     public static function index()
     {

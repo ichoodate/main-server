@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\ControllersController;
+use App\Http\Controller;
 use App\Services\Invoice\InvoiceFindingService;
 use App\Services\Invoice\InvoiceListingService;
 
-class InvoiceController extends ApiController
+class InvoiceController extends Controller
 {
     public static function index()
     {

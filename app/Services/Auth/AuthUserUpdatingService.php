@@ -4,7 +4,7 @@ namespace App\Services\Auth;
 
 use App\Models\Keyword\BirthYear;
 use App\Models\User;
-use App\Models\UserSelfKwdPvt;
+use App\Models\UserKeyword;
 use FunctionalCoding\Service;
 
 class AuthUserUpdatingService extends Service
@@ -23,9 +23,9 @@ class AuthUserUpdatingService extends Service
                     ->getQuery()
                 ;
 
-                (new UserSelfKwdPvt())->query()
-                    ->qWhere(UserSelfKwdPvt::USER_ID, $authUser->getKey())
-                    ->qWhereIn(UserSelfKwdPvt::KEYWORD_ID, $keywordIds)
+                (new UserKeyword())->query()
+                    ->qWhere(UserKeyword::USER_ID, $authUser->getKey())
+                    ->qWhereIn(UserKeyword::KEYWORD_ID, $keywordIds)
                     ->delete()
                 ;
 
@@ -34,9 +34,9 @@ class AuthUserUpdatingService extends Service
                     ->first()
                 ;
 
-                (new UserSelfKwdPvt())->create([
-                    UserSelfKwdPvt::USER_ID => $authUser->getKey(),
-                    UserSelfKwdPvt::KEYWORD_ID => $keyword->getKey(),
+                (new UserKeyword())->create([
+                    UserKeyword::USER_ID => $authUser->getKey(),
+                    UserKeyword::KEYWORD_ID => $keyword->getKey(),
                 ]);
 
                 $authUser->{User::BIRTH} = $birth;

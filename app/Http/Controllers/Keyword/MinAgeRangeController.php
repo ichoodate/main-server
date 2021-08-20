@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Keyword;
 
-use App\Http\ControllersController;
+use App\Http\Controller;
 use App\Services\Keyword\AgeRange\MinAgeRangeListingService;
 
-class MinAgeRangeController extends ApiController
+class MinAgeRangeController extends Controller
 {
     public static function index()
     {

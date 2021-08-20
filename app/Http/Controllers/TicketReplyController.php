@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\ControllersController;
+use App\Http\Controller;
 use App\Services\Reply\TicketReplyCreatingService;
 use App\Services\Reply\TicketReplyListingService;
 
-class TicketReplyController extends ApiController
+class TicketReplyController extends Controller
 {
     public static function index()
     {

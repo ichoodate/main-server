@@ -3,7 +3,7 @@
 namespace Tests\Functional\IdealTypeKeywords;
 
 use App\Models\User;
-use App\Models\UserIdealTypeKwdPvt;
+use App\Models\IdealTypeKeyword;
 use Tests\Functional\_TestCase;
 
 /**
@@ -18,10 +18,10 @@ class GetTest extends _TestCase
     {
         $this->factory(User::class)->create(['id' => 1]);
         $this->factory(User::class)->create(['id' => 2]);
-        $this->factory(UserIdealTypeKwdPvt::class)->create(['id' => 11, 'user_id' => 1]);
-        $this->factory(UserIdealTypeKwdPvt::class)->create(['id' => 12, 'user_id' => 2]);
-        $this->factory(UserIdealTypeKwdPvt::class)->create(['id' => 13, 'user_id' => 2]);
-        $this->factory(UserIdealTypeKwdPvt::class)->create(['id' => 14, 'user_id' => 1]);
+        $this->factory(IdealTypeKeyword::class)->create(['id' => 11, 'user_id' => 1]);
+        $this->factory(IdealTypeKeyword::class)->create(['id' => 12, 'user_id' => 2]);
+        $this->factory(IdealTypeKeyword::class)->create(['id' => 13, 'user_id' => 2]);
+        $this->factory(IdealTypeKeyword::class)->create(['id' => 14, 'user_id' => 1]);
 
         $this->when(function () {
             $this->setAuthUser(User::find(1));

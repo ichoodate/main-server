@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\ControllersController;
+use App\Http\Controller;
 use App\Services\CardFlip\CardFlipFindingService;
 use App\Services\CardFlip\FreeCardFlipCreatingService;
 
-class CardFlipController extends ApiController
+class CardFlipController extends Controller
 {
     public static function show()
     {

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Keyword;
 
-use App\Http\ControllersController;
+use App\Http\Controller;
 use App\Services\Keyword\Blood\BloodFindingService;
 use App\Services\Keyword\Blood\BloodListingService;
 
-class BloodController extends ApiController
+class BloodController extends Controller
 {
     public static function index()
     {

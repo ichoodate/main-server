@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Keyword;
 
-use App\Http\ControllersController;
+use App\Http\Controller;
 use App\Services\Keyword\StatureRange\MinStatureRangeListingService;
 
-class MinStatureRangeController extends ApiController
+class MinStatureRangeController extends Controller
 {
     public static function index()
     {

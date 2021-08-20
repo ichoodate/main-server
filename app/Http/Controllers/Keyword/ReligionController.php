@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Keyword;
 
-use App\Http\ControllersController;
+use App\Http\Controller;
 use App\Services\Keyword\Religion\ReligionFindingService;
 use App\Services\Keyword\Religion\ReligionListingService;
 
-class ReligionController extends ApiController
+class ReligionController extends Controller
 {
     public static function index()
     {

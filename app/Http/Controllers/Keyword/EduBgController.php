@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Keyword;
 
-use App\Http\ControllersController;
+use App\Http\Controller;
 use App\Services\Keyword\EduBg\EduBgFindingService;
 use App\Services\Keyword\EduBg\EduBgListingService;
 
-class EduBgController extends ApiController
+class EduBgController extends Controller
 {
     public static function index()
     {

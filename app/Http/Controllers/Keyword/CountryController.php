@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Keyword;
 
-use App\Http\ControllersController;
+use App\Http\Controller;
 use App\Services\Keyword\Country\CountryFindingService;
 use App\Services\Keyword\Country\CountryListingService;
 
-class CountryController extends ApiController
+class CountryController extends Controller
 {
     public static function index()
     {

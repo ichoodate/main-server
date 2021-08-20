@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\ControllersController;
+use App\Http\Controller;
 use App\Services\Auth\AuthSignInService;
 
-class AuthSignInController extends ApiController
+class AuthSignInController extends Controller
 {
     public static function store()
     {

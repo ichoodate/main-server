@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\ControllersController;
+use App\Http\Controller;
 use App\Services\Card\CardFindingService;
 use App\Services\Card\CardListingService;
 
-class CardController extends ApiController
+class CardController extends Controller
 {
     public static function index()
     {

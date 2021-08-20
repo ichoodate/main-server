@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\ControllersController;
+use App\Http\Controller;
 use App\Services\ChattingContent\ChattingContentCreatingService;
 use App\Services\ChattingContent\ChattingContentFindingService;
 use App\Services\ChattingContent\ChattingContentListingService;
 
-class ChattingContentController extends ApiController
+class ChattingContentController extends Controller
 {
     public static function index()
     {

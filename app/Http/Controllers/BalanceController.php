@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\ControllersController;
+use App\Http\Controller;
 use App\Services\Balance\BalanceFindingService;
 use App\Services\Balance\BalanceListingService;
 
-class BalanceController extends ApiController
+class BalanceController extends Controller
 {
     public static function index()
     {

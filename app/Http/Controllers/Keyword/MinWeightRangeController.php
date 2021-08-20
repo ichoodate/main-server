@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Keyword;
 
-use App\Http\ControllersController;
+use App\Http\Controller;
 use App\Services\Keyword\WeightRange\MinWeightRangeListingService;
 
-class MinWeightRangeController extends ApiController
+class MinWeightRangeController extends Controller
 {
     public static function index()
     {

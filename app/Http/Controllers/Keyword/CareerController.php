@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Keyword;
 
-use App\Http\ControllersController;
+use App\Http\Controller;
 use App\Services\Keyword\Career\CareerFindingService;
 use App\Services\Keyword\Career\CareerListingService;
 
-class CareerController extends ApiController
+class CareerController extends Controller
 {
     public static function index()
     {

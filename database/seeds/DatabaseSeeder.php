@@ -24,8 +24,8 @@ use Database\Seeds\Table\Keyword\WeightRangeTableSeeder;
 use Database\Seeds\Table\Keyword\WeightTableSeeder;
 use Database\Seeds\Table\MatchTableSeeder;
 use Database\Seeds\Table\ProfilePhotoTableSeeder;
-use Database\Seeds\Table\UserIdealTypeKwdPvtTableSeeder;
-use Database\Seeds\Table\UserSelfKwdPvtTableSeeder;
+use Database\Seeds\Table\IdealTypeKeywordTableSeeder;
+use Database\Seeds\Table\UserKeywordTableSeeder;
 use Database\Seeds\Table\UserTableSeeder;
 use Illuminate\Database\Seeder;
 
@@ -61,7 +61,7 @@ class DatabaseSeeder extends Seeder
         // $this->call(WeightTableSeeder::class);
         // $this->call(WeightRangeTableSeeder::class);
         // $this->call(ResidenceTableSeeder::class);
-        // $this->call(UserIdealTypeKwdPvtTableSeeder::class);
-        // $this->call(UserSelfKwdPvtTableSeeder::class);
+        // $this->call(IdealTypeKeywordTableSeeder::class);
+        // $this->call(UserKeywordTableSeeder::class);
     }
 }

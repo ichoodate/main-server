@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Keyword;
 
-use App\Http\ControllersController;
+use App\Http\Controller;
 use App\Services\Keyword\Smoke\SmokeFindingService;
 use App\Services\Keyword\Smoke\SmokeListingService;
 
-class SmokeController extends ApiController
+class SmokeController extends Controller
 {
     public static function index()
     {

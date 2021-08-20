@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\ControllersController;
+use App\Http\Controller;
 use App\Services\Auth\AuthUserUpdatingService;
 use App\Services\User\UserFindingService;
 
-class AuthUserController extends ApiController
+class AuthUserController extends Controller
 {
     public static function index()
     {

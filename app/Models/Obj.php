@@ -18,6 +18,7 @@ class Obj extends Model
     public const TYPE_CHATTING_CONTENT = 'chatting_content';
     public const TYPE_COIN = 'coin';
     public const TYPE_FACE_PHOTO = 'face_photo';
+    public const TYPE_IDEAL_TYPE_KEYWORD = 'ideal_type_keyword';
     public const TYPE_INVOICE = 'invoice';
     public const TYPE_KEYWORD_AGE_RANGE = 'keyword/age_range';
     public const TYPE_KEYWORD_BIRTH_YEAR = 'keyword/birth_year';
@@ -61,7 +62,6 @@ class Obj extends Model
     public const TYPE_KEYWORD_WEIGHT = 'keyword/weight';
     public const TYPE_KEYWORD_WEIGHT_RANGE = 'keyword/weight_range';
     public const TYPE_MATCH = 'match';
-    public const TYPE_MATCHING_KWD_PVT = 'matching_kwd_pvt';
     public const TYPE_NOTICE = 'notice';
     public const TYPE_NOTIFICATION = 'notification';
     public const TYPE_PAYMENT = 'payment';
@@ -69,12 +69,12 @@ class Obj extends Model
     public const TYPE_PROFILE_PHOTO = 'profile_photo';
     public const TYPE_PWD_RESET = 'pwd_reset';
     public const TYPE_QUESTION_POST = 'ticket';
+    public const TYPE_RELATED_KEYWORD = 'related_keyword';
     public const TYPE_REPLY_POST = 'reply';
     public const TYPE_ROLE = 'role';
     public const TYPE_ROLE_USER = 'role_user';
     public const TYPE_USER = 'user';
-    public const TYPE_USER_IDEAL_TYPE_KWD_PVT = 'user_ideal_type_kwd_pvt';
-    public const TYPE_USER_SELF_KWD_PVT = 'user_self_kwd_pvt';
+    public const TYPE_USER_SELF_KEYWORD = 'user_keyword';
 
     public const TYPE_VALUES = [
         self::TYPE_BALANCE,
@@ -104,7 +104,7 @@ class Obj extends Model
         self::TYPE_KEYWORD_WEIGHT,
         self::TYPE_KEYWORD_WEIGHT_RANGE,
         self::TYPE_MATCH,
-        self::TYPE_MATCHING_KWD_PVT,
+        self::TYPE_RELATED_KEYWORD,
         self::TYPE_NOTIFICATION,
         self::TYPE_PAYMENT,
         self::TYPE_POPULARITY,
@@ -116,8 +116,8 @@ class Obj extends Model
         self::TYPE_ROLE,
         self::TYPE_ROLE_USER,
         self::TYPE_USER,
-        self::TYPE_USER_IDEAL_TYPE_KWD_PVT,
-        self::TYPE_USER_SELF_KWD_PVT,
+        self::TYPE_IDEAL_TYPE_KEYWORD,
+        self::TYPE_USER_SELF_KEYWORD,
     ];
 
     public $incrementing = true;

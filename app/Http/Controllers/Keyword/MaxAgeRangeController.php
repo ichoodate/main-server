@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Keyword;
 
-use App\Http\ControllersController;
+use App\Http\Controller;
 use App\Services\Keyword\AgeRange\MaxAgeRangeListingService;
 
-class MaxAgeRangeController extends ApiController
+class MaxAgeRangeController extends Controller
 {
     public static function index()
     {

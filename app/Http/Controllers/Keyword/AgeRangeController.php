@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Keyword;
 
-use App\Http\ControllersController;
+use App\Http\Controller;
 use App\Services\Keyword\AgeRange\AgeRangeFindingService;
 
-class AgeRangeController extends ApiController
+class AgeRangeController extends Controller
 {
     public static function show()
     {

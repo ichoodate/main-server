@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\ControllersController;
+use App\Http\Controller;
 use App\Services\Notice\NoticeCreatingService;
 use App\Services\Notice\NoticeFindingService;
 use App\Services\Notice\NoticeListingService;
 
-class NoticeController extends ApiController
+class NoticeController extends Controller
 {
     public static function index()
     {

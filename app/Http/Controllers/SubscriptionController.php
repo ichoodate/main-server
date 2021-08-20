@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\ControllersController;
+use App\Http\Controller;
 use App\Services\Subscription\SubscriptionFindingService;
 use App\Services\Subscription\SubscriptionListingService;
 
-class SubscriptionController extends ApiController
+class SubscriptionController extends Controller
 {
     public static function index()
     {

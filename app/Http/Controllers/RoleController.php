@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\ControllersController;
+use App\Http\Controller;
 use App\Services\Role\RoleFindingService;
 use App\Services\Role\RoleListingService;
 
-class RoleController extends ApiController
+class RoleController extends Controller
 {
     public static function index()
     {

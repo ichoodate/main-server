@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\ControllersController;
+use App\Http\Controller;
 use App\Services\FacePhoto\FacePhotoCreatingService;
 use App\Services\FacePhoto\FacePhotoFindingService;
 
-class FacePhotoController extends ApiController
+class FacePhotoController extends Controller
 {
     public static function show()
     {
