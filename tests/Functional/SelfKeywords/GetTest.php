@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Functional\IdealTypeKeywords;
+namespace Tests\Functional\SelfKeywords;
 
 use App\Models\User;
 use App\Models\UserSelfKwdPvt;

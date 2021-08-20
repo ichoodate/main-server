@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Functional\Activities;
+namespace Tests\Functional\CardFlips;
 
 use App\Models\CardFlip;
 use App\Models\User;

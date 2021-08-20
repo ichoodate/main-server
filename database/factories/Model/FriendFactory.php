@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Factories\Models;
+namespace Database\Factories\Model;
 
 use App\Models\Friend;
 

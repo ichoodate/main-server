@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Functional\Cards;
+namespace Tests\Functional\CardFlips;
 
 use App\Models\Balance;
 use App\Models\Card;
