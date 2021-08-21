@@ -38,7 +38,7 @@ class Localizable extends Model
 
     protected $table = 'localizables';
 
-    public function keyword()
+    public function keywordObj()
     {
         return $this->belongsTo(Obj::class, 'keyword_id', 'id');
     }

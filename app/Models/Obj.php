@@ -143,19 +143,11 @@ class Obj extends Model
 
     public function getModelClassAttribute()
     {
-        $segments = [];
-        $type = $this->getAttribute(static::TYPE);
-        foreach (explode('\\', $type) as $value) {
-            $segments[] = studly_case($value);
-        }
-
-        return 'App\\Database\\Models\\'.implode('\\', $segments);
+        return Relation::morphMap()[$this->getAttribute(static::TYPE)];
     }
 
     public function setModelClassAttribute($value)
     {
-        $modelClass = $value;
-
-        $this->attributes[static::TYPE] = array_flip(Relation::morphMap())[$modelClass];
+        $this->attributes[static::TYPE] = array_flip(Relation::morphMap())[$value];
     }
 }

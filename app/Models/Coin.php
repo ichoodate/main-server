@@ -35,7 +35,7 @@ class Coin extends Model
         return $this->belongsTo(Balance::class, 'balance_id', 'id');
     }
 
-    public function related()
+    public function relatedObj()
     {
         return $this->belongsTo(Obj::class, 'related_id', 'id');
     }

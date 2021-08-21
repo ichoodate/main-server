@@ -28,7 +28,7 @@ class Notification extends Model
 
     protected $table = 'notifications';
 
-    public function related()
+    public function relatedObj()
     {
         return $this->belongsTo(Obj::class, 'related_id', 'id');
     }

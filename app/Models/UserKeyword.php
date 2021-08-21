@@ -22,7 +22,7 @@ class UserKeyword extends Model
 
     protected $table = 'user_keywords';
 
-    public function keyword()
+    public function keywordObj()
     {
         return $this->belongsTo(Obj::class, 'keyword_id', 'id');
     }

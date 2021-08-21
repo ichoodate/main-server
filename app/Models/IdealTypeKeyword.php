@@ -22,7 +22,7 @@ class IdealTypeKeyword extends Model
 
     protected $table = 'ideal_type_keywords';
 
-    public function keyword()
+    public function keywordObj()
     {
         return $this->belongsTo(Obj::class, 'keyword_id', 'id');
     }

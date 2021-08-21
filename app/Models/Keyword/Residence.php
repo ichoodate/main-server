@@ -23,7 +23,12 @@ class Residence extends Model
 
     protected $table = 'keyword_residences';
 
-    public function related()
+    public function parentObj()
+    {
+        return $this->belongsTo(Obj::class, 'parent_id', 'id');
+    }
+
+    public function relatedObj()
     {
         return $this->belongsTo(Obj::class, 'related_id', 'id');
     }
