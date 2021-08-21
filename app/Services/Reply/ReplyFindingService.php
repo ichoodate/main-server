@@ -3,7 +3,6 @@
 namespace App\Services\Reply;
 
 use App\Models\Reply;
-use App\Services\Ticket\TicketFindingService;
 use FunctionalCoding\ORM\Eloquent\Service\FindService;
 use FunctionalCoding\Service;
 
@@ -28,36 +27,29 @@ class ReplyFindingService extends Service
                 return Reply::class;
             },
 
-            'ticket' => function ($authUser, $model) {
-                return [TicketFindingService::class, [
-                    'auth_user' => $authUser,
-                    'id' => $model->{Reply::TICKET_ID},
-                ], [
-                    'auth_user' => '{{auth_user}}',
-                    'id' => 'ticket_id of {{model}}',
-                ]];
+            'permitted_user' => function ($adminRole, $authUser, $model) {
+                if (!empty($adminRole) || $authUser->getKey() == $model->{Reply::WRITER_ID} || ($model->ticket && $model->ticket->{Ticket::WRITER_ID})) {
+                    return $authUser;
+                }
             },
         ];
     }
 
     public static function getArrPromiseLists()
     {
-        return [
-            'result' => ['ticket'],
-        ];
+        return [];
     }
 
     public static function getArrRuleLists()
     {
-        return [
-            'auth_user' => ['required'],
-        ];
+        return [];
     }
 
     public static function getArrTraits()
     {
         return [
             FindService::class,
+            PermittedUserRequiringService::class,
         ];
     }
 }

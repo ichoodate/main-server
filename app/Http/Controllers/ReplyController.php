@@ -3,16 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controller;
-use App\Services\Reply\TicketReplyCreatingService;
-use App\Services\Reply\TicketReplyListingService;
+use App\Services\Reply\ReplyCreatingService;
+use App\Services\Reply\ReplyFindingService;
+use App\Services\Reply\ReplyListingService;
 
-class TicketReplyController extends Controller
+class ReplyController extends Controller
 {
     public static function index()
     {
-        return [TicketReplyListingService::class, [
-            'auth_user' => auth()->user(),
-            'ticket_id' => request()->route()->ticket,
+        return [ReplyListingService::class, [
+            'ticket_id' => static::input('ticket_id'),
             'cursor_id' => static::input('cursor_id'),
             'limit' => static::input('limit'),
             'page' => static::input('page'),
@@ -21,8 +21,7 @@ class TicketReplyController extends Controller
             'group_by' => '',
             'order_by' => '',
         ], [
-            'auth_user' => 'authorized user',
-            'ticket_id' => request()->route()->ticket,
+            'ticket_id' => '[ticket_id]',
             'cursor_id' => '[cursor_id]',
             'limit' => '[limit]',
             'page' => '[page]',
@@ -33,16 +32,23 @@ class TicketReplyController extends Controller
         ]];
     }
 
+    public static function show()
+    {
+        return [ReplyFindingService::class, [
+            'id' => request()->route()->reply,
+        ], [
+            'id' => request()->route()->reply,
+        ]];
+    }
+
     public static function store()
     {
-        return [TicketReplyCreatingService::class, [
-            'auth_user' => auth()->user(),
+        return [ReplyCreatingService::class, [
             'description' => static::input('description'),
-            'ticket_id' => request()->route()->ticket,
+            'ticket_id' => static::input('ticket_id'),
         ], [
-            'auth_user' => 'authorized user',
             'description' => '[description]',
-            'ticket_id' => request()->route()->ticket,
+            'ticket_id' => '[ticket_id]',
         ]];
     }
 }

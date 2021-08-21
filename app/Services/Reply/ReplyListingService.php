@@ -3,11 +3,12 @@
 namespace App\Services\Reply;
 
 use App\Models\Reply;
+use App\Services\Auth\AuthUserFindingService;
 use App\Services\Ticket\TicketFindingService;
 use FunctionalCoding\ORM\Eloquent\Service\PaginationListService;
 use FunctionalCoding\Service;
 
-class TicketReplyListingService extends Service
+class ReplyListingService extends Service
 {
     public static function getArrBindNames()
     {
@@ -28,6 +29,14 @@ class TicketReplyListingService extends Service
     public static function getArrLoaders()
     {
         return [
+            'auth_user' => function ($authToken = '') {
+                return [AuthUserFindingService::class, [
+                    'token' => $authToken,
+                ], [
+                    'token' => '{{auth_token}}',
+                ]];
+            },
+
             'available_expands' => function () {
                 return ['ticket', 'writer'];
             },
@@ -66,8 +75,6 @@ class TicketReplyListingService extends Service
     public static function getArrRuleLists()
     {
         return [
-            'auth_user' => ['required'],
-
             'ticket' => ['not_null'],
 
             'ticket_id' => ['required', 'integer'],

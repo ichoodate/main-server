@@ -3,10 +3,11 @@
 namespace App\Services\Reply;
 
 use App\Models\Reply;
+use App\Services\Auth\AuthUserFindingService;
 use App\Services\Ticket\TicketFindingService;
 use FunctionalCoding\Service;
 
-class TicketReplyCreatingService extends Service
+class ReplyCreatingService extends Service
 {
     public static function getArrBindNames()
     {
@@ -21,6 +22,14 @@ class TicketReplyCreatingService extends Service
     public static function getArrLoaders()
     {
         return [
+            'auth_user' => function ($authToken = '') {
+                return [AuthUserFindingService::class, [
+                    'token' => $authToken,
+                ], [
+                    'token' => '{{auth_token}}',
+                ]];
+            },
+
             'created' => function ($authUser, $description, $ticket) {
                 return (new Reply())->create([
                     Reply::WRITER_ID => $authUser->getKey(),
@@ -49,8 +58,6 @@ class TicketReplyCreatingService extends Service
     public static function getArrRuleLists()
     {
         return [
-            'auth_user' => ['required'],
-
             'description' => ['required', 'string'],
 
             'ticket_id' => ['required', 'integer'],

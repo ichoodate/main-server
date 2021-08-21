@@ -321,9 +321,9 @@ Route::prefix($prefix)->group(function () {
         )->only(['index', 'show']);
 
         Route::resource(
-            'tickets/{ticket}/replies',
-            'TicketReplyController'
-        )->only(['index', 'store']);
+            'replies',
+            'ReplyController'
+        )->only(['index', 'show', 'store']);
 
         Route::resource(
             'matching-users',
