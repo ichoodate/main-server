@@ -30,365 +30,130 @@ Route::prefix($prefix)->group(function () {
         ServiceParameterSettingMiddleware::class,
         RequestInputValueCastingMiddleware::class,
     ])->group(function () {
-        Route::resource(
-            'auth/sign-in',
-            'AuthSignInController'
-        )->only(['store']);
-
-        Route::resource(
-            'auth/sign-out',
-            'AuthSignOutController'
-        )->only(['index', 'store']);
-
-        Route::resource(
-            'auth/sign-up',
-            'AuthSignUpController'
-        )->only(['store']);
-
-        Route::get(
-            'auth/user',
-            'AuthUserController@index'
-        );
-
-        Route::patch(
-            'auth/user',
-            'AuthUserController@update'
-        );
-
-        Route::resource(
-            'balances',
-            'BalanceController'
-        )->only(['index', 'show']);
-
-        Route::resource(
-            'cards',
-            'CardController'
-        )->only(['index', 'show']);
-
-        Route::resource(
-            'card-flips',
-            'CardFlipController'
-        )->only(['show', 'store']);
-
-        Route::resource(
-            'card-groups',
-            'CardGroupController'
-        )->only(['index', 'store', 'show']);
-
-        Route::resource(
-            'chatting-contents',
-            'ChattingContentController'
-        )->only(['index', 'store']);
-
-        Route::resource(
-            'face-photos',
-            'FacePhotoController'
-        )->only(['store', 'show']);
-
-        Route::resource(
-            'friends',
-            'FriendController'
-        )->only(['store']);
-
-        Route::resource(
-            'keyword/age-ranges',
-            'Keyword\AgeRangeController'
-        )->only(['show']);
-
-        Route::resource(
-            'keyword/birth-years',
-            'Keyword\BirthYearController'
-        )->only(['index', 'show']);
-
-        Route::resource(
-            'keyword/bloods',
-            'Keyword\BloodController'
-        )->only(['index', 'show']);
-
-        Route::resource(
-            'keyword/bodies',
-            'Keyword\BodyController'
-        )->only(['index', 'show']);
-
-        Route::resource(
-            'keyword/careers',
-            'Keyword\CareerController'
-        )->only(['index', 'show']);
-
-        Route::resource(
-            'keyword/countries',
-            'Keyword\CountryController'
-        )->only(['index', 'show']);
-
-        Route::resource(
-            'keyword/drinks',
-            'Keyword\DrinkController'
-        )->only(['index', 'show']);
-
-        Route::resource(
-            'keyword/education-backgrounds',
-            'Keyword\EduBgController'
-        )->only(['index', 'show']);
-
-        Route::resource(
-            'keyword/hobbies',
-            'Keyword\HobbyController'
-        )->only(['index', 'show']);
-
-        Route::resource(
-            'keyword/languages',
-            'Keyword\LanguageController'
-        )->only(['index', 'show']);
-
-        Route::resource(
-            'keyword/min-age-ranges',
-            'Keyword\MinAgeRangeController'
-        )->only(['index']);
-
-        Route::resource(
-            'keyword/min-stature-ranges',
-            'Keyword\MinStatureRangeController'
-        )->only(['index']);
-
-        Route::resource(
-            'keyword/min-weight-ranges',
-            'Keyword\MinWeightRangeController'
-        )->only(['index']);
-
-        Route::resource(
-            'keyword/max-age-ranges',
-            'Keyword\MaxAgeRangeController'
-        )->only(['index']);
-
-        Route::resource(
-            'keyword/max-stature-ranges',
-            'Keyword\MaxStatureRangeController'
-        )->only(['index']);
-
-        Route::resource(
-            'keyword/max-weight-ranges',
-            'Keyword\MaxWeightRangeController'
-        )->only(['index']);
-
-        Route::resource(
-            'keyword/nationalities',
-            'Keyword\NationalityController'
-        )->only(['show']);
-
-        Route::resource(
-            'keyword/religions',
-            'Keyword\ReligionController'
-        )->only(['index', 'show']);
-
-        Route::resource(
-            'keyword/residences',
-            'Keyword\ResidenceController'
-        )->only(['show']);
-
-        Route::resource(
-            'keyword/smokes',
-            'Keyword\SmokeController'
-        )->only(['index', 'show']);
-
-        Route::resource(
-            'keyword/states',
-            'Keyword\StateController'
-        )->only(['index', 'show']);
-
-        Route::resource(
-            'keyword/statures',
-            'Keyword\StatureController'
-        )->only(['index', 'show']);
-
-        Route::resource(
-            'keyword/stature-ranges',
-            'Keyword\StatureRangeController'
-        )->only(['show']);
-
-        Route::resource(
-            'keyword/weights',
-            'Keyword\WeightController'
-        )->only(['index', 'show']);
-
-        Route::resource(
-            'keyword/weight-ranges',
-            'Keyword\WeightRangeController'
-        )->only(['show']);
-
-        Route::resource(
-            'ideal-type-keyword/age-ranges',
-            'IdealTypeKeyword\AgeRangeController'
-        )->only(['store']);
-
-        Route::resource(
-            'ideal-type-keyword/careers',
-            'IdealTypeKeyword\CareerController'
-        )->only(['store']);
-
-        Route::resource(
-            'ideal-type-keyword/drinks',
-            'IdealTypeKeyword\DrinkController'
-        )->only(['store']);
-
-        Route::resource(
-            'ideal-type-keyword/hobbies',
-            'IdealTypeKeyword\HobbyController'
-        )->only(['store']);
-
-        Route::resource(
-            'ideal-type-keyword/nationalities',
-            'IdealTypeKeyword\NationalityController'
-        )->only(['store']);
-
-        Route::resource(
-            'ideal-type-keyword/religions',
-            'IdealTypeKeyword\ReligionController'
-        )->only(['store']);
-
-        Route::resource(
-            'ideal-type-keyword/residences',
-            'IdealTypeKeyword\ResidenceController'
-        )->only(['store']);
-
-        Route::resource(
-            'ideal-type-keyword/smokes',
-            'IdealTypeKeyword\SmokeController'
-        )->only(['store']);
-
-        Route::resource(
-            'ideal-type-keyword/stature-ranges',
-            'IdealTypeKeyword\StatureRangeController'
-        )->only(['store']);
-
-        Route::resource(
-            'ideal-type-keyword/weight-ranges',
-            'IdealTypeKeyword\WeightRangeController'
-        )->only(['store']);
-
-        Route::resource(
-            'ideal-type-keywords',
-            'IdealTypeKeywordController'
-        )->only(['index']);
-
-        Route::resource(
-            'invoices',
-            'InvoiceController'
-        )->only(['index', 'show']);
-
-        Route::resource(
-            'notices',
-            'NoticeController'
-        )->only(['index', 'show', 'store']);
-
-        Route::resource(
-            'notifications',
-            'NotificationController'
-        )->only(['index', 'show']);
-
-        Route::resource(
-            'payments',
-            'PaymentController'
-        )->only(['index', 'show']);
-
-        Route::resource(
-            'popularities',
-            'PopularityController'
-        )->only(['index', 'show', 'store']);
-
-        Route::resource(
-            'profile-photos',
-            'ProfilePhotoController'
-        )->only(['index', 'show', 'store']);
-
-        Route::resource(
-            'pwd-resets',
-            'PwdResetController'
-        )->only(['store', 'update']);
-
-        Route::resource(
-            'roles',
-            'RoleController'
-        )->only(['index', 'show']);
-
-        Route::resource(
-            'subscriptions',
-            'SubscriptionController'
-        )->only(['index', 'show']);
-
-        Route::resource(
-            'tickets',
-            'TicketController'
-        )->only(['index', 'show']);
-
-        Route::resource(
-            'replies',
-            'ReplyController'
-        )->only(['index', 'show', 'store']);
-
-        Route::resource(
-            'matching-users',
-            'MatchingUserController'
-        )->only(['index', 'show']);
-
-        Route::resource(
-            'user-keyword/careers',
-            'UserKeyword\CareerController'
-        )->only(['store']);
-
-        Route::resource(
-            'user-keyword/drinks',
-            'UserKeyword\DrinkController'
-        )->only(['store']);
-
-        Route::resource(
-            'user-keyword/hobbies',
-            'UserKeyword\HobbyController'
-        )->only(['store']);
-
-        Route::resource(
-            'user-keyword/nationalities',
-            'UserKeyword\NationalityController'
-        )->only(['store']);
-
-        Route::resource(
-            'user-keyword/religions',
-            'UserKeyword\ReligionController'
-        )->only(['store']);
-
-        Route::resource(
-            'user-keyword/residences',
-            'UserKeyword\ResidenceController'
-        )->only(['store']);
-
-        Route::resource(
-            'user-keyword/smokes',
-            'UserKeyword\SmokeController'
-        )->only(['store']);
-
-        Route::resource(
-            'user-keyword/statures',
-            'UserKeyword\StatureController'
-        )->only(['store']);
-
-        Route::resource(
-            'user-keyword/weights',
-            'UserKeyword\WeightController'
-        )->only(['store']);
-
-        Route::resource(
-            'user-keywords',
-            'UserKeywordController'
-        )->only(['index']);
-
-        Route::resource(
-            'users/{user}/keywords',
-            'UserKeywordController'
-        )->only(['index']);
-
-        Route::resource(
-            'users/{user}/profile-photos',
-            'UserProfilePhotoController'
-        )->only(['index']);
+        Route::post('auth/sign-in', 'AuthSignInController@store');
+        Route::get('auth/sign-out', 'AuthSignOutController@index');
+        Route::post('auth/sign-up', 'AuthSignUpController@store');
+        Route::get('auth/user', 'AuthUserController@index');
+        Route::patch('auth/user', 'AuthUserController@update');
+        Route::get('balances', 'BalanceController@index');
+        Route::get('balances/{id}', 'BalanceController@show');
+        Route::get('cards', 'CardController@index');
+        Route::get('cards/{id}', 'CardController@show');
+        Route::post('card-flips', 'CardFlipController@store');
+        Route::get('card-flips/{id}', 'CardFlipController@show');
+        Route::get('card-groups', 'CardGroupController@index');
+        Route::post('card-groups', 'CardGroupController@store');
+        Route::get('card-groups/{id}', 'CardGroupController@show');
+        Route::get('chatting-contents', 'ChattingContentController@index');
+        Route::post('chatting-contents', 'ChattingContentController@store');
+        Route::post('face-photos', 'FacePhotoController@store');
+        Route::get('face-photos/{id}', 'FacePhotoController@show');
+        Route::post('friends', 'FriendController@store');
+
+        Route::prefix('keyword')->namespace('Keyword')->group(function () {
+            Route::get('age-ranges', 'AgeRangeController@index');
+            Route::get('age-ranges/{id}', 'AgeRangeController@show');
+            Route::get('birth-years', 'BirthYearController@index');
+            Route::get('birth-years/{id}', 'BirthYearController@show');
+            Route::get('bloods', 'BloodController@index');
+            Route::get('bloods/{id}', 'BloodController@show');
+            Route::get('bodies', 'BodyController@index');
+            Route::get('bodies/{id}', 'BodyController@show');
+            Route::get('careers', 'CareerController@index');
+            Route::get('careers/{id}', 'CareerController@show');
+            Route::get('countries', 'CountryController@index');
+            Route::get('countries/{id}', 'CountryController@show');
+            Route::get('drinks', 'DrinkController@index');
+            Route::get('drinks/{id}', 'DrinkController@show');
+            Route::get('education-backgrounds', 'EduBgController@index');
+            Route::get('education-backgrounds/{id}', 'EduBgController@show');
+            Route::get('hobbies', 'HobbyController@index');
+            Route::get('hobbies/{id}', 'HobbyController@show');
+            Route::get('languages', 'LanguageController@index');
+            Route::get('languages/{id}', 'LanguageController@show');
+            Route::get('min-age-ranges', 'MinAgeRangeController@index');
+            Route::get('min-stature-ranges', 'MinStatureRangeController@index');
+            Route::get('min-weight-ranges', 'MinWeightRangeController@index');
+            Route::get('max-age-ranges', 'MaxAgeRangeController@index');
+            Route::get('max-stature-ranges', 'MaxStatureRangeController@index');
+            Route::get('max-weight-ranges', 'MaxWeightRangeController@index');
+            Route::get('nationalities', 'NationalityController@index');
+            Route::get('nationalities/{id}', 'NationalityController@show');
+            Route::get('religions', 'ReligionController@index');
+            Route::get('religions/{id}', 'ReligionController@show');
+            Route::get('residences', 'ResidenceController@index');
+            Route::get('residences/{id}', 'ResidenceController@show');
+            Route::get('smokes', 'SmokeController@index');
+            Route::get('smokes/{id}', 'SmokeController@show');
+            Route::get('states', 'StateController@index');
+            Route::get('states/{id}', 'StateController@show');
+            Route::get('statures', 'StatureController@index');
+            Route::get('statures/{id}', 'StatureController@show');
+            Route::get('stature-ranges', 'StatureRangeController@index');
+            Route::get('stature-ranges/{id}', 'StatureRangeController@show');
+            Route::get('weights', 'WeightController@index');
+            Route::get('weights/{id}', 'WeightController@show');
+            Route::get('weight-ranges', 'WeightRangeController@index');
+            Route::get('weight-ranges/{id}', 'WeightRangeController@show');
+        });
+
+        Route::prefix('ideal-type-keyword')->namespace('IdealTypeKeyword')->group(function () {
+            Route::post('age-ranges', 'AgeRangeController@store');
+            Route::post('careers', 'CareerController@store');
+            Route::post('drinks', 'DrinkController@store');
+            Route::post('hobbies', 'HobbyController@store');
+            Route::post('nationalities', 'NationalityController@store');
+            Route::post('religions', 'ReligionController@store');
+            Route::post('residences', 'ResidenceController@store');
+            Route::post('smokes', 'SmokeController@store');
+            Route::post('stature-ranges', 'StatureRangeController@store');
+            Route::post('weight-ranges', 'WeightRangeController@store');
+        });
+
+        Route::get('ideal-type-keywords', 'IdealTypeKeywordController@index');
+        Route::get('invoices', 'InvoiceController@index');
+        Route::get('invoices/{id}', 'InvoiceController@show');
+        Route::get('notices', 'NoticeController@index');
+        Route::post('notices', 'NoticeController@store');
+        Route::get('notices/{id}', 'NoticeController@show');
+        Route::get('notifications', 'NotificationController@index');
+        Route::get('notifications/{id}', 'NotificationController@show');
+        Route::get('payments', 'PaymentController@index');
+        Route::get('payments/{id}', 'PaymentController@show');
+        Route::get('popularities', 'PopularityController@index');
+        Route::post('popularities', 'PopularityController@store');
+        Route::get('popularities/{id}', 'PopularityController@show');
+        Route::get('profile-photos', 'ProfilePhotoController@index');
+        Route::post('profile-photos', 'ProfilePhotoController@store');
+        Route::get('profile-photos/{id}', 'ProfilePhotoController@show');
+        Route::post('pwd-resets', 'PwdResetController@store');
+        Route::put('pwd-resets', 'PwdResetController@update');
+        Route::get('roles', 'ProfilePhotoController@index');
+        Route::get('roles/{id}', 'ProfilePhotoController@show');
+        Route::get('subscriptions', 'SubscriptionController@index');
+        Route::get('subscriptions/{id}', 'SubscriptionController@show');
+        Route::get('tickets', 'TicketController@index');
+        Route::post('tickets', 'TicketController@store');
+        Route::get('tickets/{id}', 'TicketController@show');
+        Route::get('replies', 'ReplyController@index');
+        Route::post('replies', 'ReplyController@store');
+        Route::get('replies/{id}', 'ReplyController@show');
+        Route::get('matching-users', 'MatchingUserController@index');
+        Route::get('matching-users/{id}', 'MatchingUserController@show');
+
+        Route::prefix('user-keyword')->namespace('UserKeyword')->group(function () {
+            Route::post('careers', 'CareerController@store');
+            Route::post('drinks', 'DrinkController@store');
+            Route::post('hobbies', 'HobbyController@store');
+            Route::post('nationalities', 'NationalityController@store');
+            Route::post('religions', 'ReligionController@store');
+            Route::post('residences', 'ResidenceController@store');
+            Route::post('smokes', 'SmokeController@store');
+            Route::post('statures', 'StatureController@store');
+            Route::post('weights', 'WeightController@store');
+        });
+
+        Route::get('user-keywords', 'UserKeywordController@index');
     });
 });
 
