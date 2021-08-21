@@ -11,12 +11,8 @@ class MinAgeRangeController extends Controller
     {
         return [MinAgeRangeListingService::class, [
             'max' => static::input('max'),
-            'expands' => static::input('expands'),
-            'fields' => static::input('fields'),
         ], [
             'max' => '[max]',
-            'expands' => '[expands]',
-            'fields' => '[fields]',
         ]];
     }
 }

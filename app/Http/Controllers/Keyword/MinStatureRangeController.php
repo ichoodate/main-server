@@ -11,12 +11,8 @@ class MinStatureRangeController extends Controller
     {
         return [MinStatureRangeListingService::class, [
             'max' => static::input('max'),
-            'expands' => static::input('expands'),
-            'fields' => static::input('fields'),
         ], [
             'max' => '[max]',
-            'expands' => '[expands]',
-            'fields' => '[fields]',
         ]];
     }
 }

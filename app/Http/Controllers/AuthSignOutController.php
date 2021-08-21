@@ -7,7 +7,7 @@ use App\Services\Auth\AuthSignOutService;
 
 class AuthSignOutController extends Controller
 {
-    public static function store()
+    public static function index()
     {
         return [AuthSignOutService::class];
     }

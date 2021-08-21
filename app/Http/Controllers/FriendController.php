@@ -10,26 +10,14 @@ class FriendController extends Controller
 {
     public static function show()
     {
-        return [FriendFindingService::class, [
-            'auth_user' => auth()->user(),
-            'expands' => static::input('expands'),
-            'fields' => static::input('fields'),
-            'id' => request()->route()->friend,
-        ], [
-            'auth_user' => 'authorized user',
-            'expands' => '[expands]',
-            'fields' => '[fields]',
-            'id' => request()->route()->friend,
-        ]];
+        return [FriendFindingService::class];
     }
 
     public static function store()
     {
         return [FriendCreatingService::class, [
-            'auth_user' => auth()->user(),
             'match_id' => static::input('match_id'),
         ], [
-            'auth_user' => 'authorized user',
             'match_id' => '[match_id]',
         ]];
     }

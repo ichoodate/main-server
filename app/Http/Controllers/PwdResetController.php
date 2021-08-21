@@ -20,11 +20,9 @@ class PwdResetController extends Controller
     public static function update()
     {
         return [PwdResetUpdatingService::class, [
-            'id' => request()->route()->pwd_reset,
             'token' => static::input('token'),
             'new_password' => static::input('new_password'),
         ], [
-            'id' => request()->route()->pwd_reset,
             'token' => '[token]',
             'new_password' => '[new_password]',
         ]];

@@ -16,12 +16,10 @@ class AuthUserController extends Controller
     public static function update()
     {
         return [AuthUserUpdatingService::class, [
-            'auth_user' => auth()->user(),
             'birth' => static::input('birth'),
             'email' => static::input('email'),
             'name' => static::input('name'),
         ], [
-            'auth_user' => 'authorized user',
             'birth' => '[birth]',
             'email' => '[email]',
             'name' => '[name]',

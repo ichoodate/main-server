@@ -10,33 +10,11 @@ class RoleController extends Controller
 {
     public static function index()
     {
-        return [RoleListingService::class, [
-            'auth_user' => auth()->user(),
-            'expands' => static::input('expands'),
-            'fields' => static::input('fields'),
-            'group_by' => '',
-            'order_by' => '',
-        ], [
-            'auth_user' => 'authorized user',
-            'expands' => '[expands]',
-            'fields' => '[fields]',
-            'group_by' => '[group_by]',
-            'order_by' => '[order_by]',
-        ]];
+        return [RoleListingService::class];
     }
 
     public static function show()
     {
-        return [RoleFindingService::class, [
-            'auth_user' => auth()->user(),
-            'expands' => static::input('expands'),
-            'fields' => static::input('fields'),
-            'id' => request()->route()->role,
-        ], [
-            'auth_user' => 'authorized user',
-            'expands' => '[expands]',
-            'fields' => '[fields]',
-            'id' => request()->route()->role,
-        ]];
+        return [RoleFindingService::class];
     }
 }
