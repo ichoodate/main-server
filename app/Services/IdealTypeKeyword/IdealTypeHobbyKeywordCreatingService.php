@@ -2,8 +2,9 @@
 
 namespace App\Services\IdealTypeKeyword;
 
-use App\Models\Keyword\Hobby;
 use App\Models\IdealTypeKeyword;
+use App\Models\Keyword\Hobby;
+use App\Services\Auth\AuthUserFindingService;
 use FunctionalCoding\Service;
 
 class IdealTypeHobbyKeywordCreatingService extends Service
@@ -36,6 +37,14 @@ class IdealTypeHobbyKeywordCreatingService extends Service
     public static function getArrLoaders()
     {
         return [
+            'auth_user' => function ($authToken = '') {
+                return [AuthUserFindingService::class, [
+                    'token' => $authToken,
+                ], [
+                    'token' => '{{auth_token}}',
+                ]];
+            },
+
             'keywords' => function ($keywordIds) {
                 $keywordIds = preg_split('/\s*,\s*/', $keywordIds);
 
@@ -68,8 +77,6 @@ class IdealTypeHobbyKeywordCreatingService extends Service
     public static function getArrRuleLists()
     {
         return [
-            'auth_user' => ['required'],
-
             'keyword_ids' => ['required', 'integers'],
 
             'keywords.*' => ['required', 'not_null'],

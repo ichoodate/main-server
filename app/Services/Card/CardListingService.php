@@ -7,6 +7,7 @@ use App\Models\CardFlip;
 use App\Models\Friend;
 use App\Models\Match;
 use App\Models\User;
+use App\Services\Auth\AuthUserFindingService;
 use FunctionalCoding\ORM\Eloquent\Service\PaginationListService;
 use FunctionalCoding\Service;
 
@@ -83,6 +84,14 @@ class CardListingService extends Service
     public static function getArrLoaders()
     {
         return [
+            'auth_user' => function ($authToken = '') {
+                return [AuthUserFindingService::class, [
+                    'token' => $authToken,
+                ], [
+                    'token' => '{{auth_token}}',
+                ]];
+            },
+
             'auth_user_id_field' => function ($authUser) {
                 if (User::GENDER_MAN == $authUser->{User::GENDER}) {
                     return Match::MAN_ID;
@@ -240,8 +249,6 @@ class CardListingService extends Service
     {
         return [
             'after' => ['date_format:Y-m-d H:i:s'],
-
-            'auth_user' => ['required'],
 
             'auth_user_status' => ['in:'.implode(',', static::USER_STATUS_VALUES)],
 

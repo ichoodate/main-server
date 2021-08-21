@@ -3,6 +3,7 @@
 namespace App\Services\ProfilePhoto;
 
 use App\Models\ProfilePhoto;
+use App\Services\Auth\AuthUserFindingService;
 use FunctionalCoding\Service;
 
 class ProfilePhotoCreatingService extends Service
@@ -20,6 +21,14 @@ class ProfilePhotoCreatingService extends Service
     public static function getArrLoaders()
     {
         return [
+            'auth_user' => function ($authToken = '') {
+                return [AuthUserFindingService::class, [
+                    'token' => $authToken,
+                ], [
+                    'token' => '{{auth_token}}',
+                ]];
+            },
+
             'created' => function ($authUser, $data) {
                 $collection = (new ProfilePhoto())->newCollection();
 
@@ -43,8 +52,6 @@ class ProfilePhotoCreatingService extends Service
     public static function getArrRuleLists()
     {
         return [
-            'auth_user' => ['required'],
-
             'data' => ['required', 'regex:/data:image\/([a-zA-Z]*);base64,([^\"]*)/'],
         ];
     }

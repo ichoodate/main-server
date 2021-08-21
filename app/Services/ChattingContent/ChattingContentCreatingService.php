@@ -2,8 +2,8 @@
 
 namespace App\Services\ChattingContent;
 
-use App\Models\ChattingContent;
 use App\Models\Friend;
+use App\Services\Auth\AuthUserFindingService;
 use App\Services\Match\MatchFindingService;
 use FunctionalCoding\Service;
 
@@ -28,6 +28,14 @@ class ChattingContentCreatingService extends Service
     public static function getArrLoaders()
     {
         return [
+            'auth_user' => function ($authToken = '') {
+                return [AuthUserFindingService::class, [
+                    'token' => $authToken,
+                ], [
+                    'token' => '{{auth_token}}',
+                ]];
+            },
+
             'auth_user_friend' => function ($authUser, $matchingUserId) {
                 return Friend::query()
                     ->where(Friend::SENDER_ID, $authUser->getKey())
@@ -78,8 +86,6 @@ class ChattingContentCreatingService extends Service
     public static function getArrRuleLists()
     {
         return [
-            'auth_user' => ['required'],
-
             'auth_user_friend' => ['not_null'],
 
             'match' => ['not_null'],

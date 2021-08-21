@@ -3,7 +3,6 @@
 namespace App\Services\FacePhoto;
 
 use App\Models\FacePhoto;
-use App\Services\PermittedUserRequiringService;
 use FunctionalCoding\ORM\Eloquent\Service\FindService;
 use FunctionalCoding\Service;
 
@@ -31,12 +30,6 @@ class FacePhotoFindingService extends Service
             'model_class' => function () {
                 return FacePhoto::class;
             },
-
-            'permitted_user' => function ($authUser, $model) {
-                if (in_array($authUser->getKey(), [$model->{FacePhoto::USER_ID}])) {
-                    return $authUser;
-                }
-            },
         ];
     }
 
@@ -54,7 +47,6 @@ class FacePhotoFindingService extends Service
     {
         return [
             FindService::class,
-            PermittedUserRequiringService::class,
         ];
     }
 }

@@ -3,7 +3,6 @@
 namespace App\Services\Ticket;
 
 use App\Models\Ticket;
-use App\Services\AdminRoleExistingService;
 use App\Services\PermittedUserRequiringService;
 use FunctionalCoding\ORM\Eloquent\Service\FindService;
 use FunctionalCoding\Service;
@@ -34,7 +33,7 @@ class TicketFindingService extends Service
             },
 
             'permitted_user' => function ($adminRole, $authUser, $model) {
-                if (!empty($adminRole) || $authUser->getKey() == $model->{Ticket::WRITER_ID}) {
+                if (!empty($adminRole) || in_array($authUser->getKey(), [$model->{Ticket::WRITER_ID}])) {
                     return $authUser;
                 }
             },
@@ -54,7 +53,6 @@ class TicketFindingService extends Service
     public static function getArrTraits()
     {
         return [
-            AdminRoleExistingService::class,
             FindService::class,
             PermittedUserRequiringService::class,
         ];

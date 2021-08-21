@@ -2,8 +2,9 @@
 
 namespace App\Services\IdealTypeKeyword;
 
-use App\Models\Keyword\Nationality;
 use App\Models\IdealTypeKeyword;
+use App\Models\Keyword\Nationality;
+use App\Services\Auth\AuthUserFindingService;
 use App\Services\Keyword\Nationality\NationalityFindingService;
 use FunctionalCoding\Service;
 
@@ -35,6 +36,14 @@ class IdealTypeNationalityKeywordCreatingService extends Service
     public static function getArrLoaders()
     {
         return [
+            'auth_user' => function ($authToken = '') {
+                return [AuthUserFindingService::class, [
+                    'token' => $authToken,
+                ], [
+                    'token' => '{{auth_token}}',
+                ]];
+            },
+
             'keyword' => function ($keywordId) {
                 return [NationalityFindingService::class, [
                     'id' => $keywordId,
@@ -60,8 +69,6 @@ class IdealTypeNationalityKeywordCreatingService extends Service
     public static function getArrRuleLists()
     {
         return [
-            'auth_user' => ['required'],
-
             'keyword_id' => ['required'],
         ];
     }

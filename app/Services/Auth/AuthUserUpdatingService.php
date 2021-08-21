@@ -5,6 +5,7 @@ namespace App\Services\Auth;
 use App\Models\Keyword\BirthYear;
 use App\Models\User;
 use App\Models\UserKeyword;
+use App\Services\Auth\AuthUserFindingService;
 use FunctionalCoding\Service;
 
 class AuthUserUpdatingService extends Service
@@ -66,6 +67,14 @@ class AuthUserUpdatingService extends Service
     public static function getArrLoaders()
     {
         return [
+            'auth_user' => function ($authToken = '') {
+                return [AuthUserFindingService::class, [
+                    'token' => $authToken,
+                ], [
+                    'token' => '{{auth_token}}',
+                ]];
+            },
+
             'result' => function ($authUser) {
                 return $authUser;
             },

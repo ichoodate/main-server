@@ -3,6 +3,7 @@
 namespace App\Services\ChattingContent;
 
 use App\Models\ChattingContent;
+use App\Services\Auth\AuthUserFindingService;
 use App\Services\Match\MatchFindingService;
 use FunctionalCoding\ORM\Eloquent\Service\PaginationListService;
 use FunctionalCoding\Service;
@@ -26,6 +27,14 @@ class ChattingContentListingService extends Service
     public static function getArrLoaders()
     {
         return [
+            'auth_user' => function ($authToken = '') {
+                return [AuthUserFindingService::class, [
+                    'token' => $authToken,
+                ], [
+                    'token' => '{{auth_token}}',
+                ]];
+            },
+
             'available_expands' => function () {
                 return ['match', 'writer'];
             },
@@ -64,8 +73,6 @@ class ChattingContentListingService extends Service
     public static function getArrRuleLists()
     {
         return [
-            'auth_user' => ['required'],
-
             'match_id' => ['required', 'integer'],
         ];
     }

@@ -3,6 +3,7 @@
 namespace App\Services\CardGroup;
 
 use App\Models\Card;
+use App\Services\Auth\AuthUserFindingService;
 use App\Services\Match\MatchCreatingService;
 use FunctionalCoding\Service;
 
@@ -21,6 +22,14 @@ class CardGroupCreatingService extends Service
     public static function getArrLoaders()
     {
         return [
+            'auth_user' => function ($authToken = '') {
+                return [AuthUserFindingService::class, [
+                    'token' => $authToken,
+                ], [
+                    'token' => '{{auth_token}}',
+                ]];
+            },
+
             'cards' => function ($authUser, $created, $matches, $users) {
                 $cards = (new Card())->newCollection();
 
@@ -62,9 +71,7 @@ class CardGroupCreatingService extends Service
 
     public static function getArrRuleLists()
     {
-        return [
-            'auth_user' => ['required'],
-        ];
+        return [];
     }
 
     public static function getArrTraits()

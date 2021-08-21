@@ -24,10 +24,10 @@ class ServiceParameterSettingMiddleware
         if (!isset($data['token']) && $request->offsetExists('token')) {
             $data['token'] = $request->offsetGet('token');
             $names['token'] = '[token]';
-        } elseif (!isset($data['token'])) {
-            $data['token'] = $request->bearerToken() ?: '';
-            $names['token'] = 'header[authorization]';
         }
+
+        $data['auth_token'] = $request->bearerToken() ?: '';
+        $names['auth_token'] = 'header[authorization]';
 
         if (array_key_exists('expands', $ruleLists) || $request->offsetExists('expands')) {
             $data['expands'] = Arr::get($request->all(), 'expands', '');

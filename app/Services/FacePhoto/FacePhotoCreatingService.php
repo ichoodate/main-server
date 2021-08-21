@@ -3,6 +3,7 @@
 namespace App\Services\FacePhoto;
 
 use App\Models\FacePhoto;
+use App\Services\Auth\AuthUserFindingService;
 use FunctionalCoding\Service;
 
 class FacePhotoCreatingService extends Service
@@ -27,6 +28,14 @@ class FacePhotoCreatingService extends Service
     public static function getArrLoaders()
     {
         return [
+            'auth_user' => function ($authToken = '') {
+                return [AuthUserFindingService::class, [
+                    'token' => $authToken,
+                ], [
+                    'token' => '{{auth_token}}',
+                ]];
+            },
+
             'result' => function ($authUser, $data) {
                 return (new FacePhoto())->create([
                     FacePhoto::USER_ID => $authUser->getKey(),
@@ -46,9 +55,7 @@ class FacePhotoCreatingService extends Service
     public static function getArrRuleLists()
     {
         return [
-            'auth_user' => ['required'],
-
-            'data' => ['required', 'regex:/data:image\/([a-zA-Z]*);base64,([^\"]*)/'],
+            'data' => ['required', 'base64_image'],
         ];
     }
 

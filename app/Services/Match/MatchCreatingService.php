@@ -89,7 +89,9 @@ class MatchCreatingService extends Service
 
     public static function getArrRuleLists()
     {
-        return [];
+        return [
+            'auth_user' => ['required'],
+        ];
     }
 
     public static function getArrTraits()

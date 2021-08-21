@@ -2,8 +2,9 @@
 
 namespace App\Services\IdealTypeKeyword;
 
-use App\Models\Keyword\Career;
 use App\Models\IdealTypeKeyword;
+use App\Models\Keyword\Career;
+use App\Services\Auth\AuthUserFindingService;
 use App\Services\Keyword\Career\CareerFindingService;
 use FunctionalCoding\Service;
 
@@ -35,6 +36,14 @@ class IdealTypeCareerKeywordCreatingService extends Service
     public static function getArrLoaders()
     {
         return [
+            'auth_user' => function ($authToken = '') {
+                return [AuthUserFindingService::class, [
+                    'token' => $authToken,
+                ], [
+                    'token' => '{{auth_token}}',
+                ]];
+            },
+
             'keyword' => function ($keywordId) {
                 return [CareerFindingService::class, [
                     'id' => $keywordId,
@@ -60,8 +69,6 @@ class IdealTypeCareerKeywordCreatingService extends Service
     public static function getArrRuleLists()
     {
         return [
-            'auth_user' => ['required'],
-
             'keyword_id' => ['required'],
         ];
     }

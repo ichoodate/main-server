@@ -3,6 +3,7 @@
 namespace App\Services\Role;
 
 use App\Models\Role;
+use App\Services\Auth\AuthUserFindingService;
 use FunctionalCoding\ORM\Eloquent\Service\ListService;
 use FunctionalCoding\Service;
 
@@ -25,6 +26,14 @@ class RoleListingService extends Service
     public static function getArrLoaders()
     {
         return [
+            'auth_user' => function ($authToken = '') {
+                return [AuthUserFindingService::class, [
+                    'token' => $authToken,
+                ], [
+                    'token' => '{{auth_token}}',
+                ]];
+            },
+
             'available_expands' => function () {
                 return ['user'];
             },
@@ -42,9 +51,7 @@ class RoleListingService extends Service
 
     public static function getArrRuleLists()
     {
-        return [
-            'auth_user' => ['required'],
-        ];
+        return [];
     }
 
     public static function getArrTraits()

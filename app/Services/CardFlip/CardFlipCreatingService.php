@@ -4,6 +4,7 @@ namespace App\Services\CardFlip;
 
 use App\Models\Card;
 use App\Models\CardFlip;
+use App\Services\Auth\AuthUserFindingService;
 use App\Services\Card\CardFindingService;
 use App\Services\Card\FreeFlippableChooserCardReturningService;
 use App\Services\Card\FreeFlippableShownerCardReturningService;
@@ -36,6 +37,14 @@ class CardFlipCreatingService extends Service
     public static function getArrLoaders()
     {
         return [
+            'auth_user' => function ($authToken = '') {
+                return [AuthUserFindingService::class, [
+                    'token' => $authToken,
+                ], [
+                    'token' => '{{auth_token}}',
+                ]];
+            },
+
             'card' => function ($authUser, $cardId) {
                 return [CardFindingService::class, [
                     'auth_user' => $authUser,
@@ -93,8 +102,6 @@ class CardFlipCreatingService extends Service
     public static function getArrRuleLists()
     {
         return [
-            'auth_user' => ['required'],
-
             'card_id' => ['required', 'integer'],
 
             'card_flip' => ['null'],

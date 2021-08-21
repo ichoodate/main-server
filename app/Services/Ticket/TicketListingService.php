@@ -3,6 +3,7 @@
 namespace App\Services\Ticket;
 
 use App\Models\Ticket;
+use App\Services\Auth\AuthUserFindingService;
 use FunctionalCoding\ORM\Eloquent\Service\PaginationListService;
 use FunctionalCoding\Service;
 
@@ -25,6 +26,14 @@ class TicketListingService extends Service
     public static function getArrLoaders()
     {
         return [
+            'auth_user' => function ($authToken = '') {
+                return [AuthUserFindingService::class, [
+                    'token' => $authToken,
+                ], [
+                    'token' => '{{auth_token}}',
+                ]];
+            },
+
             'available_expands' => function () {
                 return ['replies', 'writer'];
             },
@@ -52,9 +61,7 @@ class TicketListingService extends Service
 
     public static function getArrRuleLists()
     {
-        return [
-            'auth_user' => ['required'],
-        ];
+        return [];
     }
 
     public static function getArrTraits()

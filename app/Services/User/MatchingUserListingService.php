@@ -5,6 +5,7 @@ namespace App\Services\User;
 use App\Models\Obj;
 use App\Models\User;
 use App\Models\UserKeyword;
+use App\Services\Auth\AuthUserFindingService;
 use FunctionalCoding\ORM\Eloquent\Service\RandomListService;
 use FunctionalCoding\Service;
 use Illuminate\Support\Facades\DB;
@@ -56,6 +57,14 @@ class MatchingUserListingService extends Service
     public static function getArrLoaders()
     {
         return [
+            'auth_user' => function ($authToken = '') {
+                return [AuthUserFindingService::class, [
+                    'token' => $authToken,
+                ], [
+                    'token' => '{{auth_token}}',
+                ]];
+            },
+
             'available_expands' => function () {
                 return ['facePhoto', 'friend', 'match', 'match.cards.flips', 'popularity'];
             },
@@ -97,8 +106,6 @@ class MatchingUserListingService extends Service
     public static function getArrRuleLists()
     {
         return [
-            'auth_user' => ['required'],
-
             'keyword_ids' => ['integers'],
 
             'keywords.*' => ['not_null'],

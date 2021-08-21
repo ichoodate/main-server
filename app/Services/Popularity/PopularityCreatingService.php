@@ -3,6 +3,7 @@
 namespace App\Services\Popularity;
 
 use App\Models\Popularity;
+use App\Services\Auth\AuthUserFindingService;
 use App\Services\User\MatchingUserFindingService;
 use FunctionalCoding\Service;
 
@@ -29,6 +30,14 @@ class PopularityCreatingService extends Service
     public static function getArrLoaders()
     {
         return [
+            'auth_user' => function ($authToken = '') {
+                return [AuthUserFindingService::class, [
+                    'token' => $authToken,
+                ], [
+                    'token' => '{{auth_token}}',
+                ]];
+            },
+
             'created' => function ($authUser, $point, $user) {
                 return Popularity::create([
                     Popularity::SENDER_ID => $authUser->getKey(),
@@ -57,8 +66,6 @@ class PopularityCreatingService extends Service
     public static function getArrRuleLists()
     {
         return [
-            'auth_user' => ['required'],
-
             'user_id' => ['required'],
 
             'point' => ['required', 'integer', 'min:1', 'max:10'],

@@ -3,20 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controller;
+use App\Services\Auth\AuthUserFindingService;
 use App\Services\Auth\AuthUserUpdatingService;
-use App\Services\User\UserFindingService;
 
 class AuthUserController extends Controller
 {
     public static function index()
     {
-        return !auth()->user() ? null : [UserFindingService::class, [
-            'expands' => static::input('expands'),
-            'id' => auth()->user()->getKey(),
-        ], [
-            'expands' => '[expands]',
-            'id' => 'authorized user\'s ID',
-        ]];
+        return static::bearerToken() ? null : [AuthUserFindingService::class];
     }
 
     public static function update()

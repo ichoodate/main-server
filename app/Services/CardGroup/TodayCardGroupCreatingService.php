@@ -96,8 +96,6 @@ class TodayCardGroupCreatingService extends Service
     public static function getArrRuleLists()
     {
         return [
-            'auth_user' => ['required'],
-
             'today_card_group' => ['null'],
         ];
     }

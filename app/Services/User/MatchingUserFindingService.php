@@ -3,6 +3,7 @@
 namespace App\Services\User;
 
 use App\Models\User;
+use App\Services\Auth\AuthUserFindingService;
 use FunctionalCoding\Service;
 
 class MatchingUserFindingService extends Service
@@ -24,6 +25,14 @@ class MatchingUserFindingService extends Service
     public static function getArrLoaders()
     {
         return [
+            'auth_user' => function ($authToken = '') {
+                return [AuthUserFindingService::class, [
+                    'token' => $authToken,
+                ], [
+                    'token' => '{{auth_token}}',
+                ]];
+            },
+
             'auth_user_gender' => function ($authUser) {
                 return $authUser->{User::GENDER};
             },
@@ -42,8 +51,6 @@ class MatchingUserFindingService extends Service
     public static function getArrRuleLists()
     {
         return [
-            'auth_user' => ['required'],
-
             'auth_user_gender' => ['different:{{model_gender}}'],
         ];
     }

@@ -4,6 +4,7 @@ namespace App\Services\UserKeyword;
 
 use App\Models\Keyword\Weight;
 use App\Models\UserKeyword;
+use App\Services\Auth\AuthUserFindingService;
 use App\Services\Keyword\Weight\WeightFindingService;
 use FunctionalCoding\Service;
 
@@ -35,6 +36,14 @@ class UserWeightKeywordCreatingService extends Service
     public static function getArrLoaders()
     {
         return [
+            'auth_user' => function ($authToken = '') {
+                return [AuthUserFindingService::class, [
+                    'token' => $authToken,
+                ], [
+                    'token' => '{{auth_token}}',
+                ]];
+            },
+
             'keyword' => function ($keywordId) {
                 return [WeightFindingService::class, [
                     'id' => $keywordId,
@@ -60,8 +69,6 @@ class UserWeightKeywordCreatingService extends Service
     public static function getArrRuleLists()
     {
         return [
-            'auth_user' => ['required'],
-
             'keyword_id' => ['required'],
         ];
     }

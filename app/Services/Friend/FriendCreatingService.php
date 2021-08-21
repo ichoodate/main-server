@@ -3,6 +3,7 @@
 namespace App\Services\Friend;
 
 use App\Models\Friend;
+use App\Services\Auth\AuthUserFindingService;
 use App\Services\Match\MatchFindingService;
 use FunctionalCoding\Service;
 
@@ -21,6 +22,14 @@ class FriendCreatingService extends Service
     public static function getArrLoaders()
     {
         return [
+            'auth_user' => function ($authToken = '') {
+                return [AuthUserFindingService::class, [
+                    'token' => $authToken,
+                ], [
+                    'token' => '{{auth_token}}',
+                ]];
+            },
+
             'created' => function ($authUser, $match, $user) {
                 return Friend::create([
                     Friend::SENDER_ID => $authUser->getKey(),
@@ -53,8 +62,6 @@ class FriendCreatingService extends Service
     public static function getArrRuleLists()
     {
         return [
-            'auth_user' => ['required'],
-
             'match_id' => ['required'],
         ];
     }

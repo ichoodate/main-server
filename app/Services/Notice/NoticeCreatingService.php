@@ -3,7 +3,7 @@
 namespace App\Services\Notice;
 
 use App\Models\Notice;
-use App\Services\AdminRoleExistingService;
+use App\Services\PermittedUserRequiringService;
 use FunctionalCoding\Service;
 
 class NoticeCreatingService extends Service
@@ -28,6 +28,12 @@ class NoticeCreatingService extends Service
                     Notice::DESCRIPTION => $description,
                 ]);
             },
+
+            'permitted_user' => function ($adminRole, $authUser) {
+                if (!empty($adminRole)) {
+                    return $authUser;
+                }
+            },
         ];
     }
 
@@ -39,8 +45,6 @@ class NoticeCreatingService extends Service
     public static function getArrRuleLists()
     {
         return [
-            'admin_role' => ['required'],
-
             'description' => ['required', 'string'],
 
             'subject' => ['required', 'string'],
@@ -52,7 +56,7 @@ class NoticeCreatingService extends Service
     public static function getArrTraits()
     {
         return [
-            AdminRoleExistingService::class,
+            PermittedUserRequiringService::class,
         ];
     }
 }
