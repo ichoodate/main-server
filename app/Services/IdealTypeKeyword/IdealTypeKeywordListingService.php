@@ -18,7 +18,7 @@ class IdealTypeKeywordListingService extends Service
     {
         return [
             'query.auth_user' => function ($authUser, $query) {
-                $query->qWhere(IdealTypeKeyword::USER_ID, $authUser->getKey());
+                $query->where(IdealTypeKeyword::USER_ID, $authUser->getKey());
             },
         ];
     }

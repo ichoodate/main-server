@@ -33,7 +33,7 @@ class PwdResetCreatingService extends Service
 
             'user' => function ($email) {
                 return (new User())->query()
-                    ->qWhere(User::EMAIL, $email)
+                    ->where(User::EMAIL, $email)
                     ->first()
                 ;
             },

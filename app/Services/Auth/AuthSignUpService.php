@@ -52,7 +52,7 @@ class AuthSignUpService extends Service
             'same_email_user' => function ($email) {
                 return (new User())->query()
                     ->lockForUpdate()
-                    ->qWhere(User::EMAIL, $email)
+                    ->where(User::EMAIL, $email)
                     ->first()
                 ;
             },

@@ -18,7 +18,7 @@ class RoleListingService extends Service
     {
         return [
             'query.auth_user' => function ($authUser, $query) {
-                $query->qWhere(Role::USER_ID, $authUser->getKey());
+                $query->where(Role::USER_ID, $authUser->getKey());
             },
         ];
     }

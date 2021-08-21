@@ -17,11 +17,11 @@ class CountryListingService extends Service
     {
         return [
             'query' => function ($query) {
-                $query->qOrderBy('name', 'asc');
+                $query->orderBy('name', 'asc');
             },
 
             'query.name' => function ($name, $query) {
-                $query->qWhere('name', $name);
+                $query->where('name', $name);
             },
         ];
     }

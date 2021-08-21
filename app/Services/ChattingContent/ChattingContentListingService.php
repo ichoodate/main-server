@@ -19,7 +19,7 @@ class ChattingContentListingService extends Service
     {
         return [
             'query.match' => function ($match, $query) {
-                $query->qWhere(ChattingContent::MATCH_ID, $match->getKey());
+                $query->where(ChattingContent::MATCH_ID, $match->getKey());
             },
         ];
     }

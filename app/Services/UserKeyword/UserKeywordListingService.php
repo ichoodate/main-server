@@ -18,7 +18,7 @@ class UserKeywordListingService extends Service
     {
         return [
             'query.auth_user' => function ($authUser, $query) {
-                $query->qWhere(UserKeyword::USER_ID, $authUser->getKey());
+                $query->where(UserKeyword::USER_ID, $authUser->getKey());
             },
         ];
     }

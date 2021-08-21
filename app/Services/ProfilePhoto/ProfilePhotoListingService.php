@@ -18,7 +18,7 @@ class ProfilePhotoListingService extends Service
     {
         return [
             'query.user' => function ($query, $user) {
-                $query->qWhere(ProfilePhoto::USER_ID, $user->getKey());
+                $query->where(ProfilePhoto::USER_ID, $user->getKey());
             },
         ];
     }

@@ -25,19 +25,19 @@ class MatchingUserListingService extends Service
             'query.keywords' => function ($keywords = '', $matchingGender, $query, $strict) {
                 $nested = (new User())->query()
                     ->select(User::ID)
-                    ->qWhere(User::GENDER, $matchingGender)
+                    ->where(User::GENDER, $matchingGender)
                     ->getQuery()
                 ;
 
                 $sub = (new UserKeyword())->query()
                     ->select(UserKeyword::USER_ID)
-                    ->qWhereIn(UserKeyword::USER_ID, $nested)
-                    ->qGroupBy(UserKeyword::USER_ID)
+                    ->whereIn(UserKeyword::USER_ID, $nested)
+                    ->groupBy(UserKeyword::USER_ID)
                 ;
 
                 if ($keywords) {
                     $count = count($keywords->modelKeys());
-                    $sub->qWhereIn(UserKeyword::KEYWORD_ID, $keywords->modelKeys());
+                    $sub->whereIn(UserKeyword::KEYWORD_ID, $keywords->modelKeys());
                     $sub->take(1000);
 
                     if ($strict) {
@@ -48,7 +48,7 @@ class MatchingUserListingService extends Service
                 }
 
                 $query
-                    ->qWhereIn(User::ID, $sub->getQuery()->get()->pluck(UserKeyword::USER_ID)->all())
+                    ->whereIn(User::ID, $sub->getQuery()->get()->pluck(UserKeyword::USER_ID)->all())
                 ;
             },
         ];
@@ -73,8 +73,8 @@ class MatchingUserListingService extends Service
                 $keywordIds = preg_split('/\s*,\s*/', $keywordIds);
 
                 return (new Obj())->query()
-                    ->qWhereIn(Obj::ID, $keywordIds)
-                    ->qWhereIn(Obj::TYPE, Obj::TYPE_KEYWORD_VALUES)
+                    ->whereIn(Obj::ID, $keywordIds)
+                    ->whereIn(Obj::TYPE, Obj::TYPE_KEYWORD_VALUES)
                     ->get()
                     ->sortByIds($keywordIds)
                 ;

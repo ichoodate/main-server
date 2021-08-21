@@ -5,7 +5,6 @@ namespace App\Services\Auth;
 use App\Models\Keyword\BirthYear;
 use App\Models\User;
 use App\Models\UserKeyword;
-use App\Services\Auth\AuthUserFindingService;
 use FunctionalCoding\Service;
 
 class AuthUserUpdatingService extends Service
@@ -20,18 +19,18 @@ class AuthUserUpdatingService extends Service
         return [
             'auth_user.birth' => function ($authUser, $birth) {
                 $keywordIds = (new BirthYear())->query()
-                    ->qSelect(BirthYear::ID)
+                    ->select(BirthYear::ID)
                     ->getQuery()
                 ;
 
                 (new UserKeyword())->query()
-                    ->qWhere(UserKeyword::USER_ID, $authUser->getKey())
-                    ->qWhereIn(UserKeyword::KEYWORD_ID, $keywordIds)
+                    ->where(UserKeyword::USER_ID, $authUser->getKey())
+                    ->whereIn(UserKeyword::KEYWORD_ID, $keywordIds)
                     ->delete()
                 ;
 
                 $keyword = (new BirthYear())->query()
-                    ->qWhere(BirthYear::TYPE, substr($birth, 0, 4))
+                    ->where(BirthYear::TYPE, substr($birth, 0, 4))
                     ->first()
                 ;
 

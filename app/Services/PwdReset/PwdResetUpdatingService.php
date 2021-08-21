@@ -52,7 +52,7 @@ class PwdResetUpdatingService extends Service
 
             'user' => function ($result) {
                 return (new User())->query()
-                    ->qWhere(User::EMAIL, $result->{PwdReset::EMAIL})
+                    ->where(User::EMAIL, $result->{PwdReset::EMAIL})
                     ->first()
                 ;
             },

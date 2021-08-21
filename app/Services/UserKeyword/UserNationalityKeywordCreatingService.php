@@ -20,13 +20,13 @@ class UserNationalityKeywordCreatingService extends Service
         return [
             'auth_user' => function ($authUser) {
                 $keywordIds = (new Nationality())->query()
-                    ->qSelect(Nationality::ID)
+                    ->select(Nationality::ID)
                     ->getQuery()
                 ;
 
                 (new UserKeyword())->query()
-                    ->qWhere(UserKeyword::USER_ID, $authUser->getKey())
-                    ->qWhereIn(UserKeyword::KEYWORD_ID, $keywordIds)
+                    ->where(UserKeyword::USER_ID, $authUser->getKey())
+                    ->whereIn(UserKeyword::KEYWORD_ID, $keywordIds)
                     ->delete()
                 ;
             },

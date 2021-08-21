@@ -18,7 +18,7 @@ class BalanceListingService extends Service
     {
         return [
             'query.auth_user' => function ($authUser, $query) {
-                $query->qWhere(Balance::USER_ID, $authUser->getKey());
+                $query->where(Balance::USER_ID, $authUser->getKey());
             },
         ];
     }

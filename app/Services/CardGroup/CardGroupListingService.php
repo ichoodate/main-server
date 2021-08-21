@@ -18,14 +18,14 @@ class CardGroupListingService extends Service
     {
         return [
             'query.auth_user' => function ($authUser, $query) {
-                $query->qWhere(CardGroup::USER_ID, $authUser->getKey());
+                $query->where(CardGroup::USER_ID, $authUser->getKey());
             },
 
             'query.timezone' => function ($after, $query, $timezone) {
                 $time = new \DateTime($after, new \DateTimeZone($timezone));
                 $time->setTimezone(new \DateTimeZone('UTC'));
 
-                $query->qWhere(CardGroup::CREATED_AT, '>=', $time->format('Y-m-d H:i:s'));
+                $query->where(CardGroup::CREATED_AT, '>=', $time->format('Y-m-d H:i:s'));
             },
         ];
     }

@@ -25,7 +25,7 @@ class PermittedUserRequiringService extends Service
     {
         return [
             'admin_role' => function ($authUser) {
-                return $authUser->role()->qWhere(Role::TYPE, Role::TYPE_ADMIN)->first();
+                return $authUser->role()->where(Role::TYPE, Role::TYPE_ADMIN)->first();
             },
 
             'auth_user' => function ($authToken = '') {

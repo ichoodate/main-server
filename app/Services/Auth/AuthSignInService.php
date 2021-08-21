@@ -32,7 +32,7 @@ class AuthSignInService extends Service
             'result' => function ($email, $isSignedIn) {
                 if ($isSignedIn) {
                     return User::query()
-                        ->qWhere(User::EMAIL, $email)
+                        ->where(User::EMAIL, $email)
                         ->first()
                     ;
                 }

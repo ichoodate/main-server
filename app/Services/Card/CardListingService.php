@@ -49,15 +49,15 @@ class CardListingService extends Service
                 $time = new \DateTime($after, new \DateTimeZone($timezone));
                 $time->setTimezone(new \DateTimeZone('UTC'));
 
-                $query->qWhere(Card::UPDATED_AT, '>=', $time->format('Y-m-d H:i:s'));
+                $query->where(Card::UPDATED_AT, '>=', $time->format('Y-m-d H:i:s'));
             },
 
             'query.auth_user' => function ($authUserQuery, $authUserStatus = '', $matchStatus = '', $matchingUserQuery, $matchingUserStatus = '', $query, $queryBuilder1) {
                 if ('' != $matchStatus) {
                     $userQuery = (new User())->query()
-                        ->qSelect(User::ID)
-                        ->qWhereIn(User::ID, $matchingUserQuery)
-                        ->qOrWhereIn(User::ID, $authUserQuery)
+                        ->select(User::ID)
+                        ->whereIn(User::ID, $matchingUserQuery)
+                        ->orWhereIn(User::ID, $authUserQuery)
                         ->getQuery()
                     ;
 
@@ -76,7 +76,7 @@ class CardListingService extends Service
                 $time = new \DateTime($before, new \DateTimeZone($timezone));
                 $time->setTimezone(new \DateTimeZone('UTC'));
 
-                $query->qWhere(Card::UPDATED_AT, '<=', $time->format('Y-m-d H:i:s'));
+                $query->where(Card::UPDATED_AT, '<=', $time->format('Y-m-d H:i:s'));
             },
         ];
     }
@@ -102,8 +102,8 @@ class CardListingService extends Service
 
             'auth_user_query' => function ($authUser) {
                 return (new User())->query()
-                    ->qSelect(User::ID)
-                    ->qWhere(User::ID, $authUser->getKey())
+                    ->select(User::ID)
+                    ->where(User::ID, $authUser->getKey())
                     ->getQuery()
                 ;
             },
@@ -129,32 +129,32 @@ class CardListingService extends Service
             'matching_user_query' => function ($authUser, $cardType) {
                 if (self::CARD_TYPE_CHOOSER == $cardType) {
                     $userQuery = (new Card())->query()
-                        ->qSelect(Card::SHOWNER_ID)
-                        ->qWhere(Card::CHOOSER_ID, $authUser->getKey())
+                        ->select(Card::SHOWNER_ID)
+                        ->where(Card::CHOOSER_ID, $authUser->getKey())
                         ->getQuery()
                     ;
                 } elseif (self::CARD_TYPE_SHOWNER == $cardType) {
                     $userQuery = (new Card())->query()
-                        ->qSelect(Card::CHOOSER_ID)
-                        ->qWhere(Card::SHOWNER_ID, $authUser->getKey())
+                        ->select(Card::CHOOSER_ID)
+                        ->where(Card::SHOWNER_ID, $authUser->getKey())
                         ->getQuery()
                     ;
                 } elseif (self::CARD_TYPE_BOTH == $cardType) {
                     $subQuery1 = (new Card())->query()
-                        ->qSelect(Card::SHOWNER_ID)
-                        ->qWhere(Card::CHOOSER_ID, $authUser->getKey())
+                        ->select(Card::SHOWNER_ID)
+                        ->where(Card::CHOOSER_ID, $authUser->getKey())
                         ->getQuery()
                     ;
                     $subQuery2 = (new Card())->query()
-                        ->qSelect(Card::CHOOSER_ID)
-                        ->qWhere(Card::SHOWNER_ID, $authUser->getKey())
+                        ->select(Card::CHOOSER_ID)
+                        ->where(Card::SHOWNER_ID, $authUser->getKey())
                         ->getQuery()
                     ;
 
                     $userQuery = (new User())->query()
-                        ->qSelect(User::ID)
-                        ->qWhereIn(User::ID, $subQuery1)
-                        ->qOrWhereIn(User::ID, $subQuery2)
+                        ->select(User::ID)
+                        ->whereIn(User::ID, $subQuery1)
+                        ->orWhereIn(User::ID, $subQuery2)
                         ->getQuery()
                     ;
                 }
@@ -170,16 +170,16 @@ class CardListingService extends Service
                 $return = (new Card())->query();
 
                 if (self::CARD_TYPE_CHOOSER == $cardType) {
-                    $return->qWhere(Card::CHOOSER_ID, $authUser->getKey());
+                    $return->where(Card::CHOOSER_ID, $authUser->getKey());
                 } elseif (self::CARD_TYPE_SHOWNER == $cardType) {
-                    $return->qWhere(Card::SHOWNER_ID, $authUser->getKey());
+                    $return->where(Card::SHOWNER_ID, $authUser->getKey());
                 } elseif (self::CARD_TYPE_BOTH == $cardType) {
                     $subQuery = (new Match())->query()
-                        ->qWhere($authUserIdField, $authUser->getKey())
+                        ->where($authUserIdField, $authUser->getKey())
                         ->selectIdQuery()
                     ;
 
-                    $return->qWhereIn(Card::MATCH_ID, $subQuery);
+                    $return->whereIn(Card::MATCH_ID, $subQuery);
                 }
 
                 return $return;
@@ -190,17 +190,17 @@ class CardListingService extends Service
                     if (in_array($userStatus, [self::USER_STATUS_CARD_FLIP, self::USER_STATUS_FRIEND])) {
                         $subQuery = $queryBuilder2->call(null, $userQuery, $userStatus);
 
-                        $cardQuery->qWhereIn(Card::ID, $subQuery);
+                        $cardQuery->whereIn(Card::ID, $subQuery);
                     } elseif (self::USER_STATUS_CARD_FLIP_STEP == $userStatus) {
                         $subQuery = $queryBuilder2->call(null, $userQuery, self::USER_STATUS_CARD_FLIP);
 
-                        $cardQuery->qWhereNotIn(Card::ID, $subQuery);
+                        $cardQuery->whereNotIn(Card::ID, $subQuery);
                     } elseif (self::USER_STATUS_FRIEND_STEP == $userStatus) {
                         $inSubQuery = $queryBuilder2->call(null, $userQuery, self::USER_STATUS_CARD_FLIP);
                         $notInSubQuery = $queryBuilder2->call(null, $userQuery, self::USER_STATUS_FRIEND);
 
-                        $cardQuery->qWhereIn(Card::ID, $inSubQuery);
-                        $cardQuery->qWhereNotIn(Card::ID, $notInSubQuery);
+                        $cardQuery->whereIn(Card::ID, $inSubQuery);
+                        $cardQuery->whereNotIn(Card::ID, $notInSubQuery);
                     }
                     // else if ( $userStatus == self::USER_STATUS_ALL )
                     // {
@@ -213,8 +213,8 @@ class CardListingService extends Service
             'query_builder_2' => function () {
                 return function ($userQuery, $userStatus) {
                     $flipQuery = (new CardFlip())->query()
-                        ->qWhereIn(CardFlip::USER_ID, $userQuery)
-                        ->qSelect(CardFlip::CARD_ID)
+                        ->whereIn(CardFlip::USER_ID, $userQuery)
+                        ->select(CardFlip::CARD_ID)
                         ->getQuery()
                     ;
 
@@ -223,15 +223,15 @@ class CardListingService extends Service
                     }
                     if (self::USER_STATUS_FRIEND == $userStatus) {
                         $friendQuery = (new Friend())->query()
-                            ->qWhereIn(Friend::SENDER_ID, $userQuery)
-                            ->qSelect(Friend::MATCH_ID)
+                            ->whereIn(Friend::SENDER_ID, $userQuery)
+                            ->select(Friend::MATCH_ID)
                             ->getQuery()
                         ;
 
                         return (new Card())->query()
-                            ->qWhereIn(Card::MATCH_ID, $friendQuery)
-                            ->qWhereIn(Card::ID, $flipQuery)
-                            ->qSelect(Card::ID)
+                            ->whereIn(Card::MATCH_ID, $friendQuery)
+                            ->whereIn(Card::ID, $flipQuery)
+                            ->select(Card::ID)
                             ->getQuery()
                         ;
                     }

@@ -21,7 +21,7 @@ class ReplyListingService extends Service
     {
         return [
             'query.ticket' => function ($query, $ticket) {
-                $query->qWhere(Reply::TICKET_ID, $ticket->getKey());
+                $query->where(Reply::TICKET_ID, $ticket->getKey());
             },
         ];
     }

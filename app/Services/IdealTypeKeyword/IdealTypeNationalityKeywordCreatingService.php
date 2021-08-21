@@ -20,13 +20,13 @@ class IdealTypeNationalityKeywordCreatingService extends Service
         return [
             'auth_user' => function ($authUser) {
                 $keywordIds = (new Nationality())->query()
-                    ->qSelect(Nationality::ID)
+                    ->select(Nationality::ID)
                     ->getQuery()
                 ;
 
                 (new IdealTypeKeyword())->query()
-                    ->qWhere(IdealTypeKeyword::USER_ID, $authUser->getKey())
-                    ->qWhereIn(IdealTypeKeyword::KEYWORD_ID, $keywordIds)
+                    ->where(IdealTypeKeyword::USER_ID, $authUser->getKey())
+                    ->whereIn(IdealTypeKeyword::KEYWORD_ID, $keywordIds)
                     ->delete()
                 ;
             },

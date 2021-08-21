@@ -17,7 +17,7 @@ class MaxStatureRangeListingService extends Service
     {
         return [
             'query.min' => function ($min, $query) {
-                $query->qWhere('min', $min);
+                $query->where('min', $min);
             },
         ];
     }

@@ -21,13 +21,13 @@ class IdealTypeHobbyKeywordCreatingService extends Service
         return [
             'auth_user' => function ($authUser) {
                 $keywordIds = (new Hobby())->query()
-                    ->qSelect(Hobby::ID)
+                    ->select(Hobby::ID)
                     ->getQuery()
                 ;
 
                 (new IdealTypeKeyword())->query()
-                    ->qWhere(IdealTypeKeyword::USER_ID, $authUser->getKey())
-                    ->qWhereIn(IdealTypeKeyword::KEYWORD_ID, $keywordIds)
+                    ->where(IdealTypeKeyword::USER_ID, $authUser->getKey())
+                    ->whereIn(IdealTypeKeyword::KEYWORD_ID, $keywordIds)
                     ->delete()
                 ;
             },

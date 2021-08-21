@@ -20,13 +20,13 @@ class UserReligionKeywordCreatingService extends Service
         return [
             'auth_user' => function ($authUser) {
                 $keywordIds = (new Religion())->query()
-                    ->qSelect(Religion::ID)
+                    ->select(Religion::ID)
                     ->getQuery()
                 ;
 
                 (new UserKeyword())->query()
-                    ->qWhere(UserKeyword::USER_ID, $authUser->getKey())
-                    ->qWhereIn(UserKeyword::KEYWORD_ID, $keywordIds)
+                    ->where(UserKeyword::USER_ID, $authUser->getKey())
+                    ->whereIn(UserKeyword::KEYWORD_ID, $keywordIds)
                     ->delete()
                 ;
             },

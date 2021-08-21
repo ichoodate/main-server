@@ -17,7 +17,7 @@ class NoticeListingService extends Service
     {
         return [
             'query.type' => function ($query, $type) {
-                $query->qWhere(Notice::TYPE, $type);
+                $query->where(Notice::TYPE, $type);
             },
         ];
     }

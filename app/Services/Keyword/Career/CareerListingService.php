@@ -17,7 +17,7 @@ class CareerListingService extends Service
     {
         return [
             'query.parent_id' => function ($parentId, $query) {
-                $query->qWhere('parent_id', $parentId);
+                $query->where('parent_id', $parentId);
             },
         ];
     }

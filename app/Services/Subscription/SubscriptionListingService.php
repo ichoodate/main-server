@@ -18,7 +18,7 @@ class SubscriptionListingService extends Service
     {
         return [
             'query.auth_user' => function ($authUser, $query) {
-                $query->qWhere(Subscription::USER_ID, $authUser->getKey());
+                $query->where(Subscription::USER_ID, $authUser->getKey());
             },
         ];
     }

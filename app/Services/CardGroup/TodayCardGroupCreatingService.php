@@ -37,15 +37,15 @@ class TodayCardGroupCreatingService extends Service
                 $time = new \DateTime('now', new \DateTimeZone('UTC'));
 
                 $query = (new CardGroup())->query()
-                    ->qSelect(CardGroup::ID)
-                    ->qWhere(CardGroup::USER_ID, $authUser->getKey())
+                    ->select(CardGroup::ID)
+                    ->where(CardGroup::USER_ID, $authUser->getKey())
                     ->getQuery()
                 ;
 
                 return (new CardGroup())->query()
-                    ->qWhereIn(CardGroup::ID, $query)
-                    ->qWhere(CardGroup::TYPE, CardGroup::TYPE_DAILY)
-                    ->qWhere(CardGroup::CREATED_AT, '>=', $time->format('Y-m-d H:i:s'))
+                    ->whereIn(CardGroup::ID, $query)
+                    ->where(CardGroup::TYPE, CardGroup::TYPE_DAILY)
+                    ->where(CardGroup::CREATED_AT, '>=', $time->format('Y-m-d H:i:s'))
                     ->first()
                 ;
             },
@@ -56,7 +56,7 @@ class TodayCardGroupCreatingService extends Service
 
             'ideal_type_keywords' => function ($authUser) {
                 return (new IdealTypeKeyword())->query()
-                    ->qWhere(IdealTypeKeyword::USER_ID, $authUser->getKey())
+                    ->where(IdealTypeKeyword::USER_ID, $authUser->getKey())
                     ->get()
                 ;
             },

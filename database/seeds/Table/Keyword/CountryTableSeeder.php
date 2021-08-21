@@ -68,8 +68,8 @@ class CountryTableSeeder extends TableSeeder
         //         }
 
         //         $localizable = Localizable::query()
-        //             ->qWhere(Localizable::KEYWORD_ID, $keywordCountry->{Country::ID})
-        //             ->qWhere(Localizable::LANGUAGE,   $language)
+        //             ->where(Localizable::KEYWORD_ID, $keywordCountry->{Country::ID})
+        //             ->where(Localizable::LANGUAGE,   $language)
         //             ->first();
 
         //         if( empty($localizable) )
@@ -121,8 +121,8 @@ class CountryTableSeeder extends TableSeeder
         //     foreach ( $keywordCountries as $keywordCountry )
         //     {
         //         $localizable = Localizable::query()
-        //             ->qWhere(Localizable::KEYWORD_ID, $keywordCountry->{Country::ID})
-        //             ->qWhere(Localizable::LANGUAGE,   $language)
+        //             ->where(Localizable::KEYWORD_ID, $keywordCountry->{Country::ID})
+        //             ->where(Localizable::LANGUAGE,   $language)
         //             ->first();
         //         $countryCode = $keywordCountry[Country::TYPE];
 

@@ -18,7 +18,7 @@ class NotificationListingService extends Service
     {
         return [
             'query.auth_user' => function ($authUser, $query) {
-                $query->qWhere(Notification::USER_ID, $authUser->getKey());
+                $query->where(Notification::USER_ID, $authUser->getKey());
             },
         ];
     }

@@ -18,7 +18,7 @@ class PopularityListingService extends Service
     {
         return [
             'query.auth_user' => function ($authUser, $query) {
-                $query->qWhere(Popularity::RECEIVER_ID, $authUser->getKey());
+                $query->where(Popularity::RECEIVER_ID, $authUser->getKey());
             },
         ];
     }

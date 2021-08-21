@@ -37,130 +37,11 @@ class Query extends \Illuminate\Database\Eloquent\Builder
         return array_last($segments);
     }
 
-    public function orQWhere($column, $operator = null, $value = null)
-    {
-        return $this->qWhere($column, $operator, $value, 'or');
-    }
-
-    public function qGroupBy(...$columns)
-    {
-        $first = array_first($columns);
-
-        if (is_array($first)) {
-            $columns = $first;
-        }
-
-        foreach ($columns as $i => $column) {
-            $columns[$i] = $this->getTable().'.'.$column;
-        }
-
-        return call_user_func_array([$this, 'groupBy'], [$columns]);
-    }
-
-    public function qOrderBy($column, $direction)
-    {
-        $column = $this->getTable().'.'.$column.' '.$direction;
-
-        return call_user_func_array([$this, 'orderByRaw'], [$column]);
-    }
-
-    public function qOrWhere($column)
-    {
-        $args = func_get_args();
-
-        $args[0] = $this->getTable().'.'.$column;
-
-        return call_user_func_array([$this, 'orWhere'], $args);
-    }
-
-    public function qOrWhereIn($column)
-    {
-        $args = func_get_args();
-
-        $args[0] = $this->getTable().'.'.$column;
-
-        return call_user_func_array([$this, 'orWhereIn'], $args);
-    }
-
-    public function qSelect($columns)
-    {
-        $columns = is_array($columns) ? $columns : [$columns];
-
-        foreach ($columns as $i => $column) {
-            $columns[$i] = $this->getTable().'.'.$column;
-        }
-
-        return call_user_func_array([$this, 'selectRaw'], [implode(',', $columns)]);
-    }
-
-    public function qWhere($column)
-    {
-        $args = func_get_args();
-
-        $args[0] = $this->getTable().'.'.$column;
-
-        return call_user_func_array([$this, 'where'], $args);
-    }
-
-    public function qWhereBetween($column)
-    {
-        $args = func_get_args();
-
-        $args[0] = $this->getTable().'.'.$column;
-
-        return call_user_func_array([$this, 'whereBetween'], $args);
-    }
-
-    public function qWhereIn($column)
-    {
-        $args = func_get_args();
-
-        $args[0] = $this->getTable().'.'.$column;
-
-        return call_user_func_array([$this, 'whereIn'], $args);
-    }
-
-    public function qWhereNotIn($column)
-    {
-        $args = func_get_args();
-
-        $args[0] = $this->getTable().'.'.$column;
-
-        return call_user_func_array([$this, 'whereNotIn'], $args);
-    }
-
-    public function qWhereNotNull($column)
-    {
-        $args = func_get_args();
-
-        $args[0] = $this->getTable().'.'.$column;
-
-        return call_user_func_array([$this, 'whereNotNull'], $args);
-    }
-
-    public function qWhereNull($column)
-    {
-        $args = func_get_args();
-
-        $args[0] = $this->getTable().'.'.$column;
-
-        return call_user_func_array([$this, 'whereNull'], $args);
-    }
-
-    public function qWhereSub($column)
-    {
-        $args = func_get_args();
-
-        $args[0] = $this->getTable().'.'.$column;
-
-        return call_user_func_array([$this, 'whereSub'], $args);
-    }
-
     public function selectIdQuery()
     {
         $keyName = $this->getModel()->getKeyName();
 
-        return $this->qSelect($keyName)->getQuery();
+        return $this->select($keyName)->getQuery();
     }
 
     public function toSqlWithBindings()
@@ -168,34 +49,5 @@ class Query extends \Illuminate\Database\Eloquent\Builder
         $str = str_replace('?', "'?'", parent::toSql());
 
         return vsprintf(str_replace('?', '%s', $str), $this->getBindings());
-    }
-
-    /**
-     * overriding laravel/framework.
-     *
-     * @return int
-     */
-    public function update(array $values)
-    {
-        // return $this->toBase()->update($this->addUpdatedAtColumn($values));
-
-        return $this->toBase()->update($values);
-    }
-
-    public function where($column, $operator = null, $value = null, $boolean = 'and')
-    {
-        if ($column instanceof \Closure) {
-            $query = $this->model->newQueryWithoutScopes();
-
-            $query->from($this->getTable());
-
-            call_user_func($column, $query);
-
-            $this->query->addNestedWhereQuery($query->getQuery(), $boolean);
-        } else {
-            call_user_func_array([$this->query, 'where'], func_get_args());
-        }
-
-        return $this;
     }
 }

@@ -44,9 +44,9 @@ class UsedCoinAddingService extends Service
                 $time = new \DateTime('now', new \DateTimeZone($timezone));
 
                 return (new Balance())->query()
-                    ->qWhere(Balance::USER_ID, $authUser->getKey())
-                    ->qWhere(Balance::DELETED_AT, '>=', $time->format('Y-m-d H:i:s'))
-                    ->qOrderBy(Balance::DELETED_AT, 'asc')
+                    ->where(Balance::USER_ID, $authUser->getKey())
+                    ->where(Balance::DELETED_AT, '>=', $time->format('Y-m-d H:i:s'))
+                    ->orderBy(Balance::DELETED_AT, 'asc')
                     ->get()
                 ;
             },

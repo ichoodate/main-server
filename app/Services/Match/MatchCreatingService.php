@@ -46,8 +46,8 @@ class MatchCreatingService extends Service
 
             'existed' => function ($authUser, $authUserIdField, $matchingUserIdField, $matchingUserIds) {
                 return (new Match())->query()
-                    ->qWhere($authUserIdField, $authUser->getKey())
-                    ->qWhereIn($matchingUserIdField, $matchingUserIds)
+                    ->where($authUserIdField, $authUser->getKey())
+                    ->whereIn($matchingUserIdField, $matchingUserIds)
                     ->get()
                 ;
             },

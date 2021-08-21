@@ -18,7 +18,7 @@ class InvoiceListingService extends Service
     {
         return [
             'query.auth_user' => function ($authUser, $query) {
-                $query->qWhere(Invoice::USER_ID, $authUser->getKey());
+                $query->where(Invoice::USER_ID, $authUser->getKey());
             },
         ];
     }

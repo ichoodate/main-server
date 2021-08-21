@@ -18,7 +18,7 @@ class PaymentListingService extends Service
     {
         return [
             'query.auth_user' => function ($authUser, $query) {
-                $query->qWhere(Payment::USER_ID, $authUser->getKey());
+                $query->where(Payment::USER_ID, $authUser->getKey());
             },
         ];
     }

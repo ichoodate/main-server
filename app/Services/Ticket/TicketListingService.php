@@ -18,7 +18,7 @@ class TicketListingService extends Service
     {
         return [
             'query.auth_user' => function ($authUser, $query) {
-                $query->qWhere(Ticket::WRITER_ID, $authUser->getKey());
+                $query->where(Ticket::WRITER_ID, $authUser->getKey());
             },
         ];
     }
