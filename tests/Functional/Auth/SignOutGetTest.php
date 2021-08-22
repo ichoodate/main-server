@@ -9,7 +9,7 @@ use Tests\Functional\_TestCase;
  * @internal
  * @coversNothing
  */
-class SignOutPostTest extends _TestCase
+class SignOutGetTest extends _TestCase
 {
     protected $uri = 'auth/sign-out';
 
