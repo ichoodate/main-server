@@ -21,7 +21,7 @@ class ChattingContentTableSeeder extends TableSeeder
 
             if (2 == $friends->count()) {
                 for ($k = 0; $k < rand(0, 5); ++$k) {
-                    $this->factory(ChattingContent::class)->create([
+                    ChattingContent::factory()->create([
                         ChattingContent::MATCH_ID => $match->getKey(),
                         ChattingContent::WRITER_ID => $userId,
                         ChattingContent::MESSAGE => Str::random(25),

@@ -16,15 +16,15 @@ class IdProfilePhotosGetTest extends _TestCase
 
     public function test()
     {
-        $this->factory(User::class)->create(['id' => 1]);
-        $this->factory(User::class)->create(['id' => 2]);
-        $this->factory(User::class)->create(['id' => 3]);
-        $this->factory(ProfilePhoto::class)->create(['id' => 11, 'user_id' => 1]);
-        $this->factory(ProfilePhoto::class)->create(['id' => 12, 'user_id' => 1]);
-        $this->factory(ProfilePhoto::class)->create(['id' => 13, 'user_id' => 2]);
-        $this->factory(ProfilePhoto::class)->create(['id' => 14, 'user_id' => 2]);
-        $this->factory(ProfilePhoto::class)->create(['id' => 15, 'user_id' => 3]);
-        $this->factory(ProfilePhoto::class)->create(['id' => 16, 'user_id' => 3]);
+        User::factory()->create(['id' => 1]);
+        User::factory()->create(['id' => 2]);
+        User::factory()->create(['id' => 3]);
+        ProfilePhoto::factory()->create(['id' => 11, 'user_id' => 1]);
+        ProfilePhoto::factory()->create(['id' => 12, 'user_id' => 1]);
+        ProfilePhoto::factory()->create(['id' => 13, 'user_id' => 2]);
+        ProfilePhoto::factory()->create(['id' => 14, 'user_id' => 2]);
+        ProfilePhoto::factory()->create(['id' => 15, 'user_id' => 3]);
+        ProfilePhoto::factory()->create(['id' => 16, 'user_id' => 3]);
 
         $this->when(function () {
             $this->setRouteParameter('id', 1);
@@ -51,7 +51,7 @@ class IdProfilePhotosGetTest extends _TestCase
 
         app('db')->beginTransaction();
 
-        $this->factory(ProfilePhoto::class)->create(['id' => 2]);
+        ProfilePhoto::factory()->create(['id' => 2]);
 
         app('db')->rollback();
 

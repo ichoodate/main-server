@@ -16,12 +16,12 @@ class GetTest extends _TestCase
 
     public function test()
     {
-        $this->factory(User::class)->create(['id' => 1]);
-        $this->factory(User::class)->create(['id' => 2]);
-        $this->factory(Popularity::class)->create(['id' => 11, 'receiver_id' => 1]);
-        $this->factory(Popularity::class)->create(['id' => 12, 'receiver_id' => 2]);
-        $this->factory(Popularity::class)->create(['id' => 13, 'receiver_id' => 2]);
-        $this->factory(Popularity::class)->create(['id' => 14, 'receiver_id' => 1]);
+        User::factory()->create(['id' => 1]);
+        User::factory()->create(['id' => 2]);
+        Popularity::factory()->create(['id' => 11, 'receiver_id' => 1]);
+        Popularity::factory()->create(['id' => 12, 'receiver_id' => 2]);
+        Popularity::factory()->create(['id' => 13, 'receiver_id' => 2]);
+        Popularity::factory()->create(['id' => 14, 'receiver_id' => 1]);
 
         $this->when(function () {
             $this->setAuthUser(User::find(1));

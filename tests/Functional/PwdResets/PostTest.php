@@ -16,7 +16,7 @@ class PostTest extends _TestCase
 
     public function test()
     {
-        $this->factory(User::class)->create([
+        User::factory()->create([
             User::ID => 1,
             User::EMAIL => 'abcd@gmail.com',
         ]);
@@ -42,7 +42,7 @@ class PostTest extends _TestCase
 
     public function testErrorNotNullRuleUser()
     {
-        $this->factory(User::class)->create([
+        User::factory()->create([
             User::ID => 1,
             User::EMAIL => 'abcd@gmail.com',
         ]);

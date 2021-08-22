@@ -17,7 +17,7 @@ class CardFlipTableSeeder extends Seeder
         ;
 
         if (empty($cardFlip)) {
-            $this->factory(CardFlip::class)->create([
+            CardFlip::factory()->create([
                 CardFlip::RELATED_ID => $card->getKey(),
                 CardFlip::USER_ID => $userId,
             ]);

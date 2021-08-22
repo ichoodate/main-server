@@ -16,11 +16,11 @@ class IdGetTest extends _TestCase
 
     public function test()
     {
-        $this->factory(User::class)->create(['id' => 1]);
-        $this->factory(User::class)->create(['id' => 2]);
-        $this->factory(User::class)->create(['id' => 3]);
-        $this->factory(Card::class)->create(['id' => 11, 'chooser_id' => 1, 'showner_id' => 2]);
-        $this->factory(Card::class)->create(['id' => 12, 'chooser_id' => 3, 'showner_id' => 2]);
+        User::factory()->create(['id' => 1]);
+        User::factory()->create(['id' => 2]);
+        User::factory()->create(['id' => 3]);
+        Card::factory()->create(['id' => 11, 'chooser_id' => 1, 'showner_id' => 2]);
+        Card::factory()->create(['id' => 12, 'chooser_id' => 3, 'showner_id' => 2]);
 
         $this->when(function () {
             $this->setAuthUser(User::find(1));
@@ -54,8 +54,8 @@ class IdGetTest extends _TestCase
 
     public function testErrorNotNullRuleModel()
     {
-        $this->factory(Card::class)->create(['id' => 11]);
-        $this->factory(Card::class)->create(['id' => 12]);
+        Card::factory()->create(['id' => 11]);
+        Card::factory()->create(['id' => 12]);
 
         $this->when(function () {
             $this->setRouteParameter('id', 13);
@@ -73,11 +73,11 @@ class IdGetTest extends _TestCase
 
     public function testErrorRequiredRulePermittedUser()
     {
-        $this->factory(User::class)->create(['id' => 1]);
-        $this->factory(User::class)->create(['id' => 2]);
-        $this->factory(User::class)->create(['id' => 3]);
-        $this->factory(Card::class)->create(['id' => 11, 'chooser_id' => 1, 'showner_id' => 2]);
-        $this->factory(Card::class)->create(['id' => 12, 'chooser_id' => 3, 'showner_id' => 2]);
+        User::factory()->create(['id' => 1]);
+        User::factory()->create(['id' => 2]);
+        User::factory()->create(['id' => 3]);
+        Card::factory()->create(['id' => 11, 'chooser_id' => 1, 'showner_id' => 2]);
+        Card::factory()->create(['id' => 12, 'chooser_id' => 3, 'showner_id' => 2]);
 
         $this->when(function () {
             $this->setAuthUser(User::find(3));

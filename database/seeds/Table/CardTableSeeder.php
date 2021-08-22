@@ -40,14 +40,14 @@ class CardTableSeeder extends TableSeeder
                 ;
 
                 if (empty($card) || 4 == $card['count']) {
-                    $group = $this->factory(CardGroup::class)->create([
+                    $group = CardGroup::factory()->create([
                         CardGroup::USER_ID => $chooser->getKey(),
                     ]);
                 } else {
                     $group = CardGroup::find($card->{Card::GROUP_ID});
                 }
 
-                $this->factory(Card::class)->create([
+                Card::factory()->create([
                     Card::CHOOSER_ID => $chooser->getKey(),
                     Card::SHOWNER_ID => $showner->getKey(),
                     Card::MATCH_ID => $match->getKey(),

@@ -15,9 +15,9 @@ class GetTest extends _TestCase
 
     public function test()
     {
-        $this->factory(WeightRange::class)->create(['id' => 11, 'min' => 21]);
-        $this->factory(WeightRange::class)->create(['id' => 12, 'min' => 22]);
-        $this->factory(WeightRange::class)->create(['id' => 13, 'min' => 22]);
+        WeightRange::factory()->create(['id' => 11, 'min' => 21]);
+        WeightRange::factory()->create(['id' => 12, 'min' => 22]);
+        WeightRange::factory()->create(['id' => 13, 'min' => 22]);
 
         $this->when(function () {
             $this->setInputParameter('min', 21);

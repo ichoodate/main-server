@@ -16,10 +16,10 @@ class IdGetTest extends _TestCase
 
     public function test()
     {
-        $this->factory(User::class)->create(['id' => 1]);
-        $this->factory(User::class)->create(['id' => 2]);
-        $this->factory(Ticket::class)->create(['id' => 11, 'writer_id' => 1]);
-        $this->factory(Ticket::class)->create(['id' => 12, 'writer_id' => 2]);
+        User::factory()->create(['id' => 1]);
+        User::factory()->create(['id' => 2]);
+        Ticket::factory()->create(['id' => 11, 'writer_id' => 1]);
+        Ticket::factory()->create(['id' => 12, 'writer_id' => 2]);
 
         $this->when(function () {
             $this->setAuthUser(User::find(1));
@@ -47,8 +47,8 @@ class IdGetTest extends _TestCase
 
     public function testErrorNotNullRuleModel()
     {
-        $this->factory(Ticket::class)->create(['id' => 11]);
-        $this->factory(Ticket::class)->create(['id' => 12]);
+        Ticket::factory()->create(['id' => 11]);
+        Ticket::factory()->create(['id' => 12]);
 
         $this->when(function () {
             $this->setRouteParameter('id', 13);
@@ -66,8 +66,8 @@ class IdGetTest extends _TestCase
 
     public function testRequiredRulePermittedUser()
     {
-        $this->factory(User::class)->create(['id' => 1]);
-        $this->factory(Ticket::class)->create(['id' => 11, 'writer_id' => 2]);
+        User::factory()->create(['id' => 1]);
+        Ticket::factory()->create(['id' => 11, 'writer_id' => 2]);
 
         $this->when(function () {
             $this->setAuthUser(User::find(1));

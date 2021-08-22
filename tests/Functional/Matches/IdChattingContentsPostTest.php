@@ -18,13 +18,13 @@ class IdChattingContentsPostTest extends _TestCase
 
     public function test()
     {
-        $this->factory(User::class)->create(['id' => 1]);
-        $this->factory(User::class)->create(['id' => 2]);
-        $this->factory(User::class)->create(['id' => 3]);
-        $this->factory(Match::class)->create(['id' => 11, 'man_id' => 1, 'woman_id' => 2]);
-        $this->factory(Match::class)->create(['id' => 12, 'man_id' => 3, 'woman_id' => 2]);
-        $this->factory(Friend::class)->create(['id' => 101, 'from_id' => 1, 'related_id' => 11, 'to_id' => 12]);
-        $this->factory(Friend::class)->create(['id' => 102, 'from_id' => 3, 'related_id' => 12, 'to_id' => 11]);
+        User::factory()->create(['id' => 1]);
+        User::factory()->create(['id' => 2]);
+        User::factory()->create(['id' => 3]);
+        Match::factory()->create(['id' => 11, 'man_id' => 1, 'woman_id' => 2]);
+        Match::factory()->create(['id' => 12, 'man_id' => 3, 'woman_id' => 2]);
+        Friend::factory()->create(['id' => 101, 'from_id' => 1, 'related_id' => 11, 'to_id' => 12]);
+        Friend::factory()->create(['id' => 102, 'from_id' => 3, 'related_id' => 12, 'to_id' => 11]);
 
         $this->when(function () {
             $this->setAuthUser(User::find(1));
@@ -74,8 +74,8 @@ class IdChattingContentsPostTest extends _TestCase
 
     public function testErrorNotNullRuleMatch()
     {
-        $this->factory(User::class)->create(['id' => 1]);
-        $this->factory(Match::class)->create(['id' => 11, 'man_id' => 1, 'woman_id' => 2]);
+        User::factory()->create(['id' => 1]);
+        Match::factory()->create(['id' => 11, 'man_id' => 1, 'woman_id' => 2]);
 
         $this->when(function () {
             $this->setAuthUser(User::find(1));
@@ -87,10 +87,10 @@ class IdChattingContentsPostTest extends _TestCase
 
     public function testErrorNotNullRuleMatchPermittedUser()
     {
-        $this->factory(User::class)->create(['id' => 1]);
-        $this->factory(User::class)->create(['id' => 2]);
-        $this->factory(User::class)->create(['id' => 3]);
-        $this->factory(Match::class)->create(['id' => 11, 'man_id' => 1, 'woman_id' => 2]);
+        User::factory()->create(['id' => 1]);
+        User::factory()->create(['id' => 2]);
+        User::factory()->create(['id' => 3]);
+        Match::factory()->create(['id' => 11, 'man_id' => 1, 'woman_id' => 2]);
 
         $this->when(function () {
             $this->setAuthUser(User::find(3));
@@ -102,8 +102,8 @@ class IdChattingContentsPostTest extends _TestCase
 
     public function testErrorNotNullRuleMatchPropose()
     {
-        $this->factory(User::class)->create(['id' => 1]);
-        $this->factory(Match::class)->create(['id' => 11, 'man_id' => 1, 'woman_id' => 2]);
+        User::factory()->create(['id' => 1]);
+        Match::factory()->create(['id' => 11, 'man_id' => 1, 'woman_id' => 2]);
 
         $this->when(function () {
             $this->setAuthUser(User::find(1));

@@ -2,9 +2,9 @@
 
 namespace Tests\Functional\IdealTypeKeyword;
 
+use App\Models\IdealTypeKeyword;
 use App\Models\Keyword\StatureRange;
 use App\Models\User;
-use App\Models\IdealTypeKeyword;
 use Tests\Functional\_TestCase;
 
 /**
@@ -17,14 +17,14 @@ class StatureRangesPostTest extends _TestCase
 
     public function test()
     {
-        $this->factory(User::class)->create(['id' => 1]);
-        $this->factory(User::class)->create(['id' => 2]);
-        $this->factory(StatureRange::class)->create(['id' => 11]);
-        $this->factory(StatureRange::class)->create(['id' => 12]);
-        $this->factory(StatureRange::class)->create(['id' => 13]);
-        $this->factory(IdealTypeKeyword::class)->create(['id' => 101, 'user_id' => 1, 'keyword_id' => 11]);
-        $this->factory(IdealTypeKeyword::class)->create(['id' => 102, 'user_id' => 1, 'keyword_id' => 12]);
-        $this->factory(IdealTypeKeyword::class)->create(['id' => 104, 'user_id' => 2, 'keyword_id' => 12]);
+        User::factory()->create(['id' => 1]);
+        User::factory()->create(['id' => 2]);
+        StatureRange::factory()->create(['id' => 11]);
+        StatureRange::factory()->create(['id' => 12]);
+        StatureRange::factory()->create(['id' => 13]);
+        IdealTypeKeyword::factory()->create(['id' => 101, 'user_id' => 1, 'keyword_id' => 11]);
+        IdealTypeKeyword::factory()->create(['id' => 102, 'user_id' => 1, 'keyword_id' => 12]);
+        IdealTypeKeyword::factory()->create(['id' => 104, 'user_id' => 2, 'keyword_id' => 12]);
 
         $this->when(function () {
             $this->setAuthUser(User::find(1));
@@ -62,8 +62,8 @@ class StatureRangesPostTest extends _TestCase
 
     public function testErrorNotNullRuleKeywordModel()
     {
-        $this->factory(StatureRange::class)->create(['id' => 11]);
-        $this->factory(StatureRange::class)->create(['id' => 12]);
+        StatureRange::factory()->create(['id' => 11]);
+        StatureRange::factory()->create(['id' => 12]);
 
         $this->when(function () {
             $this->setInputParameter('keyword_id', 13);

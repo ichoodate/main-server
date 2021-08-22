@@ -16,12 +16,12 @@ class IdKeywordsGetTest extends _TestCase
 
     public function test()
     {
-        $this->factory(User::class)->create(['id' => 1]);
-        $this->factory(User::class)->create(['id' => 2]);
-        $this->factory(UserKeyword::class)->create(['id' => 11, 'user_id' => 1]);
-        $this->factory(UserKeyword::class)->create(['id' => 12, 'user_id' => 2]);
-        $this->factory(UserKeyword::class)->create(['id' => 13, 'user_id' => 2]);
-        $this->factory(UserKeyword::class)->create(['id' => 14, 'user_id' => 1]);
+        User::factory()->create(['id' => 1]);
+        User::factory()->create(['id' => 2]);
+        UserKeyword::factory()->create(['id' => 11, 'user_id' => 1]);
+        UserKeyword::factory()->create(['id' => 12, 'user_id' => 2]);
+        UserKeyword::factory()->create(['id' => 13, 'user_id' => 2]);
+        UserKeyword::factory()->create(['id' => 14, 'user_id' => 1]);
 
         $this->when(function () {
             $this->setRouteParameter('id', 1);

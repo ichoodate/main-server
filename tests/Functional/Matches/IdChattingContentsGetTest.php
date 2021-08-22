@@ -17,15 +17,15 @@ class IdChattingContentsGetTest extends _TestCase
 
     public function test()
     {
-        $this->factory(User::class)->create(['id' => 1]);
-        $this->factory(User::class)->create(['id' => 2]);
-        $this->factory(User::class)->create(['id' => 3]);
-        $this->factory(User::class)->create(['id' => 4]);
-        $this->factory(Match::class)->create(['id' => 11, 'man_id' => 1, 'woman_id' => 2]);
-        $this->factory(Match::class)->create(['id' => 12, 'man_id' => 3, 'woman_id' => 4]);
-        $this->factory(ChattingContent::class)->create(['id' => 101, 'writer_id' => 1, 'match_id' => 11]);
-        $this->factory(ChattingContent::class)->create(['id' => 102, 'writer_id' => 2, 'match_id' => 11]);
-        $this->factory(ChattingContent::class)->create(['id' => 103, 'writer_id' => 3, 'match_id' => 12]);
+        User::factory()->create(['id' => 1]);
+        User::factory()->create(['id' => 2]);
+        User::factory()->create(['id' => 3]);
+        User::factory()->create(['id' => 4]);
+        Match::factory()->create(['id' => 11, 'man_id' => 1, 'woman_id' => 2]);
+        Match::factory()->create(['id' => 12, 'man_id' => 3, 'woman_id' => 4]);
+        ChattingContent::factory()->create(['id' => 101, 'writer_id' => 1, 'match_id' => 11]);
+        ChattingContent::factory()->create(['id' => 102, 'writer_id' => 2, 'match_id' => 11]);
+        ChattingContent::factory()->create(['id' => 103, 'writer_id' => 3, 'match_id' => 12]);
 
         $this->when(function () {
             $this->setAuthUser(User::find(1));
@@ -60,7 +60,7 @@ class IdChattingContentsGetTest extends _TestCase
 
     public function testNotNullRuleMatchModel()
     {
-        $this->factory(User::class)->create(['id' => 1]);
+        User::factory()->create(['id' => 1]);
 
         $this->when(function () {
             $this->setAuthUser(User::find(1));
@@ -79,8 +79,8 @@ class IdChattingContentsGetTest extends _TestCase
 
     public function testRequiredRulePermittedUser()
     {
-        $this->factory(User::class)->create(['id' => 3]);
-        $this->factory(Match::class)->create(['id' => 11, 'man_id' => 1, 'woman_id' => 2]);
+        User::factory()->create(['id' => 3]);
+        Match::factory()->create(['id' => 11, 'man_id' => 1, 'woman_id' => 2]);
 
         $this->when(function () {
             $this->setAuthUser(User::find(3));

@@ -15,8 +15,8 @@ class GetTest extends _TestCase
 
     public function test()
     {
-        $this->factory(Language::class)->create(['id' => 11]);
-        $this->factory(Language::class)->create(['id' => 12]);
+        Language::factory()->create(['id' => 11]);
+        Language::factory()->create(['id' => 12]);
 
         $this->when(function () {
             $this->assertResultWithListing([11, 12]);

@@ -17,8 +17,8 @@ class PostTest extends _TestCase
 
     public function test()
     {
-        $this->factory(User::class)->create(['id' => 1]);
-        $this->factory(Role::class)->create(['user_id' => 1, 'type' => Role::TYPE_ADMIN]);
+        User::factory()->create(['id' => 1]);
+        Role::factory()->create(['user_id' => 1, 'type' => Role::TYPE_ADMIN]);
 
         $this->when(function () {
             $this->setAuthUser(User::find(1));

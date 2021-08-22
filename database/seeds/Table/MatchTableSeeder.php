@@ -33,7 +33,7 @@ class MatchTableSeeder extends TableSeeder
                     ->where($otherUserIdColumn, $otherUser->getKey())->first();
 
                 if (empty($match)) {
-                    $this->factory(Match::class)->create([
+                    Match::factory()->create([
                         $userIdColumn => $user->getKey(),
                         $otherUserIdColumn => $otherUser->getKey(),
                     ]);

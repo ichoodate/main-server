@@ -15,8 +15,8 @@ class IdGetTest extends _TestCase
 
     public function test()
     {
-        $this->factory(Localizable::class)->create(['id' => 11]);
-        $this->factory(Localizable::class)->create(['id' => 12]);
+        Localizable::factory()->create(['id' => 11]);
+        Localizable::factory()->create(['id' => 12]);
 
         $this->when(function () {
             $this->setRouteParameter('id', 11);
@@ -43,8 +43,8 @@ class IdGetTest extends _TestCase
     public function testErrorNotNullRuleModel()
     {
         $this->when(function () {
-            $this->factory(Localizable::class)->create(['id' => 11]);
-            $this->factory(Localizable::class)->create(['id' => 12]);
+            Localizable::factory()->create(['id' => 11]);
+            Localizable::factory()->create(['id' => 12]);
 
             $this->setRouteParameter('id', 13);
 

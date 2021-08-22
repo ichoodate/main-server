@@ -15,17 +15,17 @@ class SignInPostTest extends _TestCase
 
     public function test()
     {
-        $this->factory(User::class)->create([
+        User::factory()->create([
             'id' => 1,
             'email' => $this->faker->email,
             'password' => bcrypt('abcdef'),
         ]);
-        $this->factory(User::class)->create([
+        User::factory()->create([
             'id' => 2,
             'email' => 'abc123@example.com',
             'password' => bcrypt('bcdefg'),
         ]);
-        $this->factory(User::class)->create([
+        User::factory()->create([
             'id' => 3,
             'email' => $this->faker->email,
             'password' => bcrypt('cdefgh'),

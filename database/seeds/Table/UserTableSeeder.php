@@ -12,12 +12,12 @@ class UserTableSeeder extends TableSeeder
     {
         for ($i = 0; $i < 1000; ++$i) {
             if (0 == $i) {
-                $this->factory(User::class)->create([
+                User::factory()->create([
                     User::EMAIL => 'dbwhddn10@gmail.com',
                     User::PASSWORD => Hash::make('dbwhddn'),
                 ]);
             } else {
-                $this->factory(User::class)->create([
+                User::factory()->create([
                     User::PASSWORD => Hash::make('dbwhddn'),
                 ]);
             }

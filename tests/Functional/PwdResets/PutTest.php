@@ -17,11 +17,11 @@ class PutTest extends _TestCase
 
     public function test()
     {
-        $this->factory(User::class)->create([
+        User::factory()->create([
             User::ID => 1,
             User::EMAIL => 'abcd@gmail.com',
         ]);
-        $this->factory(PwdReset::class)->create([
+        PwdReset::factory()->create([
             PwdReset::ID => 11,
             PwdReset::TOKEN => 'de99a620c50f2990e87144735cd357e7',
             PwdReset::EMAIL => 'abcd@gmail.com',
@@ -50,7 +50,7 @@ class PutTest extends _TestCase
 
     public function testErrorFalseRuleResultComplete()
     {
-        $this->factory(PwdReset::class)->create([
+        PwdReset::factory()->create([
             PwdReset::ID => 11,
             PwdReset::TOKEN => 'de99a620c50f2990e87144735cd357e7',
             PwdReset::EMAIL => 'abcd@gmail.com',
@@ -76,7 +76,7 @@ class PutTest extends _TestCase
 
     public function testErrorNotNullRuleResult()
     {
-        $this->factory(PwdReset::class)->create([
+        PwdReset::factory()->create([
             PwdReset::ID => 11,
             PwdReset::TOKEN => 'de99a620c50f2990e87144735cd357e7',
             PwdReset::EMAIL => 'abcd@gmail.com',
@@ -105,7 +105,7 @@ class PutTest extends _TestCase
 
     public function testErrorSameRuleResultToken()
     {
-        $this->factory(PwdReset::class)->create([
+        PwdReset::factory()->create([
             PwdReset::ID => 11,
             PwdReset::TOKEN => 'de99a620c50f2990e87144735cd357e7',
             PwdReset::EMAIL => 'abcd@gmail.com',

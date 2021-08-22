@@ -17,14 +17,14 @@ class ResidencesPostTest extends _TestCase
 
     public function test()
     {
-        $this->factory(User::class)->create(['id' => 1]);
-        $this->factory(User::class)->create(['id' => 2]);
-        $this->factory(Residence::class)->create(['id' => 11]);
-        $this->factory(Residence::class)->create(['id' => 12]);
-        $this->factory(Residence::class)->create(['id' => 13]);
-        $this->factory(UserKeyword::class)->create(['id' => 101, 'user_id' => 1, 'keyword_id' => 11]);
-        $this->factory(UserKeyword::class)->create(['id' => 102, 'user_id' => 1, 'keyword_id' => 12]);
-        $this->factory(UserKeyword::class)->create(['id' => 104, 'user_id' => 2, 'keyword_id' => 12]);
+        User::factory()->create(['id' => 1]);
+        User::factory()->create(['id' => 2]);
+        Residence::factory()->create(['id' => 11]);
+        Residence::factory()->create(['id' => 12]);
+        Residence::factory()->create(['id' => 13]);
+        UserKeyword::factory()->create(['id' => 101, 'user_id' => 1, 'keyword_id' => 11]);
+        UserKeyword::factory()->create(['id' => 102, 'user_id' => 1, 'keyword_id' => 12]);
+        UserKeyword::factory()->create(['id' => 104, 'user_id' => 2, 'keyword_id' => 12]);
 
         $this->when(function () {
             $this->setAuthUser(User::find(1));
@@ -62,8 +62,8 @@ class ResidencesPostTest extends _TestCase
 
     public function testErrorNotNullRuleKeywordModel()
     {
-        $this->factory(Residence::class)->create(['id' => 11]);
-        $this->factory(Residence::class)->create(['id' => 12]);
+        Residence::factory()->create(['id' => 11]);
+        Residence::factory()->create(['id' => 12]);
 
         $this->when(function () {
             $this->setInputParameter('keyword_id', 13);

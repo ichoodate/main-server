@@ -16,12 +16,12 @@ class GetTest extends _TestCase
 
     public function test()
     {
-        $this->factory(User::class)->create(['id' => 1]);
-        $this->factory(User::class)->create(['id' => 2]);
-        $this->factory(Ticket::class)->create(['id' => 11, 'writer_id' => 1]);
-        $this->factory(Ticket::class)->create(['id' => 12, 'writer_id' => 2]);
-        $this->factory(Ticket::class)->create(['id' => 13, 'writer_id' => 2]);
-        $this->factory(Ticket::class)->create(['id' => 14, 'writer_id' => 1]);
+        User::factory()->create(['id' => 1]);
+        User::factory()->create(['id' => 2]);
+        Ticket::factory()->create(['id' => 11, 'writer_id' => 1]);
+        Ticket::factory()->create(['id' => 12, 'writer_id' => 2]);
+        Ticket::factory()->create(['id' => 13, 'writer_id' => 2]);
+        Ticket::factory()->create(['id' => 14, 'writer_id' => 1]);
 
         $this->when(function () {
             $this->setAuthUser(User::find(1));

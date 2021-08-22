@@ -15,9 +15,9 @@ class GetTest extends _TestCase
 
     public function test()
     {
-        $this->factory(StatureRange::class)->create(['id' => 11, 'min' => 21]);
-        $this->factory(StatureRange::class)->create(['id' => 12, 'min' => 22]);
-        $this->factory(StatureRange::class)->create(['id' => 13, 'min' => 22]);
+        StatureRange::factory()->create(['id' => 11, 'min' => 21]);
+        StatureRange::factory()->create(['id' => 12, 'min' => 22]);
+        StatureRange::factory()->create(['id' => 13, 'min' => 22]);
 
         $this->when(function () {
             $this->setInputParameter('min', 21);

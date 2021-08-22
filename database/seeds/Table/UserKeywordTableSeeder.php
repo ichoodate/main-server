@@ -33,43 +33,43 @@ class UserKeywordTableSeeder extends TableSeeder
             $stature = Stature::orderByRaw('rand()')->first();
             $weight = Weight::orderByRaw('rand()')->first();
 
-            $this->factory(UserKeyword::class)->create([
+            UserKeyword::factory()->create([
                 UserKeyword::USER_ID => $user->getKey(),
                 UserKeyword::KEYWORD_ID => $birthYear->getKey(),
             ]);
-            $this->factory(UserKeyword::class)->create([
+            UserKeyword::factory()->create([
                 UserKeyword::USER_ID => $user->getKey(),
                 UserKeyword::KEYWORD_ID => $career->getKey(),
             ]);
-            $this->factory(UserKeyword::class)->create([
+            UserKeyword::factory()->create([
                 UserKeyword::USER_ID => $user->getKey(),
                 UserKeyword::KEYWORD_ID => $drink->getKey(),
             ]);
-            $this->factory(UserKeyword::class)->create([
+            UserKeyword::factory()->create([
                 UserKeyword::USER_ID => $user->getKey(),
                 UserKeyword::KEYWORD_ID => $hobby->getKey(),
             ]);
-            $this->factory(UserKeyword::class)->create([
+            UserKeyword::factory()->create([
                 UserKeyword::USER_ID => $user->getKey(),
                 UserKeyword::KEYWORD_ID => $nationality->getKey(),
             ]);
-            $this->factory(UserKeyword::class)->create([
+            UserKeyword::factory()->create([
                 UserKeyword::USER_ID => $user->getKey(),
                 UserKeyword::KEYWORD_ID => $religion->getKey(),
             ]);
-            $this->factory(UserKeyword::class)->create([
+            UserKeyword::factory()->create([
                 UserKeyword::USER_ID => $user->getKey(),
                 UserKeyword::KEYWORD_ID => $residence->getKey(),
             ]);
-            $this->factory(UserKeyword::class)->create([
+            UserKeyword::factory()->create([
                 UserKeyword::USER_ID => $user->getKey(),
                 UserKeyword::KEYWORD_ID => $smoke->getKey(),
             ]);
-            $this->factory(UserKeyword::class)->create([
+            UserKeyword::factory()->create([
                 UserKeyword::USER_ID => $user->getKey(),
                 UserKeyword::KEYWORD_ID => $stature->getKey(),
             ]);
-            $this->factory(UserKeyword::class)->create([
+            UserKeyword::factory()->create([
                 UserKeyword::USER_ID => $user->getKey(),
                 UserKeyword::KEYWORD_ID => $weight->getKey(),
             ]);

@@ -16,11 +16,11 @@ class IdGetTest extends _TestCase
 
     public function test()
     {
-        $this->factory(User::class)->create(['id' => 1]);
-        $this->factory(User::class)->create(['id' => 2]);
-        $this->factory(User::class)->create(['id' => 3]);
-        $this->factory(Popularity::class)->create(['id' => 11, 'sender_id' => 1, 'receiver_id' => 2]);
-        $this->factory(Popularity::class)->create(['id' => 12, 'sender_id' => 3, 'receiver_id' => 2]);
+        User::factory()->create(['id' => 1]);
+        User::factory()->create(['id' => 2]);
+        User::factory()->create(['id' => 3]);
+        Popularity::factory()->create(['id' => 11, 'sender_id' => 1, 'receiver_id' => 2]);
+        Popularity::factory()->create(['id' => 12, 'sender_id' => 3, 'receiver_id' => 2]);
 
         $this->when(function () {
             $this->setAuthUser(User::find(1));
@@ -55,8 +55,8 @@ class IdGetTest extends _TestCase
 
     public function testErrorNotNullRuleModel()
     {
-        $this->factory(Popularity::class)->create(['id' => 11]);
-        $this->factory(Popularity::class)->create(['id' => 12]);
+        Popularity::factory()->create(['id' => 11]);
+        Popularity::factory()->create(['id' => 12]);
 
         $this->when(function () {
             $this->setRouteParameter('id', 13);
@@ -74,11 +74,11 @@ class IdGetTest extends _TestCase
 
     public function testRequiredRulePermittedUser()
     {
-        $this->factory(User::class)->create(['id' => 1]);
-        $this->factory(User::class)->create(['id' => 2]);
-        $this->factory(User::class)->create(['id' => 3]);
-        $this->factory(Popularity::class)->create(['id' => 11, 'sender_id' => 1, 'receiver_id' => 2]);
-        $this->factory(Popularity::class)->create(['id' => 12, 'sender_id' => 3, 'receiver_id' => 2]);
+        User::factory()->create(['id' => 1]);
+        User::factory()->create(['id' => 2]);
+        User::factory()->create(['id' => 3]);
+        Popularity::factory()->create(['id' => 11, 'sender_id' => 1, 'receiver_id' => 2]);
+        Popularity::factory()->create(['id' => 12, 'sender_id' => 3, 'receiver_id' => 2]);
 
         $this->when(function () {
             $this->setAuthUser(User::find(3));

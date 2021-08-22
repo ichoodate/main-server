@@ -16,9 +16,9 @@ class PostTest extends _TestCase
 
     public function test()
     {
-        $this->factory(User::class)->create(['id' => 1]);
-        $this->factory(User::class)->create(['id' => 2]);
-        $this->factory(FacePhoto::class)->create(['id' => 11, 'user_id' => 1]);
+        User::factory()->create(['id' => 1]);
+        User::factory()->create(['id' => 2]);
+        FacePhoto::factory()->create(['id' => 11, 'user_id' => 1]);
 
         $this->when(function () {
             $this->setAuthUser(User::find(1));
@@ -33,7 +33,7 @@ class PostTest extends _TestCase
 
     public function testErrorBase64ImageRuleUpload()
     {
-        $this->factory(User::class)->create(['id' => 1]);
+        User::factory()->create(['id' => 1]);
 
         $this->when(function () {
             $this->setAuthUser(User::find(1));

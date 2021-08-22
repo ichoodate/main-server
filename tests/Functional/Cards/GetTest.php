@@ -22,20 +22,20 @@ class GetTest extends _TestCase
     {
         $namedIds = [];
         $rand = rand(0, 1);
-        $user1 = $this->factory(User::class)->create([
+        $user1 = User::factory()->create([
             User::ID => 1,
             User::GENDER => $rand ? User::GENDER_MAN : User::GENDER_WOMAN,
         ]);
-        $user2 = $this->factory(User::class)->create([
+        $user2 = User::factory()->create([
             User::ID => 2,
             User::GENDER => $rand ? User::GENDER_WOMAN : User::GENDER_MAN,
         ]);
-        $user3 = $this->factory(User::class)->create([
+        $user3 = User::factory()->create([
             User::ID => 3,
             User::GENDER => $rand ? User::GENDER_MAN : User::GENDER_WOMAN,
         ]);
 
-        $this->factory(Match::class)->create([
+        Match::factory()->create([
             Match::MAN_ID => $rand ? 1 : 2,
             Match::WOMAN_ID => $rand ? 2 : 1,
             Match::FRIENDS => [[
@@ -82,7 +82,7 @@ class GetTest extends _TestCase
             ]],
         ]);
 
-        $this->factory(Match::class)->create([
+        Match::factory()->create([
             Match::MAN_ID => $rand ? 3 : 2,
             Match::WOMAN_ID => $rand ? 2 : 3,
             Match::FRIENDS => [[

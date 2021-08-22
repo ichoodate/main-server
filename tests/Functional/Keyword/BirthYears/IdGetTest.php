@@ -15,8 +15,8 @@ class IdGetTest extends _TestCase
 
     public function test()
     {
-        $this->factory(BirthYear::class)->create(['id' => 11]);
-        $this->factory(BirthYear::class)->create(['id' => 12]);
+        BirthYear::factory()->create(['id' => 11]);
+        BirthYear::factory()->create(['id' => 12]);
 
         $this->when(function () {
             $this->setRouteParameter('id', 11);

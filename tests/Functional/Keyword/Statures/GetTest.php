@@ -15,8 +15,8 @@ class GetTest extends _TestCase
 
     public function test()
     {
-        $this->factory(Stature::class)->create(['id' => 11]);
-        $this->factory(Stature::class)->create(['id' => 12]);
+        Stature::factory()->create(['id' => 11]);
+        Stature::factory()->create(['id' => 12]);
 
         $this->when(function () {
             $this->assertResultWithListing([11, 12]);

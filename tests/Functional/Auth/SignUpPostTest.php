@@ -76,7 +76,7 @@ class SignUpPostTest extends _TestCase
 
     public function testErrorNotNullRuleSameEmailUser()
     {
-        $this->factory(User::class)->create([
+        User::factory()->create([
             User::EMAIL => 'abcd@gmail.com',
         ]);
 

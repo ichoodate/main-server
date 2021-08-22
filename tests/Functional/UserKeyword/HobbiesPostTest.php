@@ -17,15 +17,15 @@ class HobbiesPostTest extends _TestCase
 
     public function test()
     {
-        $this->factory(User::class)->create(['id' => 1]);
-        $this->factory(User::class)->create(['id' => 2]);
-        $this->factory(Hobby::class)->create(['id' => 11]);
-        $this->factory(Hobby::class)->create(['id' => 12]);
-        $this->factory(Hobby::class)->create(['id' => 13]);
-        $this->factory(Hobby::class)->create(['id' => 14]);
-        $this->factory(UserKeyword::class)->create(['id' => 101, 'user_id' => 1, 'keyword_id' => 11]);
-        $this->factory(UserKeyword::class)->create(['id' => 102, 'user_id' => 1, 'keyword_id' => 12]);
-        $this->factory(UserKeyword::class)->create(['id' => 104, 'user_id' => 2, 'keyword_id' => 12]);
+        User::factory()->create(['id' => 1]);
+        User::factory()->create(['id' => 2]);
+        Hobby::factory()->create(['id' => 11]);
+        Hobby::factory()->create(['id' => 12]);
+        Hobby::factory()->create(['id' => 13]);
+        Hobby::factory()->create(['id' => 14]);
+        UserKeyword::factory()->create(['id' => 101, 'user_id' => 1, 'keyword_id' => 11]);
+        UserKeyword::factory()->create(['id' => 102, 'user_id' => 1, 'keyword_id' => 12]);
+        UserKeyword::factory()->create(['id' => 104, 'user_id' => 2, 'keyword_id' => 12]);
 
         $this->when(function () {
             $this->setAuthUser(User::find(1));
@@ -69,8 +69,8 @@ class HobbiesPostTest extends _TestCase
 
     public function testErrorNotNullRuleKeywordModel()
     {
-        $this->factory(Hobby::class)->create(['id' => 11]);
-        $this->factory(Hobby::class)->create(['id' => 12]);
+        Hobby::factory()->create(['id' => 11]);
+        Hobby::factory()->create(['id' => 12]);
 
         $this->when(function () {
             $this->setInputParameter('keyword_id', 13);

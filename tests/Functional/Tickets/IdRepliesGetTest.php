@@ -16,22 +16,22 @@ class IdRepliesGetTest extends _TestCase
 
     public function test()
     {
-        $this->factory(User::class)->create(['id' => 1]);
-        $this->factory(User::class)->create(['id' => 2]);
-        $this->factory(User::class)->create(['id' => 3]);
-        $this->factory(User::class)->create(['id' => 4]);
-        $this->factory(User::class)->create(['id' => 5]);
-        $this->factory(User::class)->create(['id' => 6]);
-        $this->factory(Role::class)->create(['type' => Role::TYPE_ADMIN, 'user_id' => 1]);
-        $this->factory(Ticket::class)->create(['id' => 11, 'writer_id' => 1]);
-        $this->factory(Ticket::class)->create(['id' => 12, 'writer_id' => 2]);
-        $this->factory(Ticket::class)->create(['id' => 13, 'writer_id' => 3]);
-        $this->factory(Reply::class)->create(['id' => 101, 'ticket_id' => 11]);
-        $this->factory(Reply::class)->create(['id' => 102, 'ticket_id' => 11]);
-        $this->factory(Reply::class)->create(['id' => 103, 'ticket_id' => 12]);
-        $this->factory(Reply::class)->create(['id' => 104, 'ticket_id' => 12]);
-        $this->factory(Reply::class)->create(['id' => 105, 'ticket_id' => 13]);
-        $this->factory(Reply::class)->create(['id' => 106, 'ticket_id' => 13]);
+        User::factory()->create(['id' => 1]);
+        User::factory()->create(['id' => 2]);
+        User::factory()->create(['id' => 3]);
+        User::factory()->create(['id' => 4]);
+        User::factory()->create(['id' => 5]);
+        User::factory()->create(['id' => 6]);
+        Role::factory()->create(['type' => Role::TYPE_ADMIN, 'user_id' => 1]);
+        Ticket::factory()->create(['id' => 11, 'writer_id' => 1]);
+        Ticket::factory()->create(['id' => 12, 'writer_id' => 2]);
+        Ticket::factory()->create(['id' => 13, 'writer_id' => 3]);
+        Reply::factory()->create(['id' => 101, 'ticket_id' => 11]);
+        Reply::factory()->create(['id' => 102, 'ticket_id' => 11]);
+        Reply::factory()->create(['id' => 103, 'ticket_id' => 12]);
+        Reply::factory()->create(['id' => 104, 'ticket_id' => 12]);
+        Reply::factory()->create(['id' => 105, 'ticket_id' => 13]);
+        Reply::factory()->create(['id' => 106, 'ticket_id' => 13]);
 
         $this->when(function () {
             $this->setAuthUser(User::find(1));
@@ -71,8 +71,8 @@ class IdRepliesGetTest extends _TestCase
 
     public function testErrorRequiredRulePermittedUser()
     {
-        $this->factory(User::class)->create(['id' => 1]);
-        $this->factory(Ticket::class)->create(['id' => 11, 'writer_id' => 2]);
+        User::factory()->create(['id' => 1]);
+        Ticket::factory()->create(['id' => 11, 'writer_id' => 2]);
 
         $this->when(function () {
             $this->setAuthUser(User::find(1));

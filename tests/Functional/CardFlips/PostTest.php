@@ -19,11 +19,11 @@ class PostTest extends _TestCase
 
     public function test()
     {
-        $this->factory(User::class)->create(['id' => 1]);
-        $this->factory(User::class)->create(['id' => 2]);
-        $this->factory(Match::class)->create(['id' => 101, 'man_id' => 1, 'woman_id' => 2]);
-        $this->factory(Card::class)->create(['id' => 11, 'match_id' => 101, 'chooser_id' => 1, 'showner_id' => 2, 'created_at' => '2000-01-01 11:22:33']);
-        $this->factory(Balance::class)->create(['id' => 201, 'type' => Balance::TYPE_BASIC, 'count' => 10000, 'user_id' => 1, 'deleted_at' => '9999-12-31 23:59:59']);
+        User::factory()->create(['id' => 1]);
+        User::factory()->create(['id' => 2]);
+        Match::factory()->create(['id' => 101, 'man_id' => 1, 'woman_id' => 2]);
+        Card::factory()->create(['id' => 11, 'match_id' => 101, 'chooser_id' => 1, 'showner_id' => 2, 'created_at' => '2000-01-01 11:22:33']);
+        Balance::factory()->create(['id' => 201, 'type' => Balance::TYPE_BASIC, 'count' => 10000, 'user_id' => 1, 'deleted_at' => '9999-12-31 23:59:59']);
 
         $this->when(function () {
             $this->setAuthUser(User::find(1));
@@ -39,7 +39,7 @@ class PostTest extends _TestCase
             $this->assertNotEquals(10000, Balance::find(201)->{Balance::COUNT});
         });
 
-        $this->factory(CardFlip::class)->create(['id' => 1001, 'user_id' => 1, 'related_id' => 11, 'type' => CardFlip::TYPE_CARD_FLIP]);
+        CardFlip::factory()->create(['id' => 1001, 'user_id' => 1, 'related_id' => 11, 'type' => CardFlip::TYPE_CARD_FLIP]);
 
         $this->when(function () {
             $this->setAuthUser(User::find(1));
@@ -59,7 +59,7 @@ class PostTest extends _TestCase
             ]));
         });
 
-        $this->factory(CardFlip::class)->create(['id' => 1002, 'user_id' => 1, 'related_id' => 101, 'type' => CardFlip::TYPE_MATCH_OPEN]);
+        CardFlip::factory()->create(['id' => 1002, 'user_id' => 1, 'related_id' => 101, 'type' => CardFlip::TYPE_MATCH_OPEN]);
 
         $this->when(function () {
             $this->setAuthUser(User::find(1));
@@ -91,9 +91,9 @@ class PostTest extends _TestCase
 
     public function testErrorNotNullRuleCardFlip()
     {
-        $this->factory(User::class)->create(['id' => 1]);
-        $this->factory(Match::class)->create(['id' => 101, 'man_id' => 1, 'woman_id' => 2]);
-        $this->factory(Card::class)->create(['id' => 11, 'match_id' => 101, 'chooser_id' => 1, 'showner_id' => 2]);
+        User::factory()->create(['id' => 1]);
+        Match::factory()->create(['id' => 101, 'man_id' => 1, 'woman_id' => 2]);
+        Card::factory()->create(['id' => 11, 'match_id' => 101, 'chooser_id' => 1, 'showner_id' => 2]);
 
         $this->when(function () {
             $this->setAuthUser(User::find(1));
@@ -107,9 +107,9 @@ class PostTest extends _TestCase
 
     public function testErrorNotNullRuleMatchOpen()
     {
-        $this->factory(User::class)->create(['id' => 1]);
-        $this->factory(Match::class)->create(['id' => 101, 'man_id' => 1, 'woman_id' => 2]);
-        $this->factory(Card::class)->create(['id' => 11, 'match_id' => 101, 'chooser_id' => 1, 'showner_id' => 2]);
+        User::factory()->create(['id' => 1]);
+        Match::factory()->create(['id' => 101, 'man_id' => 1, 'woman_id' => 2]);
+        Card::factory()->create(['id' => 11, 'match_id' => 101, 'chooser_id' => 1, 'showner_id' => 2]);
 
         $this->when(function () {
             $this->setAuthUser(User::find(1));
@@ -123,10 +123,10 @@ class PostTest extends _TestCase
 
     public function testErrorNullRuleCardFlip()
     {
-        $this->factory(User::class)->create(['id' => 1]);
-        $this->factory(Match::class)->create(['id' => 101, 'man_id' => 1, 'woman_id' => 2]);
-        $this->factory(Card::class)->create(['id' => 11, 'match_id' => 101, 'chooser_id' => 1, 'showner_id' => 2]);
-        $this->factory(CardFlip::class)->create(['id' => 1001, 'user_id' => 1, 'related_id' => 11, 'type' => CardFlip::TYPE_CARD_FLIP]);
+        User::factory()->create(['id' => 1]);
+        Match::factory()->create(['id' => 101, 'man_id' => 1, 'woman_id' => 2]);
+        Card::factory()->create(['id' => 11, 'match_id' => 101, 'chooser_id' => 1, 'showner_id' => 2]);
+        CardFlip::factory()->create(['id' => 1001, 'user_id' => 1, 'related_id' => 11, 'type' => CardFlip::TYPE_CARD_FLIP]);
 
         $this->when(function () {
             $this->setAuthUser(User::find(1));
@@ -140,10 +140,10 @@ class PostTest extends _TestCase
 
     public function testErrorNullRuleMatchOpen()
     {
-        $this->factory(User::class)->create(['id' => 1]);
-        $this->factory(Match::class)->create(['id' => 101, 'man_id' => 1, 'woman_id' => 2]);
-        $this->factory(Card::class)->create(['id' => 11, 'match_id' => 101, 'chooser_id' => 1, 'showner_id' => 2]);
-        $this->factory(CardFlip::class)->create(['id' => 1001, 'user_id' => 1, 'related_id' => 101, 'type' => CardFlip::TYPE_MATCH_OPEN]);
+        User::factory()->create(['id' => 1]);
+        Match::factory()->create(['id' => 101, 'man_id' => 1, 'woman_id' => 2]);
+        Card::factory()->create(['id' => 11, 'match_id' => 101, 'chooser_id' => 1, 'showner_id' => 2]);
+        CardFlip::factory()->create(['id' => 1001, 'user_id' => 1, 'related_id' => 101, 'type' => CardFlip::TYPE_MATCH_OPEN]);
 
         $this->when(function () {
             $this->setAuthUser(User::find(1));
@@ -157,10 +157,10 @@ class PostTest extends _TestCase
 
     public function testErrorNullRuleMatchPropose()
     {
-        $this->factory(User::class)->create(['id' => 1]);
-        $this->factory(Match::class)->create(['id' => 101, 'man_id' => 1, 'woman_id' => 2]);
-        $this->factory(Card::class)->create(['id' => 11, 'match_id' => 101, 'chooser_id' => 1, 'showner_id' => 2]);
-        $this->factory(CardFlip::class)->create(['id' => 1001, 'user_id' => 1, 'related_id' => 101, 'type' => CardFlip::TYPE_MATCH_PROPOSE]);
+        User::factory()->create(['id' => 1]);
+        Match::factory()->create(['id' => 101, 'man_id' => 1, 'woman_id' => 2]);
+        Card::factory()->create(['id' => 11, 'match_id' => 101, 'chooser_id' => 1, 'showner_id' => 2]);
+        CardFlip::factory()->create(['id' => 1001, 'user_id' => 1, 'related_id' => 101, 'type' => CardFlip::TYPE_MATCH_PROPOSE]);
 
         $this->when(function () {
             $this->setAuthUser(User::find(1));

@@ -16,10 +16,10 @@ class IdGetTest extends _TestCase
 
     public function test()
     {
-        $this->factory(User::class)->create(['id' => 1]);
-        $this->factory(User::class)->create(['id' => 2]);
-        $this->factory(Balance::class)->create(['id' => 11, 'user_id' => 1]);
-        $this->factory(Balance::class)->create(['id' => 12, 'user_id' => 2]);
+        User::factory()->create(['id' => 1]);
+        User::factory()->create(['id' => 2]);
+        Balance::factory()->create(['id' => 11, 'user_id' => 1]);
+        Balance::factory()->create(['id' => 12, 'user_id' => 2]);
 
         $this->when(function () {
             $this->setAuthUser(User::find(1));
@@ -47,8 +47,8 @@ class IdGetTest extends _TestCase
 
     public function testErrorNotNullRuleModel()
     {
-        $this->factory(Balance::class)->create(['id' => 11]);
-        $this->factory(Balance::class)->create(['id' => 12]);
+        Balance::factory()->create(['id' => 11]);
+        Balance::factory()->create(['id' => 12]);
 
         $this->when(function () {
             $this->setRouteParameter('id', 13);
@@ -68,8 +68,8 @@ class IdGetTest extends _TestCase
 
     public function testErrorRequiredRulePermittedUser()
     {
-        $this->factory(User::class)->create(['id' => 1]);
-        $this->factory(Balance::class)->create(['id' => 11, 'user_id' => 2]);
+        User::factory()->create(['id' => 1]);
+        Balance::factory()->create(['id' => 11, 'user_id' => 2]);
 
         $this->when(function () {
             $this->setAuthUser(User::find(1));
