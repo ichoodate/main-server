@@ -12,12 +12,8 @@ class CardFactory extends Factory
 
     public function create($data = [], ?Model $parent = null)
     {
-        if (empty($data)) {
-            return parent::create($data, $parent);
-        }
-
         $attrs = array_only($data, array_keys((new static())->definition()));
-        $model = $this->state($attrs)->create();
+        $model = parent::create($attrs, $parent);
         $data = array_add($data, Card::FLIPS, []);
 
         foreach ($data[Card::FLIPS] as $flip) {
