@@ -18,8 +18,6 @@ class _TestCase extends TestCase
     use DatabaseMigrations;
     use WithoutMiddleware;
 
-    public $environment = 'functional';
-
     public function setUp(): void
     {
         parent::setUp();
