@@ -12,7 +12,7 @@ use Tests\Functional\_TestCase;
  */
 class IdGetTest extends _TestCase
 {
-    protected $uri = 'api/balances/{id}';
+    protected $uri = 'balances/{id}';
 
     public function test()
     {

@@ -13,7 +13,7 @@ use Tests\Functional\_TestCase;
  */
 class AgeRangesPostTest extends _TestCase
 {
-    protected $uri = 'api/ideal-type-keyword/age-ranges';
+    protected $uri = 'ideal-type-keyword/age-ranges';
 
     public function test()
     {

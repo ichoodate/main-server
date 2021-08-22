@@ -11,7 +11,7 @@ use Tests\Functional\_TestCase;
  */
 class SignInPostTest extends _TestCase
 {
-    protected $uri = 'api/auth/sign-in';
+    protected $uri = 'auth/sign-in';
 
     public function test()
     {

@@ -13,7 +13,7 @@ use Tests\Functional\_TestCase;
  */
 class WeightsPostTest extends _TestCase
 {
-    protected $uri = 'api/self-keyword/weights';
+    protected $uri = 'self-keyword/weights';
 
     public function test()
     {

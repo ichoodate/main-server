@@ -11,7 +11,7 @@ use Tests\Functional\_TestCase;
  */
 class GetTest extends _TestCase
 {
-    protected $uri = 'api/keyword/weights';
+    protected $uri = 'keyword/weights';
 
     public function test()
     {

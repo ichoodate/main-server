@@ -13,7 +13,7 @@ use Tests\Functional\_TestCase;
  */
 class StaturesPostTest extends _TestCase
 {
-    protected $uri = 'api/self-keyword/statures';
+    protected $uri = 'self-keyword/statures';
 
     public function test()
     {

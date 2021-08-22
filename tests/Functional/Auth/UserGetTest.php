@@ -11,7 +11,7 @@ use Tests\Functional\_TestCase;
  */
 class UserGetTest extends _TestCase
 {
-    protected $uri = 'api/auth/user';
+    protected $uri = 'auth/user';
 
     public function test()
     {

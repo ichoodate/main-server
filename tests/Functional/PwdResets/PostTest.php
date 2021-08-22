@@ -12,7 +12,7 @@ use Tests\Functional\_TestCase;
  */
 class PostTest extends _TestCase
 {
-    protected $uri = 'api/pwd-resets';
+    protected $uri = 'pwd-resets';
 
     public function test()
     {

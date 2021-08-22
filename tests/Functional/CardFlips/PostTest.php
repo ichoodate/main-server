@@ -15,7 +15,7 @@ use Tests\Functional\_TestCase;
  */
 class PostTest extends _TestCase
 {
-    protected $uri = 'api/card-flips';
+    protected $uri = 'card-flips';
 
     public function test()
     {

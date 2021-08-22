@@ -11,7 +11,7 @@ use Tests\Functional\_TestCase;
  */
 class IdGetTest extends _TestCase
 {
-    protected $uri = 'api/keyword/languages/{id}';
+    protected $uri = 'keyword/languages/{id}';
 
     public function test()
     {

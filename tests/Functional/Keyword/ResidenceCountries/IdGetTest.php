@@ -10,7 +10,7 @@ use Tests\Functional\_TestCase;
  */
 class IdGetTest extends _TestCase
 {
-    protected $uri = 'api/keyword/residence-countries/{id}';
+    protected $uri = 'keyword/residence-countries/{id}';
 
     public function testErrorIntegerRuleId()
     {

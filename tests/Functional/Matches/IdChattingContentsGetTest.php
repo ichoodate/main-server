@@ -13,7 +13,7 @@ use Tests\Functional\_TestCase;
  */
 class IdChattingContentsGetTest extends _TestCase
 {
-    protected $uri = 'api/matches/{id}/chatting-contents';
+    protected $uri = 'matches/{id}/chatting-contents';
 
     public function test()
     {

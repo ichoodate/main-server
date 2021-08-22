@@ -13,7 +13,7 @@ use Tests\Functional\_TestCase;
  */
 class ResidencesPostTest extends _TestCase
 {
-    protected $uri = 'api/self-keyword/residence-countries';
+    protected $uri = 'self-keyword/residence-countries';
 
     public function test()
     {

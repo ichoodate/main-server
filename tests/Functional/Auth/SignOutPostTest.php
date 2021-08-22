@@ -11,7 +11,7 @@ use Tests\Functional\_TestCase;
  */
 class SignOutPostTest extends _TestCase
 {
-    protected $uri = 'api/auth/sign-out';
+    protected $uri = 'auth/sign-out';
 
     public function test()
     {

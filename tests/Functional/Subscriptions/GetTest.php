@@ -12,7 +12,7 @@ use Tests\Functional\_TestCase;
  */
 class GetTest extends _TestCase
 {
-    protected $uri = 'api/subscriptions';
+    protected $uri = 'subscriptions';
 
     public function test()
     {

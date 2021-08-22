@@ -11,7 +11,7 @@ use Tests\Functional\_TestCase;
  */
 class GetTest extends _TestCase
 {
-    protected $uri = 'api/keyword/max-age-ranges';
+    protected $uri = 'keyword/max-age-ranges';
 
     public function test()
     {

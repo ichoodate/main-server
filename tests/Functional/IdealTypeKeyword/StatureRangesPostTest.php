@@ -13,7 +13,7 @@ use Tests\Functional\_TestCase;
  */
 class StatureRangesPostTest extends _TestCase
 {
-    protected $uri = 'api/ideal-type-keyword/stature-ranges';
+    protected $uri = 'ideal-type-keyword/stature-ranges';
 
     public function test()
     {

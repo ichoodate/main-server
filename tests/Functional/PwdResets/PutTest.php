@@ -13,7 +13,7 @@ use Tests\Functional\_TestCase;
  */
 class PutTest extends _TestCase
 {
-    protected $uri = 'api/pwd-resets/{id}';
+    protected $uri = 'pwd-resets/{id}';
 
     public function test()
     {

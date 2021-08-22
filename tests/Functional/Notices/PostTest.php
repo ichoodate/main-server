@@ -13,7 +13,7 @@ use Tests\Functional\_TestCase;
  */
 class PostTest extends _TestCase
 {
-    protected $uri = 'api/notices';
+    protected $uri = 'notices';
 
     public function test()
     {

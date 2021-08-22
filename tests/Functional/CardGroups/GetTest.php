@@ -12,7 +12,7 @@ use Tests\Functional\_TestCase;
  */
 class GetTest extends _TestCase
 {
-    protected $uri = 'api/card-groups';
+    protected $uri = 'card-groups';
 
     public function test()
     {

@@ -12,7 +12,7 @@ use Tests\Functional\_TestCase;
  */
 class PostTest extends _TestCase
 {
-    protected $uri = 'api/profile-photos';
+    protected $uri = 'profile-photos';
 
     public function test()
     {
