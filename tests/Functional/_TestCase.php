@@ -7,6 +7,7 @@ use Faker\Generator as Faker;
 use FunctionalCoding\Service;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
+use Illuminate\Support\Str;
 use Tests\TestCase;
 
 /**
@@ -33,8 +34,7 @@ class _TestCase extends TestCase
     public function assertError($msg)
     {
         $serv = $this->runService();
-        $errors = $serv->totalErrors()->all();
-
+        $errors = $serv->totalErrors();
         $this->assertContains($msg, $errors, implode(',', $errors));
     }
 
@@ -70,8 +70,8 @@ class _TestCase extends TestCase
     public function assertResult($expect)
     {
         $serv = $this->runService();
-        $result = $serv->data()->get('result');
-        $errors = $serv->totalErrors()->all();
+        $result = $serv->data()->getArrayCopy()['result'];
+        $errors = $serv->totalErrors();
 
         $this->assertEquals([], $errors, implode(',', $errors));
         $this->assertEquals($expect, $result);
@@ -80,8 +80,8 @@ class _TestCase extends TestCase
     public function assertResultWithFinding($expectId)
     {
         $serv = $this->runService();
-        $result = $serv->data()->get('result');
-        $errors = $serv->totalErrors()->all();
+        $result = $serv->data()->getArrayCopy()['result'];
+        $errors = $serv->totalErrors();
 
         $this->assertInstanceOf(Model::class, $result);
         $this->assertEquals($expectId, $result->getKey());
@@ -90,8 +90,8 @@ class _TestCase extends TestCase
     public function assertResultWithListing($expectIds)
     {
         $serv = $this->runService();
-        $result = $serv->data()->get('result');
-        $errors = $serv->totalErrors()->all();
+        $result = $serv->data()->getArrayCopy()['result'];
+        $errors = $serv->totalErrors();
 
         $this->assertEquals([], $errors, implode(',', $errors));
 
@@ -103,8 +103,8 @@ class _TestCase extends TestCase
     public function assertResultWithPaging($expectIds)
     {
         $serv = $this->runService();
-        $result = $serv->data()->get('result')->modelKeys();
-        $errors = $serv->totalErrors()->all();
+        $result = $serv->data()->getArrayCopy()['result']->modelKeys();
+        $errors = $serv->totalErrors();
 
         sort($expectIds);
         sort($result);
@@ -116,8 +116,8 @@ class _TestCase extends TestCase
     public function assertResultWithPersisting($expects)
     {
         $serv = $this->runService();
-        $result = $serv->data()->get('result');
-        $errors = $serv->totalErrors()->all();
+        $result = $serv->data()->getArrayCopy()['result'];
+        $errors = $serv->totalErrors();
 
         if ($expects instanceof Model) {
             $this->assertInstanceOf(Model::class, $result);
@@ -141,8 +141,8 @@ class _TestCase extends TestCase
     public function assertResultWithReturning($expect)
     {
         $serv = $this->runService();
-        $result = $serv->data()->get('result');
-        $errors = $serv->totalErrors()->all();
+        $result = $serv->data()->getArrayCopy()['result'];
+        $errors = $serv->totalErrors();
 
         $this->assertEquals([], $errors, implode(',', $errors));
         $this->assertEquals($expect, $result);
@@ -159,7 +159,7 @@ class _TestCase extends TestCase
     {
         $class = explode('\\', static::class);
         $class = array_pop($class);
-        $class = snake_case($class);
+        $class = Str::snake($class);
         $class = preg_replace('/_test$/', '', $class);
         $class = explode('_', $class);
 
@@ -168,7 +168,7 @@ class _TestCase extends TestCase
 
     public function getQuery($serv)
     {
-        $builder = $serv->data()->get('query');
+        $builder = $serv->data()->getArrayCopy()['query'];
         $addSlashes = str_replace('?', "'?'", $builder->toSql());
         $q = vsprintf(str_replace('?', '%s', $addSlashes), $builder->getBindings());
     }
@@ -208,7 +208,7 @@ class _TestCase extends TestCase
         $response = $this->getResponse();
         $content = $response->getOriginalContent();
 
-        $this->assertTrue(Service::isCanServicify($content));
+        $this->assertTrue(Service::isInitable($content));
 
         $service = Service::initService($content);
         $service->run();
