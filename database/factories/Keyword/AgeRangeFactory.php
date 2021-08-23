@@ -2,7 +2,7 @@
 
 namespace Database\Factories\Keyword;
 
-use App\Models\AgeRange;
+use App\Models\Keyword\AgeRange;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class AgeRangeFactory extends Factory
