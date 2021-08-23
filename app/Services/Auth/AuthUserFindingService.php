@@ -20,7 +20,7 @@ class AuthUserFindingService extends Service
 
             'model' => 'authorized user',
 
-            'payload_expired_at' => 'expired_at of payload of {{token}}',
+            'payload_expired_at' => 'expired_at of payload of {{auth_token}}',
         ];
     }
 
@@ -52,12 +52,13 @@ class AuthUserFindingService extends Service
                 return User::class;
             },
 
-            'payload' => function ($token) {
+            'payload' => function ($authToken = '') {
                 return [TokenDecryptionService::class, [
-                    'token' => $token,
-                    'payload_keys' => ['uid', 'expired_at', 'verified'],
+                    'token' => $authToken,
+                    'secret_key' => file_get_contents(storage_path('app/id_rsa')),
                 ], [
-                    'token' => '{{token}}',
+                    'token' => '{{auth_token}}',
+                    'secret_key' => '{secret decryption key}',
                 ]];
             },
 
@@ -78,8 +79,6 @@ class AuthUserFindingService extends Service
     {
         return [
             'current_time' => ['before:{{payload_expired_at}}'],
-
-            'token' => ['required'],
         ];
     }
 

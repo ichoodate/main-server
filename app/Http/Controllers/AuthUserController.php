@@ -10,7 +10,7 @@ class AuthUserController extends Controller
 {
     public static function index()
     {
-        return static::bearerToken() ? null : [AuthUserFindingService::class];
+        return static::bearerToken() ? [AuthUserFindingService::class] : null;
     }
 
     public static function update()

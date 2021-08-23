@@ -20,7 +20,10 @@ class UserGetTest extends _TestCase
         User::factory()->create(['id' => 3]);
 
         $this->when(function () {
-            $this->assertResult(null);
+            $response = $this->getResponse();
+            $content = $response->getOriginalContent();
+
+            $this->assertEquals(null, $content);
         });
 
         $this->when(function () {

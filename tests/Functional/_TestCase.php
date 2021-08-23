@@ -5,6 +5,7 @@ namespace Tests\Functional;
 use App\Http\Middlewares\ServiceRunMiddleware;
 use App\Model;
 use Faker\Generator as Faker;
+use FunctionalCoding\JWT\Service\TokenEncryptionService;
 use FunctionalCoding\Service;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Support\Str;
@@ -178,7 +179,7 @@ class _TestCase extends TestCase
     {
         $method = $this->getHttpMethod();
 
-        return $this->call($method, $url = $this->url, $parameters = $this->inputs, $cookies = [], $files = [], $server = [], $content = null);
+        return $this->call($method, $url = $this->url, $parameters = $this->inputs, $cookies = [], $files = [], $server = $this->server, $content = null);
     }
 
     public static function invokeMethod($object, $method, $args, $public = true)
@@ -219,7 +220,17 @@ class _TestCase extends TestCase
 
     public function setAuthUser($user)
     {
-        auth()->setUser($user);
+        $service = new TokenEncryptionService([
+            'payload' => [
+                'uid' => $user->getKey(),
+                'expired_at' => '9999-12-31 23:59:59',
+            ],
+            'public_key' => \file_get_contents(storage_path('app/id_rsa.pub')),
+        ], [
+            'payload' => '...',
+            'public_key' => '...',
+        ]);
+        $this->server['HTTP_AUTHORIZATION'] = 'Bearer '.$service->run();
     }
 
     public function setInputParameter($key, $value)
@@ -254,6 +265,7 @@ class _TestCase extends TestCase
 
         $this->url = $this->uri;
         $this->inputs = [];
+        $this->server = [];
 
         app('db')->beginTransaction();
 
