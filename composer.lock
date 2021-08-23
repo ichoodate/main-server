@@ -629,12 +629,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/functional-coding/php-eloquent-ORM.git",
-                "reference": "4487f52cb325bced00cd30487c1c2ebfa1e25c5a"
+                "reference": "456079bf1d30bb17c1e7159e43aa3f9d2d3e0014"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/functional-coding/php-eloquent-ORM/zipball/4487f52cb325bced00cd30487c1c2ebfa1e25c5a",
-                "reference": "4487f52cb325bced00cd30487c1c2ebfa1e25c5a",
+                "url": "https://api.github.com/repos/functional-coding/php-eloquent-ORM/zipball/456079bf1d30bb17c1e7159e43aa3f9d2d3e0014",
+                "reference": "456079bf1d30bb17c1e7159e43aa3f9d2d3e0014",
                 "shasum": ""
             },
             "require": {
@@ -674,7 +674,7 @@
                 "issues": "https://github.com/functional-coding/php-eloquent-ORM/issues",
                 "source": "https://github.com/functional-coding/php-eloquent-ORM/tree/master"
             },
-            "time": "2021-08-19T14:45:18+00:00"
+            "time": "2021-08-23T15:40:20+00:00"
         },
         {
             "name": "functional-coding/php-jwt",
@@ -682,12 +682,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/functional-coding/php-JWT.git",
-                "reference": "f7434c49e6f2d453f12d68245cb1400a161cca5e"
+                "reference": "b2667b69ee0e7ea19a56db06190633162e8e39d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/functional-coding/php-JWT/zipball/f7434c49e6f2d453f12d68245cb1400a161cca5e",
-                "reference": "f7434c49e6f2d453f12d68245cb1400a161cca5e",
+                "url": "https://api.github.com/repos/functional-coding/php-JWT/zipball/b2667b69ee0e7ea19a56db06190633162e8e39d1",
+                "reference": "b2667b69ee0e7ea19a56db06190633162e8e39d1",
                 "shasum": ""
             },
             "require": {
@@ -723,7 +723,7 @@
                 "issues": "https://github.com/functional-coding/php-JWT/issues",
                 "source": "https://github.com/functional-coding/php-JWT/tree/master"
             },
-            "time": "2021-08-16T17:25:43+00:00"
+            "time": "2021-08-23T11:36:54+00:00"
         },
         {
             "name": "graham-campbell/result-type",
@@ -1767,16 +1767,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "2.51.1",
+            "version": "2.52.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "8619c299d1e0d4b344e1f98ca07a1ce2cfbf1922"
+                "reference": "369c0e2737c56a0f39c946dd261855255a6fccbe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/8619c299d1e0d4b344e1f98ca07a1ce2cfbf1922",
-                "reference": "8619c299d1e0d4b344e1f98ca07a1ce2cfbf1922",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/369c0e2737c56a0f39c946dd261855255a6fccbe",
+                "reference": "369c0e2737c56a0f39c946dd261855255a6fccbe",
                 "shasum": ""
             },
             "require": {
@@ -1857,7 +1857,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-07-28T13:16:28+00:00"
+            "time": "2021-08-14T19:10:52+00:00"
         },
         {
             "name": "nette/schema",
