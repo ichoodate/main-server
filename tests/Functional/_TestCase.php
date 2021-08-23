@@ -2,11 +2,11 @@
 
 namespace Tests\Functional;
 
+use App\Http\Middlewares\ServiceRunMiddleware;
 use App\Model;
 use Faker\Generator as Faker;
 use FunctionalCoding\Service;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Support\Str;
 use Tests\TestCase;
 
@@ -17,13 +17,14 @@ use Tests\TestCase;
 class _TestCase extends TestCase
 {
     use DatabaseMigrations;
-    use WithoutMiddleware;
 
     public function setUp(): void
     {
         parent::setUp();
 
         $this->faker = app(Faker::class);
+
+        $this->withoutMiddleware(ServiceRunMiddleware::class);
     }
 
     public function assertDeletion($model)
