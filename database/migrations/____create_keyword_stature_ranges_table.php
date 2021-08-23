@@ -30,10 +30,7 @@ class CreateKeywordStatureRangesTable extends Migration
                 ->primary('id')
             ;
             $table
-                ->index('min')
-            ;
-            $table
-                ->index('max')
+                ->unique(['min', 'max'])
             ;
         });
     }
