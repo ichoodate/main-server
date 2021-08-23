@@ -23,6 +23,10 @@ class ResidenceFindingService extends Service
     public static function getArrLoaders()
     {
         return [
+            'available_expands' => function () {
+                return [];
+            },
+
             'model_class' => function () {
                 return Residence::class;
             },

@@ -25,6 +25,10 @@ class NoticeListingService extends Service
     public static function getArrLoaders()
     {
         return [
+            'available_expands' => function () {
+                return [];
+            },
+
             'cursor' => function ($cursorId) {
                 return [NoticeFindingService::class, [
                     'id' => $cursorId,

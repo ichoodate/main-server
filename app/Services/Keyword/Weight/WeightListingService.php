@@ -21,6 +21,10 @@ class WeightListingService extends Service
     public static function getArrLoaders()
     {
         return [
+            'available_expands' => function () {
+                return [];
+            },
+
             'model_class' => function () {
                 return Weight::class;
             },

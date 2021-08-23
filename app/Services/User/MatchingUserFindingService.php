@@ -33,6 +33,10 @@ class MatchingUserFindingService extends Service
                 ]];
             },
 
+            'available_expands' => function () {
+                return [];
+            },
+
             'auth_user_gender' => function ($authUser) {
                 return $authUser->{User::GENDER};
             },
