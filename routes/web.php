@@ -51,7 +51,6 @@ Route::prefix($prefix)->group(function () {
         Route::post('friends', 'FriendController@store');
 
         Route::prefix('keyword')->namespace('Keyword')->group(function () {
-            Route::get('age-ranges', 'AgeRangeController@index');
             Route::get('age-ranges/{id}', 'AgeRangeController@show');
             Route::get('birth-years', 'BirthYearController@index');
             Route::get('birth-years/{id}', 'BirthYearController@show');
@@ -89,11 +88,9 @@ Route::prefix($prefix)->group(function () {
             Route::get('states/{id}', 'StateController@show');
             Route::get('statures', 'StatureController@index');
             Route::get('statures/{id}', 'StatureController@show');
-            Route::get('stature-ranges', 'StatureRangeController@index');
             Route::get('stature-ranges/{id}', 'StatureRangeController@show');
             Route::get('weights', 'WeightController@index');
             Route::get('weights/{id}', 'WeightController@show');
-            Route::get('weight-ranges', 'WeightRangeController@index');
             Route::get('weight-ranges/{id}', 'WeightRangeController@show');
         });
 
