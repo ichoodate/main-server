@@ -23,8 +23,7 @@ class Collection extends \Illuminate\Database\Eloquent\Collection
         $result = new static();
 
         foreach ($ids as $id) {
-            $item = $this->find($id) ?: null;
-
+            $item = $this->filter()->find($id) ?: null;
             $result->push($item);
         }
 
