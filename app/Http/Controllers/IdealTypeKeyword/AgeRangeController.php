@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\IdealTypeKeyword;
 
 use App\Http\Controller;
-use App\Services\IdealTypeKeyword\IdealTypeAgeRangeKeywordCreatingService;
+use App\Services\IdealTypeKeyword\IdealTypeAgeRangeKeywordUpdatingService;
 
 class AgeRangeController extends Controller
 {
-    public static function store()
+    public static function update()
     {
-        return [IdealTypeAgeRangeKeywordCreatingService::class, [
+        return [IdealTypeAgeRangeKeywordUpdatingService::class, [
             'keyword_id' => static::input('keyword_id'),
         ], [
             'keyword_id' => '[keyword_id]',

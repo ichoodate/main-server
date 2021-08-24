@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\UserKeyword;
 
 use App\Http\Controller;
-use App\Services\UserKeyword\UserCareerKeywordCreatingService;
+use App\Services\UserKeyword\UserCareerKeywordUpdatingService;
 
 class CareerController extends Controller
 {
-    public static function store()
+    public static function update()
     {
-        return [UserCareerKeywordCreatingService::class, [
+        return [UserCareerKeywordUpdatingService::class, [
             'keyword_id' => static::input('keyword_id'),
         ], [
             'keyword_id' => '[keyword_id]',

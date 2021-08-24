@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\UserKeyword;
 
 use App\Http\Controller;
-use App\Services\UserKeyword\UserNationalityKeywordCreatingService;
+use App\Services\UserKeyword\UserNationalityKeywordUpdatingService;
 
 class NationalityController extends Controller
 {
-    public static function store()
+    public static function update()
     {
-        return [UserNationalityKeywordCreatingService::class, [
+        return [UserNationalityKeywordUpdatingService::class, [
             'keyword_id' => static::input('keyword_id'),
         ], [
             'keyword_id' => '[keyword_id]',

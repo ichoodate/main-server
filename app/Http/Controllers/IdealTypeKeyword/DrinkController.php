@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\IdealTypeKeyword;
 
 use App\Http\Controller;
-use App\Services\IdealTypeKeyword\IdealTypeDrinkKeywordCreatingService;
+use App\Services\IdealTypeKeyword\IdealTypeDrinkKeywordUpdatingService;
 
 class DrinkController extends Controller
 {
-    public static function store()
+    public static function update()
     {
-        return [IdealTypeDrinkKeywordCreatingService::class, [
+        return [IdealTypeDrinkKeywordUpdatingService::class, [
             'keyword_id' => static::input('keyword_id'),
         ], [
             'keyword_id' => '[keyword_id]',

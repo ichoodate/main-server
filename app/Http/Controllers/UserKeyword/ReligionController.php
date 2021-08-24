@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\UserKeyword;
 
 use App\Http\Controller;
-use App\Services\UserKeyword\UserReligionKeywordCreatingService;
+use App\Services\UserKeyword\UserReligionKeywordUpdatingService;
 
 class ReligionController extends Controller
 {
-    public static function store()
+    public static function update()
     {
-        return [UserReligionKeywordCreatingService::class, [
+        return [UserReligionKeywordUpdatingService::class, [
             'keyword_id' => static::input('keyword_id'),
         ], [
             'keyword_id' => '[keyword_id]',

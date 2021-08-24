@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\UserKeyword;
 
 use App\Http\Controller;
-use App\Services\UserKeyword\UserWeightKeywordCreatingService;
+use App\Services\UserKeyword\UserWeightKeywordUpdatingService;
 
 class WeightController extends Controller
 {
-    public static function store()
+    public static function update()
     {
-        return [UserWeightKeywordCreatingService::class, [
+        return [UserWeightKeywordUpdatingService::class, [
             'keyword_id' => static::input('keyword_id'),
         ], [
             'keyword_id' => '[keyword_id]',
