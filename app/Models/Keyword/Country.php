@@ -13,6 +13,7 @@ class Country extends Model
     public const ISO = 'iso'; // iso_3166_1_alpha2
     public const LANGUAGE = 'language';
     public const NAME = 'name';
+
     protected $fillable = [
         self::ID,
         self::ISO,

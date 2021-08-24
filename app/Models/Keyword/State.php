@@ -7,14 +7,9 @@ use App\Model;
 class State extends Model
 {
     public const COUNTRY_ID = 'country_id';
-
-    public const ENTITIES = [
-        self::ID,
-        self::COUNTRY_ID,
-        self::NAME,
-    ];
     public const ID = 'id';
     public const NAME = 'name';
+
     protected $fillable = [
         self::ID,
         self::COUNTRY_ID,

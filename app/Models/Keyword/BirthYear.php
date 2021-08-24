@@ -8,6 +8,7 @@ class BirthYear extends Model
 {
     public const ID = 'id';
     public const TYPE = 'type';
+
     protected $fillable = [
         self::ID,
         self::TYPE,

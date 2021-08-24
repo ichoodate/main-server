@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\Obj;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Model extends \Illuminate\Database\Eloquent\Model

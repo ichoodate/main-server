@@ -8,18 +8,13 @@ class Blood extends Model
 {
     public const ID = 'id';
     public const TYPE = 'type';
-
-    public const TYPE_A = 'A';
-    public const TYPE_AB = 'AB';
-    public const TYPE_B = 'B';
-    public const TYPE_O = 'O';
-
     public const TYPE_VALUES = [
-        self::TYPE_A,
-        self::TYPE_B,
-        self::TYPE_O,
-        self::TYPE_AB,
+        'A',
+        'B',
+        'O',
+        'AB',
     ];
+
     protected $fillable = [
         self::ID,
         self::TYPE,
