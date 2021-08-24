@@ -584,12 +584,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/functional-coding/php.git",
-                "reference": "e01f09b702f45a5c3b63c2ddc3261e2e096d0f10"
+                "reference": "ec9386f79695f5fed091ecd3dd74eddc52c92194"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/functional-coding/php/zipball/e01f09b702f45a5c3b63c2ddc3261e2e096d0f10",
-                "reference": "e01f09b702f45a5c3b63c2ddc3261e2e096d0f10",
+                "url": "https://api.github.com/repos/functional-coding/php/zipball/ec9386f79695f5fed091ecd3dd74eddc52c92194",
+                "reference": "ec9386f79695f5fed091ecd3dd74eddc52c92194",
                 "shasum": ""
             },
             "require": {
@@ -621,7 +621,7 @@
                 "issues": "https://github.com/functional-coding/php/issues",
                 "source": "https://github.com/functional-coding/php/tree/master"
             },
-            "time": "2021-08-19T14:39:37+00:00"
+            "time": "2021-08-24T18:43:15+00:00"
         },
         {
             "name": "functional-coding/php-eloquent-orm",
