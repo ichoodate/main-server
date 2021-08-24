@@ -59,7 +59,7 @@ class IdGetTest extends _TestCase
     {
         CardFlip::factory()->create(['id' => 11, 'user_id' => 1]);
         $this->when(function () {
-            $this->assertError('authorized user is required.');
+            $this->assertError('header[authorization] is required.');
         });
     }
 

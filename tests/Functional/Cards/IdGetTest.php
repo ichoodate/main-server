@@ -67,7 +67,7 @@ class IdGetTest extends _TestCase
     public function testErrorRequiredRuleAuthUser()
     {
         $this->when(function () {
-            $this->assertError('authorized user is required.');
+            $this->assertError('header[authorization] is required.');
         });
     }
 

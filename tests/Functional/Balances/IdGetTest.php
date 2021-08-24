@@ -62,7 +62,7 @@ class IdGetTest extends _TestCase
         $this->when(function () {
             $this->setRouteParameter('id', $this->uniqueString());
 
-            $this->assertError('authorized user is required.');
+            $this->assertError('header[authorization] is required.');
         });
     }
 
