@@ -14,7 +14,7 @@ class BirthYearFactory extends Factory
         return [
             BirthYear::ID => $this->faker->unique()->randomNumber(8),
 
-            BirthYear::YEAR => $this->faker->numberBetween(1950, (new \DateTime())->format('Y')),
+            BirthYear::TYPE => $this->faker->numberBetween(1950, (new \DateTime())->format('Y')),
         ];
     }
 }

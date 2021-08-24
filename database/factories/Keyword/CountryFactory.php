@@ -18,7 +18,7 @@ class CountryFactory extends Factory
 
             Country::NAME => $this->faker->country,
 
-            Country::E164 => $this->faker->e164PhoneNumber,
+            Country::E164 => $this->faker->unique()->randomNumber(3),
 
             Country::CCTLD => $this->faker->tld,
 

@@ -14,7 +14,7 @@ class CareerFactory extends Factory
         return [
             Career::ID => $this->faker->unique()->randomNumber(8),
 
-            Career::PARENT_ID => $this->faker->randomElement([app(Faker::class)->unique()->randomNumber(8), null]),
+            Career::PARENT_ID => $this->faker->unique()->randomNumber(8),
 
             Career::TYPE => $this->faker->randomElement(Career::TYPE_VALUES),
 
