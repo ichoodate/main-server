@@ -14,7 +14,7 @@ class AuthUserUpdatingService extends Service
         return [];
     }
 
-    public static function getArrCallbackLists()
+    public static function getArrCallbacks()
     {
         return [
             'auth_user.birth' => function ($authUser, $birth) {

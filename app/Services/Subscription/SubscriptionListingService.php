@@ -14,7 +14,7 @@ class SubscriptionListingService extends Service
         return [];
     }
 
-    public static function getArrCallbackLists()
+    public static function getArrCallbacks()
     {
         return [
             'query.auth_user' => function ($authUser, $query) {

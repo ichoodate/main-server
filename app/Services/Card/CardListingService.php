@@ -42,7 +42,7 @@ class CardListingService extends Service
         return [];
     }
 
-    public static function getArrCallbackLists()
+    public static function getArrCallbacks()
     {
         return [
             'query.after' => function ($after, $query, $timezone) {

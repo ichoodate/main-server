@@ -17,7 +17,7 @@ class ReplyListingService extends Service
         ];
     }
 
-    public static function getArrCallbackLists()
+    public static function getArrCallbacks()
     {
         return [
             'query.ticket' => function ($query, $ticket) {

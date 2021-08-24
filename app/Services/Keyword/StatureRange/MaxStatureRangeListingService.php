@@ -13,7 +13,7 @@ class MaxStatureRangeListingService extends Service
         return [];
     }
 
-    public static function getArrCallbackLists()
+    public static function getArrCallbacks()
     {
         return [
             'query.min' => function ($min, $query) {

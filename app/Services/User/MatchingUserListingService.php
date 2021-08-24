@@ -19,7 +19,7 @@ class MatchingUserListingService extends Service
         ];
     }
 
-    public static function getArrCallbackLists()
+    public static function getArrCallbacks()
     {
         return [
             'query.keywords' => function ($keywords = '', $matchingGender, $query, $strict) {

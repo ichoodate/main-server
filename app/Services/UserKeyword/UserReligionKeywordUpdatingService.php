@@ -15,7 +15,7 @@ class UserReligionKeywordUpdatingService extends Service
         return [];
     }
 
-    public static function getArrCallbackLists()
+    public static function getArrCallbacks()
     {
         return [
             'auth_user' => function ($authUser) {

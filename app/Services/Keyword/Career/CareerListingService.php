@@ -13,7 +13,7 @@ class CareerListingService extends Service
         return [];
     }
 
-    public static function getArrCallbackLists()
+    public static function getArrCallbacks()
     {
         return [
             'query.parent_id' => function ($parentId, $query) {

@@ -15,7 +15,7 @@ class ChattingContentListingService extends Service
         return [];
     }
 
-    public static function getArrCallbackLists()
+    public static function getArrCallbacks()
     {
         return [
             'query.match' => function ($match, $query) {

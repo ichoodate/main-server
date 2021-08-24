@@ -14,7 +14,7 @@ class StateListingService extends Service
         return [];
     }
 
-    public static function getArrCallbackLists()
+    public static function getArrCallbacks()
     {
         return [
             'query.country' => function ($country, $query) {

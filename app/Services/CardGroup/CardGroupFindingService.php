@@ -16,7 +16,7 @@ class CardGroupFindingService extends Service
         ];
     }
 
-    public static function getArrCallbackLists()
+    public static function getArrCallbacks()
     {
         return [];
     }
