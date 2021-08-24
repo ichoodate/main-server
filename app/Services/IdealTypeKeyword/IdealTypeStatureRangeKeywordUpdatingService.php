@@ -18,7 +18,7 @@ class IdealTypeStatureRangeKeywordUpdatingService extends Service
     public static function getArrCallbacks()
     {
         return [
-            'auth_user' => function ($authUser) {
+            'auth_user.keywords' => function ($authUser) {
                 $keywordIds = (new StatureRange())->query()
                     ->select(StatureRange::ID)
                     ->getQuery()

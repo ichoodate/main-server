@@ -18,7 +18,7 @@ class IdealTypeSmokeKeywordUpdatingService extends Service
     public static function getArrCallbacks()
     {
         return [
-            'auth_user' => function ($authUser) {
+            'auth_user.keywords' => function ($authUser) {
                 $keywordIds = (new Smoke())->query()
                     ->select(Smoke::ID)
                     ->getQuery()

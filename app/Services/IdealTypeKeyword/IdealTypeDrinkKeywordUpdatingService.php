@@ -18,7 +18,7 @@ class IdealTypeDrinkKeywordUpdatingService extends Service
     public static function getArrCallbacks()
     {
         return [
-            'auth_user' => function ($authUser) {
+            'auth_user.keywords' => function ($authUser) {
                 $keywordIds = (new Drink())->query()
                     ->select(Drink::ID)
                     ->getQuery()

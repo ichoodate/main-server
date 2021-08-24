@@ -18,7 +18,7 @@ class IdealTypeWeightRangeKeywordUpdatingService extends Service
     public static function getArrCallbacks()
     {
         return [
-            'auth_user' => function ($authUser) {
+            'auth_user.keywords' => function ($authUser) {
                 $keywordIds = (new WeightRange())->query()
                     ->select(WeightRange::ID)
                     ->getQuery()
