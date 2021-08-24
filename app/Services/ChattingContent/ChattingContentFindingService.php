@@ -27,9 +27,9 @@ class ChattingContentFindingService extends Service
         return [
             'auth_user' => function ($authToken = '') {
                 return [AuthUserFindingService::class, [
-                    'token' => $authToken,
+                    'auth_token' => $authToken,
                 ], [
-                    'token' => '{{auth_token}}',
+                    'auth_token' => '{{auth_token}}',
                 ]];
             },
 
