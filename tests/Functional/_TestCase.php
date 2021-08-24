@@ -23,6 +23,15 @@ class _TestCase extends TestCase
         $this->faker = app(Faker::class);
 
         $this->withoutMiddleware(ServiceRunMiddleware::class);
+
+        app('db')->beginTransaction();
+    }
+
+    public function tearDown(): void
+    {
+        app('db')->rollback();
+
+        parent::tearDown();
     }
 
     public function assertDeletion($model)

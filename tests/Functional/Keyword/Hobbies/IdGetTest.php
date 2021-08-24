@@ -15,8 +15,8 @@ class IdGetTest extends _TestCase
 
     public function test()
     {
-        Hobby::factory()->create(['id' => 11]);
-        Hobby::factory()->create(['id' => 12]);
+        Hobby::factory()->create(['id' => 11, 'type' => 'aaa']);
+        Hobby::factory()->create(['id' => 12, 'type' => 'bbb']);
 
         $this->when(function () {
             $this->setRouteParameter('id', 11);

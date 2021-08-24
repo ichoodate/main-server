@@ -15,8 +15,8 @@ class IdGetTest extends _TestCase
 
     public function test()
     {
-        Language::factory()->create(['id' => 11]);
-        Language::factory()->create(['id' => 12]);
+        Language::factory()->create(['id' => 11, 'type' => 'aaa']);
+        Language::factory()->create(['id' => 12, 'type' => 'bbb']);
 
         $this->when(function () {
             $this->setRouteParameter('id', 11);

@@ -15,8 +15,8 @@ class GetTest extends _TestCase
 
     public function test()
     {
-        Smoke::factory()->create(['id' => 11]);
-        Smoke::factory()->create(['id' => 12]);
+        Smoke::factory()->create(['id' => 11, 'type' => 'aaa']);
+        Smoke::factory()->create(['id' => 12, 'type' => 'bbb']);
 
         $this->when(function () {
             $this->assertResultWithListing([11, 12]);

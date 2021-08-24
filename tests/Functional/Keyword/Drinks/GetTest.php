@@ -15,8 +15,8 @@ class GetTest extends _TestCase
 
     public function test()
     {
-        Drink::factory()->create(['id' => 11]);
-        Drink::factory()->create(['id' => 12]);
+        Drink::factory()->create(['id' => 11, 'type' => 'aaa']);
+        Drink::factory()->create(['id' => 12, 'type' => 'bbb']);
 
         $this->when(function () {
             $this->assertResultWithListing([11, 12]);

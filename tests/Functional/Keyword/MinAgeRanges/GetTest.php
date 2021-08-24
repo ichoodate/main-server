@@ -15,9 +15,9 @@ class GetTest extends _TestCase
 
     public function test()
     {
-        AgeRange::factory()->create(['id' => 11, 'max' => 21]);
-        AgeRange::factory()->create(['id' => 12, 'max' => 22]);
-        AgeRange::factory()->create(['id' => 13, 'max' => 22]);
+        AgeRange::factory()->create(['id' => 11, 'min' => 11, 'max' => 21]);
+        AgeRange::factory()->create(['id' => 12, 'min' => 12, 'max' => 22]);
+        AgeRange::factory()->create(['id' => 13, 'min' => 13, 'max' => 22]);
 
         $this->when(function () {
             $this->setInputParameter('max', 21);
@@ -28,7 +28,7 @@ class GetTest extends _TestCase
         $this->when(function () {
             $this->setInputParameter('max', 22);
 
-            $this->assertResultWithFinding([12, 13]);
+            $this->assertResultWithListing([12, 13]);
         });
     }
 }

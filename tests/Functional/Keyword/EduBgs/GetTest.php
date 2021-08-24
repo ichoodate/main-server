@@ -11,12 +11,12 @@ use Tests\Functional\_TestCase;
  */
 class GetTest extends _TestCase
 {
-    protected $uri = 'keyword/edu-bgs';
+    protected $uri = 'keyword/education-backgrounds';
 
     public function test()
     {
-        EduBg::factory()->create(['id' => 11]);
-        EduBg::factory()->create(['id' => 12]);
+        EduBg::factory()->create(['id' => 11, 'type' => 'aaa']);
+        EduBg::factory()->create(['id' => 12, 'type' => 'bbb']);
 
         $this->when(function () {
             $this->assertResultWithListing([11, 12]);

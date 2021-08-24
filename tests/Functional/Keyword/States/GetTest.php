@@ -2,6 +2,7 @@
 
 namespace Tests\Functional\Keyword\States;
 
+use App\Models\Keyword\Country;
 use App\Models\Keyword\State;
 use Tests\Functional\_TestCase;
 
@@ -15,11 +16,22 @@ class GetTest extends _TestCase
 
     public function test()
     {
-        State::factory()->create(['id' => 11]);
-        State::factory()->create(['id' => 12]);
+        Country::factory()->create(['id' => 21]);
+        Country::factory()->create(['id' => 22]);
+        State::factory()->create(['id' => 11, 'country_id' => 21]);
+        State::factory()->create(['id' => 12, 'country_id' => 22]);
+        State::factory()->create(['id' => 13, 'country_id' => 22]);
 
         $this->when(function () {
-            $this->assertResultWithListing([11, 12]);
+            $this->setInputParameter('country_id', 21);
+
+            $this->assertResultWithListing([11]);
+        });
+
+        $this->when(function () {
+            $this->setInputParameter('country_id', 22);
+
+            $this->assertResultWithListing([12, 13]);
         });
     }
 }

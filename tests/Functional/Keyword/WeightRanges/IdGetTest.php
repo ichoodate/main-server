@@ -15,8 +15,8 @@ class IdGetTest extends _TestCase
 
     public function test()
     {
-        WeightRange::factory()->create(['id' => 11]);
-        WeightRange::factory()->create(['id' => 12]);
+        WeightRange::factory()->create(['id' => 11, 'min' => 20, 'max' => 30]);
+        WeightRange::factory()->create(['id' => 12, 'min' => 21, 'max' => 31]);
 
         $this->when(function () {
             $this->setRouteParameter('id', 11);

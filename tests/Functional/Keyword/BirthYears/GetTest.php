@@ -15,8 +15,8 @@ class GetTest extends _TestCase
 
     public function test()
     {
-        BirthYear::factory()->create(['id' => 11]);
-        BirthYear::factory()->create(['id' => 12]);
+        BirthYear::factory()->create(['id' => 11, 'type' => 1950]);
+        BirthYear::factory()->create(['id' => 12, 'type' => 1951]);
 
         $this->when(function () {
             $this->assertResultWithListing([11, 12]);

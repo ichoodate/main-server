@@ -1,8 +1,8 @@
 <?php
 
-namespace Tests\Functional\Keyword\StatureRanges;
+namespace Tests\Functional\Keyword\Residence;
 
-use App\Models\Keyword\StatureRange;
+use App\Models\Keyword\Residence;
 use Tests\Functional\_TestCase;
 
 /**
@@ -11,12 +11,12 @@ use Tests\Functional\_TestCase;
  */
 class IdGetTest extends _TestCase
 {
-    protected $uri = 'keyword/stature-ranges/{id}';
+    protected $uri = 'keyword/residences/{id}';
 
     public function test()
     {
-        StatureRange::factory()->create(['id' => 11, 'min' => 20, 'max' => 30]);
-        StatureRange::factory()->create(['id' => 12, 'min' => 21, 'max' => 31]);
+        Residence::factory()->create(['id' => 11]);
+        Residence::factory()->create(['id' => 12]);
 
         $this->when(function () {
             $this->setRouteParameter('id', 11);

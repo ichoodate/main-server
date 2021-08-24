@@ -15,8 +15,8 @@ class GetTest extends _TestCase
 
     public function test()
     {
-        Religion::factory()->create(['id' => 11]);
-        Religion::factory()->create(['id' => 12]);
+        Religion::factory()->create(['id' => 11, 'type' => 'aaa']);
+        Religion::factory()->create(['id' => 12, 'type' => 'bbb']);
 
         $this->when(function () {
             $this->assertResultWithListing([11, 12]);
