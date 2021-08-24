@@ -18,6 +18,7 @@ class StateListingService extends Service
     {
         return [
             'query.country' => function ($country, $query) {
+                $query->where('country_id', $country->getKey());
             },
         ];
     }
