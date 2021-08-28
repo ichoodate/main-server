@@ -7,7 +7,7 @@ use App\Services\UserKeyword\UserStatureKeywordUpdatingService;
 
 class StatureController extends Controller
 {
-    public static function update()
+    public static function store()
     {
         return [UserStatureKeywordUpdatingService::class, [
             'keyword_id' => static::input('keyword_id'),

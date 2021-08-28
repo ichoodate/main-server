@@ -7,7 +7,7 @@ use App\Services\UserKeyword\UserCareerKeywordUpdatingService;
 
 class CareerController extends Controller
 {
-    public static function update()
+    public static function store()
     {
         return [UserCareerKeywordUpdatingService::class, [
             'keyword_id' => static::input('keyword_id'),

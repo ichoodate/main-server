@@ -11,7 +11,7 @@ use Tests\Functional\_TestCase;
  * @internal
  * @coversNothing
  */
-class ResidencesPutTest extends _TestCase
+class ResidencesPostTest extends _TestCase
 {
     protected $uri = 'user-keyword/residences';
 

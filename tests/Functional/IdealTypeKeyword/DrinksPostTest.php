@@ -1,30 +1,30 @@
 <?php
 
-namespace Tests\Functional\UserKeyword;
+namespace Tests\Functional\IdealTypeKeyword;
 
-use App\Models\Keyword\Nationality;
+use App\Models\IdealTypeKeyword;
+use App\Models\Keyword\Drink;
 use App\Models\User;
-use App\Models\UserKeyword;
 use Tests\Functional\_TestCase;
 
 /**
  * @internal
  * @coversNothing
  */
-class NationalitiesPutTest extends _TestCase
+class DrinksPostTest extends _TestCase
 {
-    protected $uri = 'user-keyword/nationalities';
+    protected $uri = 'ideal-type-keyword/drinks';
 
     public function test()
     {
         User::factory()->create(['id' => 1]);
         User::factory()->create(['id' => 2]);
-        Nationality::factory()->create(['id' => 11]);
-        Nationality::factory()->create(['id' => 12]);
-        Nationality::factory()->create(['id' => 13]);
-        UserKeyword::factory()->create(['id' => 101, 'user_id' => 1, 'keyword_id' => 11]);
-        UserKeyword::factory()->create(['id' => 102, 'user_id' => 1, 'keyword_id' => 12]);
-        UserKeyword::factory()->create(['id' => 104, 'user_id' => 2, 'keyword_id' => 12]);
+        Drink::factory()->create(['id' => 11]);
+        Drink::factory()->create(['id' => 12]);
+        Drink::factory()->create(['id' => 13]);
+        IdealTypeKeyword::factory()->create(['id' => 101, 'user_id' => 1, 'keyword_id' => 11]);
+        IdealTypeKeyword::factory()->create(['id' => 102, 'user_id' => 1, 'keyword_id' => 12]);
+        IdealTypeKeyword::factory()->create(['id' => 104, 'user_id' => 2, 'keyword_id' => 12]);
 
         $this->when(function () {
             $this->setAuthUser(User::find(1));
@@ -32,22 +32,22 @@ class NationalitiesPutTest extends _TestCase
 
             $this->runService();
 
-            $this->assertResultWithPersisting(new UserKeyword([
-                UserKeyword::USER_ID => 1,
-                UserKeyword::KEYWORD_ID => 13,
+            $this->assertResultWithPersisting(new IdealTypeKeyword([
+                IdealTypeKeyword::USER_ID => 1,
+                IdealTypeKeyword::KEYWORD_ID => 13,
             ]));
             $this->assertEquals(
                 0,
-                UserKeyword::query()
-                    ->where(UserKeyword::USER_ID, 1)
-                    ->whereIn(UserKeyword::KEYWORD_ID, [11, 12])
+                IdealTypeKeyword::query()
+                    ->where(IdealTypeKeyword::USER_ID, 1)
+                    ->whereIn(IdealTypeKeyword::KEYWORD_ID, [11, 12])
                     ->count()
             );
             $this->assertEquals(
                 1,
-                UserKeyword::query()
-                    ->where(UserKeyword::USER_ID, 2)
-                    ->where(UserKeyword::KEYWORD_ID, 12)
+                IdealTypeKeyword::query()
+                    ->where(IdealTypeKeyword::USER_ID, 2)
+                    ->where(IdealTypeKeyword::KEYWORD_ID, 12)
                     ->count()
             );
         });
@@ -66,15 +66,15 @@ class NationalitiesPutTest extends _TestCase
 
     public function testErrorNotNullRuleKeywordModel()
     {
-        Nationality::factory()->create(['id' => 11]);
-        Nationality::factory()->create(['id' => 12]);
+        Drink::factory()->create(['id' => 11]);
+        Drink::factory()->create(['id' => 12]);
 
         $this->when(function () {
             $this->setInputParameter('keyword_id', 13);
 
             $this->runService();
 
-            $this->assertError('nationality keyword for [keyword_id] must exist.');
+            $this->assertError('drink keyword for [keyword_id] must exist.');
         });
     }
 

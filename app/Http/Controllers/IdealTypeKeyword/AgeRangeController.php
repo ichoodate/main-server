@@ -7,7 +7,7 @@ use App\Services\IdealTypeKeyword\IdealTypeAgeRangeKeywordUpdatingService;
 
 class AgeRangeController extends Controller
 {
-    public static function update()
+    public static function store()
     {
         return [IdealTypeAgeRangeKeywordUpdatingService::class, [
             'keyword_id' => static::input('keyword_id'),

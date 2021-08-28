@@ -96,16 +96,16 @@ Route::prefix($prefix)->group(function () {
         });
 
         Route::prefix('ideal-type-keyword')->namespace('IdealTypeKeyword')->group(function () {
-            Route::put('age-ranges', 'AgeRangeController@update');
-            Route::put('careers', 'CareerController@update');
-            Route::put('drinks', 'DrinkController@update');
-            Route::put('hobbies', 'HobbyController@update');
-            Route::put('nationalities', 'NationalityController@update');
-            Route::put('religions', 'ReligionController@update');
-            Route::put('residences', 'ResidenceController@update');
-            Route::put('smokes', 'SmokeController@update');
-            Route::put('stature-ranges', 'StatureRangeController@update');
-            Route::put('weight-ranges', 'WeightRangeController@update');
+            Route::post('age-ranges', 'AgeRangeController@store');
+            Route::post('careers', 'CareerController@store');
+            Route::post('drinks', 'DrinkController@store');
+            Route::post('hobbies', 'HobbyController@store');
+            Route::post('nationalities', 'NationalityController@store');
+            Route::post('religions', 'ReligionController@store');
+            Route::post('residences', 'ResidenceController@store');
+            Route::post('smokes', 'SmokeController@store');
+            Route::post('stature-ranges', 'StatureRangeController@store');
+            Route::post('weight-ranges', 'WeightRangeController@store');
         });
 
         Route::get('ideal-type-keywords', 'IdealTypeKeywordController@index');
@@ -142,15 +142,15 @@ Route::prefix($prefix)->group(function () {
         Route::get('matching-users/{id}', 'MatchingUserController@show');
 
         Route::prefix('user-keyword')->namespace('UserKeyword')->group(function () {
-            Route::put('careers', 'CareerController@update');
-            Route::put('drinks', 'DrinkController@update');
-            Route::put('hobbies', 'HobbyController@update');
-            Route::put('nationalities', 'NationalityController@update');
-            Route::put('religions', 'ReligionController@update');
-            Route::put('residences', 'ResidenceController@update');
-            Route::put('smokes', 'SmokeController@update');
-            Route::put('statures', 'StatureController@update');
-            Route::put('weights', 'WeightController@update');
+            Route::post('careers', 'CareerController@store');
+            Route::post('drinks', 'DrinkController@store');
+            Route::post('hobbies', 'HobbyController@store');
+            Route::post('nationalities', 'NationalityController@store');
+            Route::post('religions', 'ReligionController@store');
+            Route::post('residences', 'ResidenceController@store');
+            Route::post('smokes', 'SmokeController@store');
+            Route::post('statures', 'StatureController@store');
+            Route::post('weights', 'WeightController@store');
         });
 
         Route::get('user-keywords', 'UserKeywordController@index');

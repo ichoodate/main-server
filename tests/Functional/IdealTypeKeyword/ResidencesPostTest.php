@@ -1,30 +1,30 @@
 <?php
 
-namespace Tests\Functional\UserKeyword;
+namespace Tests\Functional\IdealTypeKeyword;
 
-use App\Models\Keyword\Stature;
+use App\Models\IdealTypeKeyword;
+use App\Models\Keyword\Residence;
 use App\Models\User;
-use App\Models\UserKeyword;
 use Tests\Functional\_TestCase;
 
 /**
  * @internal
  * @coversNothing
  */
-class StaturesPutTest extends _TestCase
+class ResidencesPostTest extends _TestCase
 {
-    protected $uri = 'user-keyword/statures';
+    protected $uri = 'ideal-type-keyword/residences';
 
     public function test()
     {
         User::factory()->create(['id' => 1]);
         User::factory()->create(['id' => 2]);
-        Stature::factory()->create(['id' => 11]);
-        Stature::factory()->create(['id' => 12]);
-        Stature::factory()->create(['id' => 13]);
-        UserKeyword::factory()->create(['id' => 101, 'user_id' => 1, 'keyword_id' => 11]);
-        UserKeyword::factory()->create(['id' => 102, 'user_id' => 1, 'keyword_id' => 12]);
-        UserKeyword::factory()->create(['id' => 104, 'user_id' => 2, 'keyword_id' => 12]);
+        Residence::factory()->create(['id' => 11]);
+        Residence::factory()->create(['id' => 12]);
+        Residence::factory()->create(['id' => 13]);
+        IdealTypeKeyword::factory()->create(['id' => 101, 'user_id' => 1, 'keyword_id' => 11]);
+        IdealTypeKeyword::factory()->create(['id' => 102, 'user_id' => 1, 'keyword_id' => 12]);
+        IdealTypeKeyword::factory()->create(['id' => 104, 'user_id' => 2, 'keyword_id' => 12]);
 
         $this->when(function () {
             $this->setAuthUser(User::find(1));
@@ -32,22 +32,22 @@ class StaturesPutTest extends _TestCase
 
             $this->runService();
 
-            $this->assertResultWithPersisting(new UserKeyword([
-                UserKeyword::USER_ID => 1,
-                UserKeyword::KEYWORD_ID => 13,
+            $this->assertResultWithPersisting(new IdealTypeKeyword([
+                IdealTypeKeyword::USER_ID => 1,
+                IdealTypeKeyword::KEYWORD_ID => 13,
             ]));
             $this->assertEquals(
                 0,
-                UserKeyword::query()
-                    ->where(UserKeyword::USER_ID, 1)
-                    ->whereIn(UserKeyword::KEYWORD_ID, [11, 12])
+                IdealTypeKeyword::query()
+                    ->where(IdealTypeKeyword::USER_ID, 1)
+                    ->whereIn(IdealTypeKeyword::KEYWORD_ID, [11, 12])
                     ->count()
             );
             $this->assertEquals(
                 1,
-                UserKeyword::query()
-                    ->where(UserKeyword::USER_ID, 2)
-                    ->where(UserKeyword::KEYWORD_ID, 12)
+                IdealTypeKeyword::query()
+                    ->where(IdealTypeKeyword::USER_ID, 2)
+                    ->where(IdealTypeKeyword::KEYWORD_ID, 12)
                     ->count()
             );
         });
@@ -66,15 +66,15 @@ class StaturesPutTest extends _TestCase
 
     public function testErrorNotNullRuleKeywordModel()
     {
-        Stature::factory()->create(['id' => 11]);
-        Stature::factory()->create(['id' => 12]);
+        Residence::factory()->create(['id' => 11]);
+        Residence::factory()->create(['id' => 12]);
 
         $this->when(function () {
             $this->setInputParameter('keyword_id', 13);
 
             $this->runService();
 
-            $this->assertError('stature keyword for [keyword_id] must exist.');
+            $this->assertError('residence keyword for [keyword_id] must exist.');
         });
     }
 

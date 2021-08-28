@@ -7,7 +7,7 @@ use App\Services\IdealTypeKeyword\IdealTypeStatureRangeKeywordUpdatingService;
 
 class StatureRangeController extends Controller
 {
-    public static function update()
+    public static function store()
     {
         return [IdealTypeStatureRangeKeywordUpdatingService::class, [
             'keyword_id' => static::input('keyword_id'),

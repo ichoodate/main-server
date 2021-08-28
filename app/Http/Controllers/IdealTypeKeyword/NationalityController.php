@@ -7,7 +7,7 @@ use App\Services\IdealTypeKeyword\IdealTypeNationalityKeywordUpdatingService;
 
 class NationalityController extends Controller
 {
-    public static function update()
+    public static function store()
     {
         return [IdealTypeNationalityKeywordUpdatingService::class, [
             'keyword_id' => static::input('keyword_id'),

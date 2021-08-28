@@ -11,7 +11,7 @@ use Tests\Functional\_TestCase;
  * @internal
  * @coversNothing
  */
-class WeightsPutTest extends _TestCase
+class WeightsPostTest extends _TestCase
 {
     protected $uri = 'user-keyword/weights';
 

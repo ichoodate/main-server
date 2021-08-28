@@ -2,7 +2,7 @@
 
 namespace Tests\Functional\UserKeyword;
 
-use App\Models\Keyword\Drink;
+use App\Models\Keyword\Religion;
 use App\Models\User;
 use App\Models\UserKeyword;
 use Tests\Functional\_TestCase;
@@ -11,17 +11,17 @@ use Tests\Functional\_TestCase;
  * @internal
  * @coversNothing
  */
-class DrinksPutTest extends _TestCase
+class ReligionsPostTest extends _TestCase
 {
-    protected $uri = 'user-keyword/drinks';
+    protected $uri = 'user-keyword/religions';
 
     public function test()
     {
         User::factory()->create(['id' => 1]);
         User::factory()->create(['id' => 2]);
-        Drink::factory()->create(['id' => 11, 'type' => 'aaa']);
-        Drink::factory()->create(['id' => 12, 'type' => 'bbb']);
-        Drink::factory()->create(['id' => 13, 'type' => 'ccc']);
+        Religion::factory()->create(['id' => 11, 'type' => 'aaa']);
+        Religion::factory()->create(['id' => 12, 'type' => 'bbb']);
+        Religion::factory()->create(['id' => 13, 'type' => 'ccc']);
         UserKeyword::factory()->create(['id' => 101, 'user_id' => 1, 'keyword_id' => 11]);
         UserKeyword::factory()->create(['id' => 102, 'user_id' => 1, 'keyword_id' => 12]);
         UserKeyword::factory()->create(['id' => 104, 'user_id' => 2, 'keyword_id' => 12]);
@@ -66,15 +66,15 @@ class DrinksPutTest extends _TestCase
 
     public function testErrorNotNullRuleKeywordModel()
     {
-        Drink::factory()->create(['id' => 11, 'type' => 'aaa']);
-        Drink::factory()->create(['id' => 12, 'type' => 'bbb']);
+        Religion::factory()->create(['id' => 11, 'type' => 'aaa']);
+        Religion::factory()->create(['id' => 12, 'type' => 'bbb']);
 
         $this->when(function () {
             $this->setInputParameter('keyword_id', 13);
 
             $this->runService();
 
-            $this->assertError('drink keyword for [keyword_id] must exist.');
+            $this->assertError('religion keyword for [keyword_id] must exist.');
         });
     }
 

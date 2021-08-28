@@ -7,7 +7,7 @@ use App\Services\IdealTypeKeyword\IdealTypeReligionKeywordUpdatingService;
 
 class ReligionController extends Controller
 {
-    public static function update()
+    public static function store()
     {
         return [IdealTypeReligionKeywordUpdatingService::class, [
             'keyword_id' => static::input('keyword_id'),

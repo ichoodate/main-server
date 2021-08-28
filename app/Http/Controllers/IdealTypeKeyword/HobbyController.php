@@ -7,7 +7,7 @@ use App\Services\IdealTypeKeyword\IdealTypeHobbyKeywordUpdatingService;
 
 class HobbyController extends Controller
 {
-    public static function update()
+    public static function store()
     {
         return [IdealTypeHobbyKeywordUpdatingService::class, [
             'keyword_ids' => static::input('keyword_ids'),

@@ -3,7 +3,7 @@
 namespace Tests\Functional\IdealTypeKeyword;
 
 use App\Models\IdealTypeKeyword;
-use App\Models\Keyword\Drink;
+use App\Models\Keyword\Smoke;
 use App\Models\User;
 use Tests\Functional\_TestCase;
 
@@ -11,17 +11,17 @@ use Tests\Functional\_TestCase;
  * @internal
  * @coversNothing
  */
-class DrinksPutTest extends _TestCase
+class SmokesPostTest extends _TestCase
 {
-    protected $uri = 'ideal-type-keyword/drinks';
+    protected $uri = 'ideal-type-keyword/smokes';
 
     public function test()
     {
         User::factory()->create(['id' => 1]);
         User::factory()->create(['id' => 2]);
-        Drink::factory()->create(['id' => 11]);
-        Drink::factory()->create(['id' => 12]);
-        Drink::factory()->create(['id' => 13]);
+        Smoke::factory()->create(['id' => 11, 'type' => 'aaa']);
+        Smoke::factory()->create(['id' => 12, 'type' => 'bbb']);
+        Smoke::factory()->create(['id' => 13, 'type' => 'ccc']);
         IdealTypeKeyword::factory()->create(['id' => 101, 'user_id' => 1, 'keyword_id' => 11]);
         IdealTypeKeyword::factory()->create(['id' => 102, 'user_id' => 1, 'keyword_id' => 12]);
         IdealTypeKeyword::factory()->create(['id' => 104, 'user_id' => 2, 'keyword_id' => 12]);
@@ -66,15 +66,15 @@ class DrinksPutTest extends _TestCase
 
     public function testErrorNotNullRuleKeywordModel()
     {
-        Drink::factory()->create(['id' => 11]);
-        Drink::factory()->create(['id' => 12]);
+        Smoke::factory()->create(['id' => 11, 'type' => 'aaa']);
+        Smoke::factory()->create(['id' => 12, 'type' => 'bbb']);
 
         $this->when(function () {
             $this->setInputParameter('keyword_id', 13);
 
             $this->runService();
 
-            $this->assertError('drink keyword for [keyword_id] must exist.');
+            $this->assertError('smoke keyword for [keyword_id] must exist.');
         });
     }
 

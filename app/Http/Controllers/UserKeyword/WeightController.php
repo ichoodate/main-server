@@ -7,7 +7,7 @@ use App\Services\UserKeyword\UserWeightKeywordUpdatingService;
 
 class WeightController extends Controller
 {
-    public static function update()
+    public static function store()
     {
         return [UserWeightKeywordUpdatingService::class, [
             'keyword_id' => static::input('keyword_id'),

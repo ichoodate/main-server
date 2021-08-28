@@ -7,7 +7,7 @@ use App\Services\UserKeyword\UserResidenceKeywordUpdatingService;
 
 class ResidenceController extends Controller
 {
-    public static function update()
+    public static function store()
     {
         return [UserResidenceKeywordUpdatingService::class, [
             'keyword_id' => static::input('keyword_id'),

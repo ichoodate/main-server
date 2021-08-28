@@ -7,7 +7,7 @@ use App\Services\UserKeyword\UserSmokeKeywordUpdatingService;
 
 class SmokeController extends Controller
 {
-    public static function update()
+    public static function store()
     {
         return [UserSmokeKeywordUpdatingService::class, [
             'keyword_id' => static::input('keyword_id'),

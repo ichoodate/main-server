@@ -7,7 +7,7 @@ use App\Services\IdealTypeKeyword\IdealTypeWeightRangeKeywordUpdatingService;
 
 class WeightRangeController extends Controller
 {
-    public static function update()
+    public static function store()
     {
         return [IdealTypeWeightRangeKeywordUpdatingService::class, [
             'keyword_id' => static::input('keyword_id'),

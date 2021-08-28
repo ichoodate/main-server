@@ -2,7 +2,7 @@
 
 namespace Tests\Functional\UserKeyword;
 
-use App\Models\Keyword\Career;
+use App\Models\Keyword\Nationality;
 use App\Models\User;
 use App\Models\UserKeyword;
 use Tests\Functional\_TestCase;
@@ -11,17 +11,17 @@ use Tests\Functional\_TestCase;
  * @internal
  * @coversNothing
  */
-class CareersPutTest extends _TestCase
+class NationalitiesPostTest extends _TestCase
 {
-    protected $uri = 'user-keyword/careers';
+    protected $uri = 'user-keyword/nationalities';
 
     public function test()
     {
         User::factory()->create(['id' => 1]);
         User::factory()->create(['id' => 2]);
-        Career::factory()->create(['id' => 11]);
-        Career::factory()->create(['id' => 12]);
-        Career::factory()->create(['id' => 13]);
+        Nationality::factory()->create(['id' => 11]);
+        Nationality::factory()->create(['id' => 12]);
+        Nationality::factory()->create(['id' => 13]);
         UserKeyword::factory()->create(['id' => 101, 'user_id' => 1, 'keyword_id' => 11]);
         UserKeyword::factory()->create(['id' => 102, 'user_id' => 1, 'keyword_id' => 12]);
         UserKeyword::factory()->create(['id' => 104, 'user_id' => 2, 'keyword_id' => 12]);
@@ -66,15 +66,15 @@ class CareersPutTest extends _TestCase
 
     public function testErrorNotNullRuleKeywordModel()
     {
-        Career::factory()->create(['id' => 11]);
-        Career::factory()->create(['id' => 12]);
+        Nationality::factory()->create(['id' => 11]);
+        Nationality::factory()->create(['id' => 12]);
 
         $this->when(function () {
             $this->setInputParameter('keyword_id', 13);
 
             $this->runService();
 
-            $this->assertError('career keyword for [keyword_id] must exist.');
+            $this->assertError('nationality keyword for [keyword_id] must exist.');
         });
     }
 

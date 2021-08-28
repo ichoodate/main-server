@@ -2,7 +2,7 @@
 
 namespace Tests\Functional\UserKeyword;
 
-use App\Models\Keyword\Religion;
+use App\Models\Keyword\Career;
 use App\Models\User;
 use App\Models\UserKeyword;
 use Tests\Functional\_TestCase;
@@ -11,17 +11,17 @@ use Tests\Functional\_TestCase;
  * @internal
  * @coversNothing
  */
-class ReligionsPutTest extends _TestCase
+class CareersPostTest extends _TestCase
 {
-    protected $uri = 'user-keyword/religions';
+    protected $uri = 'user-keyword/careers';
 
     public function test()
     {
         User::factory()->create(['id' => 1]);
         User::factory()->create(['id' => 2]);
-        Religion::factory()->create(['id' => 11, 'type' => 'aaa']);
-        Religion::factory()->create(['id' => 12, 'type' => 'bbb']);
-        Religion::factory()->create(['id' => 13, 'type' => 'ccc']);
+        Career::factory()->create(['id' => 11]);
+        Career::factory()->create(['id' => 12]);
+        Career::factory()->create(['id' => 13]);
         UserKeyword::factory()->create(['id' => 101, 'user_id' => 1, 'keyword_id' => 11]);
         UserKeyword::factory()->create(['id' => 102, 'user_id' => 1, 'keyword_id' => 12]);
         UserKeyword::factory()->create(['id' => 104, 'user_id' => 2, 'keyword_id' => 12]);
@@ -66,15 +66,15 @@ class ReligionsPutTest extends _TestCase
 
     public function testErrorNotNullRuleKeywordModel()
     {
-        Religion::factory()->create(['id' => 11, 'type' => 'aaa']);
-        Religion::factory()->create(['id' => 12, 'type' => 'bbb']);
+        Career::factory()->create(['id' => 11]);
+        Career::factory()->create(['id' => 12]);
 
         $this->when(function () {
             $this->setInputParameter('keyword_id', 13);
 
             $this->runService();
 
-            $this->assertError('religion keyword for [keyword_id] must exist.');
+            $this->assertError('career keyword for [keyword_id] must exist.');
         });
     }
 

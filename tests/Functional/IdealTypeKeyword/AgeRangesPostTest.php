@@ -3,7 +3,7 @@
 namespace Tests\Functional\IdealTypeKeyword;
 
 use App\Models\IdealTypeKeyword;
-use App\Models\Keyword\Residence;
+use App\Models\Keyword\AgeRange;
 use App\Models\User;
 use Tests\Functional\_TestCase;
 
@@ -11,17 +11,17 @@ use Tests\Functional\_TestCase;
  * @internal
  * @coversNothing
  */
-class ResidencesPutTest extends _TestCase
+class AgeRangesPostTest extends _TestCase
 {
-    protected $uri = 'ideal-type-keyword/residences';
+    protected $uri = 'ideal-type-keyword/age-ranges';
 
     public function test()
     {
         User::factory()->create(['id' => 1]);
         User::factory()->create(['id' => 2]);
-        Residence::factory()->create(['id' => 11]);
-        Residence::factory()->create(['id' => 12]);
-        Residence::factory()->create(['id' => 13]);
+        AgeRange::factory()->create(['id' => 11]);
+        AgeRange::factory()->create(['id' => 12]);
+        AgeRange::factory()->create(['id' => 13]);
         IdealTypeKeyword::factory()->create(['id' => 101, 'user_id' => 1, 'keyword_id' => 11]);
         IdealTypeKeyword::factory()->create(['id' => 102, 'user_id' => 1, 'keyword_id' => 12]);
         IdealTypeKeyword::factory()->create(['id' => 104, 'user_id' => 2, 'keyword_id' => 12]);
@@ -66,15 +66,15 @@ class ResidencesPutTest extends _TestCase
 
     public function testErrorNotNullRuleKeywordModel()
     {
-        Residence::factory()->create(['id' => 11]);
-        Residence::factory()->create(['id' => 12]);
+        AgeRange::factory()->create(['id' => 11]);
+        AgeRange::factory()->create(['id' => 12]);
 
         $this->when(function () {
             $this->setInputParameter('keyword_id', 13);
 
             $this->runService();
 
-            $this->assertError('residence keyword for [keyword_id] must exist.');
+            $this->assertError('age_range keyword for [keyword_id] must exist.');
         });
     }
 

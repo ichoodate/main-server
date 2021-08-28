@@ -7,7 +7,7 @@ use App\Services\IdealTypeKeyword\IdealTypeSmokeKeywordUpdatingService;
 
 class SmokeController extends Controller
 {
-    public static function update()
+    public static function store()
     {
         return [IdealTypeSmokeKeywordUpdatingService::class, [
             'keyword_id' => static::input('keyword_id'),

@@ -3,7 +3,7 @@
 namespace Tests\Functional\IdealTypeKeyword;
 
 use App\Models\IdealTypeKeyword;
-use App\Models\Keyword\WeightRange;
+use App\Models\Keyword\Nationality;
 use App\Models\User;
 use Tests\Functional\_TestCase;
 
@@ -11,17 +11,17 @@ use Tests\Functional\_TestCase;
  * @internal
  * @coversNothing
  */
-class WeightRangesPutTest extends _TestCase
+class NationalitiesPostTest extends _TestCase
 {
-    protected $uri = 'ideal-type-keyword/weight-ranges';
+    protected $uri = 'ideal-type-keyword/nationalities';
 
     public function test()
     {
         User::factory()->create(['id' => 1]);
         User::factory()->create(['id' => 2]);
-        WeightRange::factory()->create(['id' => 11]);
-        WeightRange::factory()->create(['id' => 12]);
-        WeightRange::factory()->create(['id' => 13]);
+        Nationality::factory()->create(['id' => 11]);
+        Nationality::factory()->create(['id' => 12]);
+        Nationality::factory()->create(['id' => 13]);
         IdealTypeKeyword::factory()->create(['id' => 101, 'user_id' => 1, 'keyword_id' => 11]);
         IdealTypeKeyword::factory()->create(['id' => 102, 'user_id' => 1, 'keyword_id' => 12]);
         IdealTypeKeyword::factory()->create(['id' => 104, 'user_id' => 2, 'keyword_id' => 12]);
@@ -66,15 +66,15 @@ class WeightRangesPutTest extends _TestCase
 
     public function testErrorNotNullRuleKeywordModel()
     {
-        WeightRange::factory()->create(['id' => 11]);
-        WeightRange::factory()->create(['id' => 12]);
+        Nationality::factory()->create(['id' => 11]);
+        Nationality::factory()->create(['id' => 12]);
 
         $this->when(function () {
             $this->setInputParameter('keyword_id', 13);
 
             $this->runService();
 
-            $this->assertError('weight_range keyword for [keyword_id] must exist.');
+            $this->assertError('nationality keyword for [keyword_id] must exist.');
         });
     }
 
