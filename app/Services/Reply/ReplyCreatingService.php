@@ -30,7 +30,7 @@ class ReplyCreatingService extends Service
                 ]];
             },
 
-            'created' => function ($authUser, $description, $ticket) {
+            'result' => function ($authUser, $description, $ticket) {
                 return (new Reply())->create([
                     Reply::WRITER_ID => $authUser->getKey(),
                     Reply::DESCRIPTION => $description,
@@ -38,12 +38,12 @@ class ReplyCreatingService extends Service
                 ]);
             },
 
-            'ticket' => function ($authUser, $ticketId) {
+            'ticket' => function ($authToken, $ticketId) {
                 return [TicketFindingService::class, [
-                    'auth_user' => $authUser,
+                    'auth_token' => $authToken,
                     'id' => $ticketId,
                 ], [
-                    'auth_user' => '{{auth_user}}',
+                    'auth_token' => '{{auth_token}}',
                     'id' => '{{ticket_id}}',
                 ]];
             },

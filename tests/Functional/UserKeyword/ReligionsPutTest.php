@@ -13,15 +13,15 @@ use Tests\Functional\_TestCase;
  */
 class ReligionsPutTest extends _TestCase
 {
-    protected $uri = 'self-keyword/religions';
+    protected $uri = 'user-keyword/religions';
 
     public function test()
     {
         User::factory()->create(['id' => 1]);
         User::factory()->create(['id' => 2]);
-        Religion::factory()->create(['id' => 11]);
-        Religion::factory()->create(['id' => 12]);
-        Religion::factory()->create(['id' => 13]);
+        Religion::factory()->create(['id' => 11, 'type' => 'aaa']);
+        Religion::factory()->create(['id' => 12, 'type' => 'bbb']);
+        Religion::factory()->create(['id' => 13, 'type' => 'ccc']);
         UserKeyword::factory()->create(['id' => 101, 'user_id' => 1, 'keyword_id' => 11]);
         UserKeyword::factory()->create(['id' => 102, 'user_id' => 1, 'keyword_id' => 12]);
         UserKeyword::factory()->create(['id' => 104, 'user_id' => 2, 'keyword_id' => 12]);
@@ -29,6 +29,8 @@ class ReligionsPutTest extends _TestCase
         $this->when(function () {
             $this->setAuthUser(User::find(1));
             $this->setInputParameter('keyword_id', 13);
+
+            $this->runService();
 
             $this->assertResultWithPersisting(new UserKeyword([
                 UserKeyword::USER_ID => 1,
@@ -56,17 +58,21 @@ class ReligionsPutTest extends _TestCase
         $this->when(function () {
             $this->setInputParameter('keyword_id', 'abcd');
 
+            $this->runService();
+
             $this->assertError('[keyword_id] must be an integer.');
         });
     }
 
     public function testErrorNotNullRuleKeywordModel()
     {
-        Religion::factory()->create(['id' => 11]);
-        Religion::factory()->create(['id' => 12]);
+        Religion::factory()->create(['id' => 11, 'type' => 'aaa']);
+        Religion::factory()->create(['id' => 12, 'type' => 'bbb']);
 
         $this->when(function () {
             $this->setInputParameter('keyword_id', 13);
+
+            $this->runService();
 
             $this->assertError('religion keyword for [keyword_id] must exist.');
         });
@@ -75,6 +81,8 @@ class ReligionsPutTest extends _TestCase
     public function testErrorRequiredRuleAuthUser()
     {
         $this->when(function () {
+            $this->runService();
+
             $this->assertError('header[authorization] is required.');
         });
     }
@@ -82,6 +90,8 @@ class ReligionsPutTest extends _TestCase
     public function testErrorRequiredRuleKeywordId()
     {
         $this->when(function () {
+            $this->runService();
+
             $this->assertError('[keyword_id] is required.');
         });
     }

@@ -46,6 +46,7 @@ Route::prefix($prefix)->group(function () {
         Route::get('card-groups/{id}', 'CardGroupController@show');
         Route::get('chatting-contents', 'ChattingContentController@index');
         Route::post('chatting-contents', 'ChattingContentController@store');
+        Route::get('chatting-contents/{id}', 'ChattingContentController@show');
         Route::post('face-photos', 'FacePhotoController@store');
         Route::get('face-photos/{id}', 'FacePhotoController@show');
         Route::post('friends', 'FriendController@store');
@@ -110,6 +111,8 @@ Route::prefix($prefix)->group(function () {
         Route::get('ideal-type-keywords', 'IdealTypeKeywordController@index');
         Route::get('invoices', 'InvoiceController@index');
         Route::get('invoices/{id}', 'InvoiceController@show');
+        Route::get('localizables', 'LocalizableController@index');
+        Route::get('localizables/{id}', 'LocalizableController@show');
         Route::get('notices', 'NoticeController@index');
         Route::post('notices', 'NoticeController@store');
         Route::get('notices/{id}', 'NoticeController@show');
@@ -124,9 +127,9 @@ Route::prefix($prefix)->group(function () {
         Route::post('profile-photos', 'ProfilePhotoController@store');
         Route::get('profile-photos/{id}', 'ProfilePhotoController@show');
         Route::post('pwd-resets', 'PwdResetController@store');
-        Route::put('pwd-resets', 'PwdResetController@update');
-        Route::get('roles', 'ProfilePhotoController@index');
-        Route::get('roles/{id}', 'ProfilePhotoController@show');
+        Route::put('pwd-resets/{id}', 'PwdResetController@update');
+        Route::get('roles', 'RoleController@index');
+        Route::get('roles/{id}', 'RoleController@show');
         Route::get('subscriptions', 'SubscriptionController@index');
         Route::get('subscriptions/{id}', 'SubscriptionController@show');
         Route::get('tickets', 'TicketController@index');

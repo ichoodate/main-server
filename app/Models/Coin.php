@@ -12,6 +12,7 @@ class Coin extends Model
     public const ID = 'id';
     public const RELATED_ID = 'related_id';
     public const USER_ID = 'user_id';
+
     protected $casts = [
         self::ID => 'integer',
         self::USER_ID => 'integer',

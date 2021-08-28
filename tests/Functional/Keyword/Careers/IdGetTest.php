@@ -21,11 +21,15 @@ class IdGetTest extends _TestCase
         $this->when(function () {
             $this->setRouteParameter('id', 11);
 
+            $this->runService();
+
             $this->assertResultWithFinding(11);
         });
 
         $this->when(function () {
             $this->setRouteParameter('id', 12);
+
+            $this->runService();
 
             $this->assertResultWithFinding(12);
         });
@@ -35,6 +39,8 @@ class IdGetTest extends _TestCase
     {
         $this->when(function () {
             $this->setRouteParameter('id', 'abcd');
+
+            $this->runService();
 
             $this->assertError('abcd must be an integer.');
         });

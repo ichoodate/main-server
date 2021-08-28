@@ -29,6 +29,8 @@ class UserGetTest extends _TestCase
         $this->when(function () {
             $this->setAuthUser(User::find(2));
 
+            $this->runService();
+
             $this->assertResult(User::find(2));
         });
     }

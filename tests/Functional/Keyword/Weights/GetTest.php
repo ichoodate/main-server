@@ -19,6 +19,8 @@ class GetTest extends _TestCase
         Weight::factory()->create(['id' => 12, 'type' => 51]);
 
         $this->when(function () {
+            $this->runService();
+
             $this->assertResultWithListing([11, 12]);
         });
     }

@@ -76,6 +76,11 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         return $this->relation(Popularity::class, ['id', ':auth_user_id:'], ['receiver_id', 'sender_id'], false);
     }
 
+    public function roles()
+    {
+        return $this->hasMany(Role::class, 'user_id', 'id');
+    }
+
     public function setPasswordAttribute($value)
     {
         $this->attributes['password'] = Hash::make($value);

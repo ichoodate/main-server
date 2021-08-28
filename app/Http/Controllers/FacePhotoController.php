@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controller;
-use App\Services\FacePhoto\FacePhotoCreatingService;
 use App\Services\FacePhoto\FacePhotoFindingService;
+use App\Services\FacePhoto\FacePhotoUpdatingService;
 
 class FacePhotoController extends Controller
 {
@@ -15,7 +15,7 @@ class FacePhotoController extends Controller
 
     public static function store()
     {
-        return [FacePhotoCreatingService::class, [
+        return [FacePhotoUpdatingService::class, [
             'data' => static::input('data'),
         ], [
             'data' => '[data]',

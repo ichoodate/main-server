@@ -19,6 +19,8 @@ class GetTest extends _TestCase
         Language::factory()->create(['id' => 12, 'type' => 'bbb']);
 
         $this->when(function () {
+            $this->runService();
+
             $this->assertResultWithListing([11, 12]);
         });
     }

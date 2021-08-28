@@ -24,6 +24,8 @@ class PostTest extends _TestCase
         $this->when(function () {
             $this->setInputParameter('email', 'abcd@gmail.com');
 
+            $this->runService();
+
             $this->assertResultWithPersisting(new PwdReset([
                 PwdReset::EMAIL => 'abcd@gmail.com',
                 PwdReset::COMPLETE => false,
@@ -35,6 +37,8 @@ class PostTest extends _TestCase
     {
         $this->when(function () {
             $this->setInputParameter('email', 'abcd');
+
+            $this->runService();
 
             $this->assertError('[email] must be a valid email address.');
         });
@@ -50,6 +54,8 @@ class PostTest extends _TestCase
         $this->when(function () {
             $this->setInputParameter('email', 'bcde@gmail.com');
 
+            $this->runService();
+
             $this->assertError('user for [email] must exist.');
         });
     }
@@ -57,6 +63,8 @@ class PostTest extends _TestCase
     public function testErrorRequiredRuleEmail()
     {
         $this->when(function () {
+            $this->runService();
+
             $this->assertError('[email] is required.');
         });
     }

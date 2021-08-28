@@ -27,34 +27,26 @@ class ChattingContentListingService extends Service
     public static function getArrLoaders()
     {
         return [
-            'auth_user' => function ($authToken = '') {
-                return [AuthUserFindingService::class, [
-                    'auth_token' => $authToken,
-                ], [
-                    'auth_token' => '{{auth_token}}',
-                ]];
-            },
-
             'available_expands' => function () {
                 return ['match', 'writer'];
             },
 
-            'cursor' => function ($authUser, $cursorId) {
+            'cursor' => function ($authToken, $cursorId) {
                 return [ChattingContentFindingService::class, [
-                    'auth_user' => $authUser,
+                    'auth_token' => $authToken,
                     'id' => $cursorId,
                 ], [
-                    'auth_user' => '{{auth_user}}',
+                    'auth_token' => '{{auth_token}}',
                     'id' => '{{cursor_id}}',
                 ]];
             },
 
-            'match' => function ($authUser, $matchId) {
+            'match' => function ($authToken, $matchId) {
                 return [MatchFindingService::class, [
-                    'auth_user' => $authUser,
+                    'auth_token' => $authToken,
                     'id' => $matchId,
                 ], [
-                    'auth_user' => '{{auth_user}}',
+                    'auth_token' => '{{auth_token}}',
                     'id' => '{{match_id}}',
                 ]];
             },

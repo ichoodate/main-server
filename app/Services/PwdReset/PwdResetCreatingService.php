@@ -5,6 +5,7 @@ namespace App\Services\PwdReset;
 use App\Models\PwdReset;
 use App\Models\User;
 use FunctionalCoding\Service;
+use Illuminate\Support\Str;
 
 class PwdResetCreatingService extends Service
 {
@@ -23,9 +24,9 @@ class PwdResetCreatingService extends Service
     public static function getArrLoaders()
     {
         return [
-            'created' => function ($user) {
+            'result' => function ($user) {
                 return (new PwdReset())->create([
-                    PwdReset::TOKEN => str_random(32),
+                    PwdReset::TOKEN => Str::random(32),
                     PwdReset::EMAIL => $user->{User::EMAIL},
                     PwdReset::COMPLETE => false,
                 ]);

@@ -3,22 +3,24 @@
 namespace Database\Factories;
 
 use App\Models\Card;
+use App\Models\CardFlip;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
 
 class CardFactory extends Factory
 {
     protected $model = Card::class;
 
-    public function create($data = [], ?Model $parent = null)
+    public function createAll($data = [], ?Model $parent = null)
     {
-        $attrs = array_only($data, array_keys((new static())->definition()));
+        $attrs = Arr::only($data, array_keys((new static())->definition()));
         $model = parent::create($attrs, $parent);
-        $data = array_add($data, Card::FLIPS, []);
+        $data = Arr::add($data, Card::FLIPS, []);
 
         foreach ($data[Card::FLIPS] as $flip) {
             if (!array_key_exists(CardFlip::USER_ID, $flip)) {
-                $addableUserIds = array_values(array_only($data, [
+                $addableUserIds = array_values(Arr::only($data, [
                     Card::CHOOSER_ID, Card::SHOWNER_ID,
                 ]));
 

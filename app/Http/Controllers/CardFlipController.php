@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controller;
+use App\Services\CardFlip\CardFlipCreatingService;
 use App\Services\CardFlip\CardFlipFindingService;
-use App\Services\CardFlip\FreeCardFlipCreatingService;
 
 class CardFlipController extends Controller
 {
@@ -15,7 +15,7 @@ class CardFlipController extends Controller
 
     public static function store()
     {
-        return [FreeCardFlipCreatingService::class, [
+        return [CardFlipCreatingService::class, [
             'card_id' => static::input('card_id'),
         ], [
             'card_id' => '[card_id]',

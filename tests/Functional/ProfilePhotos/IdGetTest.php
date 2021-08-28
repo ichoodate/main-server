@@ -22,15 +22,17 @@ class IdGetTest extends _TestCase
         ProfilePhoto::factory()->create(['id' => 12, 'user_id' => 2]);
 
         $this->when(function () {
-            $this->setAuthUser(User::find(1));
             $this->setRouteParameter('id', 11);
+
+            $this->runService();
 
             $this->assertResultWithFinding(11);
         });
 
         $this->when(function () {
-            $this->setAuthUser(User::find(2));
             $this->setRouteParameter('id', 12);
+
+            $this->runService();
 
             $this->assertResultWithFinding(12);
         });
@@ -40,6 +42,8 @@ class IdGetTest extends _TestCase
     {
         $this->when(function () {
             $this->setRouteParameter('id', 'abcd');
+
+            $this->runService();
 
             $this->assertError('abcd must be an integer.');
         });
@@ -53,6 +57,8 @@ class IdGetTest extends _TestCase
         $this->when(function () {
             $this->setRouteParameter('id', 13);
 
+            $this->runService();
+
             $this->assertError('profile_photo for 13 must exist.');
         });
     }
@@ -60,20 +66,11 @@ class IdGetTest extends _TestCase
     public function testErrorRequiredRuleAuthUser()
     {
         $this->when(function () {
-            $this->assertError('header[authorization] is required.');
-        });
-    }
+            $this->setRouteParameter('id', 1234);
 
-    public function testRequiredRulePermittedUser()
-    {
-        User::factory()->create(['id' => 1]);
-        ProfilePhoto::factory()->create(['id' => 11, 'user_id' => 2]);
+            $this->runService();
 
-        $this->when(function () {
-            $this->setAuthUser(User::find(1));
-            $this->setRouteParameter('id', 11);
-
-            $this->assertError('authorized user who is related user of profile_photo for 11 is required.');
+            $this->assertError('profile_photo for 1234 must exist.');
         });
     }
 }

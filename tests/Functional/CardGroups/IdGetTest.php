@@ -25,12 +25,16 @@ class IdGetTest extends _TestCase
             $this->setAuthUser(User::find(1));
             $this->setRouteParameter('id', 11);
 
+            $this->runService();
+
             $this->assertResultWithFinding(11);
         });
 
         $this->when(function () {
             $this->setAuthUser(User::find(2));
             $this->setRouteParameter('id', 12);
+
+            $this->runService();
 
             $this->assertResultWithFinding(12);
         });
@@ -40,6 +44,8 @@ class IdGetTest extends _TestCase
     {
         $this->when(function () {
             $this->setRouteParameter('id', 'abcd');
+
+            $this->runService();
 
             $this->assertError('abcd must be an integer.');
         });
@@ -53,14 +59,18 @@ class IdGetTest extends _TestCase
         $this->when(function () {
             $this->setRouteParameter('id', 13);
 
-            $this->assertError('balance for 13 must exist.');
+            $this->runService();
+
+            $this->assertError('card_group for 13 must exist.');
         });
     }
 
     public function testErrorRequiredRuleAuthUser()
     {
         $this->when(function () {
-            $this->setRouteParameter('id', $this->uniqueString());
+            $this->setRouteParameter('id', '1234');
+
+            $this->runService();
 
             $this->assertError('header[authorization] is required.');
         });
@@ -75,7 +85,9 @@ class IdGetTest extends _TestCase
             $this->setAuthUser(User::find(1));
             $this->setRouteParameter('id', 11);
 
-            $this->assertError('authorized user who is related user of balance for 11 is required.');
+            $this->runService();
+
+            $this->assertError('authorized user who is related user of card_group for 11 is required.');
         });
     }
 }

@@ -45,12 +45,12 @@ class CardGroupListingService extends Service
                 return ['cards.flips', 'cards.chooser.facePhoto', 'cards.chooser.popularity', 'cards.showner.facePhoto', 'cards.showner.popularity', 'user'];
             },
 
-            'cursor' => function ($authUser, $cursorId) {
+            'cursor' => function ($authToken, $cursorId) {
                 return [CardGroupFindingService::class, [
-                    'auth_user' => $authUser,
+                    'auth_token' => $authToken,
                     'id' => $cursorId,
                 ], [
-                    'auth_user' => '{{auth_user}}',
+                    'auth_token' => '{{auth_token}}',
                     'id' => '{{cursor_id}}',
                 ]];
             },
@@ -71,9 +71,7 @@ class CardGroupListingService extends Service
         return [
             'after' => ['required', 'date_format:Y-m-d H:i:s'],
 
-            'auth_user' => ['required'],
-
-            'timezone' => ['required', 'timezone'],
+            'timezone' => ['required_with:after', 'timezone'],
         ];
     }
 

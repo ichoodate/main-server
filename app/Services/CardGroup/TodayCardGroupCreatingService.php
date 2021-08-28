@@ -29,7 +29,7 @@ class TodayCardGroupCreatingService extends Service
             'created' => function ($authUser) {
                 return (new CardGroup())->create([
                     CardGroup::USER_ID => $authUser->getKey(),
-                    CardGroup::TYPE => CardGroup::TYPE_DAILY,
+                    CardGroup::TYPE => 'daily',
                 ]);
             },
 
@@ -44,7 +44,7 @@ class TodayCardGroupCreatingService extends Service
 
                 return (new CardGroup())->query()
                     ->whereIn(CardGroup::ID, $query)
-                    ->where(CardGroup::TYPE, CardGroup::TYPE_DAILY)
+                    ->where(CardGroup::TYPE, 'daily')
                     ->where(CardGroup::CREATED_AT, '>=', $time->format('Y-m-d H:i:s'))
                     ->first()
                 ;

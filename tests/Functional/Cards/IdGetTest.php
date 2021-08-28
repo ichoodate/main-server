@@ -26,6 +26,8 @@ class IdGetTest extends _TestCase
             $this->setAuthUser(User::find(1));
             $this->setRouteParameter('id', 11);
 
+            $this->runService();
+
             $this->assertResultWithFinding(11);
         });
 
@@ -33,12 +35,16 @@ class IdGetTest extends _TestCase
             $this->setAuthUser(User::find(2));
             $this->setRouteParameter('id', 11);
 
+            $this->runService();
+
             $this->assertResultWithFinding(11);
         });
 
         $this->when(function () {
             $this->setAuthUser(User::find(2));
             $this->setRouteParameter('id', 12);
+
+            $this->runService();
 
             $this->assertResultWithFinding(12);
         });
@@ -48,6 +54,9 @@ class IdGetTest extends _TestCase
     {
         $this->when(function () {
             $this->setRouteParameter('id', 'abcd');
+
+            $this->runService();
+
             $this->assertError('abcd must be an integer.');
         });
     }
@@ -60,6 +69,8 @@ class IdGetTest extends _TestCase
         $this->when(function () {
             $this->setRouteParameter('id', 13);
 
+            $this->runService();
+
             $this->assertError('card for 13 must exist.');
         });
     }
@@ -67,6 +78,10 @@ class IdGetTest extends _TestCase
     public function testErrorRequiredRuleAuthUser()
     {
         $this->when(function () {
+            $this->setRouteParameter('id', 1234);
+
+            $this->runService();
+
             $this->assertError('header[authorization] is required.');
         });
     }
@@ -83,12 +98,16 @@ class IdGetTest extends _TestCase
             $this->setAuthUser(User::find(3));
             $this->setRouteParameter('id', 11);
 
+            $this->runService();
+
             $this->assertError('authorized user who is related user of card for 11 is required.');
         });
 
         $this->when(function () {
             $this->setAuthUser(User::find(1));
             $this->setRouteParameter('id', 12);
+
+            $this->runService();
 
             $this->assertError('authorized user who is related user of card for 12 is required.');
         });

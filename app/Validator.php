@@ -64,7 +64,11 @@ class Validator extends \Illuminate\Validation\Validator
 
     public function validateNotNull($attribute, $value)
     {
-        return !$this->validateNull(null, $value);
+        if (is_null($value)) {
+            return false;
+        }
+
+        return true;
     }
 
     public function validateNull($attribute, $value)

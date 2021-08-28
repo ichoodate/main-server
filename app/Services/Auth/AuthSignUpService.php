@@ -11,19 +11,13 @@ class AuthSignUpService extends Service
     public static function getArrBindNames()
     {
         return [
-            'result' => 'created user',
-
             'same_email_user' => 'same email user for {{email}}',
         ];
     }
 
     public static function getArrCallbacks()
     {
-        return [
-            'created' => function ($created) {
-                auth()->setUser($created);
-            },
-        ];
+        return [];
     }
 
     public static function getArrLoaders()
@@ -32,13 +26,13 @@ class AuthSignUpService extends Service
             'balance' => function ($result) {
                 return (new Balance())->create([
                     Balance::USER_ID => $result->getKey(),
-                    Balance::TYPE => Balance::TYPE_BASIC,
+                    Balance::TYPE => 'basic',
                     Balance::COUNT => 0,
-                    Balance::DELETED_AT => '9999-12-31 23:59:59',
+                    Balance::DELETED_AT => null,
                 ]);
             },
 
-            'created' => function ($birth, $email, $gender, $name, $password) {
+            'result' => function ($birth, $email, $gender, $name, $password) {
                 return (new User())->create([
                     User::BIRTH => $birth,
                     User::EMAIL_VERIFIED => false,
@@ -62,7 +56,7 @@ class AuthSignUpService extends Service
     public static function getArrPromiseLists()
     {
         return [
-            'created' => ['same_email_user'],
+            'result' => ['same_email_user'],
         ];
     }
 

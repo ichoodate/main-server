@@ -13,13 +13,11 @@ class Item extends Model
     public const ID = 'id';
     public const ORIGINAL_PRICE = 'original_price';
     public const TYPE = 'type';
-
-    public const TYPE_COIN = 'coin';
-    public const TYPE_SUBSCRIPTION = 'subscription';
     public const TYPE_VALUES = [
-        self::TYPE_COIN,
-        self::TYPE_SUBSCRIPTION,
+        'coin',
+        'subscription',
     ];
+
     protected $casts = [
         self::ID => 'integer',
     ];

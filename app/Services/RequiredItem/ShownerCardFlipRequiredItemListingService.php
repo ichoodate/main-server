@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Services\Card;
+namespace App\Services\RequiredItem;
 
+use App\Models\Card;
+use App\Models\RequiredItem;
 use FunctionalCoding\Service;
 
-class FreeFlippableCardReturningService extends Service
+class ShownerCardFlipRequiredItemListingService extends Service
 {
     public static function getArrBindNames()
     {
@@ -23,11 +25,11 @@ class FreeFlippableCardReturningService extends Service
                 throw new \Exception();
             },
 
-            'is_free_time' => function ($evaluatedTime, $limitedMinTime) {
-                return strtotime($limitedMinTime) <= strtotime($evaluatedTime);
+            'evaluated_time' => function ($card) {
+                return $card->{Card::UPDATED_AT};
             },
 
-            'limited_min_time' => function () {
+            'free_min_time' => function () {
                 return (new \DateTime())
                     ->modify('-1 day')
                     ->modify('+1 second')
@@ -35,10 +37,16 @@ class FreeFlippableCardReturningService extends Service
                 ;
             },
 
+            'is_free' => function ($evaluatedTime, $freeMinTime) {
+                return strtotime($freeMinTime) <= strtotime($evaluatedTime);
+            },
+
             'result' => function ($card, $isFree) {
-                if ($isFree) {
-                    return $card;
+                if (!$isFree) {
+                    return RequiredItem::where('type', 'card_flip')->get();
                 }
+
+                return RequiredItem::where('type', 'none')->get();
             },
         ];
     }
@@ -50,9 +58,7 @@ class FreeFlippableCardReturningService extends Service
 
     public static function getArrRuleLists()
     {
-        return [
-            'auth_user' => ['required'],
-        ];
+        return [];
     }
 
     public static function getArrTraits()

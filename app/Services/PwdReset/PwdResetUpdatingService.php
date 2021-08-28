@@ -5,31 +5,32 @@ namespace App\Services\PwdReset;
 use App\Models\PwdReset;
 use App\Models\User;
 use FunctionalCoding\Service;
-use Illuminate\Support\Facades\Hash;
 
 class PwdResetUpdatingService extends Service
 {
     public static function getArrBindNames()
     {
         return [
-            'result' => 'password reset for {{id}}',
+            'completed_password_reset' => 'already completed {{password_reset}}',
 
-            'result_complete' => 'completion of {{result}}',
+            'password_reset' => 'password_reset for {{id}}',
 
-            'result_token' => 'token of {{result}}',
+            'password_reset_token' => 'token of {{password_reset}}',
+
+            'user' => 'user for {{password_reset}}',
         ];
     }
 
     public static function getArrCallbacks()
     {
         return [
-            'result_complete' => function ($result) {
-                $result->{PwdReset::COMPLETE} = true;
-                $result->save();
+            'completed_password_reset.password_reset' => function ($passwordReset) {
+                $passwordReset->{PwdReset::COMPLETE} = true;
+                $passwordReset->save();
             },
 
             'user.new_password' => function ($newPassword, $user) {
-                $user->{User::PASSWORD} = Hash::make($newPassword);
+                $user->{User::PASSWORD} = $newPassword;
                 $user->save();
             },
         ];
@@ -38,21 +39,29 @@ class PwdResetUpdatingService extends Service
     public static function getArrLoaders()
     {
         return [
-            'result' => function ($id) {
+            'completed_password_reset' => function ($passwordReset) {
+                if (true === $passwordReset->{PwdReset::COMPLETE}) {
+                    return $passwordReset;
+                }
+
+                return null;
+            },
+
+            'password_reset' => function ($id) {
                 return PwdReset::find($id);
             },
 
-            'result_complete' => function ($result) {
-                return $result->{PwdReset::COMPLETE};
+            'password_reset_token' => function ($passwordReset) {
+                return $passwordReset->{PwdReset::TOKEN};
             },
 
-            'result_token' => function ($result) {
-                return $result->{PwdReset::TOKEN};
+            'result' => function ($passwordReset) {
+                return $passwordReset;
             },
 
-            'user' => function ($result) {
+            'user' => function ($passwordReset) {
                 return (new User())->query()
-                    ->where(User::EMAIL, $result->{PwdReset::EMAIL})
+                    ->where(User::EMAIL, $passwordReset->{PwdReset::EMAIL})
                     ->first()
                 ;
             },
@@ -61,7 +70,9 @@ class PwdResetUpdatingService extends Service
 
     public static function getArrPromiseLists()
     {
-        return [];
+        return [
+            'result' => ['completed_password_reset'],
+        ];
     }
 
     public static function getArrRuleLists()
@@ -69,15 +80,17 @@ class PwdResetUpdatingService extends Service
         return [
             'id' => ['required', 'integer'],
 
+            'completed_password_reset' => ['null'],
+
             'new_password' => ['required', 'string'],
 
-            'result' => ['not_null'],
+            'password_reset' => ['not_null'],
 
-            'result_token' => ['same:{{token}}'],
-
-            'result_complete' => ['false'],
+            'password_reset_token' => ['same:{{token}}'],
 
             'token' => ['required', 'string'],
+
+            'user' => ['not_null'],
         ];
     }
 

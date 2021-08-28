@@ -41,12 +41,12 @@ class ReplyListingService extends Service
                 return ['ticket', 'writer'];
             },
 
-            'cursor' => function ($authUser, $cursorId) {
+            'cursor' => function ($authToken, $cursorId) {
                 return [ReplyFindingService::class, [
-                    'auth_user' => $authUser,
+                    'auth_token' => $authToken,
                     'id' => $cursorId,
                 ], [
-                    'auth_user' => '{{auth_user}}',
+                    'auth_token' => '{{auth_token}}',
                     'id' => '{{cursor_id}}',
                 ]];
             },
@@ -55,12 +55,12 @@ class ReplyListingService extends Service
                 return Reply::class;
             },
 
-            'ticket' => function ($authUser, $ticketId) {
+            'ticket' => function ($authToken, $ticketId) {
                 return [TicketFindingService::class, [
-                    'auth_user' => $authUser,
+                    'auth_token' => $authToken,
                     'id' => $ticketId,
                 ], [
-                    'auth_user' => '{{auth_user}}',
+                    'auth_token' => '{{auth_token}}',
                     'id' => '{{ticket_id}}',
                 ]];
             },

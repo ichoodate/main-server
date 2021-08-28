@@ -38,12 +38,12 @@ class SubscriptionListingService extends Service
                 return ['payment', 'user'];
             },
 
-            'cursor' => function ($authUser, $cursorId) {
+            'cursor' => function ($authToken, $cursorId) {
                 return [SubscriptionFindingService::class, [
-                    'auth_user' => $authUser,
+                    'auth_token' => $authToken,
                     'id' => $cursorId,
                 ], [
-                    'auth_user' => '{{auth_user}}',
+                    'auth_token' => '{{auth_token}}',
                     'id' => '{{cursor_id}}',
                 ]];
             },

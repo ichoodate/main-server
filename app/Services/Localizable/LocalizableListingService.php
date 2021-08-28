@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Services\Card;
+namespace App\Services\Localizable;
 
-use App\Models\Card;
+use App\Models\Localizable;
+use FunctionalCoding\ORM\Eloquent\Service\ListService;
 use FunctionalCoding\Service;
 
-class FreeFlippableShownerCardReturningService extends Service
+class LocalizableListingService extends Service
 {
     public static function getArrBindNames()
     {
@@ -20,12 +21,12 @@ class FreeFlippableShownerCardReturningService extends Service
     public static function getArrLoaders()
     {
         return [
-            'evaluated_time' => function ($card) {
-                return $card->{Card::UPDATED_AT};
+            'available_expands' => function () {
+                return [];
             },
 
-            'is_free' => function ($isFreeTime) {
-                return $isFreeTime;
+            'model_class' => function () {
+                return Localizable::class;
             },
         ];
     }
@@ -43,7 +44,7 @@ class FreeFlippableShownerCardReturningService extends Service
     public static function getArrTraits()
     {
         return [
-            FreeFlippableCardReturningService::class,
+            ListService::class,
         ];
     }
 }

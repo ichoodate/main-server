@@ -2,25 +2,27 @@
 
 namespace Database\Factories;
 
+use App\Models\Card;
 use App\Models\CardGroup;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
 
 class CardGroupFactory extends Factory
 {
     protected $model = CardGroup::class;
 
-    public function create($data = [], ?Model $parent = null)
+    public function createAll($data = [], ?Model $parent = null)
     {
-        $attrs = array_only($data, array_keys((new static())->definition()));
+        $attrs = Arr::only($data, array_keys((new static())->definition()));
         $model = parent::create($attrs, $parent);
-        $data = array_add($data, CardGroup::CARDS, []);
+        $data = Arr::add($data, CardGroup::CARDS, []);
 
         foreach ($data[CardGroup::CARDS] as $card) {
             $card[Card::GROUP_ID] = $data[CardGroup::ID];
             $card[Card::CHOOSER_ID] = $data[CardGroup::USER_ID];
 
-            Card::factory()->create($card);
+            Card::factory()->createAll($card);
         }
 
         return $model;

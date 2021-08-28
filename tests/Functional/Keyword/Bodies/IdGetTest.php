@@ -15,17 +15,21 @@ class IdGetTest extends _TestCase
 
     public function test()
     {
-        Body::factory()->create(['id' => 11]);
-        Body::factory()->create(['id' => 12]);
+        Body::factory()->create(['id' => 11, 'type' => 'aaa']);
+        Body::factory()->create(['id' => 12, 'type' => 'bbb']);
 
         $this->when(function () {
             $this->setRouteParameter('id', 11);
+
+            $this->runService();
 
             $this->assertResultWithFinding(11);
         });
 
         $this->when(function () {
             $this->setRouteParameter('id', 12);
+
+            $this->runService();
 
             $this->assertResultWithFinding(12);
         });
@@ -35,6 +39,8 @@ class IdGetTest extends _TestCase
     {
         $this->when(function () {
             $this->setRouteParameter('id', 'abcd');
+
+            $this->runService();
 
             $this->assertError('abcd must be an integer.');
         });

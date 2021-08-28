@@ -18,16 +18,18 @@ class PostTest extends _TestCase
     public function test()
     {
         User::factory()->create(['id' => 1]);
-        Role::factory()->create(['user_id' => 1, 'type' => Role::TYPE_ADMIN]);
+        Role::factory()->create(['user_id' => 1, 'type' => 'admin']);
 
         $this->when(function () {
             $this->setAuthUser(User::find(1));
-            $this->setInputParameter('subject', $subject = $this->uniqueString());
-            $this->setInputParameter('description', $description = $this->uniqueString());
-            $this->setInputParameter('type', Notice::TYPE_EVENT);
+            $this->setInputParameter('subject', $subject = 'abcd');
+            $this->setInputParameter('description', $description = 'bcde');
+            $this->setInputParameter('type', 'event');
+
+            $this->runService();
 
             $this->assertResultWithPersisting(new Notice([
-                'type' => Notice::TYPE_EVENT,
+                'type' => 'event',
                 'subject' => $subject,
                 'description' => $description,
             ]));

@@ -12,7 +12,10 @@ class PwdReset extends Model
     public const ID = 'id';
     public const TOKEN = 'token';
     public const UPDATED_AT = 'updated_at';
-    protected $casts = [];
+    protected $casts = [
+        self::ID => 'integer',
+        self::COMPLETE => 'boolean',
+    ];
     protected $fillable = [
         self::ID,
         self::EMAIL,

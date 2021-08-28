@@ -12,7 +12,7 @@ class UserHobbyKeywordUpdatingService extends Service
     public static function getArrBindNames()
     {
         return [
-            'keywords.*' => 'keyword.* of {{keyword_ids}}',
+            'keywords.*' => 'hobbies[*] for {{keyword_ids}}',
         ];
     }
 
@@ -79,7 +79,7 @@ class UserHobbyKeywordUpdatingService extends Service
         return [
             'keyword_ids' => ['required', 'integers'],
 
-            'keywords.*' => ['required', 'not_null'],
+            'keywords.*' => ['not_null'],
         ];
     }
 

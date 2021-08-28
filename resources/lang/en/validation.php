@@ -125,8 +125,8 @@ return [
 
     // custom
     'integers' => ':attribute must be integers separated by commas.',
-    'base64' => ':attribute must be base64 encoded string.',
-    'base64_image' => ':attribute must be base64 encoded image.',
+    'base64' => ':attribute must be base64 string.',
+    'base64_image' => ':attribute must be base64 image string.',
     'null' => ':attribute must not exist.',
     'not_null' => ':attribute must exist.',
     'some_of_array' => ':attribute must be some of :list.',

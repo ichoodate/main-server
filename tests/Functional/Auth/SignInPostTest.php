@@ -18,25 +18,26 @@ class SignInPostTest extends _TestCase
         User::factory()->create([
             'id' => 1,
             'email' => $this->faker->email,
-            'password' => bcrypt('abcdef'),
+            'password' => 'abcdef',
         ]);
         User::factory()->create([
             'id' => 2,
             'email' => 'abc123@example.com',
-            'password' => bcrypt('bcdefg'),
+            'password' => 'bcdefg',
         ]);
         User::factory()->create([
             'id' => 3,
             'email' => $this->faker->email,
-            'password' => bcrypt('cdefgh'),
+            'password' => 'cdefgh',
         ]);
 
         $this->when(function () {
             $this->setInputParameter('email', 'abc123@example.com');
             $this->setInputParameter('password', 'bcdefg');
 
-            $this->assertResult(User::find(2));
-            $this->assertEquals(auth()->user(), User::find(2));
+            $this->runService();
+
+            $this->assertIsString($this->data['result']);
         });
     }
 
@@ -45,6 +46,8 @@ class SignInPostTest extends _TestCase
         $this->when(function () {
             $this->setInputParameter('email', 'abcd');
 
+            $this->runService();
+
             $this->assertError('[email] must be a valid email address.');
         });
     }
@@ -52,6 +55,8 @@ class SignInPostTest extends _TestCase
     public function testErrorRequiredRuleEmail()
     {
         $this->when(function () {
+            $this->runService();
+
             $this->assertError('[email] is required.');
         });
     }
@@ -59,6 +64,8 @@ class SignInPostTest extends _TestCase
     public function testErrorRequiredRulePassword()
     {
         $this->when(function () {
+            $this->runService();
+
             $this->assertError('[password] is required.');
         });
     }

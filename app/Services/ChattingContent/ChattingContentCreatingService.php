@@ -2,7 +2,9 @@
 
 namespace App\Services\ChattingContent;
 
+use App\Models\ChattingContent;
 use App\Models\Friend;
+use App\Models\Match;
 use App\Services\Auth\AuthUserFindingService;
 use App\Services\Match\MatchFindingService;
 use FunctionalCoding\Service;
@@ -12,11 +14,13 @@ class ChattingContentCreatingService extends Service
     public static function getArrBindNames()
     {
         return [
-            'auth_user_friend' => 'matching_user in friend list of {{auth_user}}',
+            'auth_user' => 'authorized user',
 
-            'match' => 'match of {{match_id}}',
+            'auth_user_friend' => 'matching_user in friends of {{auth_user}} for {{match}}',
 
-            'matching_user_friend' => '{{auth_user}} in friend list of matching-user for {{match_id}}',
+            'match' => 'match for {{match_id}}',
+
+            'matching_user_friend' => '{{auth_user}} in friends of matching_user for {{match}}',
         ];
     }
 
@@ -44,7 +48,7 @@ class ChattingContentCreatingService extends Service
                 ;
             },
 
-            'created' => function ($authUser, $match, $message) {
+            'result' => function ($authUser, $match, $message) {
                 return (new ChattingContent())->create([
                     ChattingContent::WRITER_ID => $authUser->getKey(),
                     ChattingContent::MESSAGE => $message,
@@ -52,12 +56,12 @@ class ChattingContentCreatingService extends Service
                 ]);
             },
 
-            'match' => function ($authUser, $matchId) {
+            'match' => function ($authToken, $matchId) {
                 return [MatchFindingService::class, [
-                    'auth_user' => $authUser,
+                    'auth_token' => $authToken,
                     'id' => $matchId,
                 ], [
-                    'auth_user' => '{{auth_user}}',
+                    'auth_token' => '{{auth_token}}',
                     'id' => '{{match_id}}',
                 ]];
             },
@@ -79,7 +83,7 @@ class ChattingContentCreatingService extends Service
     public static function getArrPromiseLists()
     {
         return [
-            'created' => ['auth_user_friend', 'matching_user_friend'],
+            'result' => ['auth_user_friend', 'matching_user_friend'],
         ];
     }
 

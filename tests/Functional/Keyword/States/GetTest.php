@@ -25,11 +25,15 @@ class GetTest extends _TestCase
         $this->when(function () {
             $this->setInputParameter('country_id', 21);
 
+            $this->runService();
+
             $this->assertResultWithListing([11]);
         });
 
         $this->when(function () {
             $this->setInputParameter('country_id', 22);
+
+            $this->runService();
 
             $this->assertResultWithListing([12, 13]);
         });

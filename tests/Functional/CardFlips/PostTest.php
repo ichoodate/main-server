@@ -5,7 +5,9 @@ namespace Tests\Functional\CardFlips;
 use App\Models\Balance;
 use App\Models\Card;
 use App\Models\CardFlip;
+use App\Models\CardGroup;
 use App\Models\Match;
+use App\Models\RequiredItem;
 use App\Models\User;
 use Tests\Functional\_TestCase;
 
@@ -21,184 +23,102 @@ class PostTest extends _TestCase
     {
         User::factory()->create(['id' => 1]);
         User::factory()->create(['id' => 2]);
+        Card::factory()->create(['id' => 11, 'match_id' => 101, 'chooser_id' => 1, 'showner_id' => 2, 'created_at' => (new \DateTime())->format('Y-m-d H:i:s')]);
         Match::factory()->create(['id' => 101, 'man_id' => 1, 'woman_id' => 2]);
-        Card::factory()->create(['id' => 11, 'match_id' => 101, 'chooser_id' => 1, 'showner_id' => 2, 'created_at' => '2000-01-01 11:22:33']);
-        Balance::factory()->create(['id' => 201, 'type' => Balance::TYPE_BASIC, 'count' => 10000, 'user_id' => 1, 'deleted_at' => '9999-12-31 23:59:59']);
+        Balance::factory()->create(['id' => 201, 'type' => 'basic', 'count' => 10000, 'user_id' => 1, 'deleted_at' => null]);
 
         $this->when(function () {
             $this->setAuthUser(User::find(1));
             $this->setInputParameter('timezone', 'Asia/Seoul');
-            $this->setInputParameter('type', CardFlip::TYPE_CARD_FLIP);
-            $this->setRouteParameter('id', 11);
+            $this->setInputParameter('card_id', 11);
+
+            $this->runService();
 
             $this->assertResultWithPersisting(new CardFlip([
                 'user_id' => 1,
-                'related_id' => 11,
-                'type' => CardFlip::TYPE_CARD_FLIP,
+                'card_id' => 11,
             ]));
-            $this->assertNotEquals(10000, Balance::find(201)->{Balance::COUNT});
-        });
-
-        CardFlip::factory()->create(['id' => 1001, 'user_id' => 1, 'related_id' => 11, 'type' => CardFlip::TYPE_CARD_FLIP]);
-
-        $this->when(function () {
-            $this->setAuthUser(User::find(1));
-            $this->setInputParameter('timezone', 'Asia/Seoul');
-            $this->setInputParameter('type', CardFlip::TYPE_CARD_OPEN);
-            $this->setRouteParameter('id', 11);
-
-            $this->assertResultWithPersisting(new CardFlip([
-                'user_id' => 1,
-                'related_id' => 11,
-                'type' => CardFlip::TYPE_CARD_OPEN,
-            ]));
-            $this->assertPersistence(new CardFlip([
-                'user_id' => 1,
-                'related_id' => 101,
-                'type' => CardFlip::TYPE_MATCH_OPEN,
-            ]));
-        });
-
-        CardFlip::factory()->create(['id' => 1002, 'user_id' => 1, 'related_id' => 101, 'type' => CardFlip::TYPE_MATCH_OPEN]);
-
-        $this->when(function () {
-            $this->setAuthUser(User::find(1));
-            $this->setInputParameter('timezone', 'Asia/Seoul');
-            $this->setInputParameter('type', CardFlip::TYPE_CARD_PROPOSE);
-            $this->setRouteParameter('id', 11);
-
-            $this->assertResultWithPersisting(new CardFlip([
-                'user_id' => 1,
-                'related_id' => 11,
-                'type' => CardFlip::TYPE_CARD_PROPOSE,
-            ]));
-            $this->assertPersistence(new CardFlip([
-                'user_id' => 1,
-                'related_id' => 101,
-                'type' => CardFlip::TYPE_MATCH_PROPOSE,
-            ]));
+            $this->assertEquals(10000, Balance::find(201)->{Balance::COUNT});
         });
     }
 
-    public function testErrorInRuleType()
+    public function testErrorCard()
     {
-        $this->when(function () {
-            $this->setInputParameter('type', 'aaaa');
-
-            $this->assertError('[type] is invalid.');
-        });
-    }
-
-    public function testErrorNotNullRuleCardFlip()
-    {
-        User::factory()->create(['id' => 1]);
-        Match::factory()->create(['id' => 101, 'man_id' => 1, 'woman_id' => 2]);
-        Card::factory()->create(['id' => 11, 'match_id' => 101, 'chooser_id' => 1, 'showner_id' => 2]);
+        User::factory()->create(['id' => 1, 'gender' => User::GENDER_MAN]);
+        Card::factory()->create(['id' => 11]);
 
         $this->when(function () {
             $this->setAuthUser(User::find(1));
-            $this->setInputParameter('timezone', 'Asia/Seoul');
-            $this->setInputParameter('type', CardFlip::TYPE_CARD_OPEN);
-            $this->setRouteParameter('id', 11);
+            $this->setInputParameter('card_id', 12);
 
-            $this->assertError('flip status acted by authorized user for card for 11 must exist.');
+            $this->runService();
+
+            $this->assertError('card for [card_id] must exist.');
         });
     }
 
-    public function testErrorNotNullRuleMatchOpen()
+    public function testErrorFreeFlippableCard1()
     {
-        User::factory()->create(['id' => 1]);
-        Match::factory()->create(['id' => 101, 'man_id' => 1, 'woman_id' => 2]);
-        Card::factory()->create(['id' => 11, 'match_id' => 101, 'chooser_id' => 1, 'showner_id' => 2]);
+        User::factory()->create(['id' => 1, 'gender' => User::GENDER_MAN]);
+        User::factory()->create(['id' => 2, 'gender' => User::GENDER_WOMAN]);
+        User::factory()->create(['id' => 3, 'gender' => User::GENDER_WOMAN]);
+        User::factory()->create(['id' => 4, 'gender' => User::GENDER_WOMAN]);
+        User::factory()->create(['id' => 5, 'gender' => User::GENDER_WOMAN]);
+        CardGroup::factory()->create(['id' => 10]);
+        Card::factory()->create(['id' => 11, 'group_id' => 10, 'chooser_id' => 1, 'showner_id' => 2]);
+        Card::factory()->create(['id' => 12, 'group_id' => 10, 'chooser_id' => 1, 'showner_id' => 3]);
+        Card::factory()->create(['id' => 13, 'group_id' => 10, 'chooser_id' => 1, 'showner_id' => 4]);
+        Card::factory()->create(['id' => 14, 'group_id' => 10, 'chooser_id' => 1, 'showner_id' => 5]);
+        CardFlip::factory()->create(['user_id' => 1, 'card_id' => 11]);
+        CardFlip::factory()->create(['user_id' => 1, 'card_id' => 12]);
+        CardFlip::factory()->create(['user_id' => 1, 'card_id' => 13]);
+        RequiredItem::factory()->create([
+            'when' => 'card_flip',
+            'type' => 'coin',
+            'count' => 5,
+        ]);
 
         $this->when(function () {
             $this->setAuthUser(User::find(1));
-            $this->setInputParameter('timezone', 'Asia/Seoul');
-            $this->setInputParameter('type', CardFlip::TYPE_CARD_PROPOSE);
-            $this->setRouteParameter('id', 11);
+            $this->setInputParameter('card_id', 14);
 
-            $this->assertError('profile open status acted by matching users of card for 11 must exist.');
+            $this->runService();
+
+            $this->assertError('free flippable card for [card_id] must exist.');
         });
     }
 
-    public function testErrorNullRuleCardFlip()
+    public function testErrorFreeFlippableCard2()
     {
-        User::factory()->create(['id' => 1]);
-        Match::factory()->create(['id' => 101, 'man_id' => 1, 'woman_id' => 2]);
-        Card::factory()->create(['id' => 11, 'match_id' => 101, 'chooser_id' => 1, 'showner_id' => 2]);
-        CardFlip::factory()->create(['id' => 1001, 'user_id' => 1, 'related_id' => 11, 'type' => CardFlip::TYPE_CARD_FLIP]);
+        User::factory()->create(['id' => 1, 'gender' => User::GENDER_MAN]);
+        User::factory()->create(['id' => 2, 'gender' => User::GENDER_WOMAN]);
+        User::factory()->create(['id' => 3, 'gender' => User::GENDER_WOMAN]);
+        User::factory()->create(['id' => 4, 'gender' => User::GENDER_WOMAN]);
+        User::factory()->create(['id' => 5, 'gender' => User::GENDER_WOMAN]);
+        CardGroup::factory()->create(['id' => 10]);
+        Card::factory()->create(['id' => 11, 'group_id' => 10, 'chooser_id' => 1, 'showner_id' => 2, 'created_at' => '2000-01-01 00:00:00']);
+        RequiredItem::factory()->create([
+            'when' => 'card_flip',
+            'type' => 'coin',
+            'count' => 5,
+        ]);
 
         $this->when(function () {
             $this->setAuthUser(User::find(1));
-            $this->setInputParameter('timezone', 'Asia/Seoul');
-            $this->setInputParameter('type', CardFlip::TYPE_CARD_FLIP);
-            $this->setRouteParameter('id', 11);
+            $this->setInputParameter('card_id', 11);
 
-            $this->assertError('flip status acted by authorized user for card for 11 must not exist.');
-        });
-    }
+            $this->runService();
 
-    public function testErrorNullRuleMatchOpen()
-    {
-        User::factory()->create(['id' => 1]);
-        Match::factory()->create(['id' => 101, 'man_id' => 1, 'woman_id' => 2]);
-        Card::factory()->create(['id' => 11, 'match_id' => 101, 'chooser_id' => 1, 'showner_id' => 2]);
-        CardFlip::factory()->create(['id' => 1001, 'user_id' => 1, 'related_id' => 101, 'type' => CardFlip::TYPE_MATCH_OPEN]);
-
-        $this->when(function () {
-            $this->setAuthUser(User::find(1));
-            $this->setInputParameter('timezone', 'Asia/Seoul');
-            $this->setInputParameter('type', CardFlip::TYPE_CARD_OPEN);
-            $this->setRouteParameter('id', 11);
-
-            $this->assertError('profile open status acted by matching users of card for 11 must not exist.');
-        });
-    }
-
-    public function testErrorNullRuleMatchPropose()
-    {
-        User::factory()->create(['id' => 1]);
-        Match::factory()->create(['id' => 101, 'man_id' => 1, 'woman_id' => 2]);
-        Card::factory()->create(['id' => 11, 'match_id' => 101, 'chooser_id' => 1, 'showner_id' => 2]);
-        CardFlip::factory()->create(['id' => 1001, 'user_id' => 1, 'related_id' => 101, 'type' => CardFlip::TYPE_MATCH_PROPOSE]);
-
-        $this->when(function () {
-            $this->setAuthUser(User::find(1));
-            $this->setInputParameter('timezone', 'Asia/Seoul');
-            $this->setInputParameter('type', CardFlip::TYPE_CARD_PROPOSE);
-            $this->setRouteParameter('id', 11);
-
-            $this->assertError('propose status acted by matching users of card for 11 must not exist.');
+            $this->assertError('free flippable card for [card_id] must exist.');
         });
     }
 
     public function testErrorRequiredRuleAuthUser()
     {
         $this->when(function () {
+            $this->runService();
+
             $this->assertError('header[authorization] is required.');
-        });
-    }
-
-    public function testErrorRequiredRuleTimezone()
-    {
-        $this->when(function () {
-            $this->assertError('[timezone] is required.');
-        });
-    }
-
-    public function testErrorRequiredRuleType()
-    {
-        $this->when(function () {
-            $this->assertError('[type] is required.');
-        });
-    }
-
-    public function testErrorTimezoneRuleTimezone()
-    {
-        $this->when(function () {
-            $this->setInputParameter('timezone', 'abcd');
-
-            $this->assertError('[timezone] must be a valid zone.');
         });
     }
 }

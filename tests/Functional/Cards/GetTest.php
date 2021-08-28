@@ -8,6 +8,7 @@ use App\Models\Friend;
 use App\Models\Match;
 use App\Models\User;
 use App\Services\Card\CardListingService;
+use Illuminate\Support\Arr;
 use Tests\Functional\_TestCase;
 
 /**
@@ -35,7 +36,7 @@ class GetTest extends _TestCase
             User::GENDER => $rand ? User::GENDER_MAN : User::GENDER_WOMAN,
         ]);
 
-        Match::factory()->create([
+        Match::factory()->createAll([
             Match::MAN_ID => $rand ? 1 : 2,
             Match::WOMAN_ID => $rand ? 2 : 1,
             Match::FRIENDS => [[
@@ -82,7 +83,7 @@ class GetTest extends _TestCase
             ]],
         ]);
 
-        Match::factory()->create([
+        Match::factory()->createAll([
             Match::MAN_ID => $rand ? 3 : 2,
             Match::WOMAN_ID => $rand ? 2 : 3,
             Match::FRIENDS => [[
@@ -287,13 +288,15 @@ class GetTest extends _TestCase
                 $cardType = $args[1];
                 $authUserStatus = $args[2];
                 $matchingUserStatus = $args[3];
-                $expectIds = array_values(array_only($namedIds, $args[4]));
+                $expectIds = array_values(Arr::only($namedIds, $args[4]));
 
                 $this->setAuthUser($authUser);
                 $this->setInputParameter('card_type', $cardType);
                 $this->setInputParameter('auth_user_status', $authUserStatus);
                 $this->setInputParameter('matching_user_status', $matchingUserStatus);
                 $this->setInputParameter('limit', 100);
+
+                $this->runService();
 
                 $this->assertResultWithPaging($expectIds);
             });

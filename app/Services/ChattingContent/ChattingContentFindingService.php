@@ -37,12 +37,12 @@ class ChattingContentFindingService extends Service
                 return ['match', 'writer'];
             },
 
-            'match' => function ($authUser, $model) {
+            'match' => function ($authToken, $model) {
                 return [MatchFindingService::class, [
-                    'auth_user' => $authUser,
+                    'auth_token' => $authToken,
                     'id' => $model->{ChattingContent::MATCH_ID},
                 ], [
-                    'auth_user' => '{{auth_user}}',
+                    'auth_token' => '{{auth_token}}',
                     'id' => 'id of match of {{model}}',
                     'model' => 'match of {{model}}',
                 ]];

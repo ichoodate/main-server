@@ -33,6 +33,8 @@ class PutTest extends _TestCase
             $this->setInputParameter('token', 'de99a620c50f2990e87144735cd357e7');
             $this->setInputParameter('new_password', 'abcdef');
 
+            $this->runService();
+
             $this->assertResultWithPersisting(new PwdReset([
                 PwdReset::ID => 11,
                 PwdReset::TOKEN => 'de99a620c50f2990e87144735cd357e7',
@@ -41,10 +43,6 @@ class PutTest extends _TestCase
             ]));
 
             $this->assertTrue(Hash::check('abcdef', User::find(1)->password));
-            $this->assertTrue(auth()->attempt([
-                User::EMAIL => 'abcd@gmail.com',
-                User::PASSWORD => 'abcdef',
-            ]));
         });
     }
 
@@ -61,7 +59,9 @@ class PutTest extends _TestCase
             $this->setRouteParameter('id', 11);
             $this->setInputParameter('token', 'de99a620c50f2990e87144735cd357e7');
 
-            $this->assertError('completion of password reset for 11 must be false.');
+            $this->runService();
+
+            $this->assertError('already completed password_reset for 11 must not exist.');
         });
     }
 
@@ -69,6 +69,8 @@ class PutTest extends _TestCase
     {
         $this->when(function () {
             $this->setRouteParameter('id', 'abcd');
+
+            $this->runService();
 
             $this->assertError('abcd must be an integer.');
         });
@@ -85,13 +87,17 @@ class PutTest extends _TestCase
         $this->when(function () {
             $this->setRouteParameter('id', 12);
 
-            $this->assertError('password reset for 12 must exist.');
+            $this->runService();
+
+            $this->assertError('password_reset for 12 must exist.');
         });
     }
 
     public function testErrorRequiredRuleNewPassword()
     {
         $this->when(function () {
+            $this->runService();
+
             $this->assertError('[new_password] is required.');
         });
     }
@@ -99,6 +105,8 @@ class PutTest extends _TestCase
     public function testErrorRequiredRuleToken()
     {
         $this->when(function () {
+            $this->runService();
+
             $this->assertError('[token] is required.');
         });
     }
@@ -115,7 +123,9 @@ class PutTest extends _TestCase
             $this->setRouteParameter('id', 11);
             $this->setInputParameter('token', 'e99a654735cd320c508714f2990ed7e7');
 
-            $this->assertError('token of password reset for 11 and [token] must match.');
+            $this->runService();
+
+            $this->assertError('token of password_reset for 11 and [token] must match.');
         });
     }
 
@@ -123,6 +133,8 @@ class PutTest extends _TestCase
     {
         $this->when(function () {
             $this->setInputParameter('new_password', [1, 2, 3, 4]);
+
+            $this->runService();
 
             $this->assertError('[new_password] must be a string.');
         });
@@ -132,6 +144,8 @@ class PutTest extends _TestCase
     {
         $this->when(function () {
             $this->setInputParameter('token', [1, 2, 3, 4]);
+
+            $this->runService();
 
             $this->assertError('[token] must be a string.');
         });

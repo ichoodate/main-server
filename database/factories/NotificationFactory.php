@@ -16,7 +16,7 @@ class NotificationFactory extends Factory
 
             Notification::USER_ID => $this->faker->unique()->randomNumber(8),
 
-            Notification::ACTIVITY_ID => $this->faker->unique()->randomNumber(8),
+            Notification::RELATED_ID => $this->faker->unique()->randomNumber(8),
 
             Notification::CREATED_AT => $this->faker->dateTimeThisYear->format('Y-m-d H:i:s'),
 

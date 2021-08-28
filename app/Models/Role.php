@@ -9,10 +9,8 @@ class Role extends Model
     public const ID = 'id';
     public const TYPE = 'type';
 
-    public const TYPE_ADMIN = 'admin';
-
     public const TYPE_VALUES = [
-        self::TYPE_ADMIN,
+        'admin',
     ];
     public const USER_ID = 'user_id';
     protected $casts = [

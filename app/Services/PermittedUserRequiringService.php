@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Role;
 use App\Services\Auth\AuthUserFindingService;
 use FunctionalCoding\Service;
 
@@ -11,6 +12,8 @@ class PermittedUserRequiringService extends Service
     {
         return [
             'admin_role' => 'admin role for {{auth_user}}',
+
+            'auth_user' => 'authorized user',
 
             'permitted_user' => '{{auth_user}} who is related user of {{model}}',
         ];
@@ -25,7 +28,7 @@ class PermittedUserRequiringService extends Service
     {
         return [
             'admin_role' => function ($authUser) {
-                return $authUser->role()->where(Role::TYPE, Role::TYPE_ADMIN)->first();
+                return $authUser->roles()->where(Role::TYPE, 'admin')->first();
             },
 
             'auth_user' => function ($authToken = '') {

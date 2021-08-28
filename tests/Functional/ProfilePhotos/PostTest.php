@@ -20,28 +20,33 @@ class PostTest extends _TestCase
 
         $this->when(function () {
             $this->setAuthUser(User::find(1));
-            $this->setInputParameter('user_id', 1);
-            $this->setInputParameter('upload', 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+ip1sAAAAASUVORK5CYII=');
+            $this->setInputParameter('data', ['iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+ip1sAAAAASUVORK5CYII=']);
 
-            $this->assertResultWithPersisting(new ProfilePhoto([
+            $this->runService();
+
+            $this->assertResultWithPersisting(collect([new ProfilePhoto([
                 'user_id' => 1,
                 'data' => 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+ip1sAAAAASUVORK5CYII=',
-            ]));
+            ])]));
         });
     }
 
     public function testErrorBase64ImageRuleUpload()
     {
         $this->when(function () {
-            $this->setInputParameter('upload', 'abcdef');
+            $this->setInputParameter('data', ['abcdef']);
 
-            $this->assertError('[upload] must to be base64 encoded string.');
+            $this->runService();
+
+            $this->assertError('[data][0] must be base64 image string.');
         });
     }
 
     public function testErrorRequiredRuleAuthUser()
     {
         $this->when(function () {
+            $this->runService();
+
             $this->assertError('header[authorization] is required.');
         });
     }
@@ -49,7 +54,9 @@ class PostTest extends _TestCase
     public function testErrorRequiredRuleUpload()
     {
         $this->when(function () {
-            $this->assertError('[upload] is required.');
+            $this->runService();
+
+            $this->assertError('[data] is required.');
         });
     }
 }

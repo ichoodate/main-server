@@ -10,7 +10,9 @@ class NoticeCreatingService extends Service
 {
     public static function getArrBindNames()
     {
-        return [];
+        return [
+            'model' => '{{admin_role}}',
+        ];
     }
 
     public static function getArrCallbacks()
@@ -21,7 +23,7 @@ class NoticeCreatingService extends Service
     public static function getArrLoaders()
     {
         return [
-            'created' => function ($description, $subject, $type) {
+            'result' => function ($description, $subject, $type) {
                 return (new Notice())->create([
                     Notice::TYPE => $type,
                     Notice::SUBJECT => $subject,
@@ -29,8 +31,12 @@ class NoticeCreatingService extends Service
                 ]);
             },
 
-            'permitted_user' => function ($adminRole, $authUser) {
-                if (!empty($adminRole)) {
+            'model' => function ($adminRole) {
+                return $adminRole;
+            },
+
+            'permitted_user' => function ($model, $authUser) {
+                if (!empty($model)) {
                     return $authUser;
                 }
             },

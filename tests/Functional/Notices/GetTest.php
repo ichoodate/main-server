@@ -19,6 +19,8 @@ class GetTest extends _TestCase
         Notice::factory()->create(['id' => 12]);
 
         $this->when(function () {
+            $this->runService();
+
             $this->assertResultWithListing([11, 12]);
         });
     }

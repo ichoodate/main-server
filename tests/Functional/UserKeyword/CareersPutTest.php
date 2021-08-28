@@ -13,7 +13,7 @@ use Tests\Functional\_TestCase;
  */
 class CareersPutTest extends _TestCase
 {
-    protected $uri = 'self-keyword/careers';
+    protected $uri = 'user-keyword/careers';
 
     public function test()
     {
@@ -29,6 +29,8 @@ class CareersPutTest extends _TestCase
         $this->when(function () {
             $this->setAuthUser(User::find(1));
             $this->setInputParameter('keyword_id', 13);
+
+            $this->runService();
 
             $this->assertResultWithPersisting(new UserKeyword([
                 UserKeyword::USER_ID => 1,
@@ -56,6 +58,8 @@ class CareersPutTest extends _TestCase
         $this->when(function () {
             $this->setInputParameter('keyword_id', 'abcd');
 
+            $this->runService();
+
             $this->assertError('[keyword_id] must be an integer.');
         });
     }
@@ -68,6 +72,8 @@ class CareersPutTest extends _TestCase
         $this->when(function () {
             $this->setInputParameter('keyword_id', 13);
 
+            $this->runService();
+
             $this->assertError('career keyword for [keyword_id] must exist.');
         });
     }
@@ -75,6 +81,8 @@ class CareersPutTest extends _TestCase
     public function testErrorRequiredRuleAuthUser()
     {
         $this->when(function () {
+            $this->runService();
+
             $this->assertError('header[authorization] is required.');
         });
     }
@@ -82,6 +90,8 @@ class CareersPutTest extends _TestCase
     public function testErrorRequiredRuleKeywordId()
     {
         $this->when(function () {
+            $this->runService();
+
             $this->assertError('[keyword_id] is required.');
         });
     }

@@ -26,11 +26,15 @@ class GetTest extends _TestCase
         $this->when(function () {
             $this->setAuthUser(User::find(1));
 
+            $this->runService();
+
             $this->assertResultWithListing([11, 14]);
         });
 
         $this->when(function () {
             $this->setAuthUser(User::find(2));
+
+            $this->runService();
 
             $this->assertResultWithListing([12, 13]);
         });
@@ -39,6 +43,8 @@ class GetTest extends _TestCase
     public function testErrorRequiredRuleAuthUser()
     {
         $this->when(function () {
+            $this->runService();
+
             $this->assertError('header[authorization] is required.');
         });
     }

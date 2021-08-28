@@ -6,7 +6,7 @@ use App\Models\FacePhoto;
 use App\Services\Auth\AuthUserFindingService;
 use FunctionalCoding\Service;
 
-class FacePhotoCreatingService extends Service
+class FacePhotoUpdatingService extends Service
 {
     public static function getArrBindNames()
     {

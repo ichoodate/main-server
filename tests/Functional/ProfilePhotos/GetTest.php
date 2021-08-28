@@ -24,13 +24,17 @@ class GetTest extends _TestCase
         ProfilePhoto::factory()->create(['id' => 14, 'user_id' => 1]);
 
         $this->when(function () {
-            $this->setAuthUser(User::find(1));
+            $this->setInputParameter('user_id', 1);
+
+            $this->runService();
 
             $this->assertResultWithListing([11, 14]);
         });
 
         $this->when(function () {
-            $this->setAuthUser(User::find(2));
+            $this->setInputParameter('user_id', 2);
+
+            $this->runService();
 
             $this->assertResultWithListing([12, 13]);
         });
@@ -39,7 +43,9 @@ class GetTest extends _TestCase
     public function testErrorRequiredRuleAuthUser()
     {
         $this->when(function () {
-            $this->assertError('header[authorization] is required.');
+            $this->runService();
+
+            $this->assertError('[user_id] is required.');
         });
     }
 }

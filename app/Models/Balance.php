@@ -11,13 +11,11 @@ class Balance extends Model
     public const DELETED_AT = 'deleted_at';
     public const ID = 'id';
     public const TYPE = 'type';
-
-    public const TYPE_BASIC = 'basic';
-
     public const TYPE_VALUES = [
-        self::TYPE_BASIC,
+        'basic',
     ];
     public const USER_ID = 'user_id';
+
     protected $casts = [
         self::ID => 'integer',
         self::USER_ID => 'integer',

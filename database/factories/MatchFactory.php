@@ -2,24 +2,27 @@
 
 namespace Database\Factories;
 
+use App\Models\Card;
+use App\Models\Friend;
 use App\Models\Match;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
 
 class MatchFactory extends Factory
 {
     protected $model = Match::class;
 
-    public function create($data = [], ?Model $parent = null)
+    public function createAll($data = [], ?Model $parent = null)
     {
-        $attrs = array_only($data, array_keys((new static())->definition()));
-        $model = parent::create($attrs, $parent);
-        $data = array_add($data, Match::CARDS, []);
-        $data = array_add($data, Match::FRIENDS, []);
+        $attrs = Arr::only($data, array_keys((new static())->definition()));
+        $model = $this->create($attrs);
+        $data = Arr::add($data, Match::CARDS, []);
+        $data = Arr::add($data, Match::FRIENDS, []);
 
         foreach ($data[Match::CARDS] as $card) {
-            $existMatchUserIdVals = array_values(array_only($model->getAttributes(), [Match::MAN_ID, Match::WOMAN_ID]));
-            $existCardUserIdVals = array_values(array_only($card, [Card::CHOOSER_ID, Card::SHOWNER_ID]));
+            $existMatchUserIdVals = array_values(Arr::only($model->getAttributes(), [Match::MAN_ID, Match::WOMAN_ID]));
+            $existCardUserIdVals = array_values(Arr::only($card, [Card::CHOOSER_ID, Card::SHOWNER_ID]));
             $requiredCardUserIdKeys = array_diff([Card::CHOOSER_ID, Card::SHOWNER_ID], array_keys($card));
             $addableMatchUserIdVals = array_diff($existMatchUserIdVals, $existCardUserIdVals);
 
@@ -34,7 +37,7 @@ class MatchFactory extends Factory
             $card[Card::MATCH] = $model;
             $card[Card::MATCH_ID] = $model->getKey();
 
-            Card::factory()->create($card);
+            Card::factory()->createAll($card);
         }
 
         foreach ($data[Match::FRIENDS] as $friend) {
@@ -53,10 +56,6 @@ class MatchFactory extends Factory
             Match::MAN_ID => $this->faker->unique()->randomNumber(8),
 
             Match::WOMAN_ID => $this->faker->unique()->randomNumber(8),
-
-            Match::CREATED_AT => $this->faker->dateTimeThisYear->format('Y-m-d H:i:s'),
-
-            Match::UPDATED_AT => $this->faker->dateTimeThisYear->format('Y-m-d H:i:s'),
         ];
     }
 }

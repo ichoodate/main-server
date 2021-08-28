@@ -30,6 +30,8 @@ class ResidencesPutTest extends _TestCase
             $this->setAuthUser(User::find(1));
             $this->setInputParameter('keyword_id', 13);
 
+            $this->runService();
+
             $this->assertResultWithPersisting(new IdealTypeKeyword([
                 IdealTypeKeyword::USER_ID => 1,
                 IdealTypeKeyword::KEYWORD_ID => 13,
@@ -56,6 +58,8 @@ class ResidencesPutTest extends _TestCase
         $this->when(function () {
             $this->setInputParameter('keyword_id', 'abcd');
 
+            $this->runService();
+
             $this->assertError('[keyword_id] must be an integer.');
         });
     }
@@ -68,13 +72,17 @@ class ResidencesPutTest extends _TestCase
         $this->when(function () {
             $this->setInputParameter('keyword_id', 13);
 
-            $this->assertError('residence_country keyword for [keyword_id] must exist.');
+            $this->runService();
+
+            $this->assertError('residence keyword for [keyword_id] must exist.');
         });
     }
 
     public function testErrorRequiredRuleAuthUser()
     {
         $this->when(function () {
+            $this->runService();
+
             $this->assertError('header[authorization] is required.');
         });
     }
@@ -82,6 +90,8 @@ class ResidencesPutTest extends _TestCase
     public function testErrorRequiredRuleKeywordId()
     {
         $this->when(function () {
+            $this->runService();
+
             $this->assertError('[keyword_id] is required.');
         });
     }

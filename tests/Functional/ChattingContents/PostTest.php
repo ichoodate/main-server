@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Functional\Matches;
+namespace Tests\Functional\ChattingContents;
 
 use App\Models\ChattingContent;
 use App\Models\Friend;
@@ -12,24 +12,24 @@ use Tests\Functional\_TestCase;
  * @internal
  * @coversNothing
  */
-class IdChattingContentsPostTest extends _TestCase
+class PostTest extends _TestCase
 {
-    protected $uri = 'matches/{id}/chatting-contents';
+    protected $uri = 'chatting-contents';
 
     public function test()
     {
-        User::factory()->create(['id' => 1]);
-        User::factory()->create(['id' => 2]);
-        User::factory()->create(['id' => 3]);
+        User::factory()->create(['id' => 1, 'gender' => User::GENDER_MAN]);
+        User::factory()->create(['id' => 2, 'gender' => User::GENDER_WOMAN]);
         Match::factory()->create(['id' => 11, 'man_id' => 1, 'woman_id' => 2]);
-        Match::factory()->create(['id' => 12, 'man_id' => 3, 'woman_id' => 2]);
-        Friend::factory()->create(['id' => 101, 'from_id' => 1, 'related_id' => 11, 'to_id' => 12]);
-        Friend::factory()->create(['id' => 102, 'from_id' => 3, 'related_id' => 12, 'to_id' => 11]);
+        Friend::factory()->create(['id' => 101, 'sender_id' => 1, 'match_id' => 11, 'receiver_id' => 2]);
+        Friend::factory()->create(['id' => 102, 'sender_id' => 2, 'match_id' => 11, 'receiver_id' => 1]);
 
         $this->when(function () {
             $this->setAuthUser(User::find(1));
-            $this->setRouteParameter('id', 11);
+            $this->setInputParameter('match_id', 11);
             $this->setInputParameter('message', 'message1');
+
+            $this->runService();
 
             $this->assertResultWithPersisting(new ChattingContent([
                 'writer_id' => 1,
@@ -40,8 +40,10 @@ class IdChattingContentsPostTest extends _TestCase
 
         $this->when(function () {
             $this->setAuthUser(User::find(2));
-            $this->setRouteParameter('id', 11);
+            $this->setInputParameter('match_id', 11);
             $this->setInputParameter('message', 'message2');
+
+            $this->runService();
 
             $this->assertResultWithPersisting(new ChattingContent([
                 'writer_id' => 2,
@@ -49,26 +51,16 @@ class IdChattingContentsPostTest extends _TestCase
                 'message' => 'message2',
             ]));
         });
-
-        $this->when(function () {
-            $this->setAuthUser(User::find(2));
-            $this->setRouteParameter('id', 12);
-            $this->setInputParameter('message', 'message3');
-
-            $this->assertResultWithPersisting(new ChattingContent([
-                'writer_id' => 2,
-                'match_id' => 12,
-                'message' => 'message3',
-            ]));
-        });
     }
 
     public function testErrorIntegerRuleMatchId()
     {
         $this->when(function () {
-            $this->setRouteParameter('id', 'abcd');
+            $this->setInputParameter('match_id', 'abcd');
 
-            $this->assertError('abcd must be an integer.');
+            $this->runService();
+
+            $this->assertError('[match_id] must be an integer.');
         });
     }
 
@@ -79,9 +71,11 @@ class IdChattingContentsPostTest extends _TestCase
 
         $this->when(function () {
             $this->setAuthUser(User::find(1));
-            $this->setRouteParameter('id', 12);
+            $this->setInputParameter('match_id', 12);
 
-            $this->assertError('match for 12 must exist.');
+            $this->runService();
+
+            $this->assertError('match for [match_id] must exist.');
         });
     }
 
@@ -94,9 +88,11 @@ class IdChattingContentsPostTest extends _TestCase
 
         $this->when(function () {
             $this->setAuthUser(User::find(3));
-            $this->setRouteParameter('id', 11);
+            $this->setInputParameter('match_id', 11);
 
-            $this->assertError('authorized user who is related user of match for 11 is required.');
+            $this->runService();
+
+            $this->assertError('authorized user who is related user of match for [match_id] is required.');
         });
     }
 
@@ -107,15 +103,19 @@ class IdChattingContentsPostTest extends _TestCase
 
         $this->when(function () {
             $this->setAuthUser(User::find(1));
-            $this->setRouteParameter('id', 11);
+            $this->setInputParameter('match_id', 11);
 
-            $this->assertError('match_propose for match of 11 must exist.');
+            $this->runService();
+
+            $this->assertError('matching_user in friends of authorized user for match for [match_id] must exist.');
         });
     }
 
     public function testErrorRequiredRuleAuthUser()
     {
         $this->when(function () {
+            $this->runService();
+
             $this->assertError('header[authorization] is required.');
         });
     }
@@ -123,6 +123,8 @@ class IdChattingContentsPostTest extends _TestCase
     public function testErrorRequiredRuleMessage()
     {
         $this->when(function () {
+            $this->runService();
+
             $this->assertError('[message] is required.');
         });
     }

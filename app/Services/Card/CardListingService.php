@@ -52,7 +52,7 @@ class CardListingService extends Service
                 $query->where(Card::UPDATED_AT, '>=', $time->format('Y-m-d H:i:s'));
             },
 
-            'query.auth_user' => function ($authUserQuery, $authUserStatus = '', $matchStatus = '', $matchingUserQuery, $matchingUserStatus = '', $query, $queryBuilder1) {
+            'query.auth_user' => function ($authUserQuery, $authUserStatus = '', $matchStatus = '', $matchingUserQuery, $matchingUserStatus = '', $query, $queryMainBuilder) {
                 if ('' != $matchStatus) {
                     $userQuery = (new User())->query()
                         ->select(User::ID)
@@ -61,14 +61,14 @@ class CardListingService extends Service
                         ->getQuery()
                     ;
 
-                    $queryBuilder1->call(null, $query, $userQuery, $matchStatus);
+                    $queryMainBuilder($query, $userQuery, $matchStatus);
                 } elseif ($authUserStatus && !$matchingUserStatus) {
-                    $queryBuilder1->call(null, $query, $authUserQuery, $authUserStatus);
+                    $queryMainBuilder($query, $authUserQuery, $authUserStatus);
                 } elseif (!$authUserStatus && $matchingUserStatus) {
-                    $queryBuilder1->call(null, $query, $matchingUserQuery, $matchingUserStatus);
+                    $queryMainBuilder($query, $matchingUserQuery, $matchingUserStatus);
                 } else { // if ( $authUserStatus && $matchingUserStatus )
-                    $queryBuilder1->call(null, $query, $authUserQuery, $authUserStatus);
-                    $queryBuilder1->call(null, $query, $matchingUserQuery, $matchingUserStatus);
+                    $queryMainBuilder($query, $authUserQuery, $authUserStatus);
+                    $queryMainBuilder($query, $matchingUserQuery, $matchingUserStatus);
                 }
             },
 
@@ -185,19 +185,19 @@ class CardListingService extends Service
                 return $return;
             },
 
-            'query_builder_1' => function ($queryBuilder2) {
-                return function ($cardQuery, $userQuery, $userStatus) use ($queryBuilder2) {
+            'query_main_builder' => function ($querySubBuilder) {
+                return function ($cardQuery, $userQuery, $userStatus) use ($querySubBuilder) {
                     if (in_array($userStatus, [self::USER_STATUS_CARD_FLIP, self::USER_STATUS_FRIEND])) {
-                        $subQuery = $queryBuilder2->call(null, $userQuery, $userStatus);
+                        $subQuery = $querySubBuilder($userQuery, $userStatus);
 
                         $cardQuery->whereIn(Card::ID, $subQuery);
                     } elseif (self::USER_STATUS_CARD_FLIP_STEP == $userStatus) {
-                        $subQuery = $queryBuilder2->call(null, $userQuery, self::USER_STATUS_CARD_FLIP);
+                        $subQuery = $querySubBuilder($userQuery, self::USER_STATUS_CARD_FLIP);
 
                         $cardQuery->whereNotIn(Card::ID, $subQuery);
                     } elseif (self::USER_STATUS_FRIEND_STEP == $userStatus) {
-                        $inSubQuery = $queryBuilder2->call(null, $userQuery, self::USER_STATUS_CARD_FLIP);
-                        $notInSubQuery = $queryBuilder2->call(null, $userQuery, self::USER_STATUS_FRIEND);
+                        $inSubQuery = $querySubBuilder($userQuery, self::USER_STATUS_CARD_FLIP);
+                        $notInSubQuery = $querySubBuilder($userQuery, self::USER_STATUS_FRIEND);
 
                         $cardQuery->whereIn(Card::ID, $inSubQuery);
                         $cardQuery->whereNotIn(Card::ID, $notInSubQuery);
@@ -210,7 +210,7 @@ class CardListingService extends Service
                 };
             },
 
-            'query_builder_2' => function () {
+            'query_sub_builder' => function () {
                 return function ($userQuery, $userStatus) {
                     $flipQuery = (new CardFlip())->query()
                         ->whereIn(CardFlip::USER_ID, $userQuery)
@@ -260,7 +260,7 @@ class CardListingService extends Service
 
             'matching_user_status' => ['in:'.implode(',', static::USER_STATUS_VALUES)],
 
-            'timezone' => ['required', 'timezone'],
+            'timezone' => ['required_with:after', 'required_with:before', 'timezone'],
         ];
     }
 

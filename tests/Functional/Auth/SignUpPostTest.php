@@ -19,7 +19,7 @@ class SignUpPostTest extends _TestCase
         $this->when(function () {
             $birth = $this->faker->date;
             $gender = $this->faker->randomElement(User::GENDER_VALUES);
-            $password = $this->faker->word;
+            $password = $this->faker->regexify('[A-Za-z]{12}');
             $email = $this->faker->email;
             $name = $this->faker->name;
 
@@ -29,20 +29,20 @@ class SignUpPostTest extends _TestCase
             $this->setInputParameter('email', $email);
             $this->setInputParameter('name', $name);
 
+            $this->runService();
+
             $this->assertResultWithPersisting(new User([
                 User::BIRTH => $birth,
                 User::GENDER => $gender,
-                // User::PASSWORD
-                //     => $password,
+                User::PASSWORD => $password,
                 User::NAME => $name,
                 User::EMAIL => $email,
             ]));
-
             $this->assertPersistence(new Balance([
-                Balance::USER_ID => 1,
-                Balance::TYPE => Balance::TYPE_BASIC,
+                Balance::USER_ID => User::where('email', $email)->first()->getKey(),
+                Balance::TYPE => 'basic',
                 Balance::COUNT => 0,
-                Balance::DELETED_AT => '9999-12-31 23:59:59',
+                Balance::DELETED_AT => null,
             ]));
         });
     }
@@ -51,6 +51,8 @@ class SignUpPostTest extends _TestCase
     {
         $this->when(function () {
             $this->setInputParameter('email', 'abcd');
+
+            $this->runService();
 
             $this->assertError('[email] must be a valid email address.');
         });
@@ -61,6 +63,8 @@ class SignUpPostTest extends _TestCase
         $this->when(function () {
             $this->setInputParameter('gender', 'abcd');
 
+            $this->runService();
+
             $this->assertError('[gender] is invalid.');
         });
     }
@@ -69,6 +73,8 @@ class SignUpPostTest extends _TestCase
     {
         $this->when(function () {
             $this->setInputParameter('password', 'abcd');
+
+            $this->runService();
 
             $this->assertError('[password] must be at least 6 characters.');
         });
@@ -91,6 +97,8 @@ class SignUpPostTest extends _TestCase
             $this->setInputParameter('email', $email);
             $this->setInputParameter('name', $name);
 
+            $this->runService();
+
             $this->assertError('same email user for [email] must not exist.');
         });
     }
@@ -98,6 +106,8 @@ class SignUpPostTest extends _TestCase
     public function testErrorRequiredRuleEmail()
     {
         $this->when(function () {
+            $this->runService();
+
             $this->assertError('[email] is required.');
         });
     }
@@ -105,6 +115,8 @@ class SignUpPostTest extends _TestCase
     public function testErrorRequiredRuleGender()
     {
         $this->when(function () {
+            $this->runService();
+
             $this->assertError('[gender] is required.');
         });
     }
@@ -112,6 +124,8 @@ class SignUpPostTest extends _TestCase
     public function testErrorRequiredRuleName()
     {
         $this->when(function () {
+            $this->runService();
+
             $this->assertError('[name] is required.');
         });
     }
@@ -119,6 +133,8 @@ class SignUpPostTest extends _TestCase
     public function testErrorRequiredRulePassword()
     {
         $this->when(function () {
+            $this->runService();
+
             $this->assertError('[password] is required.');
         });
     }
@@ -127,6 +143,8 @@ class SignUpPostTest extends _TestCase
     {
         $this->when(function () {
             $this->setInputParameter('email', ['abcd']);
+
+            $this->runService();
 
             $this->assertError('[email] must be a string.');
         });
@@ -137,6 +155,8 @@ class SignUpPostTest extends _TestCase
         $this->when(function () {
             $this->setInputParameter('gender', ['abcd']);
 
+            $this->runService();
+
             $this->assertError('[gender] must be a string.');
         });
     }
@@ -146,6 +166,8 @@ class SignUpPostTest extends _TestCase
         $this->when(function () {
             $this->setInputParameter('name', ['abcd']);
 
+            $this->runService();
+
             $this->assertError('[name] must be a string.');
         });
     }
@@ -154,6 +176,8 @@ class SignUpPostTest extends _TestCase
     {
         $this->when(function () {
             $this->setInputParameter('password', ['abcd']);
+
+            $this->runService();
 
             $this->assertError('[password] must be a string.');
         });

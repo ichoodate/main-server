@@ -22,11 +22,15 @@ class GetTest extends _TestCase
         $this->when(function () {
             $this->setInputParameter('max', 21);
 
+            $this->runService();
+
             $this->assertResultWithListing([11]);
         });
 
         $this->when(function () {
             $this->setInputParameter('max', 22);
+
+            $this->runService();
 
             $this->assertResultWithListing([12, 13]);
         });

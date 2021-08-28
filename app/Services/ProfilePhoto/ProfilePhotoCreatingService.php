@@ -10,7 +10,9 @@ class ProfilePhotoCreatingService extends Service
 {
     public static function getArrBindNames()
     {
-        return [];
+        return [
+            'data.*' => '{{data}}[*]',
+        ];
     }
 
     public static function getArrCallbacks()
@@ -29,7 +31,7 @@ class ProfilePhotoCreatingService extends Service
                 ]];
             },
 
-            'created' => function ($authUser, $data) {
+            'result' => function ($authUser, $data) {
                 $collection = (new ProfilePhoto())->newCollection();
 
                 foreach ($data as $k => $v) {
@@ -52,7 +54,9 @@ class ProfilePhotoCreatingService extends Service
     public static function getArrRuleLists()
     {
         return [
-            'data' => ['required', 'regex:/data:image\/([a-zA-Z]*);base64,([^\"]*)/'],
+            'data' => ['required', 'array'],
+
+            'data.*' => ['base64_image'],
         ];
     }
 

@@ -7,6 +7,7 @@ use App\Model;
 use Faker\Generator as Faker;
 use FunctionalCoding\JWT\Service\TokenEncryptionService;
 use FunctionalCoding\Service;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Tests\TestCase;
 
@@ -29,38 +30,20 @@ class _TestCase extends TestCase
 
     public function tearDown(): void
     {
+        $this->beforeApplicationDestroyed(function () {
+            DB::disconnect();
+        });
+
         app('db')->rollback();
 
         parent::tearDown();
     }
 
-    public function assertDeletion($model)
-    {
-        $this->assertPersistence($model, 0);
-    }
-
     public function assertError($msg)
     {
-        $serv = $this->runService();
-        $errors = $serv->totalErrors();
+        $errors = $this->service->totalErrors();
+
         $this->assertContains($msg, $errors, implode(',', $errors));
-    }
-
-    public static function assertException($executeClosure, $expectClosure = null)
-    {
-        try {
-            call_user_func($executeClosure);
-        } catch (\Exception $e) {
-            if (null != $expectClosure) {
-                call_user_func($expectClosure, $e);
-            }
-
-            static::success();
-
-            return;
-        }
-
-        static::fail();
     }
 
     public function assertPersistence($model, $existCount = 1)
@@ -77,19 +60,19 @@ class _TestCase extends TestCase
 
     public function assertResult($expect)
     {
-        $serv = $this->runService();
-        $result = $serv->data()->getArrayCopy()['result'];
-        $errors = $serv->totalErrors();
-
+        $errors = $this->service->totalErrors();
         $this->assertEquals([], $errors, implode(',', $errors));
+
+        $result = $this->service->data()->getArrayCopy()['result'];
         $this->assertEquals($expect, $result);
     }
 
     public function assertResultWithFinding($expectId)
     {
-        $serv = $this->runService();
-        $result = $serv->data()->getArrayCopy()['result'];
-        $errors = $serv->totalErrors();
+        $errors = $this->service->totalErrors();
+        $this->assertEquals([], $errors, implode(',', $errors));
+
+        $result = $this->service->data()->getArrayCopy()['result'];
 
         $this->assertInstanceOf(Model::class, $result);
         $this->assertEquals($expectId, $result->getKey());
@@ -97,11 +80,10 @@ class _TestCase extends TestCase
 
     public function assertResultWithListing($expectIds)
     {
-        $serv = $this->runService();
-        $result = $serv->data()->getArrayCopy()['result'];
-        $errors = $serv->totalErrors();
-
+        $errors = $this->service->totalErrors();
         $this->assertEquals([], $errors, implode(',', $errors));
+
+        $result = $this->service->data()->getArrayCopy()['result'];
 
         foreach ($expectIds as $expectId) {
             $this->assertContains($expectId, $result->modelKeys());
@@ -110,32 +92,29 @@ class _TestCase extends TestCase
 
     public function assertResultWithPaging($expectIds)
     {
-        $serv = $this->runService();
-        $result = $serv->data()->getArrayCopy()['result']->modelKeys();
-        $errors = $serv->totalErrors();
+        $errors = $this->service->totalErrors();
+        $this->assertEquals([], $errors, implode(',', $errors));
+
+        $result = $this->service->data()->getArrayCopy()['result']->modelKeys();
 
         sort($expectIds);
         sort($result);
 
-        $this->assertEquals([], $errors, implode(',', $errors));
         $this->assertEquals($result, $expectIds);
     }
 
     public function assertResultWithPersisting($expects)
     {
-        $serv = $this->runService();
-        $result = $serv->data()->getArrayCopy()['result'];
-        $errors = $serv->totalErrors();
+        $errors = $this->service->totalErrors();
+        $this->assertEquals([], $errors, implode(',', $errors));
 
+        $result = $this->service->data()->getArrayCopy()['result'];
         if ($expects instanceof Model) {
             $this->assertInstanceOf(Model::class, $result);
 
             $expects = collect([$expects]);
             $result = collect([$result]);
         }
-
-        $this->assertEquals([], $errors, implode(',', $errors));
-        $this->assertEquals(get_class($expects), get_class($result));
 
         foreach ($result as $i => $model) {
             $expect = $expects[$i];
@@ -146,69 +125,16 @@ class _TestCase extends TestCase
         }
     }
 
-    public function assertResultWithReturning($expect)
-    {
-        $serv = $this->runService();
-        $result = $serv->data()->getArrayCopy()['result'];
-        $errors = $serv->totalErrors();
-
-        $this->assertEquals([], $errors, implode(',', $errors));
-        $this->assertEquals($expect, $result);
-    }
-
-    public static function factory($modelClass)
-    {
-        $path = str_replace('App\\Database\\Models\\', '', $modelClass);
-
-        return app('Database\\Factories\\Model\\'.$path.'Factory');
-    }
-
-    public function getHttpMethod()
+    public function getResponse()
     {
         $class = explode('\\', static::class);
         $class = array_pop($class);
         $class = Str::snake($class);
         $class = preg_replace('/_test$/', '', $class);
         $class = explode('_', $class);
-
-        return strtoupper(array_pop($class));
-    }
-
-    public function getQuery($serv)
-    {
-        $builder = $serv->data()->getArrayCopy()['query'];
-        $addSlashes = str_replace('?', "'?'", $builder->toSql());
-        $q = vsprintf(str_replace('?', '%s', $addSlashes), $builder->getBindings());
-    }
-
-    public function getResponse()
-    {
-        $method = $this->getHttpMethod();
+        $method = strtoupper(array_pop($class));
 
         return $this->call($method, $url = $this->url, $parameters = $this->inputs, $cookies = [], $files = [], $server = $this->server, $content = null);
-    }
-
-    public static function invokeMethod($object, $method, $args, $public = true)
-    {
-        if (is_string($method)) {
-            $reflection = new \ReflectionClass($object);
-
-            $method = $reflection->getMethod($method);
-
-            if ($public) {
-                $method->setAccessible(true);
-            }
-
-            return $method->invokeArgs($object, $args);
-        }
-        $method = \Closure::bind($method, $object);
-
-        return call_user_func_array($method, $args);
-    }
-
-    public static function ref(...$args)
-    {
-        return new \ReflectionClass(...$args);
     }
 
     public function runService()
@@ -220,6 +146,9 @@ class _TestCase extends TestCase
 
         $service = Service::initService($content);
         $service->run();
+
+        $this->service = $service;
+        $this->data = $service->data()->getArrayCopy();
 
         return $service;
     }
@@ -251,16 +180,6 @@ class _TestCase extends TestCase
         $search = '{'.$key.'}';
 
         $this->url = str_replace($search, $replace, $subject);
-    }
-
-    public static function success()
-    {
-        static::assertTrue(true);
-    }
-
-    public static function uniqueString()
-    {
-        return str_random(50);
     }
 
     public function when()
