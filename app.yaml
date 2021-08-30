@@ -1,6 +1,10 @@
 runtime: php74
 service: api
 entrypoint: serve public/index.php
+handlers:
+  - url: /.*
+    script: auto
+    secure: always
 env_variables:
   APP_STORAGE: /tmp
   VIEW_COMPILED_PATH: /tmp
