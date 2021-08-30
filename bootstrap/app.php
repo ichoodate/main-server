@@ -41,6 +41,10 @@ $app->singleton(
     App\Exceptions\Handler::class
 );
 
+if (array_key_exists('GAE_ENV', $_SERVER)) {
+    $app->useStoragePath(env('APP_STORAGE', base_path().'/storage'));
+}
+
 /*
 |--------------------------------------------------------------------------
 | Return The Application
