@@ -15,12 +15,12 @@ class FriendSeeder extends Seeder
             $flip = CardFlip::skip($i)->first();
             $card = $flip->card;
 
-            if (!rand(0, 3)) {
-                $matchingUserId = $flip->{CardFlip::USER_ID} == $card->{Card::CHOOSER_ID} ? $card->{Card::SHOWNER_ID} : $card->{Card::CHOOSER_ID};
+            if (0 !== rand(0, 3)) {
+                $senderId = $flip->{CardFlip::USER_ID} == $card->{Card::CHOOSER_ID} ? $card->{Card::SHOWNER_ID} : $card->{Card::CHOOSER_ID};
 
                 Friend::create([
                     Friend::MATCH_ID => $card->{Card::MATCH_ID},
-                    Friend::SENDER_ID => $matchingUserId,
+                    Friend::SENDER_ID => $senderId,
                     Friend::RECEIVER_ID => $flip->{CardFlip::USER_ID},
                 ]);
             }

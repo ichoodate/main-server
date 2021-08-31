@@ -16,7 +16,7 @@ class ProfilePhotoSeeder extends Seeder
                 $width = rand(100, 1920);
                 $height = rand(100, 1080);
 
-                $data = 'data:image/jpg;base64,'.base64_encode(file_get_contents('https://picsum.photos/'.$width.'/'.$height));
+                $data = 'data:image/jpeg;base64,'.base64_encode(file_get_contents('https://picsum.photos/'.$width.'/'.$height));
 
                 ProfilePhoto::create([
                     'user_id' => $user->getKey(),

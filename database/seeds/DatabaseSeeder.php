@@ -1,42 +1,45 @@
 <?php
 
-use Database\Seeds\CardFlipSeeder;
-use Database\Seeds\CardSeeder;
-use Database\Seeds\ChattingContentSeeder;
-use Database\Seeds\FacePhotoSeeder;
-use Database\Seeds\IdealTypeKeywordSeeder;
-use Database\Seeds\Keyword\AgeRangeSeeder;
-use Database\Seeds\Keyword\BirthYearSeeder;
-use Database\Seeds\Keyword\BloodSeeder;
-use Database\Seeds\Keyword\BodySeeder;
-use Database\Seeds\Keyword\CareerSeeder;
-use Database\Seeds\Keyword\CountrySeeder;
-use Database\Seeds\Keyword\DrinkSeeder;
-use Database\Seeds\Keyword\HobbySeeder;
-use Database\Seeds\Keyword\LanguageSeeder;
-use Database\Seeds\Keyword\NationalitySeeder;
-use Database\Seeds\Keyword\ReligionSeeder;
-use Database\Seeds\Keyword\ResidenceSeeder;
-use Database\Seeds\Keyword\SmokeSeeder;
-use Database\Seeds\Keyword\StateSeeder;
-use Database\Seeds\Keyword\StatureRangeSeeder;
-use Database\Seeds\Keyword\StatureSeeder;
-use Database\Seeds\Keyword\WeightRangeSeeder;
-use Database\Seeds\Keyword\WeightSeeder;
-use Database\Seeds\MatchSeeder;
-use Database\Seeds\ProfilePhotoSeeder;
-use Database\Seeds\UserKeywordSeeder;
-use Database\Seeds\UserSeeder;
+namespace Database\Seeds;
+
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run()
     {
-        // $this->call(UserSeeder::class);
+        foreach ([
+            \Database\Seeds\UserSeeder::class,
+            \Database\Seeds\MatchSeeder::class,
+            \Database\Seeds\CardSeeder::class,
+            \Database\Seeds\CardFlipSeeder::class,
+            \Database\Seeds\FriendSeeder::class,
+            \Database\Seeds\ChattingContentSeeder::class,
+            \Database\Seeds\FacePhotoSeeder::class,
+            \Database\Seeds\ProfilePhotoSeeder::class,
+            // \Database\Seeds\Keyword\AgeRangeSeeder::class,
+            // \Database\Seeds\Keyword\BirthYearSeeder::class,
+            // \Database\Seeds\Keyword\BloodSeeder::class,
+            // \Database\Seeds\Keyword\BodySeeder::class,
+            // \Database\Seeds\Keyword\CareerSeeder::class,
+            // \Database\Seeds\Keyword\CountrySeeder::class,
+            // \Database\Seeds\Keyword\DrinkSeeder::class,
+            // \Database\Seeds\Keyword\HobbySeeder::class,
+            // \Database\Seeds\Keyword\LanguageSeeder::class,
+            // \Database\Seeds\Keyword\NationalitySeeder::class,
+            // \Database\Seeds\Keyword\ReligionSeeder::class,
+            // \Database\Seeds\Keyword\ResidenceSeeder::class,
+            // \Database\Seeds\Keyword\SmokeSeeder::class,
+            // \Database\Seeds\Keyword\StateSeeder::class,
+            // \Database\Seeds\Keyword\StatureRangeSeeder::class,
+            // \Database\Seeds\Keyword\StatureSeeder::class,
+            // \Database\Seeds\Keyword\WeightRangeSeeder::class,
+            // \Database\Seeds\Keyword\WeightSeeder::class,
+            // \Database\Seeds\UserKeywordSeeder::class,
+            // \Database\Seeds\IdealTypeKeywordSeeder::class,
+        ] as $seederClass) {
+            $this->call($seederClass);
+        }
         // $this->call(FacePhotoSeeder::class);
         // $this->call(ProfilePhotoSeeder::class);
         // $this->call(MatchSeeder::class);

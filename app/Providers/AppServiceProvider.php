@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Database\Seeds\DatabaseSeeder;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -18,5 +19,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->bind('DatabaseSeeder', DatabaseSeeder::class);
     }
 }
