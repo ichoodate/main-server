@@ -10,9 +10,15 @@ class LanguageSeeder extends Seeder
     public function run()
     {
         foreach (Language::TYPE_VALUES as $type) {
-            Language::create([
+            $model = Language::where([
                 Language::TYPE => $type,
-            ]);
+            ])->first();
+
+            if (empty($model)) {
+                Language::factory()->create([
+                    Language::TYPE => $type,
+                ]);
+            }
         }
     }
 }

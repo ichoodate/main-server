@@ -10,9 +10,15 @@ class DrinkSeeder extends Seeder
     public function run()
     {
         foreach (Drink::TYPE_VALUES as $type) {
-            Drink::create([
+            $model = Drink::where([
                 Drink::TYPE => $type,
-            ]);
+            ])->first();
+
+            if (empty($model)) {
+                Drink::factory()->create([
+                    Drink::TYPE => $type,
+                ]);
+            }
         }
     }
 }

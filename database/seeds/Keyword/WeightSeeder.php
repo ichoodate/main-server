@@ -10,9 +10,15 @@ class WeightSeeder extends Seeder
     public function run()
     {
         foreach (range(40, 150) as $type) {
-            Weight::create([
+            $model = Weight::where([
                 Weight::TYPE => $type,
-            ]);
+            ])->first();
+
+            if (empty($model)) {
+                Weight::factory()->create([
+                    Weight::TYPE => $type,
+                ]);
+            }
         }
     }
 }

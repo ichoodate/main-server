@@ -10,9 +10,15 @@ class BodySeeder extends Seeder
     public function run()
     {
         foreach (Body::TYPE_VALUES as $type) {
-            Body::create([
+            $model = Body::where([
                 Body::TYPE => $type,
-            ]);
+            ])->first();
+
+            if (empty($model)) {
+                Body::factory()->create([
+                    Body::TYPE => $type,
+                ]);
+            }
         }
     }
 }

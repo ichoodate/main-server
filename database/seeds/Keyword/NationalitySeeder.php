@@ -14,10 +14,15 @@ class NationalitySeeder extends Seeder
 
         for ($i = 0; $i < $count; ++$i) {
             $country = Country::skip($i)->first();
-
-            Nationality::create([
+            $model = Nationality::where([
                 Nationality::COUNTRY_ID => $country->getKey(),
-            ]);
+            ])->first();
+
+            if (empty($model)) {
+                Nationality::factory()->create([
+                    Nationality::COUNTRY_ID => $country->getKey(),
+                ]);
+            }
         }
     }
 }

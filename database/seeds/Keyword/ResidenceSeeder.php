@@ -16,21 +16,34 @@ class ResidenceSeeder extends Seeder
         for ($i = 0; $i < $count; ++$i) {
             $country = Country::skip($i)->first();
 
-            Residence::create([
+            $model = Residence::where([
                 Residence::PARENT_ID => null,
                 Residence::RELATED_ID => $country->getKey(),
-            ]);
+            ])->first();
+
+            if (empty($model)) {
+                Residence::factory()->create([
+                    Residence::PARENT_ID => null,
+                    Residence::RELATED_ID => $country->getKey(),
+                ]);
+            }
         }
 
         $count = State::count();
 
         for ($i = 0; $i < $count; ++$i) {
             $state = State::skip($i)->first();
-
-            Residence::create([
+            $model = Residence::where([
                 Residence::PARENT_ID => $state->country->residence->getKey(),
                 Residence::RELATED_ID => $state->getKey(),
-            ]);
+            ])->first();
+
+            if (empty($model)) {
+                Residence::create([
+                    Residence::PARENT_ID => $state->country->residence->getKey(),
+                    Residence::RELATED_ID => $state->getKey(),
+                ]);
+            }
         }
     }
 }

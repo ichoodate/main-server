@@ -12,13 +12,14 @@ class UserSeeder extends Seeder
     {
         User::factory()->create([
             User::EMAIL => 'dbwhddn10@gmail.com',
-            User::PASSWORD => Hash::make('dbwhddn'),
+            User::PASSWORD => 'dbwhddn',
         ]);
 
         for ($i = 1; $i < 100; ++$i) {
+            var_dump(static::class, $i);
             User::factory()->create([
                 User::EMAIL => 'test'.$i.'@ichoodate.com',
-                User::PASSWORD => Hash::make('dbwhddn'),
+                User::PASSWORD => 'dbwhddn',
             ]);
         }
     }

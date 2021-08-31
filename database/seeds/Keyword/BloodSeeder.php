@@ -10,9 +10,15 @@ class BloodSeeder extends Seeder
     public function run()
     {
         foreach (Blood::TYPE_VALUES as $type) {
-            Blood::create([
+            $model = Blood::where([
                 Blood::TYPE => $type,
-            ]);
+            ])->first();
+
+            if (empty($model)) {
+                Blood::factory()->create([
+                    Blood::TYPE => $type,
+                ]);
+            }
         }
     }
 }

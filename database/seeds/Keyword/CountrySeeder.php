@@ -15,14 +15,25 @@ class CountrySeeder extends Seeder
             ['JP', 'Japan', '81', '.jp', 'JPY', 'ja-JP'],
             ['CN', 'China', '86', '.cn', 'RMB', 'zh-CN'],
         ] as $val) {
-            Country::create([
+            $model = Country::where([
                 Country::ISO => $val[0],
                 Country::NAME => $val[1],
                 Country::E164 => $val[2],
                 Country::CCTLD => $val[3],
                 Country::CURRENCY => $val[4],
                 Country::LANGUAGE => $val[5],
-            ]);
+            ])->first();
+
+            if (empty($model)) {
+                Country::factory()->create([
+                    Country::ISO => $val[0],
+                    Country::NAME => $val[1],
+                    Country::E164 => $val[2],
+                    Country::CCTLD => $val[3],
+                    Country::CURRENCY => $val[4],
+                    Country::LANGUAGE => $val[5],
+                ]);
+            }
         }
     }
 

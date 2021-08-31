@@ -11,14 +11,14 @@ class CardFlipSeeder extends Seeder
     public function createCardFlip($card, $userId)
     {
         $cardFlip = CardFlip::query()
-            ->where(CardFlip::RELATED_ID, $card->getKey())
+            ->where(CardFlip::CARD_ID, $card->getKey())
             ->where(CardFlip::USER_ID, $userId)
             ->first()
         ;
 
         if (empty($cardFlip)) {
             CardFlip::factory()->create([
-                CardFlip::RELATED_ID => $card->getKey(),
+                CardFlip::CARD_ID => $card->getKey(),
                 CardFlip::USER_ID => $userId,
             ]);
         }

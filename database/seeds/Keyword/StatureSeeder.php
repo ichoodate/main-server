@@ -10,10 +10,17 @@ class StatureSeeder extends Seeder
     public function run()
     {
         foreach (range(140, 200) as $cm) {
-            $stature = Stature::create([
+            $model = Stature::where([
                 Stature::CM => $cm,
                 Stature::INCH => (int) ($cm * 0.393701),
-            ]);
+            ])->first();
+
+            if (empty($model)) {
+                $stature = Stature::create([
+                    Stature::CM => $cm,
+                    Stature::INCH => (int) ($cm * 0.393701),
+                ]);
+            }
         }
     }
 }

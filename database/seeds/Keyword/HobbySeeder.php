@@ -10,9 +10,15 @@ class HobbySeeder extends Seeder
     public function run()
     {
         foreach (Hobby::TYPE_VALUES as $type) {
-            Hobby::create([
+            $model = Hobby::where([
                 Hobby::TYPE => $type,
-            ]);
+            ])->first();
+
+            if (empty($model)) {
+                Hobby::factory()->create([
+                    Hobby::TYPE => $type,
+                ]);
+            }
         }
     }
 }

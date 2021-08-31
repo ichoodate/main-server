@@ -10,9 +10,15 @@ class ReligionSeeder extends Seeder
     public function run()
     {
         foreach (Religion::TYPE_VALUES as $type) {
-            Religion::create([
+            $model = Religion::where([
                 Religion::TYPE => $type,
-            ]);
+            ])->first();
+
+            if (empty($model)) {
+                Religion::factory()->create([
+                    Religion::TYPE => $type,
+                ]);
+            }
         }
     }
 }

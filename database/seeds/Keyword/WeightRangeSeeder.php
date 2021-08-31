@@ -11,10 +11,17 @@ class WeightRangeSeeder extends Seeder
     {
         for ($i = 40; $i <= 150; ++$i) {
             for ($j = 150; $j >= $i; --$j) {
-                WeightRange::create([
+                $model = WeightRange::where([
                     WeightRange::MIN => $i,
                     WeightRange::MAX => $j,
-                ]);
+                ])->first();
+
+                if (empty($model)) {
+                    WeightRange::factory()->create([
+                        WeightRange::MIN => $i,
+                        WeightRange::MAX => $j,
+                    ]);
+                }
             }
         }
     }

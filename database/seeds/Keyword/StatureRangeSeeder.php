@@ -11,10 +11,17 @@ class StatureRangeSeeder extends Seeder
     {
         for ($i = 140; $i <= 200; ++$i) {
             for ($j = 200; $j >= $i; --$j) {
-                StatureRange::create([
+                $model = StatureRange::where([
                     StatureRange::MIN => $i,
                     StatureRange::MAX => $j,
-                ]);
+                ])->first();
+
+                if (empty($model)) {
+                    StatureRange::factory()->create([
+                        StatureRange::MIN => $i,
+                        StatureRange::MAX => $j,
+                    ]);
+                }
             }
         }
     }
