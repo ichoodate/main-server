@@ -15,23 +15,6 @@ class Model extends \Illuminate\Database\Eloquent\Model
     public $incrementing = false;
     protected $guarded = [];
 
-    public static function create(array $attributes = [])
-    {
-        if (Obj::class != static::class && !array_key_exists(static::ID, $attributes)) {
-            $obj = new Obj([
-                Obj::MODEL_CLASS => static::class,
-            ]);
-            $obj->save();
-
-            $attributes[static::ID] = $obj->getKey();
-        }
-
-        $model = new static($attributes);
-        $model->save();
-
-        return $model;
-    }
-
     public function getModelType()
     {
         return array_flip(Relation::morphMap())[static::class];
@@ -57,6 +40,20 @@ class Model extends \Illuminate\Database\Eloquent\Model
         $query = (new $related())->newQuery();
 
         return new Relation($query, $this, $localKeys, $otherKeys, $isManyRelation);
+    }
+
+    public function save(array $options = [])
+    {
+        if (Obj::class != static::class && !$this->exists) {
+            $obj = new Obj([
+                Obj::MODEL_CLASS => static::class,
+            ]);
+            $obj->save();
+
+            $this->setAttribute(static::ID, $obj->getKey());
+        }
+
+        return parent::save($options);
     }
 
     public function setCast($key, $value)
