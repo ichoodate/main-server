@@ -1,12 +1,12 @@
 <?php
 
-namespace Database\Seeds\Table;
+namespace Database\Seeds;
 
 use App\Models\ProfilePhoto;
 use App\Models\User;
-use Database\Seeds\TableSeeder;
+use Illuminate\Database\Seeder;
 
-class ProfilePhotoTableSeeder extends TableSeeder
+class ProfilePhotoSeeder extends Seeder
 {
     public function run()
     {

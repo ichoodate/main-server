@@ -1,12 +1,12 @@
 <?php
 
-namespace Database\Seeds\Table;
+namespace Database\Seeds;
 
 use App\Models\Card;
 use App\Models\CardFlip;
 use Illuminate\Database\Seeder;
 
-class CardFlipTableSeeder extends Seeder
+class CardFlipSeeder extends Seeder
 {
     public function createCardFlip($card, $userId)
     {

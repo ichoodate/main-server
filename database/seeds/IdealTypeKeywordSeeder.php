@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeds\Table;
+namespace Database\Seeds;
 
 use App\Models\IdealTypeKeyword;
 use App\Models\Keyword\AgeRange;
@@ -14,9 +14,9 @@ use App\Models\Keyword\Smoke;
 use App\Models\Keyword\StatureRange;
 use App\Models\Keyword\WeightRange;
 use App\Models\User;
-use Database\Seeds\TableSeeder;
+use Illuminate\Database\Seeder;
 
-class IdealTypeKeywordTableSeeder extends TableSeeder
+class IdealTypeKeywordSeeder extends Seeder
 {
     public function run()
     {

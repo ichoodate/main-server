@@ -1,12 +1,12 @@
 <?php
 
-namespace Database\Seeds\Table;
+namespace Database\Seeds;
 
 use App\Models\User;
-use Database\Seeds\TableSeeder;
+use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
-class UserTableSeeder extends TableSeeder
+class UserSeeder extends Seeder
 {
     public function run()
     {

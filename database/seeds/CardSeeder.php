@@ -1,15 +1,15 @@
 <?php
 
-namespace Database\Seeds\Table;
+namespace Database\Seeds;
 
 use App\Models\Card;
 use App\Models\CardGroup;
 use App\Models\Match;
 use App\Models\User;
-use Database\Seeds\TableSeeder;
+use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class CardTableSeeder extends TableSeeder
+class CardSeeder extends Seeder
 {
     public function run()
     {

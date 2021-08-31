@@ -1,14 +1,14 @@
 <?php
 
-namespace Database\Seeds\Table;
+namespace Database\Seeds;
 
 use App\Models\ChattingContent;
 use App\Models\Friend;
 use App\Models\Match;
-use Database\Seeds\TableSeeder;
+use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 
-class ChattingContentTableSeeder extends TableSeeder
+class ChattingContentSeeder extends Seeder
 {
     public function run()
     {

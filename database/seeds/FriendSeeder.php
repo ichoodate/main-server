@@ -1,13 +1,13 @@
 <?php
 
-namespace Database\Seeds\Table;
+namespace Database\Seeds;
 
 use App\Models\Card;
 use App\Models\CardFlip;
 use App\Models\Friend;
-use Database\Seeds\TableSeeder;
+use Illuminate\Database\Seeder;
 
-class FriendTableSeeder extends TableSeeder
+class FriendSeeder extends Seeder
 {
     public function run()
     {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeds\Table;
+namespace Database\Seeds;
 
 use App\Models\Keyword\BirthYear;
 use App\Models\Keyword\Career;
@@ -14,9 +14,9 @@ use App\Models\Keyword\Stature;
 use App\Models\Keyword\Weight;
 use App\Models\User;
 use App\Models\UserKeyword;
-use Database\Seeds\TableSeeder;
+use Illuminate\Database\Seeder;
 
-class UserKeywordTableSeeder extends TableSeeder
+class UserKeywordSeeder extends Seeder
 {
     public function run()
     {

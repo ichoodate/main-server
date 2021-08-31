@@ -1,12 +1,12 @@
 <?php
 
-namespace Database\Seeds\Table;
+namespace Database\Seeds;
 
 use App\Models\Match;
 use App\Models\User;
-use Database\Seeds\TableSeeder;
+use Illuminate\Database\Seeder;
 
-class MatchTableSeeder extends TableSeeder
+class MatchSeeder extends Seeder
 {
     public function run()
     {

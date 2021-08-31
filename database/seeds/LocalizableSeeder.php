@@ -1,10 +1,10 @@
 <?php
 
-namespace Database\Seeds\Table;
+namespace Database\Seeds;
 
-use Database\Seeds\TableSeeder;
+use Illuminate\Database\Seeder;
 
-class LocalizableTableSeeder extends TableSeeder
+class LocalizableSeeder extends Seeder
 {
     public function run()
     {

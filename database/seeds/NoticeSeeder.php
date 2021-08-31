@@ -1,11 +1,11 @@
 <?php
 
-namespace Database\Seeds\Table;
+namespace Database\Seeds;
 
 use App\Models\Notice;
-use Database\Seeds\TableSeeder;
+use Illuminate\Database\Seeder;
 
-class NoticeTableSeeder extends TableSeeder
+class NoticeSeeder extends Seeder
 {
     public function run()
     {
