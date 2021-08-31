@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use Database\Seeds\DatabaseSeeder;
+use Database\DatabaseSeeder;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
