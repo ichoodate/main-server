@@ -35,7 +35,7 @@ class IdealTypeKeywordListingService extends Service
             },
 
             'available_expands' => function () {
-                return ['keyword.concrete', 'user'];
+                return ['keywordObj.concrete', 'user'];
             },
 
             'model_class' => function () {

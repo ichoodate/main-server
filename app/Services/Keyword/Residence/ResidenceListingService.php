@@ -26,7 +26,7 @@ class ResidenceListingService extends Service
     {
         return [
             'available_expands' => function () {
-                return ['related', 'related.concrete'];
+                return ['related', 'relatedObj.concrete'];
             },
 
             'model_class' => function () {

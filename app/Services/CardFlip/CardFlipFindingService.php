@@ -25,7 +25,7 @@ class CardFlipFindingService extends Service
     {
         return [
             'available_expands' => function () {
-                return ['user', 'card.concrete'];
+                return ['user', 'card'];
             },
 
             'model_class' => function () {
