@@ -24,7 +24,7 @@ class ResidenceFindingService extends Service
     {
         return [
             'available_expands' => function () {
-                return [];
+                return ['parentObj.concrete', 'relatedObj.concrete'];
             },
 
             'model_class' => function () {

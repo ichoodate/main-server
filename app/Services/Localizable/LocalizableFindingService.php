@@ -24,7 +24,7 @@ class LocalizableFindingService extends Service
     {
         return [
             'available_expands' => function () {
-                return [];
+                return ['keywordObj.concrete'];
             },
 
             'model_class' => function () {

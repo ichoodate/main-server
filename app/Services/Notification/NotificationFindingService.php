@@ -25,7 +25,7 @@ class NotificationFindingService extends Service
     {
         return [
             'available_expands' => function () {
-                return ['related', 'user'];
+                return ['relatedObj.concrete', 'user'];
             },
 
             'model_class' => function () {
