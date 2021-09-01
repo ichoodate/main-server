@@ -10,7 +10,11 @@ class CareerController extends Controller
 {
     public static function index()
     {
-        return [CareerListingService::class];
+        return [CareerListingService::class, [
+            'parent_id' => static::input('parent_id'),
+        ], [
+            'parent_id' => '[parent_id]',
+        ]];
     }
 
     public static function show()

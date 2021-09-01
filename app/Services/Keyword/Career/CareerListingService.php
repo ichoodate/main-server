@@ -10,7 +10,9 @@ class CareerListingService extends Service
 {
     public static function getArrBindNames()
     {
-        return [];
+        return [
+            'parent' => 'career for {{parent_id}}',
+        ];
     }
 
     public static function getArrCallbacks()
@@ -32,6 +34,10 @@ class CareerListingService extends Service
             'model_class' => function () {
                 return Career::class;
             },
+
+            'parent' => function ($parentId) {
+                return Career::find($parentId);
+            },
         ];
     }
 
@@ -44,6 +50,8 @@ class CareerListingService extends Service
     {
         return [
             'parent_id' => ['present', 'integer', 'nullable'],
+
+            'parent' => ['required_unless:parent_id,null'],
         ];
     }
 
