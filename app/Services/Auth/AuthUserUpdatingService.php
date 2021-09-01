@@ -88,8 +88,6 @@ class AuthUserUpdatingService extends Service
     public static function getArrRuleLists()
     {
         return [
-            'auth_user' => ['required'],
-
             'birth' => ['string', 'date_format:Y-m-d'],
 
             'email' => ['string', 'email'],
