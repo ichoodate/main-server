@@ -27,6 +27,12 @@ class CardGroupController extends Controller
 
     public static function store()
     {
-        return [TodayCardGroupCreatingService::class];
+        if ('daily' == static::input('type')) {
+            return [TodayCardGroupCreatingService::class, [
+                'timezone' => static::input('timezone'),
+            ], [
+                'timezone' => '[timezone]',
+            ]];
+        }
     }
 }

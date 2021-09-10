@@ -4,6 +4,8 @@ namespace App\Services\CardGroup;
 
 use App\Models\CardGroup;
 use App\Models\IdealTypeKeyword;
+use App\Services\Auth\AuthUserFindingService;
+use App\Services\Card\CardListCreatingService;
 use App\Services\User\MatchingUserListingService;
 use FunctionalCoding\Service;
 
@@ -12,9 +14,11 @@ class TodayCardGroupCreatingService extends Service
     public static function getArrBindNames()
     {
         return [
-            'today_card_group' => 'card group created within date',
+            'auth_user' => 'authorized user',
 
             'ideal_type_keyword_ids' => 'ideal type keyword ids of {{auth_user}}',
+
+            'today_card_group' => 'card group created in today',
         ];
     }
 
@@ -26,15 +30,45 @@ class TodayCardGroupCreatingService extends Service
     public static function getArrLoaders()
     {
         return [
-            'created' => function ($authUser) {
+            'auth_user' => function ($authToken = '') {
+                return [AuthUserFindingService::class, [
+                    'auth_token' => $authToken,
+                ], [
+                    'auth_token' => '{{auth_token}}',
+                ]];
+            },
+
+            'cards' => function ($authUser, $result, $users) {
+                return [CardListCreatingService::class, [
+                    'auth_user' => $authUser,
+                    'card_group' => $result,
+                    'users' => $users,
+                ]];
+            },
+
+            'ideal_type_keyword_ids' => function ($idealTypeKeywords) {
+                return $idealTypeKeywords->pluck(IdealTypeKeyword::KEYWORD_ID)->all();
+            },
+
+            'ideal_type_keywords' => function ($authUser) {
+                return (new IdealTypeKeyword())->query()
+                    ->where(IdealTypeKeyword::USER_ID, $authUser->getKey())
+                    ->get()
+                ;
+            },
+
+            'result' => function ($authUser) {
                 return (new CardGroup())->create([
                     CardGroup::USER_ID => $authUser->getKey(),
                     CardGroup::TYPE => 'daily',
                 ]);
             },
 
-            'today_card_group' => function ($authUser) {
-                $time = new \DateTime('now', new \DateTimeZone('UTC'));
+            'today_card_group' => function ($authUser, $timezone) {
+                $time = (new \DateTime('now', new \DateTimeZone($timezone)))
+                    ->setTime(0, 0)
+                    ->setTimezone(new \DateTimeZone('UTC'))
+                ;
 
                 $query = (new CardGroup())->query()
                     ->select(CardGroup::ID)
@@ -50,17 +84,6 @@ class TodayCardGroupCreatingService extends Service
                 ;
             },
 
-            'ideal_type_keyword_ids' => function ($idealTypeKeywords) {
-                return $idealTypeKeywords->pluck(IdealTypeKeyword::KEYWORD_ID)->all();
-            },
-
-            'ideal_type_keywords' => function ($authUser) {
-                return (new IdealTypeKeyword())->query()
-                    ->where(IdealTypeKeyword::USER_ID, $authUser->getKey())
-                    ->get()
-                ;
-            },
-
             'users' => function ($authUser, $idealTypeKeywordIds) {
                 return [MatchingUserListingService::class, [
                     'auth_user' => $authUser,
@@ -69,10 +92,9 @@ class TodayCardGroupCreatingService extends Service
                     'strict' => false,
                 ], [
                     'auth_user' => '{{auth_user}}',
+                    'limit' => 'card limit count for {{today_card_group}}',
+                    'strict' => 'strict user search mode operator for {{ideal_type_keyword_ids}}',
                     'keyword_ids' => '{{ideal_type_keyword_ids}}',
-                ], [
-                    'limit',
-                    'strict',
                 ]];
             },
 
@@ -97,13 +119,13 @@ class TodayCardGroupCreatingService extends Service
     {
         return [
             'today_card_group' => ['null'],
+
+            'timezone' => ['required', 'timezone'],
         ];
     }
 
     public static function getArrTraits()
     {
-        return [
-            CardGroupCreatingService::class,
-        ];
+        return [];
     }
 }

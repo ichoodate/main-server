@@ -21,6 +21,10 @@ class MatchCreatingService extends Service
     public static function getArrLoaders()
     {
         return [
+            'auth_user' => function () {
+                throw new \Exception();
+            },
+
             'auth_user_id_field' => function ($authUser) {
                 if (User::GENDER_MAN == $authUser->{User::GENDER}) {
                     return Match::MAN_ID;
@@ -89,9 +93,7 @@ class MatchCreatingService extends Service
 
     public static function getArrRuleLists()
     {
-        return [
-            'auth_user' => ['required'],
-        ];
+        return [];
     }
 
     public static function getArrTraits()

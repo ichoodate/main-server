@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Services\CardGroup;
+namespace App\Services\Card;
 
 use App\Models\Card;
-use App\Services\Auth\AuthUserFindingService;
 use App\Services\Match\MatchCreatingService;
 use FunctionalCoding\Service;
 
-class CardGroupCreatingService extends Service
+class CardListCreatingService extends Service
 {
     public static function getArrBindNames()
     {
@@ -22,20 +21,20 @@ class CardGroupCreatingService extends Service
     public static function getArrLoaders()
     {
         return [
-            'auth_user' => function ($authToken = '') {
-                return [AuthUserFindingService::class, [
-                    'auth_token' => $authToken,
-                ], [
-                    'auth_token' => '{{auth_token}}',
-                ]];
+            'auth_user' => function () {
+                throw new \Exception();
             },
 
-            'cards' => function ($authUser, $created, $matches, $users) {
+            'card_group' => function () {
+                throw new \Exception();
+            },
+
+            'result' => function ($authUser, $cardGroup, $matches, $users) {
                 $cards = (new Card())->newCollection();
 
                 foreach ($matches as $i => $match) {
                     $card = (new Card())->create([
-                        Card::GROUP_ID => $created->getKey(),
+                        Card::GROUP_ID => $cardGroup->getKey(),
                         Card::MATCH_ID => $matches[$i]->getKey(),
                         Card::CHOOSER_ID => $authUser->getKey(),
                         Card::SHOWNER_ID => $users[$i]->getKey(),
@@ -45,10 +44,6 @@ class CardGroupCreatingService extends Service
                 }
 
                 return $cards;
-            },
-
-            'created' => function () {
-                throw new \Exception();
             },
 
             'matches' => function ($authUser, $users) {

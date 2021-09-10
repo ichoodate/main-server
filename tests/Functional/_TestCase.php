@@ -2,6 +2,7 @@
 
 namespace Tests\Functional;
 
+use App\Http\Middlewares\ResponseHeaderSettingMiddleware;
 use App\Http\Middlewares\ServiceRunMiddleware;
 use App\Model;
 use Faker\Generator as Faker;
@@ -24,6 +25,7 @@ class _TestCase extends TestCase
         $this->faker = app(Faker::class);
 
         $this->withoutMiddleware(ServiceRunMiddleware::class);
+        $this->withoutMiddleware(ResponseHeaderSettingMiddleware::class);
 
         app('db')->beginTransaction();
     }
