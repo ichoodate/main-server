@@ -28,9 +28,9 @@ class DatabaseSeeder extends Seeder
             \Database\Seeds\Keyword\LanguageSeeder::class,
             \Database\Seeds\Keyword\NationalitySeeder::class,
             \Database\Seeds\Keyword\ReligionSeeder::class,
-            \Database\Seeds\Keyword\ResidenceSeeder::class,
             \Database\Seeds\Keyword\SmokeSeeder::class,
             \Database\Seeds\Keyword\StateSeeder::class,
+            \Database\Seeds\Keyword\ResidenceSeeder::class, // after state
             \Database\Seeds\Keyword\StatureRangeSeeder::class,
             \Database\Seeds\Keyword\StatureSeeder::class,
             \Database\Seeds\Keyword\WeightRangeSeeder::class,
