@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ca6ef283d07a9d0382cecb48e6b34c5f",
+    "content-hash": "c8b2b49425125589fa5084ad4cfd306c",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -584,12 +584,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/functional-coding/php.git",
-                "reference": "34b93ab24845d339d385b30c6bf2b990c9de8cff"
+                "reference": "95dbf7f80125baec7e7be5d7307eb87985120494"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/functional-coding/php/zipball/34b93ab24845d339d385b30c6bf2b990c9de8cff",
-                "reference": "34b93ab24845d339d385b30c6bf2b990c9de8cff",
+                "url": "https://api.github.com/repos/functional-coding/php/zipball/95dbf7f80125baec7e7be5d7307eb87985120494",
+                "reference": "95dbf7f80125baec7e7be5d7307eb87985120494",
                 "shasum": ""
             },
             "require": {
@@ -621,7 +621,7 @@
                 "issues": "https://github.com/functional-coding/php/issues",
                 "source": "https://github.com/functional-coding/php/tree/master"
             },
-            "time": "2021-08-30T20:55:46+00:00"
+            "time": "2021-09-10T16:33:53+00:00"
         },
         {
             "name": "functional-coding/php-eloquent-orm",
