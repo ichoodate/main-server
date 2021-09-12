@@ -45,12 +45,16 @@ class Model extends \Illuminate\Database\Eloquent\Model
     public function save(array $options = [])
     {
         if (Obj::class != static::class && !$this->exists) {
+            $attrs = $this->getAttributes();
             $obj = new Obj([
                 Obj::MODEL_CLASS => static::class,
             ]);
-            $obj->save();
 
-            $this->setAttribute(static::ID, $obj->getKey());
+            if (\in_array(static::ID, $attrs)) {
+                $obj->forceFill([Obj::ID => $attrs[static::ID]]);
+            }
+
+            $obj->save();
         }
 
         return parent::save($options);
