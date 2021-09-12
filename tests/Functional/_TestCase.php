@@ -8,6 +8,7 @@ use App\Model;
 use Faker\Generator as Faker;
 use FunctionalCoding\JWT\Service\TokenEncryptionService;
 use FunctionalCoding\Service;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Tests\TestCase;
@@ -18,6 +19,8 @@ use Tests\TestCase;
  */
 class _TestCase extends TestCase
 {
+    use DatabaseMigrations;
+
     public function setUp(): void
     {
         parent::setUp();
