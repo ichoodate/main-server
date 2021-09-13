@@ -13,8 +13,10 @@ class ChattingContentController extends Controller
     {
         return [ChattingContentListingService::class, [
             'match_id' => static::input('match_id'),
+            'type' => static::input('type'),
         ], [
             'match_id' => '[match_id]',
+            'type' => '[type]',
         ]];
     }
 

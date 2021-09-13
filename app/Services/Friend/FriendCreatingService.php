@@ -2,21 +2,52 @@
 
 namespace App\Services\Friend;
 
+use App\Models\ChattingContent;
 use App\Models\Friend;
+use App\Models\Match;
+use App\Models\User;
 use App\Services\Auth\AuthUserFindingService;
-use App\Services\Match\MatchFindingService;
 use FunctionalCoding\Service;
 
 class FriendCreatingService extends Service
 {
     public static function getArrBindNames()
     {
-        return [];
+        return [
+            'auth_user' => 'authorized user',
+
+            'friend' => 'requested friend of {{auth_user}} for {{user}}',
+
+            'match' => 'match for {{user}} and {{auth_user}}',
+
+            'user' => 'user for {{user_id}}',
+        ];
     }
 
     public static function getArrCallbacks()
     {
-        return [];
+        return [
+            'result.chatting_content' => function ($result) {
+                $friend = Friend::query()
+                    ->where(Friend::SENDER_ID, $result->{Friend::RECEIVER_ID})
+                    ->where(Friend::RECEIVER_ID, $result->{Friend::SENDER_ID})
+                    ->first()
+                ;
+
+                $chattingContent = ChattingContent::query()
+                    ->where(ChattingContent::MATCH_ID, $result->{Friend::MATCH_ID})
+                    ->first()
+                ;
+
+                if (!empty($friend) && empty($chattingContent)) {
+                    ChattingContent::create([
+                        ChattingContent::WRITER_ID => null,
+                        ChattingContent::MESSAGE => '',
+                        ChattingContent::MATCH_ID => $friend->{Friend::MATCH_ID},
+                    ]);
+                }
+            },
+        ];
     }
 
     public static function getArrLoaders()
@@ -30,7 +61,7 @@ class FriendCreatingService extends Service
                 ]];
             },
 
-            'created' => function ($authUser, $match, $user) {
+            'result' => function ($authUser, $match, $user) {
                 return Friend::create([
                     Friend::SENDER_ID => $authUser->getKey(),
                     Friend::RECEIVER_ID => $user->getKey(),
@@ -38,31 +69,50 @@ class FriendCreatingService extends Service
                 ]);
             },
 
-            'match' => function ($authUser, $matchId) {
-                return [MatchFindingService::class, [
-                    'auth_user' => $authUser,
-                    'id' => $matchId,
-                ], [
-                    'auth_user' => '{{auth_user}}',
-                    'id' => '{{match_id}}',
-                ]];
+            'friend' => function ($authUser, $user) {
+                return Friend::where(Friend::SENDER_ID, $authUser->getKey())
+                    ->where(Friend::RECEIVER_ID, $user->getKey())
+                    ->first()
+                ;
             },
 
-            'user' => function ($match) {
-                return $match->user;
+            'match' => function ($authUser, $user) {
+                if (User::GENDER_MAN == $authUser->gender) {
+                    return Match::where(Match::MAN_ID, $authUser->getKey())
+                        ->where(Match::WOMAN_ID, $user->getKey())
+                        ->first()
+                    ;
+                }
+
+                return Match::where(Match::WOMAN_ID, $authUser->getKey())
+                    ->where(Match::MAN_ID, $user->getKey())
+                    ->first()
+                    ;
+            },
+
+            'user' => function ($userId) {
+                return User::find($userId);
             },
         ];
     }
 
     public static function getArrPromiseLists()
     {
-        return [];
+        return [
+            'result' => ['friend'],
+        ];
     }
 
     public static function getArrRuleLists()
     {
         return [
-            'match_id' => ['required'],
+            'friend' => ['null'],
+
+            'match' => ['not_null'],
+
+            'user' => ['not_null'],
+
+            'user_id' => ['required', 'integer'],
         ];
     }
 

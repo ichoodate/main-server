@@ -24,12 +24,18 @@ class CreateChattingContentsTable extends Migration
             $table
                 ->bigInteger('writer_id')
                 ->unsigned()
+                ->nullable()
             ;
             $table
                 ->string('message')
             ;
             $table
-                ->timestamps()
+                ->boolean('is_read')
+                ->default(false)
+            ;
+            $table
+                ->timestamp('created_at')
+                ->default(app('db')->raw('CURRENT_TIMESTAMP'))
             ;
 
             $table
@@ -40,6 +46,9 @@ class CreateChattingContentsTable extends Migration
             ;
             $table
                 ->index('writer_id')
+            ;
+            $table
+                ->index('is_read')
             ;
             $table
                 ->index('created_at')

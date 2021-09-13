@@ -26,18 +26,14 @@ class AuthUserFindingService extends Service
 
     public static function getArrCallbacks()
     {
-        return [
-            'result' => function ($result) {
-                Auth::setUser($result);
-            },
-        ];
+        return [];
     }
 
     public static function getArrLoaders()
     {
         return [
             'available_expands' => function () {
-                return [];
+                return ['facePhoto'];
             },
 
             'current_time' => function () {

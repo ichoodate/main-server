@@ -92,9 +92,9 @@ class TodayCardGroupCreatingService extends Service
                     'strict' => false,
                 ], [
                     'auth_user' => '{{auth_user}}',
+                    'keyword_ids' => '{{ideal_type_keyword_ids}}',
                     'limit' => 'card limit count for {{today_card_group}}',
                     'strict' => 'strict user search mode operator for {{ideal_type_keyword_ids}}',
-                    'keyword_ids' => '{{ideal_type_keyword_ids}}',
                 ]];
             },
 

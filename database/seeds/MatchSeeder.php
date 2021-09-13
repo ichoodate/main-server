@@ -25,7 +25,7 @@ class MatchSeeder extends Seeder
 
             $otherUserCount = $otherUserQuery->count();
 
-            for ($j = 0; $j < rand(1, 6); ++$j) {
+            for ($j = 0; 1 == $j < (1 == $user->getKey() ? 250 : 6); ++$j) {
                 $otherUser = $otherUserQuery->skip(rand(0, $otherUserCount - 1))->first();
 
                 $match = Match::query()

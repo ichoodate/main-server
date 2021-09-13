@@ -17,15 +17,22 @@ class CardGroupListingService extends Service
     public static function getArrCallbacks()
     {
         return [
-            'query.auth_user' => function ($authUser, $query) {
-                $query->where(CardGroup::USER_ID, $authUser->getKey());
-            },
-
-            'query.timezone' => function ($after, $query, $timezone) {
+            'query.after' => function ($after, $query, $timezone) {
                 $time = new \DateTime($after, new \DateTimeZone($timezone));
                 $time->setTimezone(new \DateTimeZone('UTC'));
 
                 $query->where(CardGroup::CREATED_AT, '>=', $time->format('Y-m-d H:i:s'));
+            },
+
+            'query.auth_user' => function ($authUser, $query) {
+                $query->where(CardGroup::USER_ID, $authUser->getKey());
+            },
+
+            'query.before' => function ($before, $query, $timezone) {
+                $time = new \DateTime($before, new \DateTimeZone($timezone));
+                $time->setTimezone(new \DateTimeZone('UTC'));
+
+                $query->where(CardGroup::CREATED_AT, '<=', $time->format('Y-m-d H:i:s'));
             },
         ];
     }
@@ -69,9 +76,11 @@ class CardGroupListingService extends Service
     public static function getArrRuleLists()
     {
         return [
-            'after' => ['required', 'date_format:Y-m-d H:i:s'],
+            'after' => ['string', 'date_format:Y-m-d H:i:s'],
 
-            'timezone' => ['required_with:after', 'timezone'],
+            'before' => ['string', 'date_format:Y-m-d H:i:s'],
+
+            'timezone' => ['required_with:after', 'required_with:before', 'string', 'timezone'],
         ];
     }
 

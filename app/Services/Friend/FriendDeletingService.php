@@ -1,27 +1,27 @@
 <?php
 
-namespace App\Services\User;
+namespace App\Services\Friend;
 
-use App\Models\User;
+use App\Models\Friend;
 use App\Services\Auth\AuthUserFindingService;
+use App\Services\PermittedUserRequiringService;
+use FunctionalCoding\ORM\Eloquent\Service\Feature\ModelFeatureService;
 use FunctionalCoding\Service;
 
-class MatchingUserFindingService extends Service
+class FriendDeletingService extends Service
 {
     public static function getArrBindNames()
     {
-        return [
-            'auth_user' => 'authorized user',
-
-            'auth_user_gender' => 'gender of {{auth_user}}',
-
-            'model_gender' => 'gender of {{model}}',
-        ];
+        return [];
     }
 
     public static function getArrCallbacks()
     {
-        return [];
+        return [
+            'result.model' => function ($model) {
+                $model->delete();
+            },
+        ];
     }
 
     public static function getArrLoaders()
@@ -35,16 +35,18 @@ class MatchingUserFindingService extends Service
                 ]];
             },
 
-            'available_expands' => function () {
-                return [];
+            'model_class' => function () {
+                return Friend::class;
             },
 
-            'auth_user_gender' => function ($authUser) {
-                return $authUser->{User::GENDER};
+            'permitted_user' => function ($authUser, $model) {
+                if (in_array($authUser->getKey(), [$model->{Friend::SENDER_ID}])) {
+                    return $authUser;
+                }
             },
 
-            'model_gender' => function ($model) {
-                return $model->{User::GENDER};
+            'result' => function () {
+                return null;
             },
         ];
     }
@@ -56,15 +58,14 @@ class MatchingUserFindingService extends Service
 
     public static function getArrRuleLists()
     {
-        return [
-            'auth_user_gender' => ['different:{{model_gender}}'],
-        ];
+        return [];
     }
 
     public static function getArrTraits()
     {
         return [
-            UserFindingService::class,
+            ModelFeatureService::class,
+            PermittedUserRequiringService::class,
         ];
     }
 }

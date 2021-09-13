@@ -15,6 +15,7 @@ use App\Http\Middlewares\RequestInputValueCastingMiddleware;
 use App\Http\Middlewares\ResponseHeaderSettingMiddleware;
 use App\Http\Middlewares\ServiceParameterSettingMiddleware;
 use App\Http\Middlewares\ServiceRunMiddleware;
+use App\Http\Middlewares\SetAuthUserMiddleware;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 
@@ -27,6 +28,7 @@ $prefix = $_SERVER['DOCUMENT_ROOT'] && Str::startsWith(__FILE__, str_replace('/'
 
 Route::middleware([
     ServiceRunMiddleware::class,
+    SetAuthUserMiddleware::class,
     ServiceParameterSettingMiddleware::class,
     RequestInputValueCastingMiddleware::class,
     ResponseHeaderSettingMiddleware::class,
@@ -40,6 +42,7 @@ Route::middleware([
     Route::get('balances/{id}', 'BalanceController@show');
     Route::get('cards', 'CardController@index');
     Route::get('cards/{id}', 'CardController@show');
+    Route::get('card-flips', 'CardFlipController@index');
     Route::post('card-flips', 'CardFlipController@store');
     Route::get('card-flips/{id}', 'CardFlipController@show');
     Route::get('card-groups', 'CardGroupController@index');
@@ -50,7 +53,10 @@ Route::middleware([
     Route::get('chatting-contents/{id}', 'ChattingContentController@show');
     Route::post('face-photos', 'FacePhotoController@store');
     Route::get('face-photos/{id}', 'FacePhotoController@show');
+    Route::get('friends', 'FriendController@index');
     Route::post('friends', 'FriendController@store');
+    Route::get('friends/{id}', 'FriendController@show');
+    Route::delete('friends/{id}', 'FriendController@destroy');
 
     Route::prefix('keyword')->namespace('Keyword')->group(function () {
         Route::get('age-ranges/{id}', 'AgeRangeController@show');
@@ -155,6 +161,7 @@ Route::middleware([
     });
 
     Route::get('user-keywords', 'UserKeywordController@index');
+    Route::get('users/{id}', 'UserController@show');
 
     // for client preflight request
     Route::options('{a}/{b?}/{c?}/{d?}/{e?}/{f?}', function () {});

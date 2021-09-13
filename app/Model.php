@@ -11,8 +11,8 @@ class Model extends \Illuminate\Database\Eloquent\Model
 
     public const CREATED_AT = null;
     public const UPDATED_AT = null;
-
     public $incrementing = false;
+    public $timestamps = false;
     protected $guarded = [];
 
     public function getModelType()
@@ -50,11 +50,12 @@ class Model extends \Illuminate\Database\Eloquent\Model
                 Obj::MODEL_CLASS => static::class,
             ]);
 
-            if (\in_array(static::ID, $attrs)) {
+            if (\in_array(static::ID, array_keys($attrs))) {
                 $obj->forceFill([Obj::ID => $attrs[static::ID]]);
             }
 
             $obj->save();
+            $this->setAttribute(static::ID, $obj->getKey());
         }
 
         return parent::save($options);

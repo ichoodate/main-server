@@ -24,7 +24,7 @@ class UserFindingService extends Service
     {
         return [
             'available_expands' => function () {
-                return ['facePhoto', 'friend', 'match', 'match.cards.flips', 'popularity'];
+                return ['facePhoto', 'friend', 'match', 'match.friends', 'match.cards.flips', 'popularity'];
             },
 
             'model_class' => function () {

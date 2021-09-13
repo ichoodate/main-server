@@ -8,6 +8,7 @@ class ChattingContent extends Model
 {
     public const CREATED_AT = 'created_at';
     public const ID = 'id';
+    public const IS_READ = 'is_read';
     public const MATCH = 'match';
     public const MATCH_ID = 'match_id';
     public const MESSAGE = 'message';
@@ -16,12 +17,14 @@ class ChattingContent extends Model
     protected $casts = [
         self::ID => 'integer',
         self::WRITER_ID => 'integer',
+        self::CREATED_AT => 'datetime',
     ];
     protected $fillable = [
         self::ID,
         self::MATCH_ID,
         self::WRITER_ID,
         self::MESSAGE,
+        self::IS_READ,
         self::CREATED_AT,
     ];
 

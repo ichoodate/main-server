@@ -15,6 +15,8 @@ class MatchingUserListingService extends Service
     public static function getArrBindNames()
     {
         return [
+            'keywords' => 'keywords for {{keyword_ids}}',
+
             'keywords.*' => 'keywords.* for {{keyword_ids}}',
         ];
     }
@@ -23,32 +25,35 @@ class MatchingUserListingService extends Service
     {
         return [
             'query.keywords' => function ($keywords = '', $matchingGender, $query, $strict) {
-                $nested = (new User())->query()
+                $nestedQuery = (new User())->query()
                     ->select(User::ID)
                     ->where(User::GENDER, $matchingGender)
                     ->getQuery()
                 ;
 
-                $sub = (new UserKeyword())->query()
+                $subQuery = (new UserKeyword())->query()
                     ->select(UserKeyword::USER_ID)
-                    ->whereIn(UserKeyword::USER_ID, $nested)
+                    ->whereIn(UserKeyword::USER_ID, $nestedQuery)
                     ->groupBy(UserKeyword::USER_ID)
+                    ->take(1000)
+                    ->getQuery()
                 ;
 
-                if ($keywords) {
+                if ($strict && $keywords) {
                     $count = count($keywords->modelKeys());
-                    $sub->whereIn(UserKeyword::KEYWORD_ID, $keywords->modelKeys());
-                    $sub->take(1000);
-
-                    if ($strict) {
-                        $sub->having(DB::raw('count(*)'), $count);
-                    } else {
-                        $sub->orderByRaw('count(*) desc');
-                    }
+                    $subQuery->whereIn(UserKeyword::KEYWORD_ID, $keywords->modelKeys());
+                    $subQuery->having(DB::raw('count(*)'), $count);
+                } else if (!$strict) {
+                    $subQuery->orderByRaw('count(*) desc');
                 }
 
+                $wrapQuery = app('db')->table($subQuery, 't')
+                    ->select(UserKeyword::USER_ID)
+                    ->orderByRaw('rand()')
+                ;
+
                 $query
-                    ->whereIn(User::ID, $sub->getQuery()->get()->pluck(UserKeyword::USER_ID)->all())
+                    ->whereIn(User::ID, $wrapQuery->get()->pluck(UserKeyword::USER_ID)->all())
                 ;
             },
         ];
@@ -69,8 +74,12 @@ class MatchingUserListingService extends Service
                 return ['facePhoto', 'friend', 'match', 'match.cards.flips', 'popularity'];
             },
 
-            'keywords' => function ($keywordIds) {
-                $keywordIds = preg_split('/\s*,\s*/', $keywordIds);
+            'keywords' => function ($keywordIds='') {
+                if ( $keywordIds ) {
+                    $keywordIds = preg_split('/\s*,\s*/', $keywordIds);
+                } else {
+                    $keywordIds = [];
+                }
 
                 return (new Obj())->query()
                     ->whereIn(Obj::ID, $keywordIds)
@@ -107,6 +116,8 @@ class MatchingUserListingService extends Service
     {
         return [
             'keyword_ids' => ['integers'],
+
+            'keywords' => ['array'],
 
             'keywords.*' => ['not_null'],
 

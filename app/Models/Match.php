@@ -43,6 +43,10 @@ class Match extends Model
 
     public function user()
     {
+        if (!auth()->user()) {
+            throw new \Exception;
+        }
+
         if (auth()->user() && User::GENDER_MAN == auth()->user()->{User::GENDER}) {
             return $this->woman();
         }

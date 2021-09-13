@@ -34,7 +34,7 @@ class ChattingContentFindingService extends Service
             },
 
             'available_expands' => function () {
-                return ['match', 'writer'];
+                return ['match', 'match.user', 'match.user.facePhoto', 'writer'];
             },
 
             'match' => function ($authToken, $model) {
@@ -56,7 +56,9 @@ class ChattingContentFindingService extends Service
 
     public static function getArrPromiseLists()
     {
-        return [];
+        return [
+            'available_expands' => ['auth_user'],
+        ];
     }
 
     public static function getArrRuleLists()
