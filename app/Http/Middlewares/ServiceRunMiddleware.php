@@ -58,6 +58,7 @@ class ServiceRunMiddleware
             $response->{'Response' == Arr::last(explode('\\', get_class($response))) ? 'setContent' : 'setData'}([
                 'errors' => $errors,
             ]);
+            $response->setStatusCode(400);
 
             DB::rollback();
         }
