@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Functional\FacePhotos;
+namespace Tests\Functional\Friends;
 
 use App\Models\Friend;
 use App\Models\Match;

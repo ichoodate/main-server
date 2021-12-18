@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Functional\CardFlips;
+namespace Tests\Functional\Friends;
 
 use App\Models\Friend;
 use App\Models\Match;
