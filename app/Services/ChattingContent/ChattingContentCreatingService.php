@@ -11,7 +11,7 @@ use FunctionalCoding\Service;
 
 class ChattingContentCreatingService extends Service
 {
-    public static function getArrBindNames()
+    public static function getBindNames()
     {
         return [
             'auth_user' => 'authorized user',
@@ -24,12 +24,12 @@ class ChattingContentCreatingService extends Service
         ];
     }
 
-    public static function getArrCallbacks()
+    public static function getCallbacks()
     {
         return [];
     }
 
-    public static function getArrLoaders()
+    public static function getLoaders()
     {
         return [
             'auth_user' => function ($authToken = '') {
@@ -80,14 +80,14 @@ class ChattingContentCreatingService extends Service
         ];
     }
 
-    public static function getArrPromiseLists()
+    public static function getPromiseLists()
     {
         return [
             'result' => ['auth_user_friend', 'matching_user_friend'],
         ];
     }
 
-    public static function getArrRuleLists()
+    public static function getRuleLists()
     {
         return [
             'auth_user_friend' => ['not_null'],
@@ -102,7 +102,7 @@ class ChattingContentCreatingService extends Service
         ];
     }
 
-    public static function getArrTraits()
+    public static function getTraits()
     {
         return [];
     }

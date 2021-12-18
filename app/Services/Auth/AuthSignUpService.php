@@ -8,19 +8,19 @@ use FunctionalCoding\Service;
 
 class AuthSignUpService extends Service
 {
-    public static function getArrBindNames()
+    public static function getBindNames()
     {
         return [
             'same_email_user' => 'same email user for {{email}}',
         ];
     }
 
-    public static function getArrCallbacks()
+    public static function getCallbacks()
     {
         return [];
     }
 
-    public static function getArrLoaders()
+    public static function getLoaders()
     {
         return [
             'balance' => function ($result) {
@@ -53,14 +53,14 @@ class AuthSignUpService extends Service
         ];
     }
 
-    public static function getArrPromiseLists()
+    public static function getPromiseLists()
     {
         return [
             'result' => ['same_email_user'],
         ];
     }
 
-    public static function getArrRuleLists()
+    public static function getRuleLists()
     {
         return [
             'birth' => ['required', 'date_format:Y-m-d'],
@@ -77,7 +77,7 @@ class AuthSignUpService extends Service
         ];
     }
 
-    public static function getArrTraits()
+    public static function getTraits()
     {
         return [];
     }

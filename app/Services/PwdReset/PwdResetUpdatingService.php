@@ -8,7 +8,7 @@ use FunctionalCoding\Service;
 
 class PwdResetUpdatingService extends Service
 {
-    public static function getArrBindNames()
+    public static function getBindNames()
     {
         return [
             'completed_password_reset' => 'already completed {{password_reset}}',
@@ -21,7 +21,7 @@ class PwdResetUpdatingService extends Service
         ];
     }
 
-    public static function getArrCallbacks()
+    public static function getCallbacks()
     {
         return [
             'completed_password_reset.password_reset' => function ($passwordReset) {
@@ -36,7 +36,7 @@ class PwdResetUpdatingService extends Service
         ];
     }
 
-    public static function getArrLoaders()
+    public static function getLoaders()
     {
         return [
             'completed_password_reset' => function ($passwordReset) {
@@ -68,14 +68,14 @@ class PwdResetUpdatingService extends Service
         ];
     }
 
-    public static function getArrPromiseLists()
+    public static function getPromiseLists()
     {
         return [
             'result' => ['completed_password_reset'],
         ];
     }
 
-    public static function getArrRuleLists()
+    public static function getRuleLists()
     {
         return [
             'id' => ['required', 'integer'],
@@ -94,7 +94,7 @@ class PwdResetUpdatingService extends Service
         ];
     }
 
-    public static function getArrTraits()
+    public static function getTraits()
     {
         return [];
     }

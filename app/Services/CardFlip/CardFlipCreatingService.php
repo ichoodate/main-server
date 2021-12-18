@@ -12,7 +12,7 @@ use FunctionalCoding\Service;
 
 class CardFlipCreatingService extends Service
 {
-    public static function getArrBindNames()
+    public static function getBindNames()
     {
         return [
             'auth_user' => 'authorized user',
@@ -25,7 +25,7 @@ class CardFlipCreatingService extends Service
         ];
     }
 
-    public static function getArrCallbacks()
+    public static function getCallbacks()
     {
         return [
             'result.card' => function ($authUser, $card) {
@@ -36,7 +36,7 @@ class CardFlipCreatingService extends Service
         ];
     }
 
-    public static function getArrLoaders()
+    public static function getLoaders()
     {
         return [
             'auth_user' => function ($authToken = '') {
@@ -96,14 +96,14 @@ class CardFlipCreatingService extends Service
         ];
     }
 
-    public static function getArrPromiseLists()
+    public static function getPromiseLists()
     {
         return [
             'result' => ['card_flip', 'free_flippable_card'],
         ];
     }
 
-    public static function getArrRuleLists()
+    public static function getRuleLists()
     {
         return [
             'card_flip' => ['null'],
@@ -114,7 +114,7 @@ class CardFlipCreatingService extends Service
         ];
     }
 
-    public static function getArrTraits()
+    public static function getTraits()
     {
         return [];
     }

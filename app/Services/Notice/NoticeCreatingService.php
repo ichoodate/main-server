@@ -8,19 +8,19 @@ use FunctionalCoding\Service;
 
 class NoticeCreatingService extends Service
 {
-    public static function getArrBindNames()
+    public static function getBindNames()
     {
         return [
             'model' => '{{admin_role}}',
         ];
     }
 
-    public static function getArrCallbacks()
+    public static function getCallbacks()
     {
         return [];
     }
 
-    public static function getArrLoaders()
+    public static function getLoaders()
     {
         return [
             'result' => function ($description, $subject, $type) {
@@ -43,12 +43,12 @@ class NoticeCreatingService extends Service
         ];
     }
 
-    public static function getArrPromiseLists()
+    public static function getPromiseLists()
     {
         return [];
     }
 
-    public static function getArrRuleLists()
+    public static function getRuleLists()
     {
         return [
             'description' => ['required', 'string'],
@@ -59,7 +59,7 @@ class NoticeCreatingService extends Service
         ];
     }
 
-    public static function getArrTraits()
+    public static function getTraits()
     {
         return [
             PermittedUserRequiringService::class,

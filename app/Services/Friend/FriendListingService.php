@@ -12,14 +12,14 @@ use FunctionalCoding\Service;
 
 class FriendListingService extends Service
 {
-    public static function getArrBindNames()
+    public static function getBindNames()
     {
         return [
             'sender' => 'user for {{sender_id}}',
         ];
     }
 
-    public static function getArrCallbacks()
+    public static function getCallbacks()
     {
         return [
             'query.match' => function ($query, $authUser, $relatedUser) {
@@ -41,7 +41,7 @@ class FriendListingService extends Service
         ];
     }
 
-    public static function getArrLoaders()
+    public static function getLoaders()
     {
         return [
             'auth_user' => function ($authToken = '') {
@@ -76,12 +76,12 @@ class FriendListingService extends Service
         ];
     }
 
-    public static function getArrPromiseLists()
+    public static function getPromiseLists()
     {
         return [];
     }
 
-    public static function getArrRuleLists()
+    public static function getRuleLists()
     {
         return [
             'sender' => ['not_null'],
@@ -92,7 +92,7 @@ class FriendListingService extends Service
         ];
     }
 
-    public static function getArrTraits()
+    public static function getTraits()
     {
         return [
             ListService::class,

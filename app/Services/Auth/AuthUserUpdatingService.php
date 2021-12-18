@@ -9,12 +9,12 @@ use FunctionalCoding\Service;
 
 class AuthUserUpdatingService extends Service
 {
-    public static function getArrBindNames()
+    public static function getBindNames()
     {
         return [];
     }
 
-    public static function getArrCallbacks()
+    public static function getCallbacks()
     {
         return [
             'auth_user.birth' => function ($authUser, $birth) {
@@ -63,7 +63,7 @@ class AuthUserUpdatingService extends Service
         ];
     }
 
-    public static function getArrLoaders()
+    public static function getLoaders()
     {
         return [
             'auth_user' => function ($authToken = '') {
@@ -80,12 +80,12 @@ class AuthUserUpdatingService extends Service
         ];
     }
 
-    public static function getArrPromiseLists()
+    public static function getPromiseLists()
     {
         return [];
     }
 
-    public static function getArrRuleLists()
+    public static function getRuleLists()
     {
         return [
             'birth' => ['string', 'date_format:Y-m-d'],
@@ -96,7 +96,7 @@ class AuthUserUpdatingService extends Service
         ];
     }
 
-    public static function getArrTraits()
+    public static function getTraits()
     {
         return [];
     }

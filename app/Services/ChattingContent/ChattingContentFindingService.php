@@ -10,19 +10,19 @@ use FunctionalCoding\Service;
 
 class ChattingContentFindingService extends Service
 {
-    public static function getArrBindNames()
+    public static function getBindNames()
     {
         return [
             'model' => 'chatting_content for {{id}}',
         ];
     }
 
-    public static function getArrCallbacks()
+    public static function getCallbacks()
     {
         return [];
     }
 
-    public static function getArrLoaders()
+    public static function getLoaders()
     {
         return [
             'auth_user' => function ($authToken = '') {
@@ -54,19 +54,19 @@ class ChattingContentFindingService extends Service
         ];
     }
 
-    public static function getArrPromiseLists()
+    public static function getPromiseLists()
     {
         return [
             'available_expands' => ['auth_user'],
         ];
     }
 
-    public static function getArrRuleLists()
+    public static function getRuleLists()
     {
         return [];
     }
 
-    public static function getArrTraits()
+    public static function getTraits()
     {
         return [
             FindService::class,

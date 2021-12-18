@@ -8,14 +8,14 @@ use FunctionalCoding\Service;
 
 class CareerListingService extends Service
 {
-    public static function getArrBindNames()
+    public static function getBindNames()
     {
         return [
             'parent' => 'career for {{parent_id}}',
         ];
     }
 
-    public static function getArrCallbacks()
+    public static function getCallbacks()
     {
         return [
             'query.parent_id' => function ($parentId, $query) {
@@ -24,7 +24,7 @@ class CareerListingService extends Service
         ];
     }
 
-    public static function getArrLoaders()
+    public static function getLoaders()
     {
         return [
             'available_expands' => function () {
@@ -41,12 +41,12 @@ class CareerListingService extends Service
         ];
     }
 
-    public static function getArrPromiseLists()
+    public static function getPromiseLists()
     {
         return [];
     }
 
-    public static function getArrRuleLists()
+    public static function getRuleLists()
     {
         return [
             'parent_id' => ['present', 'integer', 'nullable'],
@@ -55,7 +55,7 @@ class CareerListingService extends Service
         ];
     }
 
-    public static function getArrTraits()
+    public static function getTraits()
     {
         return [
             ListService::class,

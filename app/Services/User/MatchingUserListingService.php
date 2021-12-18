@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 
 class MatchingUserListingService extends Service
 {
-    public static function getArrBindNames()
+    public static function getBindNames()
     {
         return [
             'keywords' => 'keywords for {{keyword_ids}}',
@@ -21,7 +21,7 @@ class MatchingUserListingService extends Service
         ];
     }
 
-    public static function getArrCallbacks()
+    public static function getCallbacks()
     {
         return [
             'query.keywords' => function ($keywords = '', $matchingGender, $query, $strict) {
@@ -43,7 +43,7 @@ class MatchingUserListingService extends Service
                     $count = count($keywords->modelKeys());
                     $subQuery->whereIn(UserKeyword::KEYWORD_ID, $keywords->modelKeys());
                     $subQuery->having(DB::raw('count(*)'), $count);
-                } else if (!$strict) {
+                } elseif (!$strict) {
                     $subQuery->orderByRaw('count(*) desc');
                 }
 
@@ -59,7 +59,7 @@ class MatchingUserListingService extends Service
         ];
     }
 
-    public static function getArrLoaders()
+    public static function getLoaders()
     {
         return [
             'auth_user' => function ($authToken = '') {
@@ -74,8 +74,8 @@ class MatchingUserListingService extends Service
                 return ['facePhoto', 'friend', 'match', 'match.cards.flips', 'popularity'];
             },
 
-            'keywords' => function ($keywordIds='') {
-                if ( $keywordIds ) {
+            'keywords' => function ($keywordIds = '') {
+                if ($keywordIds) {
                     $keywordIds = preg_split('/\s*,\s*/', $keywordIds);
                 } else {
                     $keywordIds = [];
@@ -107,12 +107,12 @@ class MatchingUserListingService extends Service
         ];
     }
 
-    public static function getArrPromiseLists()
+    public static function getPromiseLists()
     {
         return [];
     }
 
-    public static function getArrRuleLists()
+    public static function getRuleLists()
     {
         return [
             'keyword_ids' => ['integers'],
@@ -125,7 +125,7 @@ class MatchingUserListingService extends Service
         ];
     }
 
-    public static function getArrTraits()
+    public static function getTraits()
     {
         return [
             RandomListService::class,

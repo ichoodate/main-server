@@ -9,14 +9,14 @@ use FunctionalCoding\Service;
 
 class UsedCoinAddingService extends Service
 {
-    public static function getArrBindNames()
+    public static function getBindNames()
     {
         return [
             'remain_coin' => 'coin total count own by {{auth_user}}',
         ];
     }
 
-    public static function getArrCallbacks()
+    public static function getCallbacks()
     {
         return [
             'used_coins' => function ($balances, $usedCoins) {
@@ -29,7 +29,7 @@ class UsedCoinAddingService extends Service
         ];
     }
 
-    public static function getArrLoaders()
+    public static function getLoaders()
     {
         return [
             'auth_user' => function ($authToken = '') {
@@ -92,19 +92,19 @@ class UsedCoinAddingService extends Service
         ];
     }
 
-    public static function getArrPromiseLists()
+    public static function getPromiseLists()
     {
         return [];
     }
 
-    public static function getArrRuleLists()
+    public static function getRuleLists()
     {
         return [
             'remain_coin' => ['integer', 'min:{{required_coin}}'],
         ];
     }
 
-    public static function getArrTraits()
+    public static function getTraits()
     {
         return [];
     }

@@ -9,14 +9,14 @@ use FunctionalCoding\Service;
 
 class UserHobbyKeywordUpdatingService extends Service
 {
-    public static function getArrBindNames()
+    public static function getBindNames()
     {
         return [
             'keywords.*' => 'hobbies[*] for {{keyword_ids}}',
         ];
     }
 
-    public static function getArrCallbacks()
+    public static function getCallbacks()
     {
         return [
             'auth_user.keywords' => function ($authUser) {
@@ -34,7 +34,7 @@ class UserHobbyKeywordUpdatingService extends Service
         ];
     }
 
-    public static function getArrLoaders()
+    public static function getLoaders()
     {
         return [
             'auth_user' => function ($authToken = '') {
@@ -69,12 +69,12 @@ class UserHobbyKeywordUpdatingService extends Service
         ];
     }
 
-    public static function getArrPromiseLists()
+    public static function getPromiseLists()
     {
         return [];
     }
 
-    public static function getArrRuleLists()
+    public static function getRuleLists()
     {
         return [
             'keyword_ids' => ['required', 'integers'],
@@ -83,7 +83,7 @@ class UserHobbyKeywordUpdatingService extends Service
         ];
     }
 
-    public static function getArrTraits()
+    public static function getTraits()
     {
         return [];
     }

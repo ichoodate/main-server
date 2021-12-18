@@ -11,7 +11,7 @@ use FunctionalCoding\Service;
 
 class FriendCreatingService extends Service
 {
-    public static function getArrBindNames()
+    public static function getBindNames()
     {
         return [
             'auth_user' => 'authorized user',
@@ -24,7 +24,7 @@ class FriendCreatingService extends Service
         ];
     }
 
-    public static function getArrCallbacks()
+    public static function getCallbacks()
     {
         return [
             'result.chatting_content' => function ($result) {
@@ -50,7 +50,7 @@ class FriendCreatingService extends Service
         ];
     }
 
-    public static function getArrLoaders()
+    public static function getLoaders()
     {
         return [
             'auth_user' => function ($authToken = '') {
@@ -96,14 +96,14 @@ class FriendCreatingService extends Service
         ];
     }
 
-    public static function getArrPromiseLists()
+    public static function getPromiseLists()
     {
         return [
             'result' => ['friend'],
         ];
     }
 
-    public static function getArrRuleLists()
+    public static function getRuleLists()
     {
         return [
             'friend' => ['null'],
@@ -116,7 +116,7 @@ class FriendCreatingService extends Service
         ];
     }
 
-    public static function getArrTraits()
+    public static function getTraits()
     {
         return [];
     }

@@ -8,12 +8,12 @@ use FunctionalCoding\Service;
 
 class CountryListingService extends Service
 {
-    public static function getArrBindNames()
+    public static function getBindNames()
     {
         return [];
     }
 
-    public static function getArrCallbacks()
+    public static function getCallbacks()
     {
         return [
             'query' => function ($query) {
@@ -26,7 +26,7 @@ class CountryListingService extends Service
         ];
     }
 
-    public static function getArrLoaders()
+    public static function getLoaders()
     {
         return [
             'available_expands' => function () {
@@ -39,19 +39,19 @@ class CountryListingService extends Service
         ];
     }
 
-    public static function getArrPromiseLists()
+    public static function getPromiseLists()
     {
         return [];
     }
 
-    public static function getArrRuleLists()
+    public static function getRuleLists()
     {
         return [
             'name' => ['string'],
         ];
     }
 
-    public static function getArrTraits()
+    public static function getTraits()
     {
         return [
             ListService::class,

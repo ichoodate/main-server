@@ -11,7 +11,7 @@ use FunctionalCoding\Service;
 
 class RequiredItemListingService extends Service
 {
-    public static function getArrBindNames()
+    public static function getBindNames()
     {
         return [
             'auth_user' => 'authorized user',
@@ -20,12 +20,12 @@ class RequiredItemListingService extends Service
         ];
     }
 
-    public static function getArrCallbacks()
+    public static function getCallbacks()
     {
         return [];
     }
 
-    public static function getArrLoaders()
+    public static function getLoaders()
     {
         return [
             'auth_user' => function ($authToken = '') {
@@ -71,12 +71,12 @@ class RequiredItemListingService extends Service
         ];
     }
 
-    public static function getArrPromiseLists()
+    public static function getPromiseLists()
     {
         return [];
     }
 
-    public static function getArrRuleLists()
+    public static function getRuleLists()
     {
         return [
             'related_id' => ['required', 'integer'],
@@ -85,7 +85,7 @@ class RequiredItemListingService extends Service
         ];
     }
 
-    public static function getArrTraits()
+    public static function getTraits()
     {
         return [
             ListService::class,
