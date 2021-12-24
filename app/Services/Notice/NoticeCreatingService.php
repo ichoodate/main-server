@@ -23,22 +23,22 @@ class NoticeCreatingService extends Service
     public static function getLoaders()
     {
         return [
+            'model' => function ($adminRole) {
+                return $adminRole;
+            },
+
+            'permitted_user' => function ($authUser, $model) {
+                if (!empty($model)) {
+                    return $authUser;
+                }
+            },
+
             'result' => function ($description, $subject, $type) {
                 return (new Notice())->create([
                     Notice::TYPE => $type,
                     Notice::SUBJECT => $subject,
                     Notice::DESCRIPTION => $description,
                 ]);
-            },
-
-            'model' => function ($adminRole) {
-                return $adminRole;
-            },
-
-            'permitted_user' => function ($model, $authUser) {
-                if (!empty($model)) {
-                    return $authUser;
-                }
             },
         ];
     }

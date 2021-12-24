@@ -29,6 +29,13 @@ class CardListCreatingService extends Service
                 throw new \Exception();
             },
 
+            'matches' => function ($authUser, $users) {
+                return [MatchCreatingService::class, [
+                    'auth_user' => $authUser,
+                    'matching_users' => $users,
+                ]];
+            },
+
             'result' => function ($authUser, $cardGroup, $matches, $users) {
                 $cards = (new Card())->newCollection();
 
@@ -44,13 +51,6 @@ class CardListCreatingService extends Service
                 }
 
                 return $cards;
-            },
-
-            'matches' => function ($authUser, $users) {
-                return [MatchCreatingService::class, [
-                    'auth_user' => $authUser,
-                    'matching_users' => $users,
-                ]];
             },
 
             'users' => function () {

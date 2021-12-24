@@ -21,11 +21,11 @@ class ChattingContentListingService extends Service
     public static function getCallbacks()
     {
         return [
-            'query.match' => function ($query, $match) {
+            'query.match' => function ($match, $query) {
                 $query->where(ChattingContent::MATCH_ID, $match->getKey());
             },
 
-            'query.type' => function ($query, $type, $authUser) {
+            'query.type' => function ($authUser, $query, $type) {
                 $authUserGenderColumn = User::GENDER_MAN == $authUser->{User::GENDER} ? Match::MAN_ID : Match::WOMAN_ID;
 
                 $matchQuery = Match::query()
@@ -121,9 +121,9 @@ class ChattingContentListingService extends Service
     public static function getRuleLists()
     {
         return [
-            'type' => ['string', 'in:friend'],
-
             'match_id' => ['required_without:type', 'integer'],
+
+            'type' => ['string', 'in:friend'],
         ];
     }
 

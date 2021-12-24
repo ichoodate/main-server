@@ -66,9 +66,9 @@ class PopularityCreatingService extends Service
     public static function getRuleLists()
     {
         return [
-            'user_id' => ['required'],
-
             'point' => ['required', 'integer', 'min:1', 'max:10'],
+
+            'user_id' => ['required'],
         ];
     }
 

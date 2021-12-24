@@ -48,14 +48,6 @@ class ChattingContentCreatingService extends Service
                 ;
             },
 
-            'result' => function ($authUser, $match, $message) {
-                return (new ChattingContent())->create([
-                    ChattingContent::WRITER_ID => $authUser->getKey(),
-                    ChattingContent::MESSAGE => $message,
-                    ChattingContent::MATCH_ID => $match->getKey(),
-                ]);
-            },
-
             'match' => function ($authToken, $matchId) {
                 return [MatchFindingService::class, [
                     'auth_token' => $authToken,
@@ -76,6 +68,14 @@ class ChattingContentCreatingService extends Service
 
             'matching_user_id' => function ($authUser, $match) {
                 return $match->{Match::MAN_ID} == $authUser->getKey() ? $match->{Match::WOMAN_ID} : $match->{Match::MAN_ID};
+            },
+
+            'result' => function ($authUser, $match, $message) {
+                return (new ChattingContent())->create([
+                    ChattingContent::WRITER_ID => $authUser->getKey(),
+                    ChattingContent::MESSAGE => $message,
+                    ChattingContent::MATCH_ID => $match->getKey(),
+                ]);
             },
         ];
     }

@@ -44,7 +44,7 @@ class RequiredItemListingService extends Service
                 return RequiredItem::class;
             },
 
-            'related' => function ($relatedType, $relatedId) {
+            'related' => function ($relatedId, $relatedType) {
                 $class = Relation::morphMap()[$relatedType];
 
                 return $class::find($relatedId);

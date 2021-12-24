@@ -23,7 +23,11 @@ class CardFlipListingService extends Service
     public static function getCallbacks()
     {
         return [
-            'query.match' => function ($query, $authUser, $relatedUser) {
+            'query.flipper' => function ($flipper, $query) {
+                $query->where(CardFlip::USER_ID, $flipper->getKey());
+            },
+
+            'query.match' => function ($authUser, $query, $relatedUser) {
                 $subQuery1 = Match::query()
                     ->select(Match::ID)
                     ->where(User::GENDER_MAN == $relatedUser->{User::GENDER} ? Match::MAN_ID : Match::WOMAN_ID, $relatedUser->getKey())
@@ -40,10 +44,6 @@ class CardFlipListingService extends Service
                 $query
                     ->whereIn(CardFlip::CARD_ID, $subQuery2)
                 ;
-            },
-
-            'query.flipper' => function ($query, $flipper) {
-                $query->where(CardFlip::USER_ID, $flipper->getKey());
             },
         ];
     }

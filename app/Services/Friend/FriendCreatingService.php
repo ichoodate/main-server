@@ -61,14 +61,6 @@ class FriendCreatingService extends Service
                 ]];
             },
 
-            'result' => function ($authUser, $match, $user) {
-                return Friend::create([
-                    Friend::SENDER_ID => $authUser->getKey(),
-                    Friend::RECEIVER_ID => $user->getKey(),
-                    Friend::MATCH_ID => $match->getKey(),
-                ]);
-            },
-
             'friend' => function ($authUser, $user) {
                 return Friend::where(Friend::SENDER_ID, $authUser->getKey())
                     ->where(Friend::RECEIVER_ID, $user->getKey())
@@ -88,6 +80,14 @@ class FriendCreatingService extends Service
                     ->where(Match::MAN_ID, $user->getKey())
                     ->first()
                     ;
+            },
+
+            'result' => function ($authUser, $match, $user) {
+                return Friend::create([
+                    Friend::SENDER_ID => $authUser->getKey(),
+                    Friend::RECEIVER_ID => $user->getKey(),
+                    Friend::MATCH_ID => $match->getKey(),
+                ]);
             },
 
             'user' => function ($userId) {

@@ -65,6 +65,14 @@ class CardFlipCreatingService extends Service
                 ;
             },
 
+            'free_flippable_card' => function ($card, $requiredItems) {
+                return $requiredItems->isEmpty() ? $card : null;
+            },
+
+            'required_coin' => function ($requiredItems) {
+                return $requiredItems->where('type', 'coin')->first();
+            },
+
             'required_items' => function ($authToken, $card) {
                 return [RequiredItemListingService::class, [
                     'auth_token' => $authToken,
@@ -79,19 +87,11 @@ class CardFlipCreatingService extends Service
                 ]];
             },
 
-            'required_coin' => function ($requiredItems) {
-                return $requiredItems->where('type', 'coin')->first();
-            },
-
             'result' => function ($authUser, $card) {
                 return (new CardFlip())->create([
                     CardFlip::CARD_ID => $card->getKey(),
                     CardFlip::USER_ID => $authUser->getKey(),
                 ]);
-            },
-
-            'free_flippable_card' => function ($card, $requiredItems) {
-                return $requiredItems->isEmpty() ? $card : null;
             },
         ];
     }

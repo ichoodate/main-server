@@ -78,9 +78,9 @@ class PwdResetUpdatingService extends Service
     public static function getRuleLists()
     {
         return [
-            'id' => ['required', 'integer'],
-
             'completed_password_reset' => ['null'],
+
+            'id' => ['required', 'integer'],
 
             'new_password' => ['required', 'string'],
 

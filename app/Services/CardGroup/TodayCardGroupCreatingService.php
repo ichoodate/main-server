@@ -118,9 +118,9 @@ class TodayCardGroupCreatingService extends Service
     public static function getRuleLists()
     {
         return [
-            'today_card_group' => ['null'],
-
             'timezone' => ['required', 'timezone'],
+
+            'today_card_group' => ['null'],
         ];
     }
 

@@ -22,7 +22,7 @@ class FriendListingService extends Service
     public static function getCallbacks()
     {
         return [
-            'query.match' => function ($query, $authUser, $relatedUser) {
+            'query.match' => function ($authUser, $query, $relatedUser) {
                 $subQuery1 = Match::query()
                     ->select(Match::ID)
                     ->where(User::GENDER_MAN == $relatedUser->{User::GENDER} ? Match::MAN_ID : Match::WOMAN_ID, $relatedUser->getKey())
@@ -56,10 +56,6 @@ class FriendListingService extends Service
                 return [];
             },
 
-            'sender' => function ($senderId) {
-                return User::find($senderId);
-            },
-
             'model_class' => function () {
                 return Friend::class;
             },
@@ -73,6 +69,10 @@ class FriendListingService extends Service
                     'id' => '{{related_user_id}}',
                 ]];
             },
+
+            'sender' => function ($senderId) {
+                return User::find($senderId);
+            },
         ];
     }
 
@@ -84,11 +84,11 @@ class FriendListingService extends Service
     public static function getRuleLists()
     {
         return [
+            'related_user_id' => ['required', 'integer'],
+
             'sender' => ['not_null'],
 
             'sender_id' => ['integer'],
-
-            'related_user_id' => ['required', 'integer'],
         ];
     }
 
