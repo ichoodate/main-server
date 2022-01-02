@@ -31,6 +31,7 @@ class ServiceRunMiddleware
         $service = Service::initService($arr);
         $result = $service->run();
         $errors = $service->getTotalErrors();
+        $body = null;
 
         if (empty($errors)) {
             // runAfterCommitCallbacks() should be called before restify()
@@ -49,19 +50,14 @@ class ServiceRunMiddleware
             } else {
                 $data = $this->restify($result);
             }
-            $response->{'Response' == Arr::last(explode('\\', get_class($response))) ? 'setContent' : 'setData'}([
-                'result' => $data,
-            ]);
-
+            $body = ['result' => $data];
             DB::commit();
         } else {
-            $response->{'Response' == Arr::last(explode('\\', get_class($response))) ? 'setContent' : 'setData'}([
-                'errors' => $errors,
-            ]);
-            $response->setStatusCode(400);
-
+            $body = ['errors' => $errors];
             DB::rollback();
         }
+
+        $response->{'Response' == Arr::last(explode('\\', get_class($response))) ? 'setContent' : 'setData'}($body);
 
         return $response;
     }
