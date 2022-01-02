@@ -33,6 +33,8 @@ class ServiceRunMiddleware
         $errors = $service->getTotalErrors();
 
         if (empty($errors)) {
+            // runAfterCommitCallbacks() should be called before restify()
+            $service->runAfterCommitCallbacks();
             if ($result instanceof AbstractPaginator) {
                 $path = preg_replace('/api\//', '', Request::path());
                 $path = $path.'?'.Request::getQueryString();
@@ -52,8 +54,6 @@ class ServiceRunMiddleware
             ]);
 
             DB::commit();
-
-            $service->runAfterCommitCallbacks();
         } else {
             $response->{'Response' == Arr::last(explode('\\', get_class($response))) ? 'setContent' : 'setData'}([
                 'errors' => $errors,
@@ -80,7 +80,7 @@ class ServiceRunMiddleware
             $type = array_flip(Relation::morphMap())[get_class($item)];
             $value = [];
             $value['_type'] = $type;
-            $value['_attributes'] = $item->attributesToArray();
+            $value['_attributes'] = $item->getAttributes();
             $value['_relations'] = [];
 
             foreach ($item->getRelations() as $key => $relation) {
