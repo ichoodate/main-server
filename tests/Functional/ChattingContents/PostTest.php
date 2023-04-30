@@ -4,7 +4,7 @@ namespace Tests\Functional\ChattingContents;
 
 use App\Models\ChattingContent;
 use App\Models\Friend;
-use App\Models\Match;
+use App\Models\Matching;
 use App\Models\User;
 use Tests\Functional\_TestCase;
 
@@ -20,7 +20,7 @@ class PostTest extends _TestCase
     {
         User::factory()->create(['id' => 1, 'gender' => User::GENDER_MAN]);
         User::factory()->create(['id' => 2, 'gender' => User::GENDER_WOMAN]);
-        Match::factory()->create(['id' => 11, 'man_id' => 1, 'woman_id' => 2]);
+        Matching::factory()->create(['id' => 11, 'man_id' => 1, 'woman_id' => 2]);
         Friend::factory()->create(['id' => 101, 'sender_id' => 1, 'match_id' => 11, 'receiver_id' => 2]);
         Friend::factory()->create(['id' => 102, 'sender_id' => 2, 'match_id' => 11, 'receiver_id' => 1]);
 
@@ -67,7 +67,7 @@ class PostTest extends _TestCase
     public function testErrorNotNullRuleMatch()
     {
         User::factory()->create(['id' => 1]);
-        Match::factory()->create(['id' => 11, 'man_id' => 1, 'woman_id' => 2]);
+        Matching::factory()->create(['id' => 11, 'man_id' => 1, 'woman_id' => 2]);
 
         $this->when(function () {
             $this->setAuthUser(User::find(1));
@@ -84,7 +84,7 @@ class PostTest extends _TestCase
         User::factory()->create(['id' => 1]);
         User::factory()->create(['id' => 2]);
         User::factory()->create(['id' => 3]);
-        Match::factory()->create(['id' => 11, 'man_id' => 1, 'woman_id' => 2]);
+        Matching::factory()->create(['id' => 11, 'man_id' => 1, 'woman_id' => 2]);
 
         $this->when(function () {
             $this->setAuthUser(User::find(3));
@@ -99,7 +99,7 @@ class PostTest extends _TestCase
     public function testErrorNotNullRuleMatchPropose()
     {
         User::factory()->create(['id' => 1]);
-        Match::factory()->create(['id' => 11, 'man_id' => 1, 'woman_id' => 2]);
+        Matching::factory()->create(['id' => 11, 'man_id' => 1, 'woman_id' => 2]);
 
         $this->when(function () {
             $this->setAuthUser(User::find(1));

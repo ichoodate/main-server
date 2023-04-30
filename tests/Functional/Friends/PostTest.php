@@ -4,7 +4,7 @@ namespace Tests\Functional\Friends;
 
 use App\Models\ChattingContent;
 use App\Models\Friend;
-use App\Models\Match;
+use App\Models\Matching;
 use App\Models\User;
 use Tests\Functional\_TestCase;
 
@@ -20,7 +20,7 @@ class PostTest extends _TestCase
     {
         User::factory()->create(['id' => 1, 'gender' => User::GENDER_MAN]);
         User::factory()->create(['id' => 2, 'gender' => User::GENDER_WOMAN]);
-        Match::factory()->create(['id' => 11, 'man_id' => 1, 'woman_id' => 2]);
+        Matching::factory()->create(['id' => 11, 'man_id' => 1, 'woman_id' => 2]);
 
         $this->when(function () {
             $this->setAuthUser(User::find(1));

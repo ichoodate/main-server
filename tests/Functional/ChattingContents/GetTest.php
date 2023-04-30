@@ -4,7 +4,7 @@ namespace Tests\Functional\ChattingContents;
 
 use App\Models\ChattingContent;
 use App\Models\Friend;
-use App\Models\Match;
+use App\Models\Matching;
 use App\Models\User;
 use Tests\Functional\_TestCase;
 
@@ -22,9 +22,9 @@ class GetTest extends _TestCase
         User::factory()->create(['id' => 2, 'gender' => USER::GENDER_WOMAN]);
         User::factory()->create(['id' => 3, 'gender' => User::GENDER_MAN]);
         User::factory()->create(['id' => 4, 'gender' => USER::GENDER_WOMAN]);
-        Match::factory()->create(['id' => 11, 'man_id' => 1, 'woman_id' => 2]);
-        Match::factory()->create(['id' => 12, 'man_id' => 3, 'woman_id' => 2]);
-        Match::factory()->create(['id' => 13, 'man_id' => 1, 'woman_id' => 4]);
+        Matching::factory()->create(['id' => 11, 'man_id' => 1, 'woman_id' => 2]);
+        Matching::factory()->create(['id' => 12, 'man_id' => 3, 'woman_id' => 2]);
+        Matching::factory()->create(['id' => 13, 'man_id' => 1, 'woman_id' => 4]);
         ChattingContent::factory()->create(['id' => 21, 'writer_id' => 1, 'match_id' => 11]);
         ChattingContent::factory()->create(['id' => 22, 'writer_id' => 2, 'match_id' => 11]);
         ChattingContent::factory()->create(['id' => 23, 'writer_id' => 1, 'match_id' => 12]);

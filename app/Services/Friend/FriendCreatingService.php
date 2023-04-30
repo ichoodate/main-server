@@ -4,7 +4,7 @@ namespace App\Services\Friend;
 
 use App\Models\ChattingContent;
 use App\Models\Friend;
-use App\Models\Match;
+use App\Models\Matching;
 use App\Models\User;
 use App\Services\Auth\AuthUserFindingService;
 use FunctionalCoding\Service;
@@ -70,14 +70,14 @@ class FriendCreatingService extends Service
 
             'match' => function ($authUser, $user) {
                 if (User::GENDER_MAN == $authUser->gender) {
-                    return Match::where(Match::MAN_ID, $authUser->getKey())
-                        ->where(Match::WOMAN_ID, $user->getKey())
+                    return Matching::where(Matching::MAN_ID, $authUser->getKey())
+                        ->where(Matching::WOMAN_ID, $user->getKey())
                         ->first()
                     ;
                 }
 
-                return Match::where(Match::WOMAN_ID, $authUser->getKey())
-                    ->where(Match::MAN_ID, $user->getKey())
+                return Matching::where(Matching::WOMAN_ID, $authUser->getKey())
+                    ->where(Matching::MAN_ID, $user->getKey())
                     ->first()
                     ;
             },

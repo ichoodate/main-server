@@ -5,7 +5,7 @@ namespace Tests\Functional\Cards;
 use App\Models\Card;
 use App\Models\CardFlip;
 use App\Models\Friend;
-use App\Models\Match;
+use App\Models\Matching;
 use App\Models\User;
 use App\Services\Card\CardListingService;
 use Illuminate\Support\Arr;
@@ -36,14 +36,14 @@ class GetTest extends _TestCase
             User::GENDER => $rand ? User::GENDER_MAN : User::GENDER_WOMAN,
         ]);
 
-        Match::factory()->createAll([
-            Match::MAN_ID => $rand ? 1 : 2,
-            Match::WOMAN_ID => $rand ? 2 : 1,
-            Match::FRIENDS => [[
+        Matching::factory()->createAll([
+            Matching::MAN_ID => $rand ? 1 : 2,
+            Matching::WOMAN_ID => $rand ? 2 : 1,
+            Matching::FRIENDS => [[
                 Friend::SENDER_ID => 1,
                 Friend::RECEIVER_ID => 2,
             ]],
-            Match::CARDS => [[
+            Matching::CARDS => [[
                 Card::ID => $namedIds['1_ch_none_2_sh_none'] = 110,
                 Card::CHOOSER_ID => 1,
                 Card::SHOWNER_ID => 2,
@@ -83,14 +83,14 @@ class GetTest extends _TestCase
             ]],
         ]);
 
-        Match::factory()->createAll([
-            Match::MAN_ID => $rand ? 3 : 2,
-            Match::WOMAN_ID => $rand ? 2 : 3,
-            Match::FRIENDS => [[
+        Matching::factory()->createAll([
+            Matching::MAN_ID => $rand ? 3 : 2,
+            Matching::WOMAN_ID => $rand ? 2 : 3,
+            Matching::FRIENDS => [[
                 Friend::SENDER_ID => 2,
                 Friend::RECEIVER_ID => 3,
             ]],
-            Match::CARDS => [[
+            Matching::CARDS => [[
                 Card::ID => $namedIds['2_ch_flip_3_sh_flip'] = 280,
                 Card::CHOOSER_ID => 2,
                 Card::SHOWNER_ID => 3,

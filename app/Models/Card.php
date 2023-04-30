@@ -54,7 +54,7 @@ class Card extends Model
 
     public function match()
     {
-        return $this->belongsTo(Match::class, 'match_id', 'id');
+        return $this->belongsTo(Matching::class, 'match_id', 'id');
     }
 
     public function showner()

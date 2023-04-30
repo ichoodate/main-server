@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\ChattingContent;
-use App\Models\Match;
+use App\Models\Matching;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Arr;
@@ -21,18 +21,18 @@ class ChattingContentFactory extends Factory
         $user = User::find($model->{ChattingContent::WRITER_ID});
 
         if ($user) {
-            $genderId = User::GENDER_MAN == $user->{User::GENDER} ? Match::MAN_ID : Match::WOMAN_ID;
+            $genderId = User::GENDER_MAN == $user->{User::GENDER} ? Matching::MAN_ID : Matching::WOMAN_ID;
         } else {
-            $genderId = rand(0, 1) ? Match::MAN_ID : Match::WOMAN_ID;
+            $genderId = rand(0, 1) ? Matching::MAN_ID : Matching::WOMAN_ID;
         }
 
         $match[$genderId] = $model->{ChattingContent::WRITER_ID};
 
-        if (empty(Match::find($model->{ChattingContent::MATCH_ID}))) {
-            $match[Match::ID] = $model->{ChattingContent::MATCH_ID};
+        if (empty(Matching::find($model->{ChattingContent::MATCH_ID}))) {
+            $match[Matching::ID] = $model->{ChattingContent::MATCH_ID};
         }
 
-        Match::factory()->createAll($match);
+        Matching::factory()->createAll($match);
 
         return $model;
     }

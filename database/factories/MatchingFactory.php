@@ -4,24 +4,24 @@ namespace Database\Factories;
 
 use App\Models\Card;
 use App\Models\Friend;
-use App\Models\Match;
+use App\Models\Matching;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 
-class MatchFactory extends Factory
+class MatchingFactory extends Factory
 {
-    protected $model = Match::class;
+    protected $model = Matching::class;
 
     public function createAll($data = [], ?Model $parent = null)
     {
         $attrs = Arr::only($data, array_keys((new static())->definition()));
         $model = $this->create($attrs);
-        $data = Arr::add($data, Match::CARDS, []);
-        $data = Arr::add($data, Match::FRIENDS, []);
+        $data = Arr::add($data, Matching::CARDS, []);
+        $data = Arr::add($data, Matching::FRIENDS, []);
 
-        foreach ($data[Match::CARDS] as $card) {
-            $existMatchUserIdVals = array_values(Arr::only($model->getAttributes(), [Match::MAN_ID, Match::WOMAN_ID]));
+        foreach ($data[Matching::CARDS] as $card) {
+            $existMatchUserIdVals = array_values(Arr::only($model->getAttributes(), [Matching::MAN_ID, Matching::WOMAN_ID]));
             $existCardUserIdVals = array_values(Arr::only($card, [Card::CHOOSER_ID, Card::SHOWNER_ID]));
             $requiredCardUserIdKeys = array_diff([Card::CHOOSER_ID, Card::SHOWNER_ID], array_keys($card));
             $addableMatchUserIdVals = array_diff($existMatchUserIdVals, $existCardUserIdVals);
@@ -40,7 +40,7 @@ class MatchFactory extends Factory
             Card::factory()->createAll($card);
         }
 
-        foreach ($data[Match::FRIENDS] as $friend) {
+        foreach ($data[Matching::FRIENDS] as $friend) {
             $friend[Card::MATCH_ID] = $model->getKey();
             Friend::factory()->create($friend);
         }
@@ -51,11 +51,11 @@ class MatchFactory extends Factory
     public function definition()
     {
         return [
-            Match::ID => $this->faker->unique()->randomNumber(8),
+            Matching::ID => $this->faker->unique()->randomNumber(8),
 
-            Match::MAN_ID => $this->faker->unique()->randomNumber(8),
+            Matching::MAN_ID => $this->faker->unique()->randomNumber(8),
 
-            Match::WOMAN_ID => $this->faker->unique()->randomNumber(8),
+            Matching::WOMAN_ID => $this->faker->unique()->randomNumber(8),
         ];
     }
 }

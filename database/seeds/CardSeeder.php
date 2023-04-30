@@ -4,7 +4,7 @@ namespace Database\Seeds;
 
 use App\Models\Card;
 use App\Models\CardGroup;
-use App\Models\Match;
+use App\Models\Matching;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -13,12 +13,12 @@ class CardSeeder extends Seeder
 {
     public function run()
     {
-        for ($i = 0; $i < Match::count(); ++$i) {
-            $match = Match::skip($i)->first();
+        for ($i = 0; $i < Matching::count(); ++$i) {
+            $match = Matching::skip($i)->first();
 
             do {
-                $manId = $match->{Match::MAN_ID};
-                $womanId = $match->{Match::WOMAN_ID};
+                $manId = $match->{Matching::MAN_ID};
+                $womanId = $match->{Matching::WOMAN_ID};
 
                 if (rand(0, 1)) {
                     $chooserId = $manId;

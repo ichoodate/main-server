@@ -68,7 +68,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 
     public function match()
     {
-        return User::GENDER_MAN == $this->{User::GENDER} ? $this->relation(Match::class, ['id', ':auth_user_id:'], ['man_id', 'woman_id'], false) : $this->relation(Match::class, ['id', ':auth_user_id:'], ['woman_id', 'man_id'], false);
+        return User::GENDER_MAN == $this->{User::GENDER} ? $this->relation(Matching::class, ['id', ':auth_user_id:'], ['man_id', 'woman_id'], false) : $this->relation(Matching::class, ['id', ':auth_user_id:'], ['woman_id', 'man_id'], false);
     }
 
     public function popularity()

@@ -6,7 +6,7 @@ use App\Models\Balance;
 use App\Models\Card;
 use App\Models\CardFlip;
 use App\Models\CardGroup;
-use App\Models\Match;
+use App\Models\Matching;
 use App\Models\RequiredItem;
 use App\Models\User;
 use Tests\Functional\_TestCase;
@@ -24,7 +24,7 @@ class PostTest extends _TestCase
         User::factory()->create(['id' => 1]);
         User::factory()->create(['id' => 2]);
         Card::factory()->create(['id' => 11, 'match_id' => 101, 'chooser_id' => 1, 'showner_id' => 2, 'created_at' => (new \DateTime())->format('Y-m-d H:i:s')]);
-        Match::factory()->create(['id' => 101, 'man_id' => 1, 'woman_id' => 2]);
+        Matching::factory()->create(['id' => 101, 'man_id' => 1, 'woman_id' => 2]);
         Balance::factory()->create(['id' => 201, 'type' => 'basic', 'count' => 10000, 'user_id' => 1, 'deleted_at' => null]);
 
         $this->when(function () {

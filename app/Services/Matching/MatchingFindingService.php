@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Services\Match;
+namespace App\Services\Matching;
 
-use App\Models\Match;
+use App\Models\Matching;
 use App\Services\PermittedUserRequiringService;
 use FunctionalCoding\ORM\Eloquent\Service\FindService;
 use FunctionalCoding\Service;
 
-class MatchFindingService extends Service
+class MatchingFindingService extends Service
 {
     public static function getBindNames()
     {
@@ -29,11 +29,11 @@ class MatchFindingService extends Service
             },
 
             'model_class' => function () {
-                return Match::class;
+                return Matching::class;
             },
 
             'permitted_user' => function ($authUser, $model) {
-                if (in_array($authUser->getKey(), [$model->{Match::MAN_ID}, $model->{Match::WOMAN_ID}])) {
+                if (in_array($authUser->getKey(), [$model->{Matching::MAN_ID}, $model->{Matching::WOMAN_ID}])) {
                     return $authUser;
                 }
             },

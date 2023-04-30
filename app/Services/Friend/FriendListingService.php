@@ -3,7 +3,7 @@
 namespace App\Services\Friend;
 
 use App\Models\Friend;
-use App\Models\Match;
+use App\Models\Matching;
 use App\Models\User;
 use App\Services\Auth\AuthUserFindingService;
 use App\Services\User\MatchingUserFindingService;
@@ -23,10 +23,10 @@ class FriendListingService extends Service
     {
         return [
             'query.match' => function ($authUser, $query, $relatedUser) {
-                $subQuery1 = Match::query()
-                    ->select(Match::ID)
-                    ->where(User::GENDER_MAN == $relatedUser->{User::GENDER} ? Match::MAN_ID : Match::WOMAN_ID, $relatedUser->getKey())
-                    ->where(User::GENDER_MAN == $authUser->{User::GENDER} ? Match::MAN_ID : Match::WOMAN_ID, $authUser->getKey())
+                $subQuery1 = Matching::query()
+                    ->select(Matching::ID)
+                    ->where(User::GENDER_MAN == $relatedUser->{User::GENDER} ? Matching::MAN_ID : Matching::WOMAN_ID, $relatedUser->getKey())
+                    ->where(User::GENDER_MAN == $authUser->{User::GENDER} ? Matching::MAN_ID : Matching::WOMAN_ID, $authUser->getKey())
                     ->getQuery()
                 ;
 

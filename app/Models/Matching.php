@@ -4,7 +4,7 @@ namespace App\Models;
 
 use App\Model;
 
-class Match extends Model
+class Matching extends Model
 {
     public const CARDS = 'cards';
     public const FRIENDS = 'friends';

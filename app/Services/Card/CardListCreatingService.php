@@ -3,7 +3,7 @@
 namespace App\Services\Card;
 
 use App\Models\Card;
-use App\Services\Match\MatchCreatingService;
+use App\Services\Matching\MatchingCreatingService;
 use FunctionalCoding\Service;
 
 class CardListCreatingService extends Service
@@ -30,7 +30,7 @@ class CardListCreatingService extends Service
             },
 
             'matches' => function ($authUser, $users) {
-                return [MatchCreatingService::class, [
+                return [MatchingCreatingService::class, [
                     'auth_user' => $authUser,
                     'matching_users' => $users,
                 ]];

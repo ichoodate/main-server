@@ -10,7 +10,7 @@ class DatabaseSeeder extends Seeder
     {
         foreach ([
             \Database\Seeds\UserSeeder::class,
-            \Database\Seeds\MatchSeeder::class,
+            \Database\Seeds\MatchingSeeder::class,
             \Database\Seeds\CardSeeder::class,
             \Database\Seeds\CardFlipSeeder::class,
             \Database\Seeds\FriendSeeder::class,

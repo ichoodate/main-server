@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Services\Match;
+namespace App\Services\Matching;
 
-use App\Models\Match;
+use App\Models\Matching;
 use App\Models\User;
 use FunctionalCoding\Service;
 
-class MatchCreatingService extends Service
+class MatchingCreatingService extends Service
 {
     public static function getBindNames()
     {
@@ -27,17 +27,17 @@ class MatchCreatingService extends Service
 
             'auth_user_id_field' => function ($authUser) {
                 if (User::GENDER_MAN == $authUser->{User::GENDER}) {
-                    return Match::MAN_ID;
+                    return Matching::MAN_ID;
                 }
 
-                return Match::WOMAN_ID;
+                return Matching::WOMAN_ID;
             },
 
             'created' => function ($authUser, $authUserIdField, $matchingUserIdField, $newMatchingUserIds) {
-                $matches = (new Match())->newCollection();
+                $matches = (new Matching())->newCollection();
 
                 foreach ($newMatchingUserIds as $userId) {
-                    $match = (new Match())->create([
+                    $match = Matching::create([
                         $authUserIdField => $authUser->getKey(),
                         $matchingUserIdField => $userId,
                     ]);
@@ -49,7 +49,7 @@ class MatchCreatingService extends Service
             },
 
             'existed' => function ($authUser, $authUserIdField, $matchingUserIdField, $matchingUserIds) {
-                return (new Match())->query()
+                return Matching::query()
                     ->where($authUserIdField, $authUser->getKey())
                     ->whereIn($matchingUserIdField, $matchingUserIds)
                     ->get()
@@ -62,10 +62,10 @@ class MatchCreatingService extends Service
 
             'matching_user_id_field' => function ($authUser) {
                 if (User::GENDER_MAN == $authUser->{User::GENDER}) {
-                    return Match::WOMAN_ID;
+                    return Matching::WOMAN_ID;
                 }
 
-                return Match::MAN_ID;
+                return Matching::MAN_ID;
             },
 
             'matching_user_ids' => function ($matchingUsers) {

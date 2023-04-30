@@ -4,10 +4,10 @@ namespace App\Services\ChattingContent;
 
 use App\Models\ChattingContent;
 use App\Models\Friend;
-use App\Models\Match;
+use App\Models\Matching;
 use App\Models\User;
 use App\Services\Auth\AuthUserFindingService;
-use App\Services\Match\MatchFindingService;
+use App\Services\Matching\MatchingFindingService;
 use FunctionalCoding\ORM\Eloquent\Service\PaginationListService;
 use FunctionalCoding\Service;
 
@@ -26,10 +26,10 @@ class ChattingContentListingService extends Service
             },
 
             'query.type' => function ($authUser, $query, $type) {
-                $authUserGenderColumn = User::GENDER_MAN == $authUser->{User::GENDER} ? Match::MAN_ID : Match::WOMAN_ID;
+                $authUserGenderColumn = User::GENDER_MAN == $authUser->{User::GENDER} ? Matching::MAN_ID : Matching::WOMAN_ID;
 
-                $matchQuery = Match::query()
-                    ->select(Match::ID)
+                $matchQuery = Matching::query()
+                    ->select(Matching::ID)
                     ->where($authUserGenderColumn, $authUser->getKey())
                     ->getQuery()
                 ;
@@ -98,7 +98,7 @@ class ChattingContentListingService extends Service
             },
 
             'match' => function ($authToken, $matchId) {
-                return [MatchFindingService::class, [
+                return [MatchingFindingService::class, [
                     'auth_token' => $authToken,
                     'id' => $matchId,
                 ], [

@@ -4,7 +4,7 @@ namespace App\Services\ChattingContent;
 
 use App\Models\ChattingContent;
 use App\Services\Auth\AuthUserFindingService;
-use App\Services\Match\MatchFindingService;
+use App\Services\Matching\MatchingFindingService;
 use FunctionalCoding\ORM\Eloquent\Service\FindService;
 use FunctionalCoding\Service;
 
@@ -38,7 +38,7 @@ class ChattingContentFindingService extends Service
             },
 
             'match' => function ($authToken, $model) {
-                return [MatchFindingService::class, [
+                return [MatchingFindingService::class, [
                     'auth_token' => $authToken,
                     'id' => $model->{ChattingContent::MATCH_ID},
                 ], [

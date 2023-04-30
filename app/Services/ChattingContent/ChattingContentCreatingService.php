@@ -4,9 +4,9 @@ namespace App\Services\ChattingContent;
 
 use App\Models\ChattingContent;
 use App\Models\Friend;
-use App\Models\Match;
+use App\Models\Matching;
 use App\Services\Auth\AuthUserFindingService;
-use App\Services\Match\MatchFindingService;
+use App\Services\Matching\MatchingFindingService;
 use FunctionalCoding\Service;
 
 class ChattingContentCreatingService extends Service
@@ -49,7 +49,7 @@ class ChattingContentCreatingService extends Service
             },
 
             'match' => function ($authToken, $matchId) {
-                return [MatchFindingService::class, [
+                return [MatchingFindingService::class, [
                     'auth_token' => $authToken,
                     'id' => $matchId,
                 ], [
@@ -67,7 +67,7 @@ class ChattingContentCreatingService extends Service
             },
 
             'matching_user_id' => function ($authUser, $match) {
-                return $match->{Match::MAN_ID} == $authUser->getKey() ? $match->{Match::WOMAN_ID} : $match->{Match::MAN_ID};
+                return $match->{Matching::MAN_ID} == $authUser->getKey() ? $match->{Matching::WOMAN_ID} : $match->{Matching::MAN_ID};
             },
 
             'result' => function ($authUser, $match, $message) {

@@ -5,7 +5,7 @@ namespace App\Services\Card;
 use App\Models\Card;
 use App\Models\CardFlip;
 use App\Models\Friend;
-use App\Models\Match;
+use App\Models\Matching;
 use App\Models\User;
 use App\Services\Auth\AuthUserFindingService;
 use FunctionalCoding\ORM\Eloquent\Service\PaginationListService;
@@ -94,10 +94,10 @@ class CardListingService extends Service
 
             'auth_user_id_field' => function ($authUser) {
                 if (User::GENDER_MAN == $authUser->{User::GENDER}) {
-                    return Match::MAN_ID;
+                    return Matching::MAN_ID;
                 }
 
-                return Match::WOMAN_ID;
+                return Matching::WOMAN_ID;
             },
 
             'auth_user_query' => function ($authUser) {
@@ -174,7 +174,7 @@ class CardListingService extends Service
                 } elseif (self::CARD_TYPE_SHOWNER == $cardType) {
                     $return->where(Card::SHOWNER_ID, $authUser->getKey());
                 } elseif (self::CARD_TYPE_BOTH == $cardType) {
-                    $subQuery = (new Match())->query()
+                    $subQuery = Matching::query()
                         ->where($authUserIdField, $authUser->getKey())
                         ->selectIdQuery()
                     ;
