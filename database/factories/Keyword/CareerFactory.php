@@ -12,8 +12,6 @@ class CareerFactory extends Factory
     public function definition()
     {
         return [
-            Career::ID => $this->faker->unique()->randomNumber(8),
-
             Career::PARENT_ID => $this->faker->unique()->randomNumber(8),
 
             Career::TYPE => $this->faker->randomElement(Career::TYPE_VALUES),

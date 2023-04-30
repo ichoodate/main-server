@@ -12,8 +12,6 @@ class CardFlipFactory extends Factory
     public function definition()
     {
         return [
-            CardFlip::ID => $this->faker->unique()->randomNumber(8),
-
             CardFlip::USER_ID => $this->faker->unique()->randomNumber(8),
 
             CardFlip::CARD_ID => $this->faker->unique()->randomNumber(8),

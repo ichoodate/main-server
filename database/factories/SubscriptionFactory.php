@@ -12,8 +12,6 @@ class SubscriptionFactory extends Factory
     public function definition()
     {
         return [
-            Subscription::ID => $this->faker->unique()->randomNumber(8),
-
             Subscription::USER_ID => $this->faker->unique()->randomNumber(8),
 
             Subscription::PAYMENT_ID => $this->faker->unique()->randomNumber(8),

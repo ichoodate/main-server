@@ -12,8 +12,6 @@ class LanguageFactory extends Factory
     public function definition()
     {
         return [
-            Language::ID => $this->faker->unique()->randomNumber(8),
-
             Language::TYPE => $this->faker->unique()->randomElement(Language::TYPE_VALUES),
         ];
     }

@@ -12,8 +12,6 @@ class PopularityFactory extends Factory
     public function definition()
     {
         return [
-            Popularity::ID => $this->faker->unique()->randomNumber(8),
-
             Popularity::SENDER_ID => $this->faker->unique()->randomNumber(8),
 
             Popularity::RECEIVER_ID => $this->faker->unique()->randomNumber(8),

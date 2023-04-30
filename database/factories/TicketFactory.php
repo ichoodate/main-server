@@ -12,8 +12,6 @@ class TicketFactory extends Factory
     public function definition()
     {
         return [
-            Ticket::ID => $this->faker->unique()->randomNumber(8),
-
             Ticket::WRITER_ID => $this->faker->unique()->randomNumber(8),
 
             Ticket::SUBJECT => $this->faker->text,

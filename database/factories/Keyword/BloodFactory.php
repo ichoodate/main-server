@@ -12,8 +12,6 @@ class BloodFactory extends Factory
     public function definition()
     {
         return [
-            Blood::ID => $this->faker->unique()->randomNumber(8),
-
             Blood::TYPE => $this->faker->randomElement(Blood::TYPE_VALUES),
         ];
     }

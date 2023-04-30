@@ -12,8 +12,6 @@ class SmokeFactory extends Factory
     public function definition()
     {
         return [
-            Smoke::ID => $this->faker->unique()->randomNumber(8),
-
             Smoke::TYPE => $this->faker->randomElement(Smoke::TYPE_VALUES),
         ];
     }

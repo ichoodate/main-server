@@ -12,8 +12,6 @@ class PwdResetFactory extends Factory
     public function definition()
     {
         return [
-            PwdReset::ID => $this->faker->unique()->randomNumber(8),
-
             PwdReset::EMAIL => $this->faker->unique()->randomNumber(8),
 
             PwdReset::TOKEN => $this->faker->unique()->md5,

@@ -12,8 +12,6 @@ class ObjFactory extends Factory
     public function definition()
     {
         return [
-            Obj::ID => $this->faker->unique()->randomNumber(8),
-
             Obj::TYPE => $this->faker->randomElement(Obj::TYPE_VALUES),
         ];
     }

@@ -12,8 +12,6 @@ class HobbyFactory extends Factory
     public function definition()
     {
         return [
-            Hobby::ID => $this->faker->unique()->randomNumber(8),
-
             Hobby::TYPE => $this->faker->randomElement(Hobby::TYPE_VALUES),
         ];
     }

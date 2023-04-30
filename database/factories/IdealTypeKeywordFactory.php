@@ -12,8 +12,6 @@ class IdealTypeKeywordFactory extends Factory
     public function definition()
     {
         return [
-            IdealTypeKeyword::ID => $this->faker->unique()->randomNumber(8),
-
             IdealTypeKeyword::USER_ID => $this->faker->unique()->randomNumber(8),
 
             IdealTypeKeyword::KEYWORD_ID => $this->faker->unique()->randomNumber(8),

@@ -12,8 +12,6 @@ class FacePhotoFactory extends Factory
     public function definition()
     {
         return [
-            FacePhoto::ID => $this->faker->unique()->randomNumber(8),
-
             FacePhoto::USER_ID => $this->faker->unique()->randomNumber(8),
 
             FacePhoto::DATA => $this->faker->text,

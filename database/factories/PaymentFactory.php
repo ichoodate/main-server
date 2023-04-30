@@ -12,8 +12,6 @@ class PaymentFactory extends Factory
     public function definition()
     {
         return [
-            Payment::ID => $this->faker->unique()->randomNumber(8),
-
             Payment::USER_ID => $this->faker->unique()->randomNumber(8),
 
             Payment::ITEM_ID => $this->faker->unique()->randomNumber(8),

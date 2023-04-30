@@ -12,8 +12,6 @@ class StatureRangeFactory extends Factory
     public function definition()
     {
         return [
-            StatureRange::ID => $this->faker->unique()->randomNumber(8),
-
             StatureRange::MIN => $this->faker->numberBetween(140, 170),
 
             StatureRange::MAX => $this->faker->numberBetween(170, 200),

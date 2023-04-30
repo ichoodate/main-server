@@ -12,8 +12,6 @@ class WeightFactory extends Factory
     public function definition()
     {
         return [
-            Weight::ID => $this->faker->unique()->randomNumber(8),
-
             Weight::TYPE => $this->faker->numberBetween(40, 120),
         ];
     }

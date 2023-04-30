@@ -12,8 +12,6 @@ class AgeRangeFactory extends Factory
     public function definition()
     {
         return [
-            AgeRange::ID => $this->faker->unique()->randomNumber(8),
-
             AgeRange::MIN => $this->faker->numberBetween(20, 40),
 
             AgeRange::MAX => $this->faker->numberBetween(30, 50),

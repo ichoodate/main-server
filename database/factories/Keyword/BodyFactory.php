@@ -12,8 +12,6 @@ class BodyFactory extends Factory
     public function definition()
     {
         return [
-            Body::ID => $this->faker->unique()->randomNumber(8),
-
             Body::TYPE => $this->faker->randomElement(Body::TYPE_VALUES),
         ];
     }

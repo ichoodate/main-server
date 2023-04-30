@@ -40,8 +40,6 @@ class ChattingContentFactory extends Factory
     public function definition()
     {
         return [
-            ChattingContent::ID => $this->faker->unique()->randomNumber(8),
-
             ChattingContent::MATCH_ID => $this->faker->unique()->randomNumber(8),
 
             ChattingContent::WRITER_ID => $this->faker->unique()->randomNumber(8),

@@ -14,8 +14,6 @@ class StatureFactory extends Factory
         $cm = $this->faker->numberBetween(140, 200);
 
         return [
-            Stature::ID => $this->faker->unique()->randomNumber(8),
-
             Stature::CM => $cm,
 
             Stature::INCH => (int) ($cm * 0.393701),

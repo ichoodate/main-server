@@ -12,8 +12,6 @@ class UserKeywordFactory extends Factory
     public function definition()
     {
         return [
-            UserKeyword::ID => $this->faker->unique()->randomNumber(8),
-
             UserKeyword::USER_ID => $this->faker->unique()->randomNumber(8),
 
             UserKeyword::KEYWORD_ID => $this->faker->unique()->randomNumber(8),

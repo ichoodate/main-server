@@ -51,8 +51,6 @@ class MatchingFactory extends Factory
     public function definition()
     {
         return [
-            Matching::ID => $this->faker->unique()->randomNumber(8),
-
             Matching::MAN_ID => $this->faker->unique()->randomNumber(8),
 
             Matching::WOMAN_ID => $this->faker->unique()->randomNumber(8),

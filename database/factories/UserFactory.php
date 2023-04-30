@@ -12,8 +12,6 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            User::ID => $this->faker->unique()->randomNumber(8),
-
             User::EMAIL => $this->faker->unique()->email,
 
             User::PASSWORD => $this->faker->password,

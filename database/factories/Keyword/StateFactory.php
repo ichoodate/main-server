@@ -12,8 +12,6 @@ class StateFactory extends Factory
     public function definition()
     {
         return [
-            State::ID => $this->faker->unique()->randomNumber(8),
-
             State::COUNTRY_ID => $this->faker->unique()->randomNumber(8),
 
             State::NAME => $this->faker->word,

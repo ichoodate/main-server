@@ -12,8 +12,6 @@ class RelatedKeywordFactory extends Factory
     public function definition()
     {
         return [
-            RelatedKeyword::ID => $this->faker->unique()->randomNumber(8),
-
             RelatedKeyword::RELATED_ID => $this->faker->unique()->randomNumber(8),
 
             RelatedKeyword::KEYWORD_ID => $this->faker->unique()->randomNumber(8),

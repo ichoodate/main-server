@@ -40,8 +40,6 @@ class CardFactory extends Factory
     public function definition()
     {
         return [
-            Card::ID => $this->faker->unique()->randomNumber(8),
-
             Card::GROUP_ID => $this->faker->unique()->randomNumber(8),
 
             Card::MATCH_ID => $this->faker->unique()->randomNumber(8),

@@ -12,8 +12,6 @@ class BalanceFactory extends Factory
     public function definition()
     {
         return [
-            Balance::ID => $this->faker->unique()->randomNumber(8),
-
             Balance::USER_ID => $this->faker->unique()->randomNumber(8),
 
             Balance::TYPE => $this->faker->randomElement(Balance::TYPE_VALUES),

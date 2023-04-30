@@ -12,8 +12,6 @@ class DrinkFactory extends Factory
     public function definition()
     {
         return [
-            Drink::ID => $this->faker->unique()->randomNumber(8),
-
             Drink::TYPE => $this->faker->randomElement(Drink::TYPE_VALUES),
         ];
     }

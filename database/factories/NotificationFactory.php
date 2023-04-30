@@ -12,8 +12,6 @@ class NotificationFactory extends Factory
     public function definition()
     {
         return [
-            Notification::ID => $this->faker->unique()->randomNumber(8),
-
             Notification::USER_ID => $this->faker->unique()->randomNumber(8),
 
             Notification::RELATED_ID => $this->faker->unique()->randomNumber(8),

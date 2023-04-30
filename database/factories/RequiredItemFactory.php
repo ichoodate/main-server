@@ -12,8 +12,6 @@ class RequiredItemFactory extends Factory
     public function definition()
     {
         return [
-            RequiredItem::ID => $this->faker->unique()->randomNumber(8),
-
             RequiredItem::WHEN => $this->faker->randomElement(['card_flip']),
 
             RequiredItem::TYPE => $this->faker->randomElement(['coin', 'subscription']),

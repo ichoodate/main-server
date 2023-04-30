@@ -12,8 +12,6 @@ class RoleFactory extends Factory
     public function definition()
     {
         return [
-            Role::ID => $this->faker->unique()->randomNumber(8),
-
             Role::USER_ID => $this->faker->unique()->randomNumber(8),
 
             Role::TYPE => $this->faker->unique()->word,

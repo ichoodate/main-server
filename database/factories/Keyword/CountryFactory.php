@@ -12,8 +12,6 @@ class CountryFactory extends Factory
     public function definition()
     {
         return [
-            Country::ID => $this->faker->unique()->randomNumber(8),
-
             Country::ISO => $this->faker->countryCode,
 
             Country::NAME => $this->faker->country,

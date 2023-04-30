@@ -12,8 +12,6 @@ class ResidenceFactory extends Factory
     public function definition()
     {
         return [
-            Residence::ID => $this->faker->unique()->randomNumber(8),
-
             Residence::PARENT_ID => $this->faker->unique()->randomNumber(8),
 
             Residence::RELATED_ID => $this->faker->unique()->randomNumber(8),

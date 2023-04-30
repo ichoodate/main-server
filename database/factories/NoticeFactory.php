@@ -12,8 +12,6 @@ class NoticeFactory extends Factory
     public function definition()
     {
         return [
-            Notice::ID => $this->faker->unique()->randomNumber(8),
-
             Notice::TYPE => $this->faker->randomElement(Notice::TYPE_VALUES),
 
             Notice::SUBJECT => $this->faker->text,

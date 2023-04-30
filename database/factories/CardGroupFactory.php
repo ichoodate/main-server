@@ -31,8 +31,6 @@ class CardGroupFactory extends Factory
     public function definition()
     {
         return [
-            CardGroup::ID => $this->faker->unique()->randomNumber(8),
-
             CardGroup::USER_ID => $this->faker->unique()->randomNumber(8),
 
             CardGroup::TYPE => $this->faker->randomElement(CardGroup::TYPE_VALUES),

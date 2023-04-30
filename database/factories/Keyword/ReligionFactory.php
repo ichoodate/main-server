@@ -12,8 +12,6 @@ class ReligionFactory extends Factory
     public function definition()
     {
         return [
-            Religion::ID => $this->faker->unique()->randomNumber(8),
-
             Religion::TYPE => $this->faker->randomElement(Religion::TYPE_VALUES),
         ];
     }

@@ -12,8 +12,6 @@ class InvoiceFactory extends Factory
     public function definition()
     {
         return [
-            Invoice::ID => $this->faker->unique()->randomNumber(8),
-
             Invoice::USER_ID => $this->faker->unique()->randomNumber(8),
 
             Invoice::CREATED_AT => $this->faker->dateTimeThisYear->format('Y-m-d H:i:s'),

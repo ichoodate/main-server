@@ -12,8 +12,6 @@ class ItemFactory extends Factory
     public function definition()
     {
         return [
-            Item::ID => $this->faker->unique()->randomNumber(8),
-
             Item::TYPE => $this->faker->randomElement(Item::TYPE_VALUES),
 
             Item::ORIGINAL_PRICE => $this->faker->randomNumber(),

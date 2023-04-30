@@ -12,8 +12,6 @@ class FriendFactory extends Factory
     public function definition()
     {
         return [
-            Friend::ID => $this->faker->unique()->randomNumber(8),
-
             Friend::SENDER_ID => $this->faker->unique()->randomNumber(8),
 
             Friend::RECEIVER_ID => $this->faker->unique()->randomNumber(8),
