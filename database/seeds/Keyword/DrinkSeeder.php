@@ -3,9 +3,9 @@
 namespace Database\Seeds\Keyword;
 
 use App\Models\Keyword\Drink;
-use Illuminate\Database\Seeder;
+use Database\DatabaseSeeder;
 
-class DrinkSeeder extends Seeder
+class DrinkSeeder extends DatabaseSeeder
 {
     public function run()
     {

@@ -3,9 +3,9 @@
 namespace Database\Seeds\Keyword;
 
 use App\Models\Keyword\BirthYear;
-use Illuminate\Database\Seeder;
+use Database\DatabaseSeeder;
 
-class BirthYearSeeder extends Seeder
+class BirthYearSeeder extends DatabaseSeeder
 {
     public function run()
     {

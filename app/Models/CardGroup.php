@@ -10,8 +10,9 @@ class CardGroup extends Model
     public const CREATED_AT = 'created_at';
     public const ID = 'id';
     public const TYPE = 'type';
+    public const TYPE_DAILY = 'daily';
     public const TYPE_VALUES = [
-        'daily',
+        self::TYPE_DAILY,
     ];
     public const USER = 'user';
     public const USER_ID = 'user_id';

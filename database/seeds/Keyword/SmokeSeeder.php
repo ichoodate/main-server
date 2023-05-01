@@ -3,9 +3,9 @@
 namespace Database\Seeds\Keyword;
 
 use App\Models\Keyword\Smoke;
-use Illuminate\Database\Seeder;
+use Database\DatabaseSeeder;
 
-class SmokeSeeder extends Seeder
+class SmokeSeeder extends DatabaseSeeder
 {
     public function run()
     {

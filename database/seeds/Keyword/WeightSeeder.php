@@ -3,9 +3,9 @@
 namespace Database\Seeds\Keyword;
 
 use App\Models\Keyword\Weight;
-use Illuminate\Database\Seeder;
+use Database\DatabaseSeeder;
 
-class WeightSeeder extends Seeder
+class WeightSeeder extends DatabaseSeeder
 {
     public function run()
     {

@@ -14,65 +14,65 @@ use App\Models\Keyword\Smoke;
 use App\Models\Keyword\StatureRange;
 use App\Models\Keyword\WeightRange;
 use App\Models\User;
-use Illuminate\Database\Seeder;
+use Database\DatabaseSeeder;
+use Illuminate\Support\Arr;
 
-class IdealTypeKeywordSeeder extends Seeder
+class IdealTypeKeywordSeeder extends DatabaseSeeder
 {
     public function run()
     {
-        for ($i = 0; $i < User::count(); ++$i) {
-            $user = User::skip($i)->first();
-            $ageRange = AgeRange::orderByRaw('rand()')->first();
-            $career = Career::orderByRaw('rand()')->first();
-            $drink = Drink::orderByRaw('rand()')->first();
-            $hobby = Hobby::orderByRaw('rand()')->first();
-            $nationality = Nationality::orderByRaw('rand()')->first();
-            $religion = Religion::orderByRaw('rand()')->first();
-            $residence = Residence::orderByRaw('rand()')->first();
-            $smoke = Smoke::orderByRaw('rand()')->first();
-            $statureRange = StatureRange::orderByRaw('rand()')->first();
-            $weightRange = WeightRange::orderByRaw('rand()')->first();
+        $ageRanges = AgeRange::get()->all();
+        $careers = Career::get()->all();
+        $drinks = Drink::get()->all();
+        $hobbies = Hobby::get()->all();
+        $nationalities = Nationality::get()->all();
+        $religions = Religion::get()->all();
+        $residences = Residence::get()->all();
+        $smokes = Smoke::get()->all();
+        $statureRanges = StatureRange::get()->all();
+        $weightRanges = WeightRange::get()->all();
 
-            IdealTypeKeyword::factory()->create([
-                IdealTypeKeyword::USER_ID => $user->getKey(),
-                IdealTypeKeyword::KEYWORD_ID => $ageRange->getKey(),
-            ]);
-            IdealTypeKeyword::factory()->create([
-                IdealTypeKeyword::USER_ID => $user->getKey(),
-                IdealTypeKeyword::KEYWORD_ID => $career->getKey(),
-            ]);
-            IdealTypeKeyword::factory()->create([
-                IdealTypeKeyword::USER_ID => $user->getKey(),
-                IdealTypeKeyword::KEYWORD_ID => $drink->getKey(),
-            ]);
-            IdealTypeKeyword::factory()->create([
-                IdealTypeKeyword::USER_ID => $user->getKey(),
-                IdealTypeKeyword::KEYWORD_ID => $hobby->getKey(),
-            ]);
-            IdealTypeKeyword::factory()->create([
-                IdealTypeKeyword::USER_ID => $user->getKey(),
-                IdealTypeKeyword::KEYWORD_ID => $nationality->getKey(),
-            ]);
-            IdealTypeKeyword::factory()->create([
-                IdealTypeKeyword::USER_ID => $user->getKey(),
-                IdealTypeKeyword::KEYWORD_ID => $religion->getKey(),
-            ]);
-            IdealTypeKeyword::factory()->create([
-                IdealTypeKeyword::USER_ID => $user->getKey(),
-                IdealTypeKeyword::KEYWORD_ID => $residence->getKey(),
-            ]);
-            IdealTypeKeyword::factory()->create([
-                IdealTypeKeyword::USER_ID => $user->getKey(),
-                IdealTypeKeyword::KEYWORD_ID => $smoke->getKey(),
-            ]);
-            IdealTypeKeyword::factory()->create([
-                IdealTypeKeyword::USER_ID => $user->getKey(),
-                IdealTypeKeyword::KEYWORD_ID => $statureRange->getKey(),
-            ]);
-            IdealTypeKeyword::factory()->create([
-                IdealTypeKeyword::USER_ID => $user->getKey(),
-                IdealTypeKeyword::KEYWORD_ID => $weightRange->getKey(),
-            ]);
+        for ($userId = 1; $userId <= User::count(); ++$userId) {
+            $this->add(IdealTypeKeyword::factory()->make([
+                IdealTypeKeyword::USER_ID => $userId,
+                IdealTypeKeyword::KEYWORD_ID => Arr::random($ageRanges)->id,
+            ]));
+            $this->add(IdealTypeKeyword::factory()->make([
+                IdealTypeKeyword::USER_ID => $userId,
+                IdealTypeKeyword::KEYWORD_ID => Arr::random($careers)->id,
+            ]));
+            $this->add(IdealTypeKeyword::factory()->make([
+                IdealTypeKeyword::USER_ID => $userId,
+                IdealTypeKeyword::KEYWORD_ID => Arr::random($drinks)->id,
+            ]));
+            $this->add(IdealTypeKeyword::factory()->make([
+                IdealTypeKeyword::USER_ID => $userId,
+                IdealTypeKeyword::KEYWORD_ID => Arr::random($hobbies)->id,
+            ]));
+            $this->add(IdealTypeKeyword::factory()->make([
+                IdealTypeKeyword::USER_ID => $userId,
+                IdealTypeKeyword::KEYWORD_ID => Arr::random($nationalities)->id,
+            ]));
+            $this->add(IdealTypeKeyword::factory()->make([
+                IdealTypeKeyword::USER_ID => $userId,
+                IdealTypeKeyword::KEYWORD_ID => Arr::random($religions)->id,
+            ]));
+            $this->add(IdealTypeKeyword::factory()->make([
+                IdealTypeKeyword::USER_ID => $userId,
+                IdealTypeKeyword::KEYWORD_ID => Arr::random($residences)->id,
+            ]));
+            $this->add(IdealTypeKeyword::factory()->make([
+                IdealTypeKeyword::USER_ID => $userId,
+                IdealTypeKeyword::KEYWORD_ID => Arr::random($smokes)->id,
+            ]));
+            $this->add(IdealTypeKeyword::factory()->make([
+                IdealTypeKeyword::USER_ID => $userId,
+                IdealTypeKeyword::KEYWORD_ID => Arr::random($statureRanges)->id,
+            ]));
+            $this->add(IdealTypeKeyword::factory()->make([
+                IdealTypeKeyword::USER_ID => $userId,
+                IdealTypeKeyword::KEYWORD_ID => Arr::random($weightRanges)->id,
+            ]));
         }
     }
 }

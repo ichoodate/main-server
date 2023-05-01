@@ -5,9 +5,9 @@ namespace Database\Seeds\Keyword;
 use App\Models\Keyword\Country;
 use App\Models\Keyword\Residence;
 use App\Models\Keyword\State;
-use Illuminate\Database\Seeder;
+use Database\DatabaseSeeder;
 
-class ResidenceSeeder extends Seeder
+class ResidenceSeeder extends DatabaseSeeder
 {
     public function run()
     {
@@ -39,7 +39,7 @@ class ResidenceSeeder extends Seeder
             ])->first();
 
             if (empty($model)) {
-                Residence::create([
+                Residence::factory()->create([
                     Residence::PARENT_ID => $state->country->residence->getKey(),
                     Residence::RELATED_ID => $state->getKey(),
                 ]);

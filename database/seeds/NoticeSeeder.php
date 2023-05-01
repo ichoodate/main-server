@@ -3,9 +3,9 @@
 namespace Database\Seeds;
 
 use App\Models\Notice;
-use Illuminate\Database\Seeder;
+use Database\DatabaseSeeder;
 
-class NoticeSeeder extends Seeder
+class NoticeSeeder extends DatabaseSeeder
 {
     public function run()
     {

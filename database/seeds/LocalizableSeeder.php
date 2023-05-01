@@ -2,9 +2,9 @@
 
 namespace Database\Seeds;
 
-use Illuminate\Database\Seeder;
+use Database\DatabaseSeeder;
 
-class LocalizableSeeder extends Seeder
+class LocalizableSeeder extends DatabaseSeeder
 {
     public function run()
     {

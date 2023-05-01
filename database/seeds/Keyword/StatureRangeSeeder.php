@@ -3,9 +3,9 @@
 namespace Database\Seeds\Keyword;
 
 use App\Models\Keyword\StatureRange;
-use Illuminate\Database\Seeder;
+use Database\DatabaseSeeder;
 
-class StatureRangeSeeder extends Seeder
+class StatureRangeSeeder extends DatabaseSeeder
 {
     public function run()
     {

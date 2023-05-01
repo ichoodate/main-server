@@ -3,25 +3,24 @@
 namespace Database\Seeds;
 
 use App\Models\User;
-use Illuminate\Database\Seeder;
+use Database\DatabaseSeeder;
 
-class UserSeeder extends Seeder
+class UserSeeder extends DatabaseSeeder
 {
     public function run()
     {
         User::factory()->create([
-            User::ID => 1,
             User::GENDER => User::GENDER_MAN,
             User::EMAIL => 'dbwhddn10@gmail.com',
             User::PASSWORD => 'dbwhddn',
         ]);
 
         for ($i = 1; $i < 1000; ++$i) {
-            var_dump(static::class, $i);
-            User::factory()->create([
+            $this->add(User::factory()->make([
                 User::EMAIL => 'test'.$i.'@ichoodate.com',
-                User::PASSWORD => 'dbwhddn',
-            ]);
+                User::PASSWORD => 'test1234',
+            ]));
         }
+        $this->flush();
     }
 }

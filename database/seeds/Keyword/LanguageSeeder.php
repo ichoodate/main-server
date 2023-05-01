@@ -3,9 +3,9 @@
 namespace Database\Seeds\Keyword;
 
 use App\Models\Keyword\Language;
-use Illuminate\Database\Seeder;
+use Database\DatabaseSeeder;
 
-class LanguageSeeder extends Seeder
+class LanguageSeeder extends DatabaseSeeder
 {
     public function run()
     {

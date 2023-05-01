@@ -3,9 +3,9 @@
 namespace Database\Seeds\Keyword;
 
 use App\Models\Keyword\Stature;
-use Illuminate\Database\Seeder;
+use Database\DatabaseSeeder;
 
-class StatureSeeder extends Seeder
+class StatureSeeder extends DatabaseSeeder
 {
     public function run()
     {
@@ -16,7 +16,7 @@ class StatureSeeder extends Seeder
             ])->first();
 
             if (empty($model)) {
-                $stature = Stature::create([
+                $stature = Stature::factory()->create([
                     Stature::CM => $cm,
                     Stature::INCH => (int) ($cm * 0.393701),
                 ]);

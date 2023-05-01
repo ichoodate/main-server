@@ -3,9 +3,9 @@
 namespace Database\Seeds\Keyword;
 
 use App\Models\Keyword\AgeRange;
-use Illuminate\Database\Seeder;
+use Database\DatabaseSeeder;
 
-class AgeRangeSeeder extends Seeder
+class AgeRangeSeeder extends DatabaseSeeder
 {
     public function run()
     {

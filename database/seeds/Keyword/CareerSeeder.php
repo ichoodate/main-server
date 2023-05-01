@@ -3,9 +3,9 @@
 namespace Database\Seeds\Keyword;
 
 use App\Models\Keyword\Career;
-use Illuminate\Database\Seeder;
+use Database\DatabaseSeeder;
 
-class CareerSeeder extends Seeder
+class CareerSeeder extends DatabaseSeeder
 {
     public const COUNTS = [
         'table' => [2, 3],

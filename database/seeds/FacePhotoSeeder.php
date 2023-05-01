@@ -4,22 +4,21 @@ namespace Database\Seeds;
 
 use App\Models\FacePhoto;
 use App\Models\User;
-use Illuminate\Database\Seeder;
+use Database\DatabaseSeeder;
 
-class FacePhotoSeeder extends Seeder
+class FacePhotoSeeder extends DatabaseSeeder
 {
     public function run()
     {
-        for ($i = 0; $i < User::count(); ++$i) {
-            var_dump(static::class, $i);
-            $user = User::skip($i)->first();
-            $photo = FacePhoto::where('user_id', $user->getKey())->first();
+        ini_set('user_agent', 'Mozilla/4.0 (compatible; MSIE 6.0)');
+        $data = 'data:image/jpeg;base64,'.base64_encode(file_get_contents('https://picsum.photos/400/400'));
+
+        for ($userId = 1; $userId <= User::count(); ++$userId) {
+            $photo = FacePhoto::select(FacePhoto::ID)->where('user_id', $userId)->first();
 
             if (empty($photo)) {
-                $data = 'data:image/jpeg;base64,'.base64_encode(file_get_contents('https://picsum.photos/400/400'));
-
-                FacePhoto::create([
-                    'user_id' => $user->getKey(),
+                FacePhoto::factory()->create([
+                    'user_id' => $userId,
                     'data' => $data,
                 ]);
             }

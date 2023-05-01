@@ -5,14 +5,14 @@ namespace Database\Seeds;
 use App\Models\Card;
 use App\Models\CardFlip;
 use App\Models\Friend;
-use Illuminate\Database\Seeder;
+use Database\DatabaseSeeder;
 
-class FriendSeeder extends Seeder
+class FriendSeeder extends DatabaseSeeder
 {
     public function run()
     {
         for ($i = 0; $i < CardFlip::count(); ++$i) {
-            $flip = CardFlip::skip($i)->first();
+            $flip = CardFlip::find(CardFlip::select(CardFlip::ID)->skip($i)->first()->{CardFlip::ID});
             $card = $flip->card;
 
             if (0 !== rand(0, 2)) {

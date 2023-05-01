@@ -44,7 +44,7 @@ class Matching extends Model
     public function user()
     {
         if (!auth()->user()) {
-            throw new \Exception;
+            throw new \Exception();
         }
 
         if (auth()->user() && User::GENDER_MAN == auth()->user()->{User::GENDER}) {
