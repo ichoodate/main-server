@@ -56,7 +56,7 @@ return [
             'prefix_indexes' => true,
             'strict' => false,
             'engine' => null,
-            'options' => extension_loaded('pdo_mysql') ? [
+            'options' => 'production' == env('APP_ENV') ? [
                 PDO::MYSQL_ATTR_SSL_CA => storage_path('app/database/server-ca.pem'),
                 PDO::MYSQL_ATTR_SSL_CERT => storage_path('app/database/client-cert.pem'),
                 PDO::MYSQL_ATTR_SSL_KEY => storage_path('app/database/client-key.pem'),
