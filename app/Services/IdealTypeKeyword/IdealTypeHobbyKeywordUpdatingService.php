@@ -12,6 +12,8 @@ class IdealTypeHobbyKeywordUpdatingService extends Service
     public static function getBindNames()
     {
         return [
+            'keywords' => 'hobbies for {{keyword_ids}}',
+
             'keywords.*' => 'hobbies[*] for {{keyword_ids}}',
         ];
     }
@@ -78,6 +80,8 @@ class IdealTypeHobbyKeywordUpdatingService extends Service
     {
         return [
             'keyword_ids' => ['required', 'integers'],
+
+            'keywords' => ['array'],
 
             'keywords.*' => ['not_null'],
         ];

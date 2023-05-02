@@ -4,12 +4,11 @@ namespace App\Services\ChattingContent;
 
 use App\Models\ChattingContent;
 use App\Models\Friend;
-use App\Models\Matching;
-use App\Models\User;
 use App\Services\Auth\AuthUserFindingService;
 use App\Services\Matching\MatchingFindingService;
 use FunctionalCoding\ORM\Eloquent\Service\PaginationListService;
 use FunctionalCoding\Service;
+use Illuminate\Support\Facades\DB;
 
 class ChattingContentListingService extends Service
 {
@@ -26,43 +25,33 @@ class ChattingContentListingService extends Service
             },
 
             'query.type' => function ($authUser, $query, $type) {
-                $authUserGenderColumn = User::GENDER_MAN == $authUser->{User::GENDER} ? Matching::MAN_ID : Matching::WOMAN_ID;
-
-                $matchQuery = Matching::query()
-                    ->select(Matching::ID)
-                    ->where($authUserGenderColumn, $authUser->getKey())
-                    ->getQuery()
-                ;
-                $friendQuery = Friend::query()
-                    ->select(Friend::MATCH_ID)
-                    ->whereIn(Friend::MATCH_ID, $matchQuery)
-                    ->where(Friend::SENDER_ID, $authUser->getKey())
-                    ->getQuery()
-                ;
-
                 if ('friend' == $type) {
-                    $query->whereIn(ChattingContent::ID, function ($query) use ($friendQuery) {
-                        $nestedQuery = ChattingContent::query()
-                            ->select('id', 'match_id')
-                            ->orderBy('created_at', 'desc')
-                            ->whereIn(ChattingContent::MATCH_ID, $friendQuery)
-                            ->limit(100) // 1000000000000000000
-                            ->getQuery()
-                        ;
-
-                        $subQuery = app('db')
-                            ->table($nestedQuery, 't')
-                            ->select('id')
-                            ->groupBy('match_id')
-                        ;
-
-                        $query
-                            ->from($subQuery, 'tt')
-                            ->select('id')
-                        ;
-
-                        return $query;
+                    $friendQuery = Friend::query()
+                        ->select(Friend::MATCH_ID)
+                        ->where(Friend::SENDER_ID, $authUser->getKey())
+                        ->getQuery()
+                    ;
+                    $subquery = ChattingContent::query()
+                        ->select(
+                            DB::raw(ChattingContent::MATCH_ID.' as '.ChattingContent::MATCH_ID.'2'),
+                            DB::raw('max('.ChattingContent::CREATED_AT.') as '.ChattingContent::CREATED_AT.'2')
+                        )
+                        ->whereIn(ChattingContent::MATCH_ID, $friendQuery)
+                        ->groupBy(ChattingContent::MATCH_ID)
+                    ;
+                    $query->joinSub($subquery, 'latest_chattings', function ($join) use ($query) {
+                        $join->on(
+                            $query->from.'.'.ChattingContent::MATCH_ID,
+                            '=',
+                            'latest_chattings.'.ChattingContent::MATCH_ID.'2'
+                        )->on(
+                            $query->from.'.'.ChattingContent::CREATED_AT,
+                            '=',
+                            'latest_chattings.'.ChattingContent::CREATED_AT.'2'
+                        );
                     });
+
+                    $query->groupBy(ChattingContent::MATCH_ID);
                 }
             },
         ];

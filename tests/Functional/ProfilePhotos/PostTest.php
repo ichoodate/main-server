@@ -20,13 +20,13 @@ class PostTest extends _TestCase
 
         $this->when(function () {
             $this->setAuthUser(User::find(1));
-            $this->setInputParameter('data', ['iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+ip1sAAAAASUVORK5CYII=']);
+            $this->setInputParameter('data', ['data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPj/HwADBwIAMCbHYQAAAABJRU5ErkJggg==']);
 
             $this->runService();
 
             $this->assertResultWithPersisting(collect([new ProfilePhoto([
                 'user_id' => 1,
-                'data' => 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+ip1sAAAAASUVORK5CYII=',
+                'data' => 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPj/HwADBwIAMCbHYQAAAABJRU5ErkJggg==',
             ])]));
         });
     }
@@ -38,7 +38,7 @@ class PostTest extends _TestCase
 
             $this->runService();
 
-            $this->assertError('[data][0] must be base64 image string.');
+            $this->assertError('[data][0] is not base64 image string or unsupported mime type.');
         });
     }
 

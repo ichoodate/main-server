@@ -15,7 +15,7 @@ class MatchingFactory extends Factory
 
     public function createAll($data = [], ?Model $parent = null)
     {
-        $attrs = Arr::only($data, array_keys((new static())->definition()));
+        $attrs = Arr::only($data, (new Matching())->getFillable());
         $model = $this->create($attrs);
         $data = Arr::add($data, Matching::CARDS, []);
         $data = Arr::add($data, Matching::FRIENDS, []);

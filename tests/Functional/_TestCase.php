@@ -46,7 +46,7 @@ class _TestCase extends TestCase
 
     public function assertError($msg)
     {
-        $errors = $this->service->totalErrors();
+        $errors = $this->service->getTotalErrors();
 
         $this->assertContains($msg, $errors, implode(',', $errors));
     }
@@ -65,19 +65,20 @@ class _TestCase extends TestCase
 
     public function assertResult($expect)
     {
-        $errors = $this->service->totalErrors();
+        $errors = $this->service->getTotalErrors();
         $this->assertEquals([], $errors, implode(',', $errors));
 
-        $result = $this->service->data()->getArrayCopy()['result'];
+        $result = $this->service->getData()->getArrayCopy()['result'];
+
         $this->assertEquals($expect, $result);
     }
 
     public function assertResultWithFinding($expectId)
     {
-        $errors = $this->service->totalErrors();
+        $errors = $this->service->getTotalErrors();
         $this->assertEquals([], $errors, implode(',', $errors));
 
-        $result = $this->service->data()->getArrayCopy()['result'];
+        $result = $this->service->getData()->getArrayCopy()['result'];
 
         $this->assertInstanceOf(Model::class, $result);
         $this->assertEquals($expectId, $result->getKey());
@@ -85,10 +86,10 @@ class _TestCase extends TestCase
 
     public function assertResultWithListing($expectIds)
     {
-        $errors = $this->service->totalErrors();
+        $errors = $this->service->getTotalErrors();
         $this->assertEquals([], $errors, implode(',', $errors));
 
-        $result = $this->service->data()->getArrayCopy()['result'];
+        $result = $this->service->getData()->getArrayCopy()['result'];
 
         foreach ($expectIds as $expectId) {
             $this->assertContains($expectId, $result->modelKeys());
@@ -97,10 +98,10 @@ class _TestCase extends TestCase
 
     public function assertResultWithPaging($expectIds)
     {
-        $errors = $this->service->totalErrors();
+        $errors = $this->service->getTotalErrors();
         $this->assertEquals([], $errors, implode(',', $errors));
 
-        $result = $this->service->data()->getArrayCopy()['result']->modelKeys();
+        $result = $this->service->getData()->getArrayCopy()['result']->modelKeys();
 
         sort($expectIds);
         sort($result);
@@ -110,10 +111,10 @@ class _TestCase extends TestCase
 
     public function assertResultWithPersisting($expects)
     {
-        $errors = $this->service->totalErrors();
+        $errors = $this->service->getTotalErrors();
         $this->assertEquals([], $errors, implode(',', $errors));
 
-        $result = $this->service->data()->getArrayCopy()['result'];
+        $result = $this->service->getData()->getArrayCopy()['result'];
         if ($expects instanceof Model) {
             $this->assertInstanceOf(Model::class, $result);
 
@@ -146,14 +147,13 @@ class _TestCase extends TestCase
     {
         $response = $this->getResponse();
         $content = $response->getOriginalContent();
-
-        $this->assertTrue(Service::isInitable($content));
+        $this->assertTrue(Service::isInitable($content), json_encode($content).' is not initable service.');
 
         $service = Service::initService($content);
         $service->run();
 
         $this->service = $service;
-        $this->data = $service->data()->getArrayCopy();
+        $this->data = $service->getData()->getArrayCopy();
 
         return $service;
     }

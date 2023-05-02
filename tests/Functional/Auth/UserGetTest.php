@@ -31,7 +31,17 @@ class UserGetTest extends _TestCase
 
             $this->runService();
 
-            $this->assertResult(User::find(2));
+            $this->assertResult(
+                User::query()
+                    ->select(
+                        array_diff(
+                            (new User())->getFillable(),
+                            (new User())->getHidden(),
+                        )
+                    )
+                    ->where(User::ID, 2)
+                    ->first()
+            );
         });
     }
 }

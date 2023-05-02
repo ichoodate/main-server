@@ -21,7 +21,7 @@ class SetAuthUserMiddleware
         $data = $content[1];
         $names = $content[2];
 
-        if ($data['auth_token']) {
+        if (in_array('auth_token', $data) && $data['auth_token']) {
             $authService = new AuthUserFindingService([
                 'auth_token' => $data['auth_token'],
             ], [
@@ -29,8 +29,8 @@ class SetAuthUserMiddleware
             ]);
             $authService->run();
 
-            if (empty($authService->totalErrors())) {
-                Auth::setUser($authService->data()['result']);
+            if (empty($authService->getTotalErrors())) {
+                Auth::setUser($authService->getData()['result']);
             } else {
                 $data['auth_user'] = [AuthUserFindingService::class, [
                     'auth_token' => $data['auth_token'],

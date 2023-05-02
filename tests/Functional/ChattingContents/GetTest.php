@@ -29,8 +29,9 @@ class GetTest extends _TestCase
         ChattingContent::factory()->create(['id' => 22, 'writer_id' => 2, 'match_id' => 11]);
         ChattingContent::factory()->create(['id' => 23, 'writer_id' => 1, 'match_id' => 12]);
         ChattingContent::factory()->create(['id' => 24, 'writer_id' => 3, 'match_id' => 12]);
-        ChattingContent::factory()->create(['id' => 25, 'writer_id' => 1, 'match_id' => 13]);
-        ChattingContent::factory()->create(['id' => 26, 'writer_id' => 4, 'match_id' => 13]);
+        ChattingContent::factory()->create(['id' => 25, 'writer_id' => 1, 'match_id' => 13, 'created_at' => '2011-01-11 00:00:00']);
+        ChattingContent::factory()->create(['id' => 26, 'writer_id' => 4, 'match_id' => 13, 'created_at' => '2011-02-13 00:00:00']);
+        ChattingContent::factory()->create(['id' => 27, 'writer_id' => 4, 'match_id' => 13, 'created_at' => '2011-01-12 00:00:00']);
         Friend::factory()->create(['id' => 31, 'match_id' => 13, 'sender_id' => 1, 'receiver_id' => 4]);
 
         $this->when(function () {
@@ -57,7 +58,7 @@ class GetTest extends _TestCase
 
             $this->runService();
 
-            $this->assertResultWithListing([25, 26]);
+            $this->assertResultWithListing([26]);
         });
     }
 

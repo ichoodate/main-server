@@ -12,7 +12,7 @@ class CountryFactory extends Factory
     public function definition()
     {
         return [
-            Country::ISO => $this->faker->countryCode,
+            Country::ISO => $this->faker->unique()->countryCode,
 
             Country::NAME => $this->faker->country,
 

@@ -14,7 +14,7 @@ class CardGroupFactory extends Factory
 
     public function createAll($data = [], ?Model $parent = null)
     {
-        $attrs = Arr::only($data, array_keys((new static())->definition()));
+        $attrs = Arr::only($data, (new CardGroup())->getFillable());
         $model = parent::create($attrs, $parent);
         $data = Arr::add($data, CardGroup::CARDS, []);
 

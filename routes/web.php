@@ -37,7 +37,7 @@ Route::middleware([
     Route::get('auth/sign-out', 'AuthSignOutController@index');
     Route::post('auth/sign-up', 'AuthSignUpController@store');
     Route::get('auth/user', 'AuthUserController@index');
-    Route::patch('auth/user', 'AuthUserController@update');
+    Route::put('auth/user', 'AuthUserController@update');
     Route::get('balances', 'BalanceController@index');
     Route::get('balances/{id}', 'BalanceController@show');
     Route::get('cards', 'CardController@index');
@@ -134,7 +134,7 @@ Route::middleware([
     Route::post('profile-photos', 'ProfilePhotoController@store');
     Route::get('profile-photos/{id}', 'ProfilePhotoController@show');
     Route::post('pwd-resets', 'PwdResetController@store');
-    Route::patch('pwd-resets/{id}', 'PwdResetController@update');
+    Route::put('pwd-resets/{id}', 'PwdResetController@update');
     Route::get('roles', 'RoleController@index');
     Route::get('roles/{id}', 'RoleController@show');
     Route::get('subscriptions', 'SubscriptionController@index');
