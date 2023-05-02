@@ -37,7 +37,7 @@ class MatchingCreatingService extends Service
                 $matches = (new Matching())->newCollection();
 
                 foreach ($newMatchingUserIds as $userId) {
-                    $match = Matching::create([
+                    $match = (new Matching())->create([
                         $authUserIdField => $authUser->getKey(),
                         $matchingUserIdField => $userId,
                     ]);

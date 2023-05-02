@@ -40,7 +40,7 @@ class FriendCreatingService extends Service
                 ;
 
                 if (!empty($friend) && empty($chattingContent)) {
-                    ChattingContent::create([
+                    (new ChattingContent())->create([
                         ChattingContent::WRITER_ID => null,
                         ChattingContent::MESSAGE => '',
                         ChattingContent::MATCH_ID => $friend->{Friend::MATCH_ID},
@@ -83,7 +83,7 @@ class FriendCreatingService extends Service
             },
 
             'result' => function ($authUser, $match, $user) {
-                return Friend::create([
+                return (new Friend())->create([
                     Friend::SENDER_ID => $authUser->getKey(),
                     Friend::RECEIVER_ID => $user->getKey(),
                     Friend::MATCH_ID => $match->getKey(),

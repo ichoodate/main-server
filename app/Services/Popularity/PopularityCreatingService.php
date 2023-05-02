@@ -39,7 +39,7 @@ class PopularityCreatingService extends Service
             },
 
             'created' => function ($authUser, $point, $user) {
-                return Popularity::create([
+                return (new Popularity())->create([
                     Popularity::SENDER_ID => $authUser->getKey(),
                     Popularity::RECEIVER_ID => $user->getKey(),
                     Popularity::POINT => $point,
