@@ -1,10 +1,25 @@
 steps:
-  - name: gcr.io/cloud-builders/gcloud
+  - id: "start docker services"
+    name: "docker/compose"
+    args: ["up", "-d"]
+
+  - id: "check docker services is ready"
+    name: "gcr.io/cloud-builders/docker"
+    args:
+      ["exec", "-t", "nginx", "./wait-for-it.sh", "--timeout=0", "localhost:80"]
+
+  - id: "run tests"
+    name: "gcr.io/cloud-builders/docker"
+    args: ["exec", "-t", "php", "php", "./vendor/bin/phpunit"]
+
+  - id: "download production environment file"
+    name: gcr.io/cloud-builders/gcloud
     entrypoint: "bash"
     args:
-      [
-        "-c",
-        "gcloud secrets versions access latest --secret=main-server-production-env > .env.production",
-      ]
-  - name: "gcr.io/cloud-builders/gcloud"
+      - "-c"
+      - |
+        gcloud secrets versions access latest --secret=main-server-production-env > .env.production
+
+  - id: "deploy application"
+    name: "gcr.io/cloud-builders/gcloud"
     args: ["app", "deploy", "--version", "0-1-0", "--no-cache"]

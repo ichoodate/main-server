@@ -13,3 +13,6 @@
 
 # php-cs-fixer
 .php-cs-fixer.cache
+
+# docker
+/wait-for-it.sh
