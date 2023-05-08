@@ -580,12 +580,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/functional-coding/php.git",
-                "reference": "aaab86281beedfb50ef792e582bb4f431b32a181"
+                "reference": "bdd188823cb6d83034547ae39d0a63f238598c78"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/functional-coding/php/zipball/aaab86281beedfb50ef792e582bb4f431b32a181",
-                "reference": "aaab86281beedfb50ef792e582bb4f431b32a181",
+                "url": "https://api.github.com/repos/functional-coding/php/zipball/bdd188823cb6d83034547ae39d0a63f238598c78",
+                "reference": "bdd188823cb6d83034547ae39d0a63f238598c78",
                 "shasum": ""
             },
             "require": {
