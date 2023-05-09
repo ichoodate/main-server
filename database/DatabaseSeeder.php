@@ -114,14 +114,16 @@ class DatabaseSeeder extends Seeder
         }
     }
 
-    public function saveMany(array $modelList)
+    public function saveMany($modelList2)
     {
-        $modelList = array_filter($modelList, function ($fff) {
+        $modelList = collect($modelList2)->filter(function ($fff) {
             return !$fff->exists;
-        });
+        })->values()->all();
+
         if (empty($modelList)) {
             return [];
         }
+
         $modelClass = get_class($modelList[0]);
         $modelType = (new $modelClass())->getModelType();
         $objAttrs = array_fill(0, count($modelList), [Obj::TYPE => $modelType]);
@@ -134,7 +136,10 @@ class DatabaseSeeder extends Seeder
 
         foreach ($objAttrs as $i => $objAttr) {
             $modelList[$i]->id = $objAttr[Obj::ID];
-            $modelList[$i] = $modelList[$i]->toArray();
+            $modelList[$i] = array_merge(
+                $modelList[$i]->toArray(),
+                ['id' => $objAttr[Obj::ID]],
+            );
         }
         $modelClass::insert($modelList);
 
