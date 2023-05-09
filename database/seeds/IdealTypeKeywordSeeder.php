@@ -33,6 +33,7 @@ class IdealTypeKeywordSeeder extends DatabaseSeeder
         $weightRanges = WeightRange::get()->all();
 
         for ($userId = 1; $userId <= User::count(); ++$userId) {
+            var_dump(static::class, $userId);
             $this->add(IdealTypeKeyword::factory()->make([
                 IdealTypeKeyword::USER_ID => $userId,
                 IdealTypeKeyword::KEYWORD_ID => Arr::random($ageRanges)->id,

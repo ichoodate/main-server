@@ -13,6 +13,7 @@ class CardSeeder extends DatabaseSeeder
     public function run()
     {
         for ($i = 0; $i < CardGroup::count(); ++$i) {
+            var_dump(static::class, $i);
             $cardGroup = CardGroup::find(CardGroup::select(CardGroup::ID)->skip($i)->first()->{CardGroup::ID});
             $chooser = User::find($cardGroup->{CardGroup::USER_ID});
             $chooserGender = $chooser->{User::GENDER};

@@ -28,6 +28,7 @@ class CardFlipSeeder extends DatabaseSeeder
     {
         $i = 0;
         while ($cards = $this->getChunk(Card::class, $i++)) {
+            var_dump(static::class, $i);
             foreach ($cards as $card) {
                 foreach ([
                     $card->{Card::CHOOSER_ID},

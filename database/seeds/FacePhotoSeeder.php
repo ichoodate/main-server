@@ -14,6 +14,7 @@ class FacePhotoSeeder extends DatabaseSeeder
         $data = 'data:image/jpeg;base64,'.base64_encode(file_get_contents('https://picsum.photos/400/400'));
 
         for ($userId = 1; $userId <= User::count(); ++$userId) {
+            var_dump(static::class, $userId);
             $photo = FacePhoto::select(FacePhoto::ID)->where('user_id', $userId)->first();
 
             if (empty($photo)) {

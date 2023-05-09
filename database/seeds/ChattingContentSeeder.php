@@ -12,9 +12,8 @@ class ChattingContentSeeder extends DatabaseSeeder
 {
     public function run()
     {
-        $count = Matching::count();
-
-        for ($i = 0; $i < $count; ++$i) {
+        for ($i = 0; $i < Matching::count(); ++$i) {
+            var_dump(static::class, $i);
             $match = Matching::find(Matching::select(Matching::ID)->skip($i)->first()->{Matching::ID});
             $friends = Friend::where(Friend::MATCH_ID, $match->getKey())->get();
 

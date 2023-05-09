@@ -33,6 +33,7 @@ class UserKeywordSeeder extends DatabaseSeeder
         $weights = Weight::get()->all();
 
         for ($userId = 1; $userId <= User::count(); ++$userId) {
+            var_dump(static::class, $userId);
             $this->add(UserKeyword::factory()->make([
                 UserKeyword::USER_ID => $userId,
                 UserKeyword::KEYWORD_ID => Arr::random($birthYears)->id,

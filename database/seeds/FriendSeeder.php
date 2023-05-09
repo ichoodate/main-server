@@ -12,6 +12,7 @@ class FriendSeeder extends DatabaseSeeder
     public function run()
     {
         for ($i = 0; $i < CardFlip::count(); ++$i) {
+            var_dump(static::class, $i);
             $flip = CardFlip::find(CardFlip::select(CardFlip::ID)->skip($i)->first()->{CardFlip::ID});
             $card = $flip->card;
 
