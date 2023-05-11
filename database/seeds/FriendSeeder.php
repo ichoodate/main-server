@@ -17,13 +17,26 @@ class FriendSeeder extends DatabaseSeeder
             $card = $flip->card;
 
             if (0 !== rand(0, 2)) {
-                $senderId = $flip->{CardFlip::USER_ID} == $card->{Card::CHOOSER_ID} ? $card->{Card::SHOWNER_ID} : $card->{Card::CHOOSER_ID};
+                $userId = $flip->{CardFlip::USER_ID};
+                $otherUserId = $userId == $card->{Card::CHOOSER_ID} ? $card->{Card::SHOWNER_ID} : $card->{Card::CHOOSER_ID};
 
-                Friend::factory()->create([
-                    Friend::MATCH_ID => $card->{Card::MATCH_ID},
-                    Friend::SENDER_ID => $senderId,
-                    Friend::RECEIVER_ID => $flip->{CardFlip::USER_ID},
-                ]);
+                if (0 == Friend::where(Friend::SENDER_ID, $userId)->count()) {
+                    Friend::factory()->create([
+                        Friend::MATCH_ID => $card->{Card::MATCH_ID},
+                        Friend::SENDER_ID => $userId,
+                        Friend::RECEIVER_ID => $otherUserId,
+                    ]);
+                }
+
+                if (0 !== rand(0, 2)) {
+                    if (0 == Friend::where(Friend::SENDER_ID, $otherUserId)->count()) {
+                        Friend::factory()->create([
+                            Friend::MATCH_ID => $card->{Card::MATCH_ID},
+                            Friend::SENDER_ID => $otherUserId,
+                            Friend::RECEIVER_ID => $userId,
+                        ]);
+                    }
+                }
             }
         }
     }
