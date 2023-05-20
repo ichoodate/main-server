@@ -2,7 +2,7 @@
 
 namespace App\Http\Middlewares;
 
-class RequestInputValueCastingMiddleware
+class CastRequestInputMiddleware
 {
     public function handle($request, $next)
     {

@@ -3,6 +3,7 @@
 namespace App\Http\Middlewares;
 
 use App\Services\Auth\AuthUserFindingService;
+use FunctionalCoding\Service;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 
@@ -13,7 +14,7 @@ class SetAuthUserMiddleware
         $response = $next($request);
         $content = $response->getOriginalContent();
 
-        if (!$content) {
+        if (!Service::isInitable($content)) {
             return $response;
         }
 
@@ -32,15 +33,11 @@ class SetAuthUserMiddleware
             if (empty($authService->getTotalErrors())) {
                 Auth::setUser($authService->getData()['result']);
             } else {
-                $data['auth_user'] = [AuthUserFindingService::class, [
-                    'auth_token' => $data['auth_token'],
-                ], [
-                    'auth_token' => $names['auth_token'],
-                ]];
+                $data['auth_user'] = $authService;
             }
         }
 
-        $response->{'Response' == Arr::last(explode('\\', get_class($response))) ? 'setContent' : 'setData'}([$class, $data, $names]);
+        $response->{'JsonResponse' == Arr::last(explode('\\', get_class($response))) ? 'setData' : 'setContent'}([$class, $data, $names]);
 
         return $response;
     }

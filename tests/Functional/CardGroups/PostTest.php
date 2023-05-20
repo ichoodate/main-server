@@ -11,6 +11,7 @@ use Tests\Functional\_TestCase;
 
 /**
  * @internal
+ *
  * @coversNothing
  */
 class PostTest extends _TestCase

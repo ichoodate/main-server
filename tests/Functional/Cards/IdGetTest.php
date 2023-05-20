@@ -8,6 +8,7 @@ use Tests\Functional\_TestCase;
 
 /**
  * @internal
+ *
  * @coversNothing
  */
 class IdGetTest extends _TestCase

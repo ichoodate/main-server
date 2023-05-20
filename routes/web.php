@@ -11,11 +11,11 @@
 |
 */
 
-use App\Http\Middlewares\RequestInputValueCastingMiddleware;
+use App\Http\Middlewares\CastRequestInputMiddleware;
 use App\Http\Middlewares\ResponseHeaderSettingMiddleware;
-use App\Http\Middlewares\ServiceParameterSettingMiddleware;
-use App\Http\Middlewares\ServiceRunMiddleware;
 use App\Http\Middlewares\SetAuthUserMiddleware;
+use FunctionalCoding\ORM\Eloquent\Http\ServiceParameterMiddleware;
+use FunctionalCoding\ORM\Eloquent\Http\ServiceRunMiddleware;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 
@@ -29,8 +29,8 @@ $prefix = $_SERVER['DOCUMENT_ROOT'] && Str::startsWith(__FILE__, str_replace('/'
 Route::middleware([
     ServiceRunMiddleware::class,
     SetAuthUserMiddleware::class,
-    ServiceParameterSettingMiddleware::class,
-    RequestInputValueCastingMiddleware::class,
+    ServiceParameterMiddleware::class,
+    CastRequestInputMiddleware::class,
     ResponseHeaderSettingMiddleware::class,
 ])->prefix($prefix)->group(function () {
     Route::post('auth/sign-in', 'AuthSignInController@store');

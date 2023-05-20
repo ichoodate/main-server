@@ -163,8 +163,8 @@ return [
         // App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\ModelRelationMapProvider::class,
-        App\Providers\ValidationProvider::class,
-        FunctionalCoding\Illuminate\ValidationProvider::class,
+        FunctionalCoding\ORM\Eloquent\Providers\ServiceJsonApiProvider::class,
+        FunctionalCoding\ORM\Eloquent\Providers\ServiceTransactionProvider::class,
     ],
 
     /*

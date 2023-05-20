@@ -3,10 +3,10 @@
 namespace Tests\Functional;
 
 use App\Http\Middlewares\ResponseHeaderSettingMiddleware;
-use App\Http\Middlewares\ServiceRunMiddleware;
 use App\Model;
 use Faker\Generator as Faker;
 use FunctionalCoding\JWT\Service\TokenEncryptionService;
+use FunctionalCoding\ORM\Eloquent\Http\ServiceRunMiddleware;
 use FunctionalCoding\Service;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -14,6 +14,7 @@ use Tests\TestCase;
 
 /**
  * @internal
+ *
  * @coversNothing
  */
 class _TestCase extends TestCase
@@ -26,6 +27,14 @@ class _TestCase extends TestCase
 
         $this->withoutMiddleware(ServiceRunMiddleware::class);
         $this->withoutMiddleware(ResponseHeaderSettingMiddleware::class);
+        Service::setResponseErrorsResolver(function ($errors) {
+            $msgs = [];
+            \array_walk_recursive($errors, function ($value) use (&$msgs) {
+                $msgs[] = $value;
+            });
+
+            return $msgs;
+        });
 
         app('db')->beginTransaction();
     }
@@ -41,11 +50,11 @@ class _TestCase extends TestCase
         parent::tearDown();
     }
 
-    public function assertError($msg)
+    public function assertError($error)
     {
-        $errors = $this->service->getTotalErrors();
+        $errors = $this->service->getResponseErrors();
 
-        $this->assertContains($msg, $errors, implode(',', $errors));
+        $this->assertContains($error, $errors, implode(',', $errors));
     }
 
     public function assertPersistence($model, $existCount = 1)
@@ -62,7 +71,7 @@ class _TestCase extends TestCase
 
     public function assertResult($expect)
     {
-        $errors = $this->service->getTotalErrors();
+        $errors = $this->service->getResponseErrors();
         $this->assertEquals([], $errors, implode(',', $errors));
 
         $result = $this->service->getData()->getArrayCopy()['result'];
@@ -72,7 +81,7 @@ class _TestCase extends TestCase
 
     public function assertResultWithFinding($expectId)
     {
-        $errors = $this->service->getTotalErrors();
+        $errors = $this->service->getResponseErrors();
         $this->assertEquals([], $errors, implode(',', $errors));
 
         $result = $this->service->getData()->getArrayCopy()['result'];
@@ -83,7 +92,7 @@ class _TestCase extends TestCase
 
     public function assertResultWithListing($expectIds)
     {
-        $errors = $this->service->getTotalErrors();
+        $errors = $this->service->getResponseErrors();
         $this->assertEquals([], $errors, implode(',', $errors));
 
         $result = $this->service->getData()->getArrayCopy()['result'];
@@ -95,7 +104,7 @@ class _TestCase extends TestCase
 
     public function assertResultWithPaging($expectIds)
     {
-        $errors = $this->service->getTotalErrors();
+        $errors = $this->service->getResponseErrors();
         $this->assertEquals([], $errors, implode(',', $errors));
 
         $result = $this->service->getData()->getArrayCopy()['result']->modelKeys();
@@ -108,7 +117,7 @@ class _TestCase extends TestCase
 
     public function assertResultWithPersisting($expects)
     {
-        $errors = $this->service->getTotalErrors();
+        $errors = $this->service->getResponseErrors();
         $this->assertEquals([], $errors, implode(',', $errors));
 
         $result = $this->service->getData()->getArrayCopy()['result'];

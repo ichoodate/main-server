@@ -11,9 +11,9 @@
     "require": {
         "php": ">=7.4",
         "fruitcake/laravel-cors": "^2.0",
-        "functional-coding/php": "dev-master",
-        "functional-coding/php-eloquent-orm": "dev-master",
-        "functional-coding/php-jwt": "dev-master",
+        "functional-coding/base": "dev-master",
+        "functional-coding/eloquent-orm": "dev-master",
+        "functional-coding/jwt": "dev-master",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.54",
         "laravel/tinker": "^2.5"

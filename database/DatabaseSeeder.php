@@ -109,6 +109,7 @@ class DatabaseSeeder extends Seeder
             \Database\Seeds\Keyword\WeightSeeder::class,
             \Database\Seeds\UserKeywordSeeder::class,
             \Database\Seeds\IdealTypeKeywordSeeder::class,
+            \Database\Seeds\NoticeSeeder::class,
         ] as $seederClass) {
             $this->call($seederClass);
         }

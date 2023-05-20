@@ -7,6 +7,7 @@ use Tests\Functional\_TestCase;
 
 /**
  * @internal
+ *
  * @coversNothing
  */
 class UserGetTest extends _TestCase
@@ -20,10 +21,9 @@ class UserGetTest extends _TestCase
         User::factory()->create(['id' => 3]);
 
         $this->when(function () {
-            $response = $this->getResponse();
-            $content = $response->getOriginalContent();
+            $this->runService();
 
-            $this->assertEquals(null, $content);
+            $this->assertResult(null);
         });
 
         $this->when(function () {
