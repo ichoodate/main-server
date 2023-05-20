@@ -15,7 +15,7 @@ class UserSeeder extends DatabaseSeeder
             User::PASSWORD => 'dbwhddn',
         ]);
 
-        for ($i = 1; $i < 1000; ++$i) {
+        for ($i = 1; $i < 100; ++$i) {
             var_dump(static::class, $i);
             $this->add(User::factory()->make([
                 User::EMAIL => 'test'.$i.'@ichoodate.com',
