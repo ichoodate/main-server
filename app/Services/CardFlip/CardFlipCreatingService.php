@@ -5,7 +5,6 @@ namespace App\Services\CardFlip;
 use App\Models\Card;
 use App\Models\CardFlip;
 use App\Relation;
-use App\Services\Auth\AuthUserFindingService;
 use App\Services\Card\CardFindingService;
 use App\Services\RequiredItem\RequiredItemListingService;
 use FunctionalCoding\Service;
@@ -15,8 +14,6 @@ class CardFlipCreatingService extends Service
     public static function getBindNames()
     {
         return [
-            'auth_user' => 'authorized user',
-
             'card' => 'card for {{card_id}}',
 
             'card_flip' => 'flip of {{card}}',
@@ -39,20 +36,12 @@ class CardFlipCreatingService extends Service
     public static function getLoaders()
     {
         return [
-            'auth_user' => function ($authToken = '') {
-                return [AuthUserFindingService::class, [
-                    'auth_token' => $authToken,
-                ], [
-                    'auth_token' => '{{auth_token}}',
-                ]];
-            },
-
-            'card' => function ($authToken, $cardId) {
+            'card' => function ($authUser, $cardId) {
                 return [CardFindingService::class, [
-                    'auth_token' => $authToken,
+                    'auth_user' => $authUser,
                     'id' => $cardId,
                 ], [
-                    'auth_token' => '{{auth_token}}',
+                    'auth_user' => '{{auth_user}}',
                     'id' => '{{card_id}}',
                 ]];
             },
@@ -73,14 +62,14 @@ class CardFlipCreatingService extends Service
                 return $requiredItems->where('type', 'coin')->first();
             },
 
-            'required_items' => function ($authToken, $card) {
+            'required_items' => function ($authUser, $card) {
                 return [RequiredItemListingService::class, [
-                    'auth_token' => $authToken,
+                    'auth_user' => $authUser,
                     'related' => $card,
                     'related_id' => $card->getKey(),
                     'related_type' => array_flip(Relation::morphMap())[get_class($card)],
                 ], [
-                    'auth_token' => '{{auth_token}}',
+                    'auth_user' => '{{auth_user}}',
                     'related' => '{{card}}',
                     'related_id' => '{{card_id}}',
                     'related_type' => array_flip(Relation::morphMap())[get_class($card)],
@@ -106,6 +95,8 @@ class CardFlipCreatingService extends Service
     public static function getRuleLists()
     {
         return [
+            'auth_user' => ['required'],
+
             'card_flip' => ['null'],
 
             'card_id' => ['required', 'integer'],

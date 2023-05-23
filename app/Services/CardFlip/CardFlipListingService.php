@@ -6,7 +6,6 @@ use App\Models\Card;
 use App\Models\CardFlip;
 use App\Models\Matching;
 use App\Models\User;
-use App\Services\Auth\AuthUserFindingService;
 use App\Services\User\MatchingUserFindingService;
 use FunctionalCoding\ORM\Eloquent\Service\ListService;
 use FunctionalCoding\Service;
@@ -51,14 +50,6 @@ class CardFlipListingService extends Service
     public static function getLoaders()
     {
         return [
-            'auth_user' => function ($authToken = '') {
-                return [AuthUserFindingService::class, [
-                    'auth_token' => $authToken,
-                ], [
-                    'auth_token' => '{{auth_token}}',
-                ]];
-            },
-
             'available_expands' => function () {
                 return [];
             },
@@ -71,12 +62,12 @@ class CardFlipListingService extends Service
                 return CardFlip::class;
             },
 
-            'related_user' => function ($authToken = '', $relatedUserId) {
+            'related_user' => function ($authUser, $relatedUserId) {
                 return [MatchingUserFindingService::class, [
-                    'auth_token' => $authToken,
+                    'auth_user' => $authUser,
                     'id' => $relatedUserId,
                 ], [
-                    'auth_token' => '{{auth_token}}',
+                    'auth_user' => '{{auth_user}}',
                     'id' => '{{related_user_id}}',
                 ]];
             },
@@ -91,6 +82,8 @@ class CardFlipListingService extends Service
     public static function getRuleLists()
     {
         return [
+            'auth_user' => ['required'],
+
             'flipper' => ['not_null'],
 
             'flipper_id' => ['integer'],

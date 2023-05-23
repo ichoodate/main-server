@@ -4,7 +4,6 @@ namespace App\Services\Payment;
 
 use App\Models\Item;
 use App\Models\Payment;
-use App\Services\Auth\AuthUserFindingService;
 use App\Services\Item\ItemFindingService;
 use FunctionalCoding\Service;
 
@@ -23,14 +22,6 @@ class PaymentCreatingService extends Service
     public static function getLoaders()
     {
         return [
-            'auth_user' => function ($authToken = '') {
-                return [AuthUserFindingService::class, [
-                    'auth_token' => $authToken,
-                ], [
-                    'auth_token' => '{{auth_token}}',
-                ]];
-            },
-
             'created' => function ($authUser, $item, $paymentAmount, $paymentCurrency) {
                 return (new Payment())->create([
                     Payment::USER_ID => $authUser->getKey(),
@@ -66,6 +57,8 @@ class PaymentCreatingService extends Service
     public static function getRuleLists()
     {
         return [
+            'auth_user' => ['required'],
+
             'item_id' => ['required', 'integer'],
 
             'payment_amount' => ['required', 'same:{{item_amount}}'],

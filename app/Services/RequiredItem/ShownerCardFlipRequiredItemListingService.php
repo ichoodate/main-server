@@ -21,10 +21,6 @@ class ShownerCardFlipRequiredItemListingService extends Service
     public static function getLoaders()
     {
         return [
-            'card' => function () {
-                throw new \Exception();
-            },
-
             'evaluated_time' => function ($card) {
                 return $card->{Card::UPDATED_AT};
             },
@@ -41,7 +37,7 @@ class ShownerCardFlipRequiredItemListingService extends Service
                 return strtotime($freeMinTime) <= strtotime($evaluatedTime);
             },
 
-            'result' => function ($card, $isFree) {
+            'result' => function ($isFree) {
                 if (!$isFree) {
                     return RequiredItem::where('type', 'card_flip')->get();
                 }
@@ -58,7 +54,9 @@ class ShownerCardFlipRequiredItemListingService extends Service
 
     public static function getRuleLists()
     {
-        return [];
+        return [
+            'card' => ['required'],
+        ];
     }
 
     public static function getTraits()

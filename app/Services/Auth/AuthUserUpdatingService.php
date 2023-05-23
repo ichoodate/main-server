@@ -48,7 +48,7 @@ class AuthUserUpdatingService extends Service
                 $authUser->{User::EMAIL_VERIFIED} = false;
                 $authUser->save();
 
-            // (new EmailVerfication)->create([
+                // (new EmailVerfication)->create([
                 //     EmailVerfication::EMAIL => $email,
                 //     EmailVerfication::CODE => str_random(6)
                 // ]);
@@ -66,14 +66,6 @@ class AuthUserUpdatingService extends Service
     public static function getLoaders()
     {
         return [
-            'auth_user' => function ($authToken = '') {
-                return [AuthUserFindingService::class, [
-                    'auth_token' => $authToken,
-                ], [
-                    'auth_token' => '{{auth_token}}',
-                ]];
-            },
-
             'result' => function ($authUser) {
                 return $authUser;
             },
@@ -88,6 +80,8 @@ class AuthUserUpdatingService extends Service
     public static function getRuleLists()
     {
         return [
+            'auth_user' => ['required'],
+
             'birth' => ['string', 'date_format:Y-m-d'],
 
             'email' => ['string', 'email'],

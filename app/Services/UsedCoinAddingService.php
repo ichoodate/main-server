@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Models\Balance;
 use App\Models\Coin;
-use App\Services\Auth\AuthUserFindingService;
 use FunctionalCoding\Service;
 
 class UsedCoinAddingService extends Service
@@ -32,14 +31,6 @@ class UsedCoinAddingService extends Service
     public static function getLoaders()
     {
         return [
-            'auth_user' => function ($authToken = '') {
-                return [AuthUserFindingService::class, [
-                    'auth_token' => $authToken,
-                ], [
-                    'auth_token' => '{{auth_token}}',
-                ]];
-            },
-
             'balances' => function ($authUser, $timezone) {
                 $time = new \DateTime('now', new \DateTimeZone($timezone));
 
@@ -100,6 +91,8 @@ class UsedCoinAddingService extends Service
     public static function getRuleLists()
     {
         return [
+            'auth_user' => ['required'],
+
             'remain_coin' => ['integer', 'min:{{required_coin}}'],
         ];
     }

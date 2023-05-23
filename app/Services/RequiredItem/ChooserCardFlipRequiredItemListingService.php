@@ -22,10 +22,6 @@ class ChooserCardFlipRequiredItemListingService extends Service
     public static function getLoaders()
     {
         return [
-            'auth_user' => function ($authToken = '') {
-                throw new \Exception();
-            },
-
             'card' => function () {
                 throw new \Exception();
             },
@@ -90,7 +86,9 @@ class ChooserCardFlipRequiredItemListingService extends Service
 
     public static function getRuleLists()
     {
-        return [];
+        return [
+            'auth_user' => ['required'],
+        ];
     }
 
     public static function getTraits()

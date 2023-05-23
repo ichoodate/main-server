@@ -21,10 +21,6 @@ class CardListCreatingService extends Service
     public static function getLoaders()
     {
         return [
-            'auth_user' => function () {
-                throw new \Exception();
-            },
-
             'card_group' => function () {
                 throw new \Exception();
             },
@@ -33,6 +29,8 @@ class CardListCreatingService extends Service
                 return [MatchingCreatingService::class, [
                     'auth_user' => $authUser,
                     'matching_users' => $users,
+                ], [
+                    'auth_user' => '{{auth_user}}',
                 ]];
             },
 
@@ -66,7 +64,9 @@ class CardListCreatingService extends Service
 
     public static function getRuleLists()
     {
-        return [];
+        return [
+            'auth_user' => ['required'],
+        ];
     }
 
     public static function getTraits()

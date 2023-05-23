@@ -4,7 +4,6 @@ namespace App\Services\IdealTypeKeyword;
 
 use App\Models\IdealTypeKeyword;
 use App\Models\Keyword\StatureRange;
-use App\Services\Auth\AuthUserFindingService;
 use App\Services\Keyword\StatureRange\StatureRangeFindingService;
 use FunctionalCoding\Service;
 
@@ -36,14 +35,6 @@ class IdealTypeStatureRangeKeywordUpdatingService extends Service
     public static function getLoaders()
     {
         return [
-            'auth_user' => function ($authToken = '') {
-                return [AuthUserFindingService::class, [
-                    'auth_token' => $authToken,
-                ], [
-                    'auth_token' => '{{auth_token}}',
-                ]];
-            },
-
             'keyword' => function ($keywordId) {
                 return [StatureRangeFindingService::class, [
                     'id' => $keywordId,
@@ -69,6 +60,8 @@ class IdealTypeStatureRangeKeywordUpdatingService extends Service
     public static function getRuleLists()
     {
         return [
+            'auth_user' => ['required'],
+
             'keyword_id' => ['required'],
         ];
     }

@@ -3,7 +3,6 @@
 namespace App\Services\Invoice;
 
 use App\Models\Invoice;
-use App\Services\Auth\AuthUserFindingService;
 use FunctionalCoding\ORM\Eloquent\Service\PaginationListService;
 use FunctionalCoding\Service;
 
@@ -26,14 +25,6 @@ class InvoiceListingService extends Service
     public static function getLoaders()
     {
         return [
-            'auth_user' => function ($authToken = '') {
-                return [AuthUserFindingService::class, [
-                    'auth_token' => $authToken,
-                ], [
-                    'auth_token' => '{{auth_token}}',
-                ]];
-            },
-
             'available_expands' => function () {
                 return ['user'];
             },
@@ -61,7 +52,9 @@ class InvoiceListingService extends Service
 
     public static function getRuleLists()
     {
-        return [];
+        return [
+            'auth_user' => ['required'],
+        ];
     }
 
     public static function getTraits()

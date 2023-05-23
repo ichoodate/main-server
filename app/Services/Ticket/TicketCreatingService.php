@@ -3,7 +3,6 @@
 namespace App\Services\Ticket;
 
 use App\Models\Ticket;
-use App\Services\Auth\AuthUserFindingService;
 use FunctionalCoding\Service;
 
 class TicketCreatingService extends Service
@@ -21,14 +20,6 @@ class TicketCreatingService extends Service
     public static function getLoaders()
     {
         return [
-            'auth_user' => function ($authToken = '') {
-                return [AuthUserFindingService::class, [
-                    'auth_token' => $authToken,
-                ], [
-                    'auth_token' => '{{auth_token}}',
-                ]];
-            },
-
             'created' => function ($authUser, $description, $subject) {
                 return (new Ticket())->create([
                     Ticket::WRITER_ID => $authUser->getKey(),
@@ -47,6 +38,8 @@ class TicketCreatingService extends Service
     public static function getRuleLists()
     {
         return [
+            'auth_user' => ['required'],
+
             'description' => ['required', 'string'],
 
             'subject' => ['required', 'string'],

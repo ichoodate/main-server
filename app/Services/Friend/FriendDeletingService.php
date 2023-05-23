@@ -3,7 +3,6 @@
 namespace App\Services\Friend;
 
 use App\Models\Friend;
-use App\Services\Auth\AuthUserFindingService;
 use App\Services\PermittedUserRequiringService;
 use FunctionalCoding\ORM\Eloquent\Service\Feature\ModelFeatureService;
 use FunctionalCoding\Service;
@@ -27,14 +26,6 @@ class FriendDeletingService extends Service
     public static function getLoaders()
     {
         return [
-            'auth_user' => function ($authToken = '') {
-                return [AuthUserFindingService::class, [
-                    'auth_token' => $authToken,
-                ], [
-                    'auth_token' => '{{auth_token}}',
-                ]];
-            },
-
             'model_class' => function () {
                 return Friend::class;
             },
@@ -58,7 +49,9 @@ class FriendDeletingService extends Service
 
     public static function getRuleLists()
     {
-        return [];
+        return [
+            'auth_user' => ['required'],
+        ];
     }
 
     public static function getTraits()

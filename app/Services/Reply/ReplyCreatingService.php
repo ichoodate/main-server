@@ -3,7 +3,6 @@
 namespace App\Services\Reply;
 
 use App\Models\Reply;
-use App\Services\Auth\AuthUserFindingService;
 use App\Services\Ticket\TicketFindingService;
 use FunctionalCoding\Service;
 
@@ -22,14 +21,6 @@ class ReplyCreatingService extends Service
     public static function getLoaders()
     {
         return [
-            'auth_user' => function ($authToken = '') {
-                return [AuthUserFindingService::class, [
-                    'auth_token' => $authToken,
-                ], [
-                    'auth_token' => '{{auth_token}}',
-                ]];
-            },
-
             'result' => function ($authUser, $description, $ticket) {
                 return (new Reply())->create([
                     Reply::WRITER_ID => $authUser->getKey(),
@@ -38,12 +29,12 @@ class ReplyCreatingService extends Service
                 ]);
             },
 
-            'ticket' => function ($authToken, $ticketId) {
+            'ticket' => function ($authUser, $ticketId) {
                 return [TicketFindingService::class, [
-                    'auth_token' => $authToken,
+                    'auth_user' => $authUser,
                     'id' => $ticketId,
                 ], [
-                    'auth_token' => '{{auth_token}}',
+                    'auth_user' => '{{auth_user}}',
                     'id' => '{{ticket_id}}',
                 ]];
             },
@@ -58,6 +49,8 @@ class ReplyCreatingService extends Service
     public static function getRuleLists()
     {
         return [
+            'auth_user' => ['required'],
+
             'description' => ['required', 'string'],
 
             'ticket_id' => ['required', 'integer'],

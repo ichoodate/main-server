@@ -5,7 +5,6 @@ namespace App\Services\User;
 use App\Models\Obj;
 use App\Models\User;
 use App\Models\UserKeyword;
-use App\Services\Auth\AuthUserFindingService;
 use FunctionalCoding\ORM\Eloquent\Service\RandomListService;
 use FunctionalCoding\Service;
 use Illuminate\Support\Facades\DB;
@@ -24,7 +23,7 @@ class MatchingUserListingService extends Service
     public static function getCallbacks()
     {
         return [
-            'query.keywords' => function ($keywords = '', $matchingGender, $query, $strict) {
+            'query.keywords' => function ($keywords, $matchingGender, $query, $strict) {
                 $nestedQuery = (new User())->query()
                     ->select(User::ID)
                     ->where(User::GENDER, $matchingGender)
@@ -62,14 +61,6 @@ class MatchingUserListingService extends Service
     public static function getLoaders()
     {
         return [
-            'auth_user' => function ($authToken = '') {
-                return [AuthUserFindingService::class, [
-                    'auth_token' => $authToken,
-                ], [
-                    'auth_token' => '{{auth_token}}',
-                ]];
-            },
-
             'available_expands' => function () {
                 return ['facePhoto', 'friend', 'match', 'match.cards.flips', 'popularity'];
             },
@@ -115,6 +106,8 @@ class MatchingUserListingService extends Service
     public static function getRuleLists()
     {
         return [
+            'auth_user' => ['required'],
+
             'keyword_ids' => ['integers'],
 
             'keywords' => ['array'],

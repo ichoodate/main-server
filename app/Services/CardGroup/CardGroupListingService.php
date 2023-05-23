@@ -3,7 +3,6 @@
 namespace App\Services\CardGroup;
 
 use App\Models\CardGroup;
-use App\Services\Auth\AuthUserFindingService;
 use FunctionalCoding\ORM\Eloquent\Service\PaginationListService;
 use FunctionalCoding\Service;
 
@@ -40,24 +39,16 @@ class CardGroupListingService extends Service
     public static function getLoaders()
     {
         return [
-            'auth_user' => function ($authToken = '') {
-                return [AuthUserFindingService::class, [
-                    'auth_token' => $authToken,
-                ], [
-                    'auth_token' => '{{auth_token}}',
-                ]];
-            },
-
             'available_expands' => function () {
                 return ['cards.flips', 'cards.chooser.facePhoto', 'cards.chooser.popularity', 'cards.showner.facePhoto', 'cards.showner.popularity', 'user'];
             },
 
-            'cursor' => function ($authToken, $cursorId) {
+            'cursor' => function ($authUser, $cursorId) {
                 return [CardGroupFindingService::class, [
-                    'auth_token' => $authToken,
+                    'auth_user' => $authUser,
                     'id' => $cursorId,
                 ], [
-                    'auth_token' => '{{auth_token}}',
+                    'auth_user' => '{{auth_user}}',
                     'id' => '{{cursor_id}}',
                 ]];
             },
@@ -77,6 +68,8 @@ class CardGroupListingService extends Service
     {
         return [
             'after' => ['string', 'date_format:Y-m-d H:i:s'],
+
+            'auth_user' => ['required'],
 
             'before' => ['string', 'date_format:Y-m-d H:i:s'],
 

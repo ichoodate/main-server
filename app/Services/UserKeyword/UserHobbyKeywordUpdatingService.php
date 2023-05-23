@@ -4,7 +4,6 @@ namespace App\Services\UserKeyword;
 
 use App\Models\Keyword\Hobby;
 use App\Models\UserKeyword;
-use App\Services\Auth\AuthUserFindingService;
 use FunctionalCoding\Service;
 
 class UserHobbyKeywordUpdatingService extends Service
@@ -39,14 +38,6 @@ class UserHobbyKeywordUpdatingService extends Service
     public static function getLoaders()
     {
         return [
-            'auth_user' => function ($authToken = '') {
-                return [AuthUserFindingService::class, [
-                    'auth_token' => $authToken,
-                ], [
-                    'auth_token' => '{{auth_token}}',
-                ]];
-            },
-
             'keywords' => function ($keywordIds) {
                 $keywordIds = preg_split('/\s*,\s*/', $keywordIds);
 
@@ -79,6 +70,8 @@ class UserHobbyKeywordUpdatingService extends Service
     public static function getRuleLists()
     {
         return [
+            'auth_user' => ['required'],
+
             'keyword_ids' => ['required', 'integers'],
 
             'keywords' => ['array'],

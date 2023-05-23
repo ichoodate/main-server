@@ -3,7 +3,6 @@
 namespace App\Services\ChattingContent;
 
 use App\Models\ChattingContent;
-use App\Services\Auth\AuthUserFindingService;
 use App\Services\Matching\MatchingFindingService;
 use FunctionalCoding\ORM\Eloquent\Service\FindService;
 use FunctionalCoding\Service;
@@ -25,24 +24,16 @@ class ChattingContentFindingService extends Service
     public static function getLoaders()
     {
         return [
-            'auth_user' => function ($authToken = '') {
-                return [AuthUserFindingService::class, [
-                    'auth_token' => $authToken,
-                ], [
-                    'auth_token' => '{{auth_token}}',
-                ]];
-            },
-
             'available_expands' => function () {
                 return ['match', 'match.user', 'match.user.facePhoto', 'writer'];
             },
 
-            'match' => function ($authToken, $model) {
+            'match' => function ($authUser, $model) {
                 return [MatchingFindingService::class, [
-                    'auth_token' => $authToken,
+                    'auth_user' => $authUser,
                     'id' => $model->{ChattingContent::MATCH_ID},
                 ], [
-                    'auth_token' => '{{auth_token}}',
+                    'auth_user' => '{{auth_user}}',
                     'id' => 'id of match of {{model}}',
                     'model' => 'match of {{model}}',
                 ]];
@@ -56,14 +47,14 @@ class ChattingContentFindingService extends Service
 
     public static function getPromiseLists()
     {
-        return [
-            'available_expands' => ['auth_user'],
-        ];
+        return [];
     }
 
     public static function getRuleLists()
     {
-        return [];
+        return [
+            'auth_user' => ['required'],
+        ];
     }
 
     public static function getTraits()

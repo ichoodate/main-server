@@ -5,7 +5,6 @@ namespace App\Services\ChattingContent;
 use App\Models\ChattingContent;
 use App\Models\Friend;
 use App\Models\Matching;
-use App\Services\Auth\AuthUserFindingService;
 use App\Services\Matching\MatchingFindingService;
 use FunctionalCoding\Service;
 
@@ -14,8 +13,6 @@ class ChattingContentCreatingService extends Service
     public static function getBindNames()
     {
         return [
-            'auth_user' => 'authorized user',
-
             'auth_user_friend' => 'matching_user in friends of {{auth_user}} for {{match}}',
 
             'match' => 'match for {{match_id}}',
@@ -32,14 +29,6 @@ class ChattingContentCreatingService extends Service
     public static function getLoaders()
     {
         return [
-            'auth_user' => function ($authToken = '') {
-                return [AuthUserFindingService::class, [
-                    'auth_token' => $authToken,
-                ], [
-                    'auth_token' => '{{auth_token}}',
-                ]];
-            },
-
             'auth_user_friend' => function ($authUser, $matchingUserId) {
                 return Friend::query()
                     ->where(Friend::SENDER_ID, $authUser->getKey())
@@ -48,12 +37,12 @@ class ChattingContentCreatingService extends Service
                 ;
             },
 
-            'match' => function ($authToken, $matchId) {
+            'match' => function ($authUser, $matchId) {
                 return [MatchingFindingService::class, [
-                    'auth_token' => $authToken,
+                    'auth_user' => $authUser,
                     'id' => $matchId,
                 ], [
-                    'auth_token' => '{{auth_token}}',
+                    'auth_user' => '{{auth_user}}',
                     'id' => '{{match_id}}',
                 ]];
             },
@@ -90,6 +79,8 @@ class ChattingContentCreatingService extends Service
     public static function getRuleLists()
     {
         return [
+            'auth_user' => ['required'],
+
             'auth_user_friend' => ['not_null'],
 
             'match' => ['not_null'],

@@ -6,7 +6,6 @@ use App\Models\ChattingContent;
 use App\Models\Friend;
 use App\Models\Matching;
 use App\Models\User;
-use App\Services\Auth\AuthUserFindingService;
 use FunctionalCoding\Service;
 
 class FriendCreatingService extends Service
@@ -14,8 +13,6 @@ class FriendCreatingService extends Service
     public static function getBindNames()
     {
         return [
-            'auth_user' => 'authorized user',
-
             'friend' => 'requested friend of {{auth_user}} for {{user}}',
 
             'match' => 'match for {{user}} and {{auth_user}}',
@@ -53,14 +50,6 @@ class FriendCreatingService extends Service
     public static function getLoaders()
     {
         return [
-            'auth_user' => function ($authToken = '') {
-                return [AuthUserFindingService::class, [
-                    'auth_token' => $authToken,
-                ], [
-                    'auth_token' => '{{auth_token}}',
-                ]];
-            },
-
             'friend' => function ($authUser, $user) {
                 return Friend::where(Friend::SENDER_ID, $authUser->getKey())
                     ->where(Friend::RECEIVER_ID, $user->getKey())
@@ -79,7 +68,7 @@ class FriendCreatingService extends Service
                 return Matching::where(Matching::WOMAN_ID, $authUser->getKey())
                     ->where(Matching::MAN_ID, $user->getKey())
                     ->first()
-                    ;
+                ;
             },
 
             'result' => function ($authUser, $match, $user) {
@@ -106,6 +95,8 @@ class FriendCreatingService extends Service
     public static function getRuleLists()
     {
         return [
+            'auth_user' => ['required'],
+
             'friend' => ['null'],
 
             'match' => ['not_null'],

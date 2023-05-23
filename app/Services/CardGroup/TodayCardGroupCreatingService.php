@@ -4,7 +4,6 @@ namespace App\Services\CardGroup;
 
 use App\Models\CardGroup;
 use App\Models\IdealTypeKeyword;
-use App\Services\Auth\AuthUserFindingService;
 use App\Services\Card\CardListCreatingService;
 use App\Services\User\MatchingUserListingService;
 use FunctionalCoding\Service;
@@ -14,8 +13,6 @@ class TodayCardGroupCreatingService extends Service
     public static function getBindNames()
     {
         return [
-            'auth_user' => 'authorized user',
-
             'ideal_type_keyword_ids' => 'ideal type keyword ids of {{auth_user}}',
 
             'today_card_group' => 'card group created in today',
@@ -30,19 +27,13 @@ class TodayCardGroupCreatingService extends Service
     public static function getLoaders()
     {
         return [
-            'auth_user' => function ($authToken = '') {
-                return [AuthUserFindingService::class, [
-                    'auth_token' => $authToken,
-                ], [
-                    'auth_token' => '{{auth_token}}',
-                ]];
-            },
-
             'cards' => function ($authUser, $result, $users) {
                 return [CardListCreatingService::class, [
                     'auth_user' => $authUser,
                     'card_group' => $result,
                     'users' => $users,
+                ], [
+                    'auth_user' => '{{auth_user}}',
                 ]];
             },
 
@@ -118,6 +109,8 @@ class TodayCardGroupCreatingService extends Service
     public static function getRuleLists()
     {
         return [
+            'auth_user' => ['required'],
+
             'timezone' => ['required', 'timezone'],
 
             'today_card_group' => ['null'],

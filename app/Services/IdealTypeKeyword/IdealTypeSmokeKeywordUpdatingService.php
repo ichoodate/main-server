@@ -4,7 +4,6 @@ namespace App\Services\IdealTypeKeyword;
 
 use App\Models\IdealTypeKeyword;
 use App\Models\Keyword\Smoke;
-use App\Services\Auth\AuthUserFindingService;
 use App\Services\Keyword\Smoke\SmokeFindingService;
 use FunctionalCoding\Service;
 
@@ -36,14 +35,6 @@ class IdealTypeSmokeKeywordUpdatingService extends Service
     public static function getLoaders()
     {
         return [
-            'auth_user' => function ($authToken = '') {
-                return [AuthUserFindingService::class, [
-                    'auth_token' => $authToken,
-                ], [
-                    'auth_token' => '{{auth_token}}',
-                ]];
-            },
-
             'keyword' => function ($keywordId) {
                 return [SmokeFindingService::class, [
                     'id' => $keywordId,
@@ -69,6 +60,8 @@ class IdealTypeSmokeKeywordUpdatingService extends Service
     public static function getRuleLists()
     {
         return [
+            'auth_user' => ['required'],
+
             'keyword_id' => ['required'],
         ];
     }

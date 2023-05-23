@@ -3,7 +3,6 @@
 namespace App\Services\Reply;
 
 use App\Models\Reply;
-use App\Services\Auth\AuthUserFindingService;
 use App\Services\Ticket\TicketFindingService;
 use FunctionalCoding\ORM\Eloquent\Service\PaginationListService;
 use FunctionalCoding\Service;
@@ -29,24 +28,16 @@ class ReplyListingService extends Service
     public static function getLoaders()
     {
         return [
-            'auth_user' => function ($authToken = '') {
-                return [AuthUserFindingService::class, [
-                    'auth_token' => $authToken,
-                ], [
-                    'auth_token' => '{{auth_token}}',
-                ]];
-            },
-
             'available_expands' => function () {
                 return ['ticket', 'writer'];
             },
 
-            'cursor' => function ($authToken, $cursorId) {
+            'cursor' => function ($authUser, $cursorId) {
                 return [ReplyFindingService::class, [
-                    'auth_token' => $authToken,
+                    'auth_user' => $authUser,
                     'id' => $cursorId,
                 ], [
-                    'auth_token' => '{{auth_token}}',
+                    'auth_user' => '{{auth_user}}',
                     'id' => '{{cursor_id}}',
                 ]];
             },
@@ -55,12 +46,12 @@ class ReplyListingService extends Service
                 return Reply::class;
             },
 
-            'ticket' => function ($authToken, $ticketId) {
+            'ticket' => function ($authUser, $ticketId) {
                 return [TicketFindingService::class, [
-                    'auth_token' => $authToken,
+                    'auth_user' => $authUser,
                     'id' => $ticketId,
                 ], [
-                    'auth_token' => '{{auth_token}}',
+                    'auth_user' => '{{auth_user}}',
                     'id' => '{{ticket_id}}',
                 ]];
             },
@@ -75,6 +66,8 @@ class ReplyListingService extends Service
     public static function getRuleLists()
     {
         return [
+            'auth_user' => ['required'],
+
             'ticket' => ['not_null'],
 
             'ticket_id' => ['required', 'integer'],

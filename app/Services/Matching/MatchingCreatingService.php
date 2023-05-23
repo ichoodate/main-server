@@ -21,10 +21,6 @@ class MatchingCreatingService extends Service
     public static function getLoaders()
     {
         return [
-            'auth_user' => function () {
-                throw new \Exception();
-            },
-
             'auth_user_id_field' => function ($authUser) {
                 if (User::GENDER_MAN == $authUser->{User::GENDER}) {
                     return Matching::MAN_ID;
@@ -93,7 +89,9 @@ class MatchingCreatingService extends Service
 
     public static function getRuleLists()
     {
-        return [];
+        return [
+            'auth_user' => ['required'],
+        ];
     }
 
     public static function getTraits()
