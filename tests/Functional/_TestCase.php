@@ -97,6 +97,8 @@ class _TestCase extends TestCase
 
         $result = $this->service->getData()->getArrayCopy()['result'];
 
+        $this->assertEquals(count($result), count($expectIds));
+
         foreach ($expectIds as $expectId) {
             $this->assertContains($expectId, $result->modelKeys());
         }

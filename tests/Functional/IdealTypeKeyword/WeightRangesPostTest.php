@@ -9,6 +9,7 @@ use Tests\Functional\_TestCase;
 
 /**
  * @internal
+ *
  * @coversNothing
  */
 class WeightRangesPostTest extends _TestCase
@@ -66,8 +67,8 @@ class WeightRangesPostTest extends _TestCase
 
     public function testErrorNotNullRuleKeywordModel()
     {
-        WeightRange::factory()->create(['id' => 11]);
-        WeightRange::factory()->create(['id' => 12]);
+        WeightRange::factory()->create(['id' => 11, 'min' => 50, 'max' => 70]);
+        WeightRange::factory()->create(['id' => 12, 'min' => 55, 'max' => 75]);
 
         $this->when(function () {
             $this->setInputParameter('keyword_id', 13);

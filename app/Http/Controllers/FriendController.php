@@ -19,10 +19,12 @@ class FriendController extends Controller
     {
         return [FriendListingService::class, [
             'sender_id' => static::input('sender_id'),
-            'related_user_id' => static::input('related_user_id'),
+            'receiver_id' => static::input('receiver_id'),
+            'is_bidirectional' => static::input('is_bidirectional'),
         ], [
             'sender_id' => '[sender_id]',
-            'related_user_id' => '[related_user_id]',
+            'receiver_id' => '[receiver_id]',
+            'is_bidirectional' => '[is_bidirectional]',
         ]];
     }
 

@@ -23,16 +23,18 @@ class SetAuthUserMiddleware
         $names = $content[2];
 
         if ($class::getAllRuleLists()->offsetExists('auth_user')) {
-            $names['auth_user'] = AuthUserFindingService::getAllBindNames()->offsetGet('model');
             $authService = new AuthUserFindingService([
                 'auth_token' => array_key_exists('auth_token', $data) ? $data['auth_token'] : '',
             ], [
                 'auth_token' => $names['auth_token'],
             ]);
             $authUser = $authService->run();
+            $names['auth_user'] = 'authorized user';
+            $names['auth_user_id'] = 'id of authorized user';
             if (empty($authService->getTotalErrors())) {
                 Auth::setUser($authUser);
                 $data['auth_user'] = $authUser;
+                $data['auth_user_id'] = $authUser->getKey();
             } else {
                 $data['auth_user'] = $authService;
             }

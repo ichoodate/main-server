@@ -3,39 +3,51 @@
 namespace App\Services\Friend;
 
 use App\Models\Friend;
-use App\Models\Matching;
-use App\Models\User;
 use App\Services\User\MatchingUserFindingService;
-use FunctionalCoding\ORM\Eloquent\Service\ListService;
+use FunctionalCoding\ORM\Eloquent\Service\PaginationListService;
 use FunctionalCoding\Service;
+use Illuminate\Support\Facades\DB;
 
 class FriendListingService extends Service
 {
     public static function getBindNames()
     {
         return [
-            'sender' => 'user for {{sender_id}}',
+            'user_ids' => '{{sender_id}} and {{receiver_id}}',
+
+            'nullable_receiver_id' => '{{receiver_id}}',
         ];
     }
 
     public static function getCallbacks()
     {
         return [
-            'query.match' => function ($authUser, $query, $relatedUser) {
-                $subQuery1 = Matching::query()
-                    ->select(Matching::ID)
-                    ->where(User::GENDER_MAN == $relatedUser->{User::GENDER} ? Matching::MAN_ID : Matching::WOMAN_ID, $relatedUser->getKey())
-                    ->where(User::GENDER_MAN == $authUser->{User::GENDER} ? Matching::MAN_ID : Matching::WOMAN_ID, $authUser->getKey())
-                    ->getQuery()
-                ;
-
-                $query
-                    ->whereIn(Friend::MATCH_ID, $subQuery1)
-                ;
-            },
-
             'query.sender' => function ($query, $sender) {
                 $query->where(Friend::SENDER_ID, $sender->getKey());
+            },
+
+            'query.receiver' => function ($query, $receiver) {
+                $query->where(Friend::RECEIVER_ID, $receiver->getKey());
+            },
+
+            'query.is_bidirectional' => function ($query, $isBidirectional) {
+                $query->joinSub(
+                    Friend::query()->select([Friend::MATCH_ID]),
+                    '_friends',
+                    function ($join) use ($query) {
+                        $join->on(
+                            $query->from.'.'.Friend::MATCH_ID,
+                            '=',
+                            '_friends.'.Friend::MATCH_ID,
+                        );
+                    },
+                );
+                $query->groupByRaw('_friends.'.Friend::MATCH_ID);
+                $query->having(
+                    DB::raw('count(_friends.'.Friend::MATCH_ID.')'),
+                    '=',
+                    $isBidirectional ? 2 : 1,
+                );
             },
         ];
     }
@@ -44,32 +56,52 @@ class FriendListingService extends Service
     {
         return [
             'available_expands' => function () {
-                return [];
+                return ['sender', 'receiver'];
+            },
+
+            'cursor' => function ($authUser, $cursorId) {
+                return [FriendFindingService::class, [
+                    'auth_user' => $authUser,
+                    'id' => $cursorId,
+                ], [
+                    'auth_user' => '{{auth_user}}',
+                    'id' => '{{cursor_id}}',
+                ]];
+            },
+
+            'nullable_receiver_id' => function ($receiverId = '') {
+                return '' == $receiverId ? null : $receiverId;
             },
 
             'model_class' => function () {
                 return Friend::class;
             },
 
-            'related_user' => function ($authUser, $relatedUserId) {
-                return [MatchingUserFindingService::class, [
-                    'auth_user' => $authUser,
-                    'id' => $relatedUserId,
-                ], [
-                    'auth_user' => '{{auth_user}}',
-                    'id' => '{{related_user_id}}',
-                ]];
+            'receiver' => function ($authUser, $receiverId) {
+                return $authUser;
             },
 
-            'sender' => function ($senderId) {
-                return User::find($senderId);
+            'sender' => function ($authUser, $senderId) {
+                if ($authUser->getKey() == $senderId) {
+                    return $authUser;
+                }
+
+                return [MatchingUserFindingService::class, [
+                    'auth_user' => $authUser,
+                    'id' => $senderId,
+                ], [
+                    'auth_user' => '{{auth_user}}',
+                    'id' => '{{sender_id}}',
+                ]];
             },
         ];
     }
 
     public static function getPromiseLists()
     {
-        return [];
+        return [
+            'auth_user' => ['auth_user_id'],
+        ];
     }
 
     public static function getRuleLists()
@@ -77,18 +109,20 @@ class FriendListingService extends Service
         return [
             'auth_user' => ['required'],
 
-            'related_user_id' => ['required', 'integer'],
+            'auth_user_id' => ['required'],
 
-            'sender' => ['not_null'],
+            'is_bidirectional' => ['boolean'],
 
-            'sender_id' => ['integer'],
+            'receiver_id' => ['integer', 'same:{{auth_user_id}}'],
+
+            'sender_id' => ['integer', 'different:{{nullable_receiver_id}}'],
         ];
     }
 
     public static function getTraits()
     {
         return [
-            ListService::class,
+            PaginationListService::class,
         ];
     }
 }
