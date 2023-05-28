@@ -97,11 +97,15 @@ class _TestCase extends TestCase
 
         $result = $this->service->getData()->getArrayCopy()['result'];
 
-        $this->assertEquals(count($result), count($expectIds));
-
         foreach ($expectIds as $expectId) {
             $this->assertContains($expectId, $result->modelKeys());
         }
+
+        $this->assertEquals(
+            count($result->modelKeys()),
+            count($expectIds),
+            'result:'.implode(',', $result->modelKeys()).',expect:'.implode(',', $expectIds)
+        );
     }
 
     public function assertResultWithPaging($expectIds)

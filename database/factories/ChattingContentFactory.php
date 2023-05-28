@@ -18,7 +18,7 @@ class ChattingContentFactory extends Factory
         $model = parent::create($attrs, $parent);
         $data = Arr::add($data, ChattingContent::MATCH, []);
         $match = $data[ChattingContent::MATCH];
-        $user = User::find($model->{ChattingContent::WRITER_ID});
+        $user = User::find($model->{ChattingContent::SENDER_ID});
 
         if ($user) {
             $genderId = User::GENDER_MAN == $user->{User::GENDER} ? Matching::MAN_ID : Matching::WOMAN_ID;
@@ -26,7 +26,7 @@ class ChattingContentFactory extends Factory
             $genderId = rand(0, 1) ? Matching::MAN_ID : Matching::WOMAN_ID;
         }
 
-        $match[$genderId] = $model->{ChattingContent::WRITER_ID};
+        $match[$genderId] = $model->{ChattingContent::SENDER_ID};
 
         if (empty(Matching::find($model->{ChattingContent::MATCH_ID}))) {
             $match[Matching::ID] = $model->{ChattingContent::MATCH_ID};
@@ -42,7 +42,7 @@ class ChattingContentFactory extends Factory
         return [
             ChattingContent::MATCH_ID => $this->faker->unique()->randomNumber(8),
 
-            ChattingContent::WRITER_ID => $this->faker->unique()->randomNumber(8),
+            ChattingContent::SENDER_ID => $this->faker->unique()->randomNumber(8),
 
             ChattingContent::MESSAGE => $this->faker->word,
 

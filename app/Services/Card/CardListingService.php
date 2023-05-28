@@ -51,7 +51,7 @@ class CardListingService extends Service
                 $query->where(Card::UPDATED_AT, '>=', $time->format('Y-m-d H:i:s'));
             },
 
-            'query.auth_user' => function ($authUserQuery, $authUserStatus = '', $matchStatus = '', $matchingUserQuery, $matchingUserStatus = '', $query, $queryMainBuilder) {
+            'query.auth_user' => function ($authUserQuery, $matchingUserQuery, $query, $queryMainBuilder, $authUserStatus = '', $matchStatus = '', $matchingUserStatus = '') {
                 if ('' != $matchStatus) {
                     $userQuery = (new User())->query()
                         ->select(User::ID)
