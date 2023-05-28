@@ -10,6 +10,7 @@ use Tests\Functional\_TestCase;
 
 /**
  * @internal
+ *
  * @coversNothing
  */
 class PostTest extends _TestCase
@@ -32,7 +33,7 @@ class PostTest extends _TestCase
             $this->runService();
 
             $this->assertResultWithPersisting(new ChattingContent([
-                'writer_id' => 1,
+                'sender_id' => 1,
                 'match_id' => 11,
                 'message' => 'message1',
             ]));
@@ -46,7 +47,7 @@ class PostTest extends _TestCase
             $this->runService();
 
             $this->assertResultWithPersisting(new ChattingContent([
-                'writer_id' => 2,
+                'sender_id' => 2,
                 'match_id' => 11,
                 'message' => 'message2',
             ]));

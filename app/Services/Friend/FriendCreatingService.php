@@ -2,7 +2,6 @@
 
 namespace App\Services\Friend;
 
-use App\Models\ChattingContent;
 use App\Models\Friend;
 use App\Models\Matching;
 use App\Models\User;
@@ -23,28 +22,7 @@ class FriendCreatingService extends Service
 
     public static function getCallbacks()
     {
-        return [
-            'result.chatting_content' => function ($result) {
-                $friend = Friend::query()
-                    ->where(Friend::SENDER_ID, $result->{Friend::RECEIVER_ID})
-                    ->where(Friend::RECEIVER_ID, $result->{Friend::SENDER_ID})
-                    ->first()
-                ;
-
-                $chattingContent = ChattingContent::query()
-                    ->where(ChattingContent::MATCH_ID, $result->{Friend::MATCH_ID})
-                    ->first()
-                ;
-
-                if (!empty($friend) && empty($chattingContent)) {
-                    (new ChattingContent())->create([
-                        ChattingContent::WRITER_ID => null,
-                        ChattingContent::MESSAGE => '',
-                        ChattingContent::MATCH_ID => $friend->{Friend::MATCH_ID},
-                    ]);
-                }
-            },
-        ];
+        return [];
     }
 
     public static function getLoaders()

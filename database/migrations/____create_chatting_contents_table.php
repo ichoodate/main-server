@@ -22,7 +22,12 @@ class CreateChattingContentsTable extends Migration
                 ->unsigned()
             ;
             $table
-                ->bigInteger('writer_id')
+                ->bigInteger('sender_id')
+                ->unsigned()
+                ->nullable()
+            ;
+            $table
+                ->bigInteger('receiver_id')
                 ->unsigned()
                 ->nullable()
             ;
@@ -45,7 +50,10 @@ class CreateChattingContentsTable extends Migration
                 ->index('match_id')
             ;
             $table
-                ->index('writer_id')
+                ->index('sender_id')
+            ;
+            $table
+                ->index('receiver_id')
             ;
             $table
                 ->index('is_read')

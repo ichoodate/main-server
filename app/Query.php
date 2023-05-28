@@ -2,6 +2,9 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
+use Illuminate\Database\Query\Builder as QueryBuilder;
+
 class Query extends \Illuminate\Database\Eloquent\Builder
 {
     public function alias($alias = null)
@@ -46,8 +49,20 @@ class Query extends \Illuminate\Database\Eloquent\Builder
 
     public function toSqlWithBindings()
     {
-        $str = str_replace('?', "'?'", parent::toSql());
+        $toSql = function ($q) use (&$toSql) {
+            $str = str_replace('?', "'?'", $q->toSql());
+            $bindings = [];
 
-        return vsprintf(str_replace('?', '%s', $str), $this->getBindings());
+            foreach ($q->getBindings() as $i => $v) {
+                if (is_object($v) && ($v instanceof EloquentBuilder || $v instanceof QueryBuilder)) {
+                    $v = $toSql($v);
+                }
+                $bindings[$i] = $v;
+            }
+
+            return vsprintf(str_replace('?', '%s', $str), $bindings);
+        };
+
+        return $toSql($this);
     }
 }

@@ -59,9 +59,10 @@ class ChattingContentCreatingService extends Service
                 return $match->{Matching::MAN_ID} == $authUser->getKey() ? $match->{Matching::WOMAN_ID} : $match->{Matching::MAN_ID};
             },
 
-            'result' => function ($authUser, $match, $message) {
+            'result' => function ($authUser, $match, $matchingUserId, $message) {
                 return (new ChattingContent())->create([
-                    ChattingContent::WRITER_ID => $authUser->getKey(),
+                    ChattingContent::SENDER_ID => $authUser->getKey(),
+                    ChattingContent::RECEIVER_ID => $matchingUserId,
                     ChattingContent::MESSAGE => $message,
                     ChattingContent::MATCH_ID => $match->getKey(),
                 ]);

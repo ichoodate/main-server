@@ -2,7 +2,6 @@
 
 namespace Tests\Functional\Friends;
 
-use App\Models\ChattingContent;
 use App\Models\Friend;
 use App\Models\Matching;
 use App\Models\User;
@@ -10,6 +9,7 @@ use Tests\Functional\_TestCase;
 
 /**
  * @internal
+ *
  * @coversNothing
  */
 class PostTest extends _TestCase
@@ -53,11 +53,6 @@ class PostTest extends _TestCase
                 Friend::SENDER_ID => 1,
                 Friend::RECEIVER_ID => 2,
             ]));
-            $this->assertTrue((bool) ChattingContent::where([
-                ChattingContent::MATCH_ID => 11,
-                ChattingContent::WRITER_ID => null,
-                ChattingContent::MESSAGE => '',
-            ])->first());
         });
     }
 

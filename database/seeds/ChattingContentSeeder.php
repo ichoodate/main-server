@@ -20,9 +20,11 @@ class ChattingContentSeeder extends DatabaseSeeder
             if (2 == $friends->count()) {
                 for ($k = 0; $k < rand(0, 5); ++$k) {
                     $userId = rand(0, 1) ? $match->{Matching::MAN_ID} : $match->{Matching::WOMAN_ID};
+                    $matchingUserId = $match->{Matching::MAN_ID} == $userId ? $match->{Matching::WOMAN_ID} : $match->{Matching::MAN_ID};
                     $this->add(ChattingContent::factory()->make([
                         ChattingContent::MATCH_ID => $match->getKey(),
-                        ChattingContent::WRITER_ID => $userId,
+                        ChattingContent::SENDER_ID => $userId,
+                        ChattingContent::RECEIVER_ID => $matchingUserId,
                         ChattingContent::MESSAGE => Str::random(25),
                     ]));
                 }

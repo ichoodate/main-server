@@ -8,6 +8,7 @@ use Tests\Functional\_TestCase;
 
 /**
  * @internal
+ *
  * @coversNothing
  */
 class IdGetTest extends _TestCase
@@ -18,8 +19,8 @@ class IdGetTest extends _TestCase
     {
         User::factory()->create(['id' => 1]);
         User::factory()->create(['id' => 2]);
-        ChattingContent::factory()->createAll(['id' => 11, 'writer_id' => 1]);
-        ChattingContent::factory()->createAll(['id' => 12, 'writer_id' => 2]);
+        ChattingContent::factory()->createAll(['id' => 11, 'sender_id' => 1, 'receiver_id' => 2]);
+        ChattingContent::factory()->createAll(['id' => 12, 'sender_id' => 2, 'receiver_id' => 1]);
 
         $this->when(function () {
             $this->setAuthUser(User::find(1));
@@ -79,7 +80,7 @@ class IdGetTest extends _TestCase
     public function testRequiredRulePermittedUser()
     {
         User::factory()->create(['id' => 1]);
-        ChattingContent::factory()->createAll(['id' => 11, 'writer_id' => 2]);
+        ChattingContent::factory()->createAll(['id' => 11, 'sender_id' => 2]);
 
         $this->when(function () {
             $this->setAuthUser(User::find(1));

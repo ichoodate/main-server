@@ -19,23 +19,32 @@ class ChattingContentListingService extends Service
     public static function getCallbacks()
     {
         return [
-            'query.match' => function ($match, $query) {
-                $query->where(ChattingContent::MATCH_ID, $match->getKey());
-            },
-
-            'query.type' => function ($authUser, $query, $type) {
-                if ('friend' == $type) {
-                    $friendQuery = Friend::query()
-                        ->select(Friend::MATCH_ID)
-                        ->where(Friend::SENDER_ID, $authUser->getKey())
-                        ->getQuery()
+            'query.group_by_match_id' => function ($authUser, $groupBy, $query) {
+                if ('match_id' == $groupBy) {
+                    $nestedSubquery1 = ChattingContent::query()
+                        ->select(ChattingContent::MATCH_ID)
+                        ->whereIn(
+                            ChattingContent::MATCH_ID,
+                            Friend::query()
+                                ->select([Friend::MATCH_ID])
+                                ->where(Friend::SENDER_ID, $authUser->getKey())
+                        )
+                        ->groupBy(ChattingContent::MATCH_ID)
+                    ;
+                    $nestedSubquery2 = ChattingContent::query()
+                        ->select(ChattingContent::MATCH_ID)
+                        ->where(
+                            ChattingContent::SENDER_ID,
+                            $authUser->getKey()
+                        )
+                        ->groupBy(ChattingContent::MATCH_ID)
                     ;
                     $subquery = ChattingContent::query()
                         ->select(
                             DB::raw(ChattingContent::MATCH_ID.' as '.ChattingContent::MATCH_ID.'2'),
                             DB::raw('max('.ChattingContent::CREATED_AT.') as '.ChattingContent::CREATED_AT.'2')
                         )
-                        ->whereIn(ChattingContent::MATCH_ID, $friendQuery)
+                        ->whereIn(ChattingContent::MATCH_ID, $nestedSubquery1->union($nestedSubquery2))
                         ->groupBy(ChattingContent::MATCH_ID)
                     ;
                     $query->joinSub($subquery, 'latest_chattings', function ($join) use ($query) {
@@ -49,9 +58,11 @@ class ChattingContentListingService extends Service
                             'latest_chattings.'.ChattingContent::CREATED_AT.'2'
                         );
                     });
-
-                    $query->groupBy(ChattingContent::MATCH_ID);
                 }
+            },
+
+            'query.match' => function ($match, $query) {
+                $query->where(ChattingContent::MATCH_ID, $match->getKey());
             },
         ];
     }
@@ -65,6 +76,10 @@ class ChattingContentListingService extends Service
 
             'available_order_by' => function () {
                 return ['created_at asc', 'created_at desc'];
+            },
+
+            'available_group_by' => function () {
+                return ['match_id'];
             },
 
             'cursor' => function ($authUser, $cursorId) {
@@ -103,9 +118,9 @@ class ChattingContentListingService extends Service
         return [
             'auth_user' => ['required'],
 
-            'match_id' => ['required_without:type', 'integer'],
+            'match_id' => ['integer'],
 
-            'type' => ['string', 'in:friend'],
+            'group_by' => ['required_without:{{match_id}}'],
         ];
     }
 
