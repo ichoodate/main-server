@@ -2,7 +2,6 @@
 
 namespace Tests\Functional;
 
-use App\Http\Middlewares\ResponseHeaderSettingMiddleware;
 use App\Model;
 use Faker\Generator as Faker;
 use FunctionalCoding\JWT\Service\TokenEncryptionService;
@@ -19,6 +18,20 @@ use Tests\TestCase;
  */
 class _TestCase extends TestCase
 {
+    protected $data;
+
+    protected $faker;
+
+    protected $inputs;
+
+    protected $server;
+
+    protected $service;
+
+    protected $uri;
+
+    protected $url;
+
     public function setUp(): void
     {
         parent::setUp();
@@ -26,7 +39,7 @@ class _TestCase extends TestCase
         $this->faker = app(Faker::class);
 
         $this->withoutMiddleware(ServiceRunMiddleware::class);
-        $this->withoutMiddleware(ResponseHeaderSettingMiddleware::class);
+
         Service::setResponseErrorsResolver(function ($errors) {
             $msgs = [];
             \array_walk_recursive($errors, function ($value) use (&$msgs) {
@@ -201,18 +214,16 @@ class _TestCase extends TestCase
 
     public function when()
     {
-        $args = func_get_args();
-
-        auth()->logout();
-
         $this->url = $this->uri;
         $this->inputs = [];
         $this->server = [];
 
         app('db')->beginTransaction();
 
-        call_user_func($args[0]);
+        call_user_func(func_get_args()[0]);
 
         app('db')->rollback();
+
+        $this->createApplication(); // reset global state
     }
 }
